@@ -10,20 +10,20 @@ export const options: NextAuthOptions = {
       id: 'credentials',
       name: 'Credentials',
       credentials: {
-        name: {
-          label: 'name:',
-          type: 'text',
-          placeholder: 'your-cool-name',
-        },
+        // name: {
+        //   label: 'name:',
+        //   type: 'text',
+        //   placeholder: 'your-cool-name',
+        // },
         email: {
-          label: 'Password:',
+          label: 'email:',
           type: 'email',
-          placeholder: 'your-awesome-password',
+          placeholder: 'your-EMAIL',
         },
         password: {
           label: 'Password:',
           type: 'password',
-          placeholder: 'your-awesome-password',
+          placeholder: 'your-PASSWORD',
         },
       },
       async authorize(credentials) {
