@@ -48,12 +48,12 @@ export default withAuth(
 // Ref: https://nextjs.org/docs/app/building-your-application/routing/middleware#matcher
 export const config = {
   matcher: [
-    '/user',
-    '/client',
-    '/worker',
-    '/manager',
-    '/accountant',
-    '/boss',
-    '/admin',
+    '/user/:path*',
+    '/client/:path*',
+    '/worker/:path*',
+    '/manager/:path*',
+    '/accountant/:path*',
+    '/boss/:path*',
+    '/admin/:path*',
   ],
 };

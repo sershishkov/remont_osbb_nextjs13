@@ -5,9 +5,6 @@ import { redirect } from 'next/navigation';
 const UserPage = () => {
   const session = useSession();
   const user = session?.data?.user;
-  // console.log(user);
-
-  if (!user) redirect('/');
 
   return (
     <div>

@@ -48,47 +48,58 @@ export const manager_role = ['manager', 'accountant', 'boss', 'admin'];
 export const accountant_role = ['accountant', 'boss', 'admin'];
 
 export const boss_role = ['boss', 'admin'];
-
-const linkRefdata = '/manager/refdata';
-
+///////////////////////////////////////////////////////
+///////////////////////////////////////////////////////
+const manager_Refdata = '/manager/refdata';
 export const refData_links = [
   {
-    link: `${linkRefdata}/unit`,
+    link: `${manager_Refdata}/unit`,
     caption: `Ед.Измер`,
   },
 
   {
-    link: `${linkRefdata}/productgroup`,
+    link: `${manager_Refdata}/productgroup`,
     caption: `Группа товаров`,
   },
 
   {
-    link: `${linkRefdata}/producttype`,
+    link: `${manager_Refdata}/producttype`,
     caption: `Тип товара`,
   },
 
   {
-    link: `${linkRefdata}/products`,
+    link: `${manager_Refdata}/products`,
     caption: `Товары`,
   },
-  /////
+
   {
-    link: `${linkRefdata}/servicework-group`,
+    link: `${manager_Refdata}/servicework-group`,
     caption: `Группы работ`,
   },
 
   {
-    link: `${linkRefdata}/thirdpartyservice-group`,
+    link: `${manager_Refdata}/thirdpartyservice-group`,
     caption: `Группы работ сторонние`,
   },
 
   {
-    link: `${linkRefdata}/serviceworks`,
+    link: `${manager_Refdata}/serviceworks`,
     caption: `Наши работы(услуги)`,
   },
 
   {
-    link: `${linkRefdata}/thirdpartyservices`,
+    link: `${manager_Refdata}/thirdpartyservices`,
     caption: `Сторонние работы(услуги)`,
   },
 ];
+///////////////////////////////////////////////////////
+///////////////////////////////////////////////////////
+const mainAdmin = '/admin';
+export const admin_links = [
+  {
+    link: `${mainAdmin}/users`,
+    caption: `Пользователи`,
+  },
+];
+///////////////////////////////////////////////////////
+///////////////////////////////////////////////////////
