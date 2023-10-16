@@ -49,7 +49,7 @@ export const accountant_role = ['accountant', 'boss', 'admin'];
 
 export const boss_role = ['boss', 'admin'];
 
-const linkRefdata = '/refdata';
+const linkRefdata = '/manager/refdata';
 
 export const refData_links = [
   {
