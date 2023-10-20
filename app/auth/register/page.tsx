@@ -59,6 +59,7 @@ const Register = () => {
           },
           body: JSON.stringify(userData),
         });
+
         res.status === 201 &&
           toast.success('Account has been created') &&
           router.push('/auth/login');

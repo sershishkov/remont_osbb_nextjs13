@@ -1,7 +1,23 @@
-import React from 'react';
+import MyIconButtonAdd from '@/components/common/MyIconButtonAdd';
 
-const ListUnit = () => {
-  return <div>ListUnit</div>;
-};
+import TableFilter from '@/components/common/TableFilter';
+const currentURL = `/manager/refdata/unit`;
+
+function ListUnit() {
+  const headerFields = ['Ед.изм'];
+  const tableFields = ['unitName'];
+  return (
+    <>
+      <MyIconButtonAdd href={`${currentURL}/add`} />
+
+      <TableFilter
+        headerFields={headerFields}
+        tableFields={tableFields}
+        currentURL={currentURL}
+        tableHeader={`Единицы измерения`}
+      />
+    </>
+  );
+}
 
 export default ListUnit;

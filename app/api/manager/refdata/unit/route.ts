@@ -6,7 +6,12 @@ import { connectToDB } from '@/lib/mongoose/connectToDB';
 export const POST = async (request: NextRequest) => {
   const { unitName } = await request.json();
   if (!unitName) {
-    return new NextResponse('Please add all fields', { status: 400 });
+    return new NextResponse(
+      JSON.stringify({
+        message: 'Please add all fields',
+      }),
+      { status: 400 }
+    );
   }
 
   try {
@@ -15,7 +20,14 @@ export const POST = async (request: NextRequest) => {
     const already__Exists = await Model__Unit.findOne({ unitName });
 
     if (already__Exists) {
-      return new NextResponse('This item already exists', { status: 400 });
+      return new NextResponse(
+        JSON.stringify({
+          message: 'This item already exists',
+        }),
+        {
+          status: 400,
+        }
+      );
     }
     const new__ITEM = await Model__Unit.create({
       unitName,
@@ -28,7 +40,7 @@ export const POST = async (request: NextRequest) => {
 
     return new NextResponse(JSON.stringify(responseObj), { status: 200 });
   } catch (error: any) {
-    return new Response(error.message, { status: 500 });
+    return new NextResponse(error.message, { status: 500 });
   }
 };
 
@@ -63,9 +75,15 @@ export const GET = async (request: NextRequest) => {
       });
 
     if (!all__ITEMS) {
-      return new NextResponse('На данный момент ничего в базе нет', {
-        status: 400,
-      });
+      return new NextResponse(
+        JSON.stringify({
+          message: 'На данный момент ничего в базе нет',
+        }),
+
+        {
+          status: 400,
+        }
+      );
     }
     const responseObj = {
       message: 'Добавлено успешно',
@@ -77,6 +95,6 @@ export const GET = async (request: NextRequest) => {
     };
     return new NextResponse(JSON.stringify(responseObj), { status: 200 });
   } catch (error: any) {
-    return new Response(error.message, { status: 500 });
+    return new NextResponse(error.message, { status: 500 });
   }
 };

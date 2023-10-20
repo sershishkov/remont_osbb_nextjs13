@@ -1,6 +1,7 @@
+'use client';
 import React, { useState, useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { RootState } from '../../app/store';
+import { toast } from 'react-toastify';
+import useSWR from 'swr';
 
 import Link from '@mui/material/Link';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -22,54 +23,92 @@ import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
+interface getObject {
+  page: string;
+  limit: string;
+  filter: string;
+}
+
+const get__all = async (dataObject: getObject, currentURL: string) => {
+  try {
+    const res = await fetch(
+      `/api${currentURL}/?page=${dataObject?.page}&limit=${dataObject?.limit}&filter=${dataObject?.filter}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    const myData = await res.json();
+    return myData.my_data;
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+};
+
+const delete__one = async (_id: string, currentURL: string) => {
+  try {
+    const res = await fetch(`/api${currentURL}/${_id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const myData = await res.json();
+    toast.success(myData.message);
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+};
+
 function TableSimple({
-  currentState,
-  get__all,
-  delete__one,
   headerFields,
   tableFields,
-  editLink,
+  currentURL,
   tableHeader,
 }: {
-  currentState: string;
-  get__all: any;
-  delete__one: any;
   headerFields: string[];
   tableFields: string[];
-  editLink: string;
+  currentURL: string;
   tableHeader: string;
 }) {
-  const { items, total, isLoading } = useAppSelector((state: RootState) => {
-    if (currentState !== 'theme__state' && currentState !== 'auth__state') {
-      return state[currentState as keyof typeof state];
-    } else {
-      return {
-        items: [],
-        total: 0,
-        isLoading: false,
-      };
-    }
+  const [searchText, set__searchText] = useState('');
+  const [resultFetch, set_resultFetch] = useState({
+    items: [],
+    total: '',
+    totalPages: '',
   });
 
-  const dispatch = useAppDispatch();
-
-  const [searchText, set__searchText] = useState('');
-
-  const deleteHanler = (_id: string) => {
-    dispatch(delete__one({ _id }));
-    dispatch(get__all({ page: 0, limit: 0, filter: '' }));
+  const deleteHanler = async (_id: string) => {
+    await delete__one(_id, currentURL);
+    set_resultFetch(
+      await get__all({ page: '0', limit: '0', filter: '' }, currentURL)
+    );
     set__searchText('');
   };
 
-  const onChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
     set__searchText(e.target.value);
-    setTimeout(() => {
-      dispatch(get__all({ page: 0, limit: 0, filter: e.target.value }));
+    setTimeout(async () => {
+      const all_items = get__all(
+        { page: '0', limit: '0', filter: e.target.value },
+        currentURL
+      );
+      set_resultFetch(await all_items);
     }, 1000);
   };
+
   useEffect(() => {
-    dispatch(get__all({ page: 0, limit: 0, filter: '' }));
-  }, [get__all, dispatch]);
+    const myGetAll = async () => {
+      const myItems = await get__all(
+        { page: '0', limit: '0', filter: '' },
+        currentURL
+      );
+      set_resultFetch(myItems);
+    };
+    myGetAll();
+  }, [currentURL]);
 
   useEffect(() => {
     set__searchText('');
@@ -87,96 +126,119 @@ function TableSimple({
     }
   };
 
-  if (isLoading) {
-    return <CircularProgress />;
-  }
-
   return (
-    <>
-      <Grid container alignItems='center' justifyContent='space-between'>
-        <Grid item sm={9}>
-          <TextField
-            margin='normal'
-            focused
-            fullWidth
-            id='searchText'
-            name='searchText'
-            label='searchText'
-            type='search'
-            value={searchText}
-            onChange={onChangeSearch}
-          />
-        </Grid>
-        <Grid item sm={3}>
-          <Typography align='center'>{`Найдено:${items?.length}`}</Typography>
+    <Grid
+      container
+      alignItems='center'
+      direction='column'
+      sx={{
+        // border: '1px solid yellow',
+        maxWidth: 1200,
+        minWidth: 600,
+      }}
+    >
+      <Grid item sx={{ width: '100%' }}>
+        <Grid container alignItems='center' justifyContent='space-between'>
+          <Grid item sm={9}>
+            <TextField
+              margin='normal'
+              focused
+              fullWidth
+              id='searchText'
+              name='searchText'
+              label='searchText'
+              type='search'
+              value={searchText}
+              onChange={onChangeSearch}
+            />
+          </Grid>
+          <Grid item sm={3}>
+            <Typography align='center'>{`Найдено:${resultFetch.items?.length}`}</Typography>
+          </Grid>
         </Grid>
       </Grid>
-      <TableContainer component={Paper} sx={{ maxHeight: 700 }}>
-        <Table
-          stickyHeader
-          sx={{
-            maxWidth: 1200,
-            width: '100%',
-            minWidth: 600,
-          }}
+      <Grid item sx={{ width: '100%' }}>
+        <TableContainer
+          component={Paper}
+          sx={
+            {
+              // maxWidth: 1200,
+              // minWidth: 600,
+              // maxHeight: 700,
+              // margin: '0 auto',
+              // padding: 0,
+              // border: '1px solid red',
+            }
+          }
         >
-          <TableHead>
-            <TableRow>
-              <TableCell
-                colSpan={headerFields.length ? headerFields.length : undefined}
-                sx={{ textAlign: 'center' }}
-              >
-                {`${tableHeader} `}
-              </TableCell>
-              <TableCell colSpan={2}>{` Всего ${total}`}</TableCell>
-            </TableRow>
-            <TableRow>
-              {headerFields &&
-                headerFields.map((item) => (
-                  <TableCell align='center' key={item}>
-                    {item}
-                  </TableCell>
+          <Table
+            stickyHeader
+            sx={{
+              width: '100%',
+            }}
+          >
+            <TableHead>
+              <TableRow>
+                <TableCell
+                  colSpan={
+                    headerFields.length ? headerFields.length : undefined
+                  }
+                  sx={{ textAlign: 'center' }}
+                >
+                  {`${tableHeader} `}
+                </TableCell>
+                <TableCell
+                  colSpan={2}
+                >{` Всего ${resultFetch.total}`}</TableCell>
+              </TableRow>
+              <TableRow>
+                {headerFields &&
+                  headerFields.map((item) => (
+                    <TableCell align='center' key={item}>
+                      {item}
+                    </TableCell>
+                  ))}
+
+                <TableCell style={{ width: 25 }} align='center'>
+                  edit
+                </TableCell>
+                <TableCell style={{ width: 25 }} align='center'>
+                  delete
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {resultFetch.items &&
+                resultFetch.items.map((row: any) => (
+                  <TableRow key={row._id}>
+                    {tableFields &&
+                      tableFields.map((item) => (
+                        <TableCell align='center' key={item}>
+                          {getMyItem(row, item)}
+                        </TableCell>
+                      ))}
+
+                    <TableCell align='center'>
+                      <IconButton
+                        component={Link}
+                        href={`${currentURL}/${row._id}`}
+                      >
+                        <EditIcon color='primary' />
+                      </IconButton>
+                    </TableCell>
+                    <TableCell align='center'>
+                      <IconButton onClick={() => deleteHanler(row._id)}>
+                        <DeleteForeverIcon color='error' />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
                 ))}
-
-              <TableCell style={{ width: 25 }} align='center'>
-                edit
-              </TableCell>
-              <TableCell style={{ width: 25 }} align='center'>
-                delete
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {items &&
-              items.map((row: any) => (
-                <TableRow key={row._id}>
-                  {tableFields &&
-                    tableFields.map((item) => (
-                      <TableCell align='center' key={item}>
-                        {getMyItem(row, item)}
-                      </TableCell>
-                    ))}
-
-                  <TableCell align='center'>
-                    <IconButton
-                      component={Link}
-                      href={`${editLink}/${row._id}`}
-                    >
-                      <EditIcon color='primary' />
-                    </IconButton>
-                  </TableCell>
-                  <TableCell align='center'>
-                    <IconButton onClick={() => deleteHanler(row._id)}>
-                      <DeleteForeverIcon color='error' />
-                    </IconButton>
-                  </TableCell>
-                </TableRow>
-              ))}
-          </TableBody>
-          <TableFooter></TableFooter>
-        </Table>
-      </TableContainer>
-    </>
+            </TableBody>
+            <TableFooter></TableFooter>
+          </Table>
+        </TableContainer>
+      </Grid>
+    </Grid>
   );
 }
 

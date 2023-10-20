@@ -16,9 +16,14 @@ export const GET = async (request: NextRequest, { params }: Props) => {
     const one__ITEM = await Model__Unit.findById(id);
 
     if (!one__ITEM) {
-      return new NextResponse('Нет  объекта с данным id', {
-        status: 400,
-      });
+      return new NextResponse(
+        JSON.stringify({
+          message: 'Нет  объекта с данным id',
+        }),
+        {
+          status: 400,
+        }
+      );
     }
     const responseObj = {
       message: 'Элемент найден успешно',
@@ -27,7 +32,7 @@ export const GET = async (request: NextRequest, { params }: Props) => {
 
     return new NextResponse(JSON.stringify(responseObj), { status: 200 });
   } catch (error: any) {
-    return new Response(error.message, { status: 500 });
+    return new NextResponse(error.message, { status: 500 });
   }
 };
 
@@ -36,7 +41,13 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
   const { unitName } = await request.json();
 
   if (!unitName) {
-    return new NextResponse('Please add all fields', { status: 400 });
+    return new NextResponse(
+      JSON.stringify({
+        message: 'Please add all fields',
+      }),
+
+      { status: 400 }
+    );
   }
 
   try {
@@ -58,7 +69,7 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
 
     return new NextResponse(JSON.stringify(responseObj), { status: 200 });
   } catch (error: any) {
-    return new Response(error.message, { status: 500 });
+    return new NextResponse(error.message, { status: 500 });
   }
 };
 
@@ -69,9 +80,14 @@ export const DELETE = async (request: NextRequest, { params }: Props) => {
     const one__ITEM = await Model__Unit.findByIdAndDelete(id);
 
     if (!one__ITEM) {
-      return new NextResponse('Нет  объекта с данным id', {
-        status: 400,
-      });
+      return new NextResponse(
+        JSON.stringify({
+          message: 'Нет  объекта с данным id',
+        }),
+        {
+          status: 400,
+        }
+      );
     }
     const responseObj = {
       message: 'Элемент удалён успешно',
@@ -80,6 +96,6 @@ export const DELETE = async (request: NextRequest, { params }: Props) => {
 
     return new NextResponse(JSON.stringify(responseObj), { status: 200 });
   } catch (error: any) {
-    return new Response(error.message, { status: 500 });
+    return new NextResponse(error.message, { status: 500 });
   }
 };
