@@ -4,69 +4,16 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 
-import { I_Unit, paramsProps } from '@/interfaces/refdata';
+import { item__get_one, item__edit } from '@/lib/actions/refdata.actions';
+
+import { paramsProps } from '@/interfaces/refdata';
 
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import CircularProgress from '@mui/material/CircularProgress';
 
-const API_URL = '/api/manager/refdata/unit';
-
-const item__get_one = async (dataObject: I_Unit) => {
-  const { _id } = dataObject;
-  try {
-    const res = await fetch(`${API_URL}/${_id}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-
-      cache: 'no-store',
-    });
-    const myData = await res.json();
-    if (!res.ok) {
-      throw new Error(myData.message);
-    }
-    console.log('myData.my_data', myData.my_data);
-    return myData.my_data;
-  } catch (error: any) {
-    const message =
-      (error.response && error.response.data && error.response.data.message) ||
-      error.message ||
-      error.toString();
-    toast.error(`${message}`);
-  }
-};
-
-const item__edit = async (dataObject: I_Unit) => {
-  const { _id } = dataObject;
-  delete dataObject._id;
-
-  try {
-    const res = await fetch(`${API_URL}/${_id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(dataObject),
-      cache: 'no-store',
-    });
-    const myData = await res.json();
-    if (!res.ok) {
-      throw new Error(myData.message);
-    }
-
-    return myData;
-  } catch (error: any) {
-    const message =
-      (error.response && error.response.data && error.response.data.message) ||
-      error.message ||
-      error.toString();
-    toast.error(`${message}`);
-  }
-};
+const currentURL = '/api/manager/refdata/unit';
 
 function UnitEdit({ params }: paramsProps) {
   const { id } = params;
@@ -82,7 +29,7 @@ function UnitEdit({ params }: paramsProps) {
   useEffect(() => {
     if (id) {
       const myGetOne = async () => {
-        const myData = await item__get_one({ _id: id });
+        const myData = await item__get_one({ _id: id }, currentURL);
         set__unitName(myData.unitName);
       };
       myGetOne();
@@ -101,7 +48,7 @@ function UnitEdit({ params }: paramsProps) {
       unitName,
     };
 
-    const myData = await item__edit(created__Data);
+    const myData = await item__edit(created__Data, currentURL);
     if (myData) {
       toast.success(myData.message);
 

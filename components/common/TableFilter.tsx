@@ -1,10 +1,9 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { toast } from 'react-toastify';
-import useSWR from 'swr';
+
+import { get__all, delete__one } from '@/lib/actions/refdata.actions';
 
 import Link from '@mui/material/Link';
-import CircularProgress from '@mui/material/CircularProgress';
 
 import Table from '@mui/material/Table';
 import TableHead from '@mui/material/TableHead';
@@ -22,45 +21,6 @@ import EditIcon from '@mui/icons-material/Edit';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-
-interface getObject {
-  page: string;
-  limit: string;
-  filter: string;
-}
-
-const get__all = async (dataObject: getObject, currentURL: string) => {
-  try {
-    const res = await fetch(
-      `/api${currentURL}/?page=${dataObject?.page}&limit=${dataObject?.limit}&filter=${dataObject?.filter}`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    );
-    const myData = await res.json();
-    return myData.my_data;
-  } catch (error: any) {
-    throw new Error(error.message);
-  }
-};
-
-const delete__one = async (_id: string, currentURL: string) => {
-  try {
-    const res = await fetch(`/api${currentURL}/${_id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const myData = await res.json();
-    toast.success(myData.message);
-  } catch (error: any) {
-    throw new Error(error.message);
-  }
-};
 
 function TableSimple({
   headerFields,
@@ -85,11 +45,13 @@ function TableSimple({
     set_resultFetch(
       await get__all({ page: '0', limit: '0', filter: '' }, currentURL)
     );
+
     set__searchText('');
   };
 
   const onChangeSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
     set__searchText(e.target.value);
+
     setTimeout(async () => {
       const all_items = get__all(
         { page: '0', limit: '0', filter: e.target.value },

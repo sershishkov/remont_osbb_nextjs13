@@ -4,40 +4,14 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 
-import { I_Unit } from '@/interfaces/refdata';
+import { item__add } from '@/lib/actions/refdata.actions';
 
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import CircularProgress from '@mui/material/CircularProgress';
 
-const API_URL = '/api/manager/refdata/unit';
-
-const item__add = async (dataObject: I_Unit) => {
-  try {
-    const res = await fetch(`${API_URL}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(dataObject),
-      cache: 'no-store',
-    });
-    const myData = await res.json();
-    if (!res.ok) {
-      throw new Error(myData.message);
-    }
-
-    return myData;
-  } catch (error: any) {
-    const message =
-      (error.response && error.response.data && error.response.data.message) ||
-      error.message ||
-      error.toString();
-    toast.error(`${message}`);
-  }
-};
+const currentURL = '/api/manager/refdata/unit';
 
 function UnitAdd() {
   const route = useRouter();
@@ -59,7 +33,7 @@ function UnitAdd() {
       unitName,
     };
 
-    const myData = await item__add(created__Data);
+    const myData = await item__add(created__Data, currentURL);
     if (myData) {
       toast.success(myData.message);
 
