@@ -1,11 +1,24 @@
 import { NextRequest, NextResponse } from 'next/server';
+import Model__ThirdPartyService from '@/lib/mongoose/models/manager/refdata/Model__ThirdPartyService';
+import Model__ThirdPartyServiceGroup from '@/lib/mongoose/models/manager/refdata/Model__ThirdPartyServiceGroup';
 import Model__Unit from '@/lib/mongoose/models/manager/refdata/Model__Unit';
 
 import { connectToDB } from '@/lib/mongoose/connectToDB';
 
 export const POST = async (request: NextRequest) => {
-  const { unitName } = await request.json();
-  if (!unitName) {
+  const {
+    thirdPartyServiceName,
+    description,
+    unit,
+    thirdPartyServiceGroup,
+    priceBuyRecommend,
+  } = await request.json();
+  if (
+    !thirdPartyServiceName ||
+    !unit ||
+    !thirdPartyServiceGroup ||
+    !priceBuyRecommend
+  ) {
     return new NextResponse(
       JSON.stringify({
         message: 'Please add all fields',
@@ -17,7 +30,9 @@ export const POST = async (request: NextRequest) => {
   try {
     await connectToDB();
     // Check if already exists
-    const already__Exists = await Model__Unit.findOne({ unitName });
+    const already__Exists = await Model__ThirdPartyService.findOne({
+      thirdPartyServiceName,
+    });
 
     if (already__Exists) {
       return new NextResponse(
@@ -29,8 +44,12 @@ export const POST = async (request: NextRequest) => {
         }
       );
     }
-    const new__ITEM = await Model__Unit.create({
-      unitName,
+    const new__ITEM = await Model__ThirdPartyService.create({
+      thirdPartyServiceName,
+      description,
+      unit,
+      thirdPartyServiceGroup,
+      priceBuyRecommend,
     });
 
     const responseObj = {
@@ -56,22 +75,28 @@ export const GET = async (request: NextRequest) => {
     const myRegex = { $regex: filterSTR, $options: 'i' };
 
     filterObject = {
-      $or: [{ unitName: myRegex }],
+      $or: [{ thirdPartyServiceName: myRegex }],
     };
   }
 
   try {
     await connectToDB();
 
-    const total: number = await Model__Unit.countDocuments({});
+    const total: number = await Model__ThirdPartyService.countDocuments({});
     const totalPages: number =
       pageSize === 0 ? total : Math.ceil(total / pageSize);
 
-    const all__ITEMS = await Model__Unit.find(filterObject)
+    const all__ITEMS = await Model__ThirdPartyService.find(filterObject)
       .limit(pageSize)
       .skip(skip)
       .sort({
-        unitName: 1,
+        thirdPartyServiceName: 1,
+      })
+      .populate({ path: 'unit', model: Model__Unit, select: 'unitName' })
+      .populate({
+        path: 'thirdPartyServiceGroup',
+        model: Model__ThirdPartyServiceGroup,
+        select: 'thirdPartyServiceGroupName',
       });
 
     if (!all__ITEMS) {

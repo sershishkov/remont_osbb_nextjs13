@@ -1,7 +1,7 @@
 import React from 'react';
 
-const ProductGroup = () => {
-  return <div>ProductGroup</div>;
+const ListProductGroup = () => {
+  return <div>ListProductGroup</div>;
 };
 
-export default ProductGroup;
+export default ListProductGroup;

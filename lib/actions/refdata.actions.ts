@@ -1,12 +1,10 @@
 import { toast } from 'react-toastify';
+import { MyRequestParams } from '@/interfaces/CommonInterfaces';
 
-interface getObject {
-  page: string;
-  limit: string;
-  filter: string;
-}
-
-export const get__all = async (dataObject: getObject, currentURL: string) => {
+export const get__all = async (
+  dataObject: MyRequestParams,
+  currentURL: string
+) => {
   try {
     const res = await fetch(
       `/api${currentURL}/?page=${dataObject?.page}&limit=${dataObject?.limit}&filter=${dataObject?.filter}`,

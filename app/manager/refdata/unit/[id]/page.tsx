@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 
 import { item__get_one, item__edit } from '@/lib/actions/refdata.actions';
 
-import { paramsProps } from '@/interfaces/refdata';
+import { paramsProps } from '@/interfaces/CommonInterfaces';
 
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';

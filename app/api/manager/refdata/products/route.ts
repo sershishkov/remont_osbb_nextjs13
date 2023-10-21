@@ -1,11 +1,28 @@
 import { NextRequest, NextResponse } from 'next/server';
+import Model__Product from '@/lib/mongoose/models/manager/refdata/Model__Product';
+import Model__ProductGroup from '@/lib/mongoose/models/manager/refdata/Model__ProductGroup';
+import Model__ProductType from '@/lib/mongoose/models/manager/refdata/Model__ProductType';
 import Model__Unit from '@/lib/mongoose/models/manager/refdata/Model__Unit';
 
 import { connectToDB } from '@/lib/mongoose/connectToDB';
 
 export const POST = async (request: NextRequest) => {
-  const { unitName } = await request.json();
-  if (!unitName) {
+  const {
+    productName,
+    description,
+    unit,
+    productGroup,
+    productType,
+    priceBuyRecommend,
+    normPerOne,
+    amountInPackage,
+    weight,
+    height,
+    width,
+    length,
+    paintingArea,
+  } = await request.json();
+  if (!productName || !unit || !productGroup || !productType) {
     return new NextResponse(
       JSON.stringify({
         message: 'Please add all fields',
@@ -17,7 +34,7 @@ export const POST = async (request: NextRequest) => {
   try {
     await connectToDB();
     // Check if already exists
-    const already__Exists = await Model__Unit.findOne({ unitName });
+    const already__Exists = await Model__Product.findOne({ productName });
 
     if (already__Exists) {
       return new NextResponse(
@@ -29,8 +46,20 @@ export const POST = async (request: NextRequest) => {
         }
       );
     }
-    const new__ITEM = await Model__Unit.create({
-      unitName,
+    const new__ITEM = await Model__Product.create({
+      productName,
+      description,
+      unit,
+      productGroup,
+      productType,
+      priceBuyRecommend,
+      normPerOne,
+      amountInPackage,
+      weight,
+      height,
+      width,
+      length,
+      paintingArea,
     });
 
     const responseObj = {
@@ -56,22 +85,33 @@ export const GET = async (request: NextRequest) => {
     const myRegex = { $regex: filterSTR, $options: 'i' };
 
     filterObject = {
-      $or: [{ unitName: myRegex }],
+      $or: [{ productName: myRegex }],
     };
   }
 
   try {
     await connectToDB();
 
-    const total: number = await Model__Unit.countDocuments({});
+    const total: number = await Model__Product.countDocuments({});
     const totalPages: number =
       pageSize === 0 ? total : Math.ceil(total / pageSize);
 
-    const all__ITEMS = await Model__Unit.find(filterObject)
+    const all__ITEMS = await Model__Product.find(filterObject)
       .limit(pageSize)
       .skip(skip)
       .sort({
-        unitName: 1,
+        productName: 1,
+      })
+      .populate({ path: 'unit', model: Model__Unit, select: 'unitName' })
+      .populate({
+        path: 'productGroup',
+        model: Model__ProductGroup,
+        select: 'productGroupName',
+      })
+      .populate({
+        path: 'productType',
+        model: Model__ProductType,
+        select: 'productTypeName',
       });
 
     if (!all__ITEMS) {
