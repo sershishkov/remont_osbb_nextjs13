@@ -3,7 +3,7 @@ import MyIconButtonAdd from '@/components/common/MyIconButtonAdd';
 import TableFilter from '@/components/common/TableFilter';
 const currentURL = `/manager/refdata/unit`;
 
-function ListUnit() {
+function UnitList() {
   const headerFields = ['Ед.изм'];
   const tableFields = ['unitName'];
   return (
@@ -20,4 +20,4 @@ function ListUnit() {
   );
 }
 
-export default ListUnit;
+export default UnitList;

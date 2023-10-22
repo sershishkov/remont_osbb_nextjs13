@@ -1,7 +1,23 @@
-import React from 'react';
+import MyIconButtonAdd from '@/components/common/MyIconButtonAdd';
 
-const ListProductGroup = () => {
-  return <div>ListProductGroup</div>;
-};
+import TableFilter from '@/components/common/TableFilter';
+const currentURL = `/manager/refdata/productgroup`;
 
-export default ListProductGroup;
+function ProductGroupList() {
+  const headerFields = ['Наименование'];
+  const tableFields = ['productGroupName'];
+  return (
+    <>
+      <MyIconButtonAdd href={`${currentURL}/add`} />
+
+      <TableFilter
+        headerFields={headerFields}
+        tableFields={tableFields}
+        currentURL={currentURL}
+        tableHeader={`Группы товаров`}
+      />
+    </>
+  );
+}
+
+export default ProductGroupList;

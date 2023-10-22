@@ -1,7 +1,23 @@
-import React from 'react';
+import MyIconButtonAdd from '@/components/common/MyIconButtonAdd';
 
-const ServiceWorkGroup = () => {
-  return <div>ServiceWorkGroup</div>;
-};
+import TableFilter from '@/components/common/TableFilter';
+const currentURL = `/manager/refdata/servicework-group`;
 
-export default ServiceWorkGroup;
+function ServiceWorkGroupList() {
+  const headerFields = ['Наименование'];
+  const tableFields = ['serviceWorkGroupName'];
+  return (
+    <>
+      <MyIconButtonAdd href={`${currentURL}/add`} />
+
+      <TableFilter
+        headerFields={headerFields}
+        tableFields={tableFields}
+        currentURL={currentURL}
+        tableHeader={`Группы работ`}
+      />
+    </>
+  );
+}
+
+export default ServiceWorkGroupList;
