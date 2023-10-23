@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useEffect } from 'react';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
@@ -75,7 +77,10 @@ const MySelectMultiple = ({
       >
         {arrToSelect?.map((item: any) => (
           <MenuItem key={item._id} value={item._id}>
-            <Checkbox checked={thisSelect!.indexOf(item._id!) > -1} />
+            <Checkbox
+              key={item._id}
+              checked={thisSelect!.indexOf(item._id!) > -1}
+            />
             <ListItemText primary={`${item[fieldToShow]}`} />
           </MenuItem>
         ))}

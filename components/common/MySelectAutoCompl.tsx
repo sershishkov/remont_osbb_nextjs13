@@ -1,9 +1,10 @@
+'use client';
 import { useState, useEffect } from 'react';
 import FormControl from '@mui/material/FormControl';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 
-const MySelectAutoComl = ({
+const MySelectAutoCompl = ({
   selectName,
   selectLabel,
   fieldToShow,
@@ -19,8 +20,8 @@ const MySelectAutoComl = ({
   arrToSelect: any[];
 }) => {
   const [objToDisplay, setObjToDisplay] = useState<any | null>(null); //for using autocomplete
-  // prettier-ignore
-  const [inputShowValue, setInputShowValue] = useState("");
+
+  const [inputShowValue, setInputShowValue] = useState('');
 
   useEffect(() => {
     if (selectedOption) {
@@ -38,33 +39,39 @@ const MySelectAutoComl = ({
       <Autocomplete
         fullWidth
         options={arrToSelect ?? []}
-        // prettier-ignore
-        getOptionLabel={(option: any) => option[fieldToShow] || ""}
-        isOptionEqualToValue={(option, value) => option._id === value._id}
-        // prettier-ignore
-        id={selectName?? ""}
-        // prettier-ignore
-        value={objToDisplay?? "" }
-        // prettier-ignore
-        inputValue={inputShowValue ?? ""}
+        getOptionLabel={(option: any) => option[fieldToShow] || ''}
+        isOptionEqualToValue={(option, value) =>
+          value === undefined || value === '' || option._id === value._id
+        }
+        id={selectName ?? ''}
+        value={objToDisplay ?? null}
+        inputValue={inputShowValue ?? ''}
         onChange={(event: any, newValue: any | null) => {
           if (newValue === null) {
-            // prettier-ignore
-            newValue = "";
+            newValue = '';
           }
           setObjToDisplay(newValue);
-          // prettier-ignore
-          handleChangeSelects(selectName, newValue._id ?? "");
+
+          handleChangeSelects(selectName, newValue._id ?? '');
         }}
         onInputChange={(_, newInputValue) => {
           setInputShowValue(newInputValue);
         }}
+        renderOption={(props, option) => {
+          const { ...otherProps } = props;
+          return (
+            <li {...otherProps} key={option._id}>
+              {option[fieldToShow]}
+            </li>
+          );
+        }}
         renderInput={(params) => (
           <TextField {...params} label={selectLabel} variant='standard' />
         )}
+        // prettier-ignore
       />
     </FormControl>
   );
 };
 
-export default MySelectAutoComl;
+export default MySelectAutoCompl;

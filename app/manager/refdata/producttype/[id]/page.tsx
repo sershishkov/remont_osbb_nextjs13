@@ -13,7 +13,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
-const currentURL = '/api/manager/refdata/producttype';
+const currentURL = '/manager/refdata/producttype';
 
 function ProductTypeEdit({ params }: paramsProps) {
   const { id } = params;

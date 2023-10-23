@@ -13,7 +13,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
-const currentURL = '/api/manager/refdata/productgroup';
+const currentURL = '/manager/refdata/productgroup';
 
 function ProductGroupEdit({ params }: paramsProps) {
   const { id } = params;

@@ -11,7 +11,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
-const currentURL = '/api/manager/refdata/thirdpartyservice-group';
+const currentURL = '/manager/refdata/thirdpartyservice-group';
 
 function ThirdPartyServiceGroupAdd() {
   const route = useRouter();

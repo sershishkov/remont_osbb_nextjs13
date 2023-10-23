@@ -11,7 +11,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
-const currentURL = '/api/manager/refdata/unit';
+const currentURL = '/manager/refdata/unit';
 
 function UnitAdd() {
   const route = useRouter();

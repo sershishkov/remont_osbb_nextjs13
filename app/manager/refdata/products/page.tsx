@@ -1,7 +1,29 @@
-import React from 'react';
+import MyIconButtonAdd from '@/components/common/MyIconButtonAdd';
 
-const Products = () => {
-  return <div>Products</div>;
-};
+import TableFilter from '@/components/common/TableFilter';
+const currentURL = `/manager/refdata/products`;
 
-export default Products;
+function ProductsList() {
+  const headerFields = ['Наименование', 'ед.изм', 'Цена вход', 'Тип товара'];
+  const tableFields = [
+    'productName',
+    'unit.unitName',
+    'priceBuyRecommend',
+    'productType.productTypeName',
+  ];
+
+  return (
+    <>
+      <MyIconButtonAdd href={`${currentURL}/add`} />
+
+      <TableFilter
+        headerFields={headerFields}
+        tableFields={tableFields}
+        currentURL={currentURL}
+        tableHeader={`Товары`}
+      />
+    </>
+  );
+}
+
+export default ProductsList;

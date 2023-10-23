@@ -13,7 +13,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
-const currentURL = '/api/manager/refdata/thirdpartyservice-group';
+const currentURL = '/manager/refdata/thirdpartyservice-group';
 
 function ThirdPartyServiceGroupEdit({ params }: paramsProps) {
   const { id } = params;
