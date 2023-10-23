@@ -21,9 +21,9 @@ export interface I_Product {
   _id?: string;
   productName?: string;
   description?: string;
-  unit?: Types.ObjectId;
-  productGroup?: Types.ObjectId[];
-  productType?: Types.ObjectId;
+  unit?: Types.ObjectId | I_Unit | string;
+  productGroup?: Types.ObjectId[] | I_ProductGroup[] | string[];
+  productType?: Types.ObjectId | I_ProductType | string;
   priceBuyRecommend?: number;
   normPerOne?: number;
   amountInPackage?: number;
@@ -48,25 +48,28 @@ export interface I_ServiceWork {
   _id?: string;
   serviceWorkName?: string;
   description?: string;
-  unit?: Types.ObjectId;
-  serviceWorkGroup?: Types.ObjectId[];
+  unit?: Types.ObjectId | I_Unit | string;
+  serviceWorkGroup?: Types.ObjectId[] | I_ServiceWorkGroup[] | string[];
   priceWorkerRecommend?: number;
   priceClientRecommend?: number;
 
-  products?: Types.ObjectId[]; //цемент, краска, пенопласт...
+  products?: Types.ObjectId[] | I_Product[] | string[]; //цемент, краска, пенопласт...
 
-  inventars?: Types.ObjectId[]; //шпатель, ведро, венчик, кисточка...
-  tools?: Types.ObjectId[]; //дрель, переноска, перфоратор...
-  equipment?: Types.ObjectId[]; //лестница, бетономешалка, компрессор...
-  workerProtection?: Types.ObjectId[]; //перчатки, очки, маска, рабочая одежда...
+  inventars?: Types.ObjectId[] | I_Product[] | string[]; //шпатель, ведро, венчик, кисточка...
+  tools?: Types.ObjectId[] | I_Product[] | string[]; //дрель, переноска, перфоратор...
+  equipment?: Types.ObjectId[] | I_Product[] | string[]; //лестница, бетономешалка, компрессор...
+  workerProtection?: Types.ObjectId[] | I_Product[] | string[]; //перчатки, очки, маска, рабочая одежда...
 }
 
 export interface I_ThirdPartyService {
   _id?: string;
   thirdPartyServiceName?: string;
   description?: string;
-  unit?: Types.ObjectId;
-  thirdPartyServiceGroup?: Types.ObjectId[];
+  unit?: Types.ObjectId | I_Unit | string;
+  thirdPartyServiceGroup?:
+    | Types.ObjectId[]
+    | I_ThirdPartyServiceGroup[]
+    | string[];
   priceBuyRecommend?: number;
 }
 //////////////////////////////////////////
@@ -83,7 +86,7 @@ export interface I_Worker {
   patronymic?: string;
   lastName?: string;
 
-  workerProfessions?: Types.ObjectId[];
+  workerProfessions?: Types.ObjectId[] | I_WorkerProfession[] | string[];
   passportSeries?: string;
   passportNumber?: string;
   representedBy?: string;
