@@ -79,9 +79,15 @@ function TableSimple({
   }, []);
 
   const getMyItem = (row: any, item: string) => {
+    let innerProp;
     if (item.includes('.')) {
       const arrFields = item.split('.');
-      const innerProp = row[arrFields[0]][arrFields[1]];
+      // console.log('row[arrFields[0]]', row[arrFields[0]]);
+      if (row[arrFields[0]] !== null) {
+        innerProp = row[arrFields[0]][arrFields[1]];
+      } else {
+        innerProp = 'NULL';
+      }
       return `${innerProp}`;
     } else {
       return `${row[item]}`;

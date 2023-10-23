@@ -76,7 +76,7 @@ function ProductsEdit({ params }: paramsProps) {
     if (id) {
       const myGetOne = async () => {
         const item = await item__get_one({ _id: id }, currentURL);
-        console.log('item', item);
+        // console.log('item', item);
         if (item) {
           const arrToSet = item.productGroup!.map((item: any) => {
             return item._id;
