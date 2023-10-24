@@ -1,23 +1,24 @@
-'use client';
-import React, { useEffect, useState } from 'react';
+import MyIconButtonAdd from '@/components/common/MyIconButtonAdd';
 
-import { useSession } from 'next-auth/react';
-import { redirect } from 'next/navigation';
+import TableFilter from '@/components/common/TableFilter';
+const currentURL = `/admin/users`;
 
-const AdminUsers = () => {
-  //   const session = useSession();
+function AdminUsersList() {
+  const headerFields = ['Name', 'email', 'role'];
+  const tableFields = ['name', 'email', 'role'];
 
-  //   const [role, set__role] = useState('');
+  return (
+    <>
+      <MyIconButtonAdd href={`${currentURL}/add`} />
 
-  //   useEffect(() => {
-  //     if (session?.data?.user.role) {
-  //       set__role(session?.data?.user.role);
-  //     }
-  //   }, [session?.data?.user.role]);
+      <TableFilter
+        headerFields={headerFields}
+        tableFields={tableFields}
+        currentURL={currentURL}
+        tableHeader={`ПольЗователи`}
+      />
+    </>
+  );
+}
 
-  //   if (role !== 'admin') redirect('/');
-
-  return <div>AdminUsers</div>;
-};
-
-export default AdminUsers;
+export default AdminUsersList;

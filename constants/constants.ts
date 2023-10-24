@@ -1,30 +1,30 @@
 export const roles = [
   {
-    value: 'user',
+    _id: 'user',
     caption: 'Пользователь',
   },
   {
-    value: 'client',
+    _id: 'client',
     caption: 'Клиент',
   },
   {
-    value: 'worker',
+    _id: 'worker',
     caption: 'Работник',
   },
   {
-    value: 'manager',
+    _id: 'manager',
     caption: 'Менеджер',
   },
   {
-    value: 'accountant',
+    _id: 'accountant',
     caption: 'Бухгалтер',
   },
   {
-    value: 'boss',
+    _id: 'boss',
     caption: 'Руководитель',
   },
   {
-    value: 'admin',
+    _id: 'admin',
     caption: 'Admin',
   },
 ];
