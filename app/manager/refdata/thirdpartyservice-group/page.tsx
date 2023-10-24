@@ -4,7 +4,7 @@ import TableFilter from '@/components/common/TableFilter';
 const currentURL = `/manager/refdata/thirdpartyservice-group`;
 
 function ThirdPartyServiceGroupList() {
-  const headerFields = ['Ед.изм'];
+  const headerFields = ['Наименование'];
   const tableFields = ['thirdPartyServiceGroupName'];
   return (
     <>

@@ -1,7 +1,28 @@
-import React from 'react';
+import MyIconButtonAdd from '@/components/common/MyIconButtonAdd';
 
-const ThirdPartyService = () => {
-  return <div>ThirdPartyService</div>;
-};
+import TableFilter from '@/components/common/TableFilter';
+const currentURL = `/manager/refdata/thirdpartyservices`;
 
-export default ThirdPartyService;
+function ThirdPartyServicesList() {
+  const headerFields = ['Наименование', 'ед.изм', 'Цена Вход'];
+  const tableFields = [
+    'thirdPartyServiceName',
+    'unit.unitName',
+    'priceBuyRecommend',
+  ];
+
+  return (
+    <>
+      <MyIconButtonAdd href={`${currentURL}/add`} />
+
+      <TableFilter
+        headerFields={headerFields}
+        tableFields={tableFields}
+        currentURL={currentURL}
+        tableHeader={`Сторонние сервисы`}
+      />
+    </>
+  );
+}
+
+export default ThirdPartyServicesList;
