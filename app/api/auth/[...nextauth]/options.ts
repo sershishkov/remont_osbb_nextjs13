@@ -4,7 +4,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import Model__User from '@/lib/mongoose/models/Model__User';
 import { connectToDB } from '@/lib/mongoose/connectToDB';
 
-export const options: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       id: 'credentials',
@@ -52,12 +52,18 @@ export const options: NextAuthOptions = {
   callbacks: {
     // Ref: https://authjs.dev/guides/basics/role-based-access-control#persisting-the-role
     async jwt({ token, user }) {
-      if (user) token.role = user.role;
+      if (user) {
+        token.role = user.role;
+        token._id = user._id.toString();
+      }
       return token;
     },
     // If you want to use the role in client components
     async session({ session, token }) {
-      if (session?.user) session.user.role = token.role;
+      if (session?.user) {
+        session.user.role = token.role;
+        session.user._id = token._id.toString();
+      }
       return session;
     },
   },

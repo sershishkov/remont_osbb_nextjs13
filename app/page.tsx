@@ -11,7 +11,7 @@ export default function Home() {
       <Grid container direction='column' spacing={4}>
         <Grid item>
           <Typography variant='h3' align='center'>
-            Компания Олимп
+            Ремонт ОСББ
           </Typography>
           <Typography variant='h5' align='center'>
             Наша компания осуществляет услуги по ремонтам для ОСББ, так же мы

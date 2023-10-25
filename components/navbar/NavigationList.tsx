@@ -87,7 +87,7 @@ function NavigationList({ toggleDrawer }: { toggleDrawer: Function }) {
               <ListItemButton
                 sx={{ pl: 4 }}
                 component={Link}
-                href='/user/profile'
+                href='/user/profile/updatedetails'
                 onClick={() => toggleDrawer(false)}
               >
                 <ListItemIcon>
