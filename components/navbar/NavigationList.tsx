@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
 
+import ListItemCollapse from './ListItemCollapse';
+
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -25,9 +27,9 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 
 import {
+  manager_role,
   accountant_role,
   accountant_refData_links,
-  manager_role,
   manager_refData_links,
   admin_links,
 } from '@/constants/constants';
@@ -37,10 +39,6 @@ function NavigationList({ toggleDrawer }: { toggleDrawer: Function }) {
   const session = useSession();
   const user = session.data?.user;
   const [openAuth, set__openAuth] = useState<boolean>(false);
-  const [open__Admin, set__open__Admin] = useState<boolean>(false);
-  const [open__RefData, set__open__RefData] = useState<boolean>(false);
-  const [open__accountingRefData, set__open__accountingRefData] =
-    useState<boolean>(false);
 
   const onLogout = () => {
     signOut();
@@ -129,99 +127,35 @@ function NavigationList({ toggleDrawer }: { toggleDrawer: Function }) {
         </List>
       </Collapse>
 
-      {user?.role === 'admin' && (
-        <>
-          <ListItemButton onClick={() => set__open__Admin(!open__Admin)}>
-            <ListItemIcon>
-              <GroupIcon />
-            </ListItemIcon>
-            <ListItemText primary='ADMINKA' />
-            {open__Admin ? <ExpandLess /> : <ExpandMore />}
-          </ListItemButton>
-          <Collapse in={open__Admin} timeout='auto' unmountOnExit>
-            <List disablePadding>
-              {admin_links.map((item) => (
-                <ListItemButton
-                  key={item.link}
-                  sx={{ pl: 4 }}
-                  component={Link}
-                  href={item.link}
-                  onClick={() => toggleDrawer(false)}
-                >
-                  <ListItemIcon>
-                    <InboxIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={`${item.caption}`} />
-                </ListItemButton>
-              ))}
-            </List>
-          </Collapse>
-        </>
-      )}
+      <ListItemCollapse
+        caption='ADMINKA'
+        toggleDrawer={toggleDrawer}
+        userRole={user?.role!}
+        allowedRoles={['admin']}
+        linksToShow={admin_links}
+        groupIcon={AdminPanelSettingsIcon}
+        itemIcon={InboxIcon}
+      />
 
-      {manager_role.includes(user?.role!) && (
-        <>
-          <ListItemButton onClick={() => set__open__RefData(!open__RefData)}>
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText primary='Справочники Менедж' />
-            {open__RefData ? <ExpandLess /> : <ExpandMore />}
-          </ListItemButton>
-          <Collapse in={open__RefData} timeout='auto' unmountOnExit>
-            <List disablePadding>
-              {manager_refData_links.map((item) => (
-                <ListItemButton
-                  key={item.link}
-                  sx={{ pl: 4 }}
-                  component={Link}
-                  href={item.link}
-                  onClick={() => toggleDrawer(false)}
-                >
-                  <ListItemIcon>
-                    <InboxIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={`${item.caption}`} />
-                </ListItemButton>
-              ))}
-            </List>
-          </Collapse>
-        </>
-      )}
+      <ListItemCollapse
+        caption='Справочники Менедж'
+        toggleDrawer={toggleDrawer}
+        userRole={user?.role!}
+        allowedRoles={manager_role}
+        linksToShow={manager_refData_links}
+        groupIcon={GroupIcon}
+        itemIcon={InboxIcon}
+      />
 
-      {accountant_role.includes(user?.role!) && (
-        <>
-          <ListItemButton
-            onClick={() =>
-              set__open__accountingRefData(!open__accountingRefData)
-            }
-          >
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText primary='Справочники Бух' />
-            {open__accountingRefData ? <ExpandLess /> : <ExpandMore />}
-          </ListItemButton>
-          <Collapse in={open__accountingRefData} timeout='auto' unmountOnExit>
-            <List disablePadding>
-              {accountant_refData_links.map((item) => (
-                <ListItemButton
-                  key={item.link}
-                  sx={{ pl: 4 }}
-                  component={Link}
-                  href={item.link}
-                  onClick={() => toggleDrawer(false)}
-                >
-                  <ListItemIcon>
-                    <InboxIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={`${item.caption}`} />
-                </ListItemButton>
-              ))}
-            </List>
-          </Collapse>
-        </>
-      )}
+      <ListItemCollapse
+        caption='Справочники Бух'
+        toggleDrawer={toggleDrawer}
+        userRole={user?.role!}
+        allowedRoles={accountant_role}
+        linksToShow={accountant_refData_links}
+        groupIcon={GroupIcon}
+        itemIcon={InboxIcon}
+      />
     </List>
   );
 }
