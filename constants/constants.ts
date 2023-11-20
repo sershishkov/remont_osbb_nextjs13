@@ -51,7 +51,7 @@ export const boss_role = ['boss', 'admin'];
 ///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////
 const manager_Refdata = '/manager/refdata';
-export const refData_links = [
+export const manager_refData_links = [
   {
     link: `${manager_Refdata}/unit`,
     caption: `Ед.Измер`,
@@ -103,3 +103,14 @@ export const admin_links = [
 ];
 ///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////
+const accountant_Refdata = '/accountant/refdata';
+export const accountant_refData_links = [
+  {
+    link: `${accountant_Refdata}/worker-profession`,
+    caption: `Профессии`,
+  },
+  {
+    link: `${accountant_Refdata}/workers`,
+    caption: `Работники`,
+  },
+];
