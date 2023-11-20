@@ -1,5 +1,13 @@
 import { Types } from 'mongoose';
 
+export interface I_User {
+  _id?: string;
+  name?: string;
+  email?: string;
+  password?: string;
+  role?: string;
+}
+
 export interface I_Unit {
   _id?: string;
   unitName?: string;
@@ -82,6 +90,7 @@ export interface I_WorkerProfession {
 
 export interface I_Worker {
   _id?: string;
+  user?: Types.ObjectId | I_User | string;
   firstName?: string;
   patronymic?: string;
   lastName?: string;
@@ -96,5 +105,5 @@ export interface I_Worker {
   birthDay?: Date;
 
   telNumber?: string;
-  email?: string;
+  address?: string;
 }

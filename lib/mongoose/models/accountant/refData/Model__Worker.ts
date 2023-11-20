@@ -1,6 +1,11 @@
 import { Schema, model, models } from 'mongoose';
 
 const worker__Schema = new Schema({
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'user',
+    required: [true, 'Please add an userID'],
+  },
   firstName: {
     type: String,
     required: [true, 'Please add a firstName'],
@@ -32,7 +37,7 @@ const worker__Schema = new Schema({
   },
   inn: {
     type: String,
-    match: [/\b\d{10}\b/, 'Пожалуйста введите 10 цифр'],
+    // match: [/\b\d{10}\b/, 'Пожалуйста введите 10 цифр'],
   },
   birthDay: {
     type: Date,
@@ -40,12 +45,8 @@ const worker__Schema = new Schema({
   telNumber: {
     type: String,
   },
-  email: {
+  address: {
     type: String,
-    match: [
-      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-      'Пожалуйста введите корректный email',
-    ],
   },
 });
 

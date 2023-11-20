@@ -206,7 +206,9 @@ function ThirdPartyServicesEdit({ params }: paramsProps) {
             arrToSelect={arr__Units}
           />
 
-          <IconButton onClick={() => onClickAddItem('/refdata/unit/add')}>
+          <IconButton
+            onClick={() => onClickAddItem('/manager/refdata/unit/add')}
+          >
             <AddIcon color='success' sx={{ fontSize: 30 }} />
           </IconButton>
         </Stack>
@@ -232,7 +234,7 @@ function ThirdPartyServicesEdit({ params }: paramsProps) {
 
           <IconButton
             onClick={() =>
-              onClickAddItem('/refdata/thirdpartyservice-group/add')
+              onClickAddItem('/manager/refdata/thirdpartyservice-group/add')
             }
           >
             <AddIcon color='success' sx={{ fontSize: 30 }} />
