@@ -16,8 +16,7 @@ const currentURL = '/manager/refdata/servicework-group';
 function ServiceWorkGroupAdd() {
   const route = useRouter();
 
-  const [serviceWorkGroupName, set__serviceWorkGroupName] =
-    useState<string>('');
+  const [serviceWorkGroupName, setServiceWorkGroupName] = useState<string>('');
 
   useEffect(() => {
     const inputFocus = document.getElementById('serviceWorkGroupName');
@@ -25,7 +24,7 @@ function ServiceWorkGroupAdd() {
   }, []);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    set__serviceWorkGroupName(e.target.value);
+    setServiceWorkGroupName(e.target.value);
   };
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

@@ -17,13 +17,13 @@ interface LinkToShow {
 }
 
 interface LocalProps {
-  caption: string;
-  toggleDrawer: Function;
-  userRole: string;
-  allowedRoles: string[];
-  linksToShow: LinkToShow[];
-  groupIcon: any;
-  itemIcon: any;
+  readonly caption: string;
+  readonly toggleDrawer: Function;
+  readonly userRole: string;
+  readonly allowedRoles: string[];
+  readonly linksToShow: LinkToShow[];
+  readonly groupIcon: any;
+  readonly itemIcon: any;
 }
 
 function ListItemCollapse({
@@ -37,14 +37,16 @@ function ListItemCollapse({
 }: //
 //
 LocalProps) {
-  const [open__Data, set__open__Data] = useState<boolean>(false);
+  const [open__Data, setOpen__Data] = useState<boolean>(false);
   const GroupIcon = groupIcon;
   const ItemIcon = itemIcon;
   return (
     <>
       {allowedRoles.includes(userRole) && (
         <>
-          <ListItemButton onClick={() => set__open__Data(!open__Data)}>
+          <ListItemButton
+            onClick={() => setOpen__Data((prevState) => !prevState)}
+          >
             <ListItemIcon>
               <GroupIcon />
             </ListItemIcon>

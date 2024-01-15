@@ -147,7 +147,7 @@ export const DELETE = async (request: NextRequest, { params }: Props) => {
     }
     const responseObj = {
       message: 'Элемент удалён успешно',
-      my_data: one__ITEM._id,
+      my_data: {},
     };
 
     return new NextResponse(JSON.stringify(responseObj), { status: 200 });

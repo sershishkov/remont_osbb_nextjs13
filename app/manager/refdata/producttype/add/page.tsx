@@ -16,7 +16,7 @@ const currentURL = '/manager/refdata/producttype';
 function ProductTypeAdd() {
   const route = useRouter();
 
-  const [productTypeName, set__productTypeName] = useState<string>('');
+  const [productTypeName, setProductTypeName] = useState<string>('');
 
   useEffect(() => {
     const inputFocus = document.getElementById('productTypeName');
@@ -24,7 +24,7 @@ function ProductTypeAdd() {
   }, []);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    set__productTypeName(e.target.value);
+    setProductTypeName(e.target.value);
   };
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

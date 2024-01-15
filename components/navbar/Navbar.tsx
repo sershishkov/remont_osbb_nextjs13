@@ -13,7 +13,7 @@ import NavigationList from './NavigationList';
 // import { MaterialUISwitch } from './MaterialUISwitch';
 
 function Navbar() {
-  const [openDrawer, set__openDrawer] = useState<boolean>(false);
+  const [openDrawer, setOpenDrawer] = useState<boolean>(false);
   // const [themeChecked, set__themeChecked] = useState<boolean>(
   //   JSON.parse(localStorage.getItem('theme')!)
   // );
@@ -27,7 +27,7 @@ function Navbar() {
       ) {
         return;
       }
-      set__openDrawer(open);
+      setOpenDrawer(open);
     };
 
   // const toggleTheme = (event: React.ChangeEvent<HTMLInputElement>) => {

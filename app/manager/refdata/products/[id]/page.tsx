@@ -41,11 +41,11 @@ const initState = {
   paintingArea: '',
 };
 
-function ProductsEdit({ params }: paramsProps) {
+function ProductsEdit({ params }: Readonly<paramsProps>) {
   const { id } = params;
   const route = useRouter();
 
-  const [formData, setFormdata] = useState(initState);
+  const [formData, setFormData] = useState(initState);
   const [arr__Units, setArr__Units] = useState([]);
   const [arr__ProductGroups, setArr__ProductGroups] = useState([]);
   const [arr__ProductTypes, setArr__ProductTypes] = useState([]);
@@ -70,26 +70,25 @@ function ProductsEdit({ params }: paramsProps) {
     const inputFocus = document.getElementById('productName');
     inputFocus?.focus();
   }, []);
-  // console.log('FormData', formData);
 
   useLayoutEffect(() => {
     if (id) {
       const myGetOne = async () => {
         const item = await item__get_one({ _id: id }, currentURL);
-        // console.log('item', item);
+
         if (item) {
           const arrToSet = item.productGroup!.map((item: any) => {
             return item._id;
           });
 
-          setFormdata({
+          setFormData({
             productName: item.productName!,
             description: item.description!,
 
             unit: item.unit._id!,
             productType: item.productType._id!,
             // @ts-ignore
-            productGroup: arrToSet!,
+            productGroup: arrToSet,
             priceBuyRecommend: item.priceBuyRecommend!.toString(),
             normPerOne: item.normPerOne!.toString(),
             amountInPackage: item.amountInPackage!.toString(),
@@ -128,7 +127,7 @@ function ProductsEdit({ params }: paramsProps) {
   }, []);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormdata((prevState) => ({
+    setFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
@@ -164,7 +163,7 @@ function ProductsEdit({ params }: paramsProps) {
     }
   };
   const handleChangeSelects = (targetName: string, targetValue: string) => {
-    setFormdata((prevState) => ({
+    setFormData((prevState) => ({
       ...prevState,
       [targetName]: targetValue,
     }));
@@ -174,7 +173,7 @@ function ProductsEdit({ params }: paramsProps) {
     targetName: string,
     targetValue: string[]
   ) => {
-    setFormdata((prevState) => ({
+    setFormData((prevState) => ({
       ...prevState,
       [targetName]: targetValue,
     }));

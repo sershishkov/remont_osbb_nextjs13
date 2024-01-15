@@ -41,11 +41,11 @@ const initState = {
   address: '',
 };
 
-function WorkerEdit({ params }: paramsProps) {
+function WorkerEdit({ params }: Readonly<paramsProps>) {
   const { id } = params;
   const route = useRouter();
 
-  const [formData, setFormdata] = useState(initState);
+  const [formData, setFormData] = useState(initState);
   const [arr__Users, setArr__Users] = useState([]);
   const [arr__WorkerProfessions, setArr__WorkerProfessions] = useState([]);
 
@@ -74,7 +74,7 @@ function WorkerEdit({ params }: paramsProps) {
     if (id) {
       const myGetOne = async () => {
         const item = await item__get_one({ _id: id }, currentURL);
-        // console.log('item', item);
+
         if (item) {
           const arrToSet_workerProfessions = item.workerProfessions!.map(
             (item: any) => {
@@ -82,7 +82,7 @@ function WorkerEdit({ params }: paramsProps) {
             }
           );
 
-          setFormdata({
+          setFormData({
             user: item.user._id!,
             firstName: item.firstName!,
             patronymic: item.patronymic!,
@@ -121,7 +121,7 @@ function WorkerEdit({ params }: paramsProps) {
   }, []);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormdata((prevState) => ({
+    setFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
@@ -157,7 +157,7 @@ function WorkerEdit({ params }: paramsProps) {
     }
   };
   const handleChangeSelects = (targetName: string, targetValue: string) => {
-    setFormdata((prevState) => ({
+    setFormData((prevState) => ({
       ...prevState,
       [targetName]: targetValue,
     }));
@@ -167,7 +167,7 @@ function WorkerEdit({ params }: paramsProps) {
     targetName: string,
     targetValue: string[]
   ) => {
-    setFormdata((prevState) => ({
+    setFormData((prevState) => ({
       ...prevState,
       [targetName]: targetValue,
     }));

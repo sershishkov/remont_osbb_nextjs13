@@ -16,7 +16,7 @@ const currentURL = '/manager/refdata/unit';
 function UnitAdd() {
   const route = useRouter();
 
-  const [unitName, set__unitName] = useState<string>('');
+  const [unitName, setUnitName] = useState<string>('');
 
   useEffect(() => {
     const inputFocus = document.getElementById('unitName');
@@ -24,7 +24,7 @@ function UnitAdd() {
   }, []);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    set__unitName(e.target.value);
+    setUnitName(e.target.value);
   };
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

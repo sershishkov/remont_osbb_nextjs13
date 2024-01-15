@@ -15,11 +15,11 @@ import Typography from '@mui/material/Typography';
 
 const currentURL = '/manager/refdata/thirdpartyservice-group';
 
-function ThirdPartyServiceGroupEdit({ params }: paramsProps) {
+function ThirdPartyServiceGroupEdit({ params }: Readonly<paramsProps>) {
   const { id } = params;
   const route = useRouter();
 
-  const [thirdPartyServiceGroupName, set__thirdPartyServiceGroupName] =
+  const [thirdPartyServiceGroupName, setThirdPartyServiceGroupName] =
     useState<string>('');
 
   useEffect(() => {
@@ -31,14 +31,14 @@ function ThirdPartyServiceGroupEdit({ params }: paramsProps) {
     if (id) {
       const myGetOne = async () => {
         const myData = await item__get_one({ _id: id }, currentURL);
-        set__thirdPartyServiceGroupName(myData.thirdPartyServiceGroupName);
+        setThirdPartyServiceGroupName(myData.thirdPartyServiceGroupName);
       };
       myGetOne();
     }
   }, [id]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    set__thirdPartyServiceGroupName(e.target.value);
+    setThirdPartyServiceGroupName(e.target.value);
   };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

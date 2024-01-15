@@ -40,17 +40,17 @@ const MySelectMultiple = ({
   selectedOptions?: string[];
   arrToSelect: any[];
 }) => {
-  const [thisSelect, set_thisSelect] = useState<string[]>([]);
+  const [thisSelect, setThisSelect] = useState<string[]>([]);
 
   const handleChangeMultipleSelect = (event: SelectChangeEvent<string[]>) => {
     const { name, value } = event.target;
-    set_thisSelect(typeof value === 'string' ? value.split(',') : value);
+    setThisSelect(typeof value === 'string' ? value.split(',') : value);
     handleChangeMultipleSelects(name, value as string[]);
   };
 
   useEffect(() => {
     if (selectedOptions) {
-      set_thisSelect(selectedOptions);
+      setThisSelect(selectedOptions);
     }
   }, [selectedOptions]);
 

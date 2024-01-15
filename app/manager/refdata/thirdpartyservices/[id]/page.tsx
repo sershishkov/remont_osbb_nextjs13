@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useLayoutEffect, useMemo } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 
@@ -33,11 +33,11 @@ const initState = {
   priceBuyRecommend: '',
 };
 
-function ThirdPartyServicesEdit({ params }: paramsProps) {
+function ThirdPartyServicesEdit({ params }: Readonly<paramsProps>) {
   const { id } = params;
   const route = useRouter();
 
-  const [formData, setFormdata] = useState(initState);
+  const [formData, setFormData] = useState(initState);
   const [arr__Units, setArr__Units] = useState([]);
   const [arr__ThirdPartyServiceGroups, setArr__ThirdPartyServiceGroups] =
     useState([]);
@@ -54,25 +54,24 @@ function ThirdPartyServicesEdit({ params }: paramsProps) {
     const inputFocus = document.getElementById('thirdPartyServiceName');
     inputFocus?.focus();
   }, []);
-  // console.log('id', id);
 
   useLayoutEffect(() => {
     if (id) {
       const myGetOne = async () => {
         const item = await item__get_one({ _id: id }, currentURL);
-        // console.log('item', item);
+
         if (item) {
           const arrToSet_thirdPartyServiceGroup =
             item.thirdPartyServiceGroup!.map((item: any) => {
               return item._id;
             });
 
-          setFormdata({
+          setFormData({
             thirdPartyServiceName: item.thirdPartyServiceName!,
             unit: item.unit?._id!,
             description: item.description,
 
-            thirdPartyServiceGroup: arrToSet_thirdPartyServiceGroup!,
+            thirdPartyServiceGroup: arrToSet_thirdPartyServiceGroup,
             priceBuyRecommend: item.priceBuyRecommend!.toString(),
           });
         }
@@ -99,7 +98,7 @@ function ThirdPartyServicesEdit({ params }: paramsProps) {
   }, []);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormdata((prevState) => ({
+    setFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
@@ -127,7 +126,7 @@ function ThirdPartyServicesEdit({ params }: paramsProps) {
     }
   };
   const handleChangeSelects = (targetName: string, targetValue: string) => {
-    setFormdata((prevState) => ({
+    setFormData((prevState) => ({
       ...prevState,
       [targetName]: targetValue,
     }));
@@ -137,7 +136,7 @@ function ThirdPartyServicesEdit({ params }: paramsProps) {
     targetName: string,
     targetValue: string[]
   ) => {
-    setFormdata((prevState) => ({
+    setFormData((prevState) => ({
       ...prevState,
       [targetName]: targetValue,
     }));

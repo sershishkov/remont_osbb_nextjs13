@@ -33,12 +33,10 @@ const initState = {
 function AdminUsersAdd() {
   const route = useRouter();
 
-  const [formData, setFormdata] = useState(initState);
-  const [showPassword, set__showPassword] = useState<boolean>(false);
+  const [formData, setFormData] = useState(initState);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const { name, email, password, role } = formData;
-
-  // console.log('formData', formData);
 
   const all_roles = roles.filter((item) => item._id !== 'admin');
 
@@ -48,7 +46,7 @@ function AdminUsersAdd() {
   }, []);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormdata((prevState) => ({
+    setFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
@@ -73,13 +71,13 @@ function AdminUsersAdd() {
     }
   };
   const handleChangeSelects = (targetName: string, targetValue: string) => {
-    setFormdata((prevState) => ({
+    setFormData((prevState) => ({
       ...prevState,
       [targetName]: targetValue,
     }));
   };
   const handleClickShowPassword = () => {
-    set__showPassword(!showPassword);
+    setShowPassword(!showPassword);
   };
 
   const handleMouseDownPassword = (

@@ -15,11 +15,11 @@ import Typography from '@mui/material/Typography';
 
 const currentURL = '/manager/refdata/productgroup';
 
-function ProductGroupEdit({ params }: paramsProps) {
+function ProductGroupEdit({ params }: Readonly<paramsProps>) {
   const { id } = params;
   const route = useRouter();
 
-  const [productGroupName, set__productGroupName] = useState<string>('');
+  const [productGroupName, setProductGroupName] = useState<string>('');
 
   useEffect(() => {
     const inputFocus = document.getElementById('productGroupName');
@@ -30,14 +30,14 @@ function ProductGroupEdit({ params }: paramsProps) {
     if (id) {
       const myGetOne = async () => {
         const myData = await item__get_one({ _id: id }, currentURL);
-        set__productGroupName(myData.productGroupName);
+        setProductGroupName(myData.productGroupName);
       };
       myGetOne();
     }
   }, [id]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    set__productGroupName(e.target.value);
+    setProductGroupName(e.target.value);
   };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

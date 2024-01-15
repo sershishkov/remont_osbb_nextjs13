@@ -21,19 +21,19 @@ import IconButton from '@mui/material/IconButton';
 
 const Register = () => {
   const router = useRouter();
-  const [formData, setFormdata] = useState({
+  const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: '',
     password2: '',
   });
-  const [showPassword, set__showPassword] = useState<boolean>(false);
-  const [showPassword2, set__showPassword2] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showPassword2, setShowPassword2] = useState<boolean>(false);
 
   const { name, email, password, password2 } = formData;
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormdata((prevState) => ({
+    setFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
@@ -69,10 +69,10 @@ const Register = () => {
     }
   };
   const handleClickShowPassword = () => {
-    set__showPassword(!showPassword);
+    setShowPassword(!showPassword);
   };
   const handleClickShowPassword2 = () => {
-    set__showPassword2(!showPassword2);
+    setShowPassword2(!showPassword2);
   };
   const handleMouseDownPassword = (
     event: React.MouseEvent<HTMLButtonElement>

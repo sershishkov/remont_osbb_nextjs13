@@ -32,12 +32,12 @@ const initState = {
   role: '',
 };
 
-function ProductsEdit({ params }: paramsProps) {
+function ProductsEdit({ params }: Readonly<paramsProps>) {
   const { id } = params;
   const route = useRouter();
 
-  const [formData, setFormdata] = useState(initState);
-  const [showPassword, set__showPassword] = useState<boolean>(false);
+  const [formData, setFormData] = useState(initState);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const { name, email, password, role } = formData;
   const all_roles = roles.filter((item) => item._id !== 'admin');
@@ -46,15 +46,14 @@ function ProductsEdit({ params }: paramsProps) {
     const inputFocus = document.getElementById('name');
     inputFocus?.focus();
   }, []);
-  // console.log('FormData', formData);
 
   useLayoutEffect(() => {
     if (id) {
       const myGetOne = async () => {
         const item = await item__get_one({ _id: id }, currentURL);
-        // console.log('item', item);
+
         if (item) {
-          setFormdata({
+          setFormData({
             name: item.name!,
             email: item.email!,
             password: '',
@@ -67,7 +66,7 @@ function ProductsEdit({ params }: paramsProps) {
   }, [id]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormdata((prevState) => ({
+    setFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
@@ -94,13 +93,13 @@ function ProductsEdit({ params }: paramsProps) {
     }
   };
   const handleChangeSelects = (targetName: string, targetValue: string) => {
-    setFormdata((prevState) => ({
+    setFormData((prevState) => ({
       ...prevState,
       [targetName]: targetValue,
     }));
   };
   const handleClickShowPassword = () => {
-    set__showPassword(!showPassword);
+    setShowPassword(!showPassword);
   };
 
   const handleMouseDownPassword = (

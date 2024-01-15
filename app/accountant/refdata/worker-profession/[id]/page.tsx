@@ -20,11 +20,11 @@ const initState = {
   description: '',
 };
 
-function WorkerProfessionEdit({ params }: paramsProps) {
+function WorkerProfessionEdit({ params }: Readonly<paramsProps>) {
   const { id } = params;
   const route = useRouter();
 
-  const [formData, setFormdata] = useState(initState);
+  const [formData, setFormData] = useState(initState);
 
   const { workerProfessionName, description } = formData;
 
@@ -39,7 +39,7 @@ function WorkerProfessionEdit({ params }: paramsProps) {
         const item = await item__get_one({ _id: id }, currentURL);
 
         if (item) {
-          setFormdata({
+          setFormData({
             workerProfessionName: item.workerProfessionName!,
             description: item.description!,
           });
@@ -50,7 +50,7 @@ function WorkerProfessionEdit({ params }: paramsProps) {
   }, [id]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormdata((prevState) => ({
+    setFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));

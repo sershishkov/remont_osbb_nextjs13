@@ -39,11 +39,11 @@ const initState = {
   workerProtection: [],
 };
 
-function ServiceWorksEdit({ params }: paramsProps) {
+function ServiceWorksEdit({ params }: Readonly<paramsProps>) {
   const { id } = params;
   const route = useRouter();
 
-  const [formData, setFormdata] = useState(initState);
+  const [formData, setFormData] = useState(initState);
   const [arr__Units, setArr__Units] = useState([]);
   const [arr__ServiceworkGroups, setArr__ServiceworkGroups] = useState([]);
   const [arr__Products, setArr__Products] = useState<any[]>([]);
@@ -102,13 +102,12 @@ function ServiceWorksEdit({ params }: paramsProps) {
     const inputFocus = document.getElementById('productName');
     inputFocus?.focus();
   }, []);
-  // console.log('id', id);
 
   useLayoutEffect(() => {
     if (id) {
       const myGetOne = async () => {
         const item = await item__get_one({ _id: id }, currentURL);
-        // console.log('item', item);
+
         if (item) {
           const arrToSet_serviceWorkGroup = item.serviceWorkGroup!.map(
             (item: any) => {
@@ -138,14 +137,14 @@ function ServiceWorksEdit({ params }: paramsProps) {
             }
           );
 
-          setFormdata({
+          setFormData({
             serviceWorkName: item.serviceWorkName!,
             description: item.description!,
 
             unit: item.unit._id!,
 
             // @ts-ignore
-            serviceWorkGroup: arrToSet_serviceWorkGroup!,
+            serviceWorkGroup: arrToSet_serviceWorkGroup,
             // @ts-ignore
             products: arrToSet_products ?? [],
             // @ts-ignore
@@ -189,7 +188,7 @@ function ServiceWorksEdit({ params }: paramsProps) {
   }, []);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormdata((prevState) => ({
+    setFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
@@ -228,7 +227,7 @@ function ServiceWorksEdit({ params }: paramsProps) {
     }
   };
   const handleChangeSelects = (targetName: string, targetValue: string) => {
-    setFormdata((prevState) => ({
+    setFormData((prevState) => ({
       ...prevState,
       [targetName]: targetValue,
     }));
@@ -238,7 +237,7 @@ function ServiceWorksEdit({ params }: paramsProps) {
     targetName: string,
     targetValue: string[]
   ) => {
-    setFormdata((prevState) => ({
+    setFormData((prevState) => ({
       ...prevState,
       [targetName]: targetValue,
     }));

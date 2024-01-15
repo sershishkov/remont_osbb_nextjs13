@@ -21,17 +21,17 @@ const MySelect = ({
   selectedOption: string;
   arrToSelect: any[];
 }) => {
-  const [thisSelectValue, set_thisSelectValue] = useState('');
+  const [thisSelectValue, setThisSelectValue] = useState('');
 
   const handleChangeSelect = (event: SelectChangeEvent) => {
     const { name, value } = event.target;
-    set_thisSelectValue(value);
+    setThisSelectValue(value);
     handleChangeSelects(name, value);
   };
 
   useEffect(() => {
     if (selectedOption) {
-      set_thisSelectValue(selectedOption);
+      setThisSelectValue(selectedOption);
     }
   }, [selectedOption]);
 

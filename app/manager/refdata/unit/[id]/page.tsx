@@ -15,11 +15,11 @@ import Typography from '@mui/material/Typography';
 
 const currentURL = '/manager/refdata/unit';
 
-function UnitEdit({ params }: paramsProps) {
+function UnitEdit({ params }: Readonly<paramsProps>) {
   const { id } = params;
   const route = useRouter();
 
-  const [unitName, set__unitName] = useState<string>('');
+  const [unitName, setUnitName] = useState<string>('');
 
   useEffect(() => {
     const inputFocus = document.getElementById('unitName');
@@ -30,14 +30,14 @@ function UnitEdit({ params }: paramsProps) {
     if (id) {
       const myGetOne = async () => {
         const myData = await item__get_one({ _id: id }, currentURL);
-        set__unitName(myData.unitName);
+        setUnitName(myData.unitName);
       };
       myGetOne();
     }
   }, [id]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    set__unitName(e.target.value);
+    setUnitName(e.target.value);
   };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

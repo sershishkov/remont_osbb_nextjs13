@@ -24,16 +24,16 @@ const Login = () => {
   const session = useSession();
   const router = useRouter();
 
-  const [formData, setFormdata] = useState({
+  const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
-  const [showPassword, set__showPassword] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const { email, password } = formData;
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormdata((prevState) => ({
+    setFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
@@ -44,7 +44,7 @@ const Login = () => {
     signIn('credentials', { email, password });
   };
   const handleClickShowPassword = () => {
-    set__showPassword(!showPassword);
+    setShowPassword(!showPassword);
   };
 
   const handleMouseDownPassword = (

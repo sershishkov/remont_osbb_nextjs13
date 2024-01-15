@@ -36,7 +36,7 @@ const initState = {
 function ServiceWorksAdd() {
   const route = useRouter();
 
-  const [formData, setFormdata] = useState(initState);
+  const [formData, setFormData] = useState(initState);
   const [arr__Units, setArr__Units] = useState([]);
   const [arr__ServiceworkGroups, setArr__ServiceworkGroups] = useState([]);
   const [arr__Products, setArr__Products] = useState<any[]>([]);
@@ -119,7 +119,7 @@ function ServiceWorksAdd() {
   }, []);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormdata((prevState) => ({
+    setFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
@@ -156,7 +156,7 @@ function ServiceWorksAdd() {
     }
   };
   const handleChangeSelects = (targetName: string, targetValue: string) => {
-    setFormdata((prevState) => ({
+    setFormData((prevState) => ({
       ...prevState,
       [targetName]: targetValue,
     }));
@@ -166,7 +166,7 @@ function ServiceWorksAdd() {
     targetName: string,
     targetValue: string[]
   ) => {
-    setFormdata((prevState) => ({
+    setFormData((prevState) => ({
       ...prevState,
       [targetName]: targetValue,
     }));

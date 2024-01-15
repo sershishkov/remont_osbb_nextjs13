@@ -16,7 +16,7 @@ const currentURL = '/manager/refdata/productgroup';
 function ProductGroupAdd() {
   const route = useRouter();
 
-  const [productGroupName, set__productGroupName] = useState<string>('');
+  const [productGroupName, setProductGroupName] = useState<string>('');
 
   useEffect(() => {
     const inputFocus = document.getElementById('productGroupName');
@@ -24,7 +24,7 @@ function ProductGroupAdd() {
   }, []);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    set__productGroupName(e.target.value);
+    setProductGroupName(e.target.value);
   };
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

@@ -15,12 +15,11 @@ import Typography from '@mui/material/Typography';
 
 const currentURL = '/manager/refdata/servicework-group';
 
-function ServiceWorkGroupEdit({ params }: paramsProps) {
+function ServiceWorkGroupEdit({ params }: Readonly<paramsProps>) {
   const { id } = params;
   const route = useRouter();
 
-  const [serviceWorkGroupName, set__serviceWorkGroupName] =
-    useState<string>('');
+  const [serviceWorkGroupName, setServiceWorkGroupName] = useState<string>('');
 
   useEffect(() => {
     const inputFocus = document.getElementById('serviceWorkGroupName');
@@ -31,14 +30,14 @@ function ServiceWorkGroupEdit({ params }: paramsProps) {
     if (id) {
       const myGetOne = async () => {
         const myData = await item__get_one({ _id: id }, currentURL);
-        set__serviceWorkGroupName(myData.serviceWorkGroupName);
+        setServiceWorkGroupName(myData.serviceWorkGroupName);
       };
       myGetOne();
     }
   }, [id]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    set__serviceWorkGroupName(e.target.value);
+    setServiceWorkGroupName(e.target.value);
   };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

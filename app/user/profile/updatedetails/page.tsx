@@ -23,19 +23,19 @@ const UserEditDetails = () => {
   const session = useSession();
   const user = session?.data?.user;
 
-  const [formData, setFormdata] = useState({
+  const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: '',
     password2: '',
   });
-  const [showPassword, set__showPassword] = useState<boolean>(false);
-  const [showPassword2, set__showPassword2] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showPassword2, setShowPassword2] = useState<boolean>(false);
   const { name, email, password, password2 } = formData;
 
   useLayoutEffect(() => {
     if (user) {
-      setFormdata((prevState) => ({
+      setFormData((prevState) => ({
         ...prevState,
         name: user.name ? user.name : '',
         email: user.email ? user.email : '',
@@ -44,7 +44,7 @@ const UserEditDetails = () => {
   }, [user]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormdata((prevState) => ({
+    setFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
@@ -71,10 +71,10 @@ const UserEditDetails = () => {
   };
 
   const handleClickShowPassword = () => {
-    set__showPassword(!showPassword);
+    setShowPassword(!showPassword);
   };
   const handleClickShowPassword2 = () => {
-    set__showPassword2(!showPassword2);
+    setShowPassword2(!showPassword2);
   };
   const handleMouseDownPassword = (
     event: React.MouseEvent<HTMLButtonElement>

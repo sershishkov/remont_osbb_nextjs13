@@ -21,7 +21,7 @@ const initState = {
 function WorkerProfessionAdd() {
   const route = useRouter();
 
-  const [formData, setFormdata] = useState(initState);
+  const [formData, setFormData] = useState(initState);
 
   const { workerProfessionName, description } = formData;
 
@@ -31,7 +31,7 @@ function WorkerProfessionAdd() {
   }, []);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormdata((prevState) => ({
+    setFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));

@@ -38,7 +38,7 @@ const initState = {
 function ProductsAdd() {
   const route = useRouter();
 
-  const [formData, setFormdata] = useState(initState);
+  const [formData, setFormData] = useState(initState);
   const [arr__Units, setArr__Units] = useState([]);
   const [arr__ProductGroups, setArr__ProductGroups] = useState([]);
   const [arr__ProductTypes, setArr__ProductTypes] = useState([]);
@@ -86,7 +86,7 @@ function ProductsAdd() {
   }, []);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormdata((prevState) => ({
+    setFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
@@ -120,7 +120,7 @@ function ProductsAdd() {
     }
   };
   const handleChangeSelects = (targetName: string, targetValue: string) => {
-    setFormdata((prevState) => ({
+    setFormData((prevState) => ({
       ...prevState,
       [targetName]: targetValue,
     }));
@@ -130,7 +130,7 @@ function ProductsAdd() {
     targetName: string,
     targetValue: string[]
   ) => {
-    setFormdata((prevState) => ({
+    setFormData((prevState) => ({
       ...prevState,
       [targetName]: targetValue,
     }));

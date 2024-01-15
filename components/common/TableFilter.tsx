@@ -28,13 +28,13 @@ function TableSimple({
   currentURL,
   tableHeader,
 }: {
-  headerFields: string[];
-  tableFields: string[];
-  currentURL: string;
-  tableHeader: string;
+  readonly headerFields: string[];
+  readonly tableFields: string[];
+  readonly currentURL: string;
+  readonly tableHeader: string;
 }) {
-  const [searchText, set__searchText] = useState('');
-  const [resultFetch, set_resultFetch] = useState({
+  const [searchText, setSearchText] = useState('');
+  const [resultFetch, setResultFetch] = useState({
     items: [],
     total: '',
     totalPages: '',
@@ -42,23 +42,23 @@ function TableSimple({
 
   const deleteHanler = async (_id: string) => {
     await delete__one(_id, currentURL);
-    set_resultFetch(
+    setResultFetch(
       await get__all({ page: '0', limit: '0', filter: '' }, currentURL)
     );
 
-    set__searchText('');
+    setSearchText('');
   };
 
   const onChangeSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    set__searchText(e.target.value);
+    setSearchText(e.target.value);
 
-    setTimeout(async () => {
-      const all_items = get__all(
-        { page: '0', limit: '0', filter: e.target.value },
-        currentURL
-      );
-      set_resultFetch(await all_items);
-    }, 1000);
+    const all_items = await get__all(
+      { page: '0', limit: '0', filter: e.target.value },
+      currentURL
+    );
+    setTimeout(() => {
+      setResultFetch(all_items);
+    }, 2000);
   };
 
   useEffect(() => {
@@ -67,13 +67,13 @@ function TableSimple({
         { page: '0', limit: '0', filter: '' },
         currentURL
       );
-      set_resultFetch(myItems);
+      setResultFetch(myItems);
     };
     myGetAll();
   }, [currentURL]);
 
   useEffect(() => {
-    set__searchText('');
+    setSearchText('');
     const searchInput = document.getElementById('searchText');
     searchInput?.focus();
   }, []);
@@ -82,7 +82,7 @@ function TableSimple({
     let innerProp;
     if (item.includes('.')) {
       const arrFields = item.split('.');
-      // console.log('row[arrFields[0]]', row[arrFields[0]]);
+
       if (row[arrFields[0]] !== null) {
         innerProp = row[arrFields[0]][arrFields[1]];
       } else {
@@ -160,7 +160,7 @@ function TableSimple({
                 >{` Всего ${resultFetch.total}`}</TableCell>
               </TableRow>
               <TableRow>
-                {headerFields &&
+                {headerFields.length > 0 &&
                   headerFields.map((item) => (
                     <TableCell align='center' key={item}>
                       {item}
@@ -176,10 +176,10 @@ function TableSimple({
               </TableRow>
             </TableHead>
             <TableBody>
-              {resultFetch.items &&
+              {resultFetch.items.length > 0 &&
                 resultFetch.items.map((row: any) => (
                   <TableRow key={row._id}>
-                    {tableFields &&
+                    {tableFields.length > 0 &&
                       tableFields.map((item) => (
                         <TableCell align='center' key={item}>
                           {getMyItem(row, item)}

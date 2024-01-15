@@ -16,7 +16,7 @@ const currentURL = '/manager/refdata/thirdpartyservice-group';
 function ThirdPartyServiceGroupAdd() {
   const route = useRouter();
 
-  const [thirdPartyServiceGroupName, set__thirdPartyServiceGroupName] =
+  const [thirdPartyServiceGroupName, setThirdPartyServiceGroupName] =
     useState<string>('');
 
   useEffect(() => {
@@ -25,7 +25,7 @@ function ThirdPartyServiceGroupAdd() {
   }, []);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    set__thirdPartyServiceGroupName(e.target.value);
+    setThirdPartyServiceGroupName(e.target.value);
   };
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
