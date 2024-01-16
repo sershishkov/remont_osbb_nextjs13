@@ -1,7 +1,22 @@
 import { toast } from 'react-toastify';
 import { MyRequestParams } from '@/interfaces/CommonInterfaces';
 
-export const item__add = async (dataObject: any, currentURL: string) => {
+const errorToMessage = (newError: any) => {
+  const message =
+    (newError?.response &&
+      newError.response.data &&
+      newError.response.data.message) ||
+    newError.message ||
+    newError.toString();
+
+  return message;
+};
+
+export const item__add = async (
+  dataObject: any,
+  currentURL: string,
+  route: any
+) => {
   try {
     const res = await fetch(`/api${currentURL}`, {
       method: 'POST',
@@ -12,21 +27,27 @@ export const item__add = async (dataObject: any, currentURL: string) => {
       cache: 'no-store',
     });
     const myData = await res.json();
-    if (!res.ok) {
+
+    if (!res.ok || !myData.my_data) {
       throw new Error(myData.message);
     }
 
-    return myData;
+    toast.success(`${myData.message}`);
+
+    setTimeout(() => {
+      route.back();
+    }, 2000);
   } catch (error: any) {
-    const message =
-      (error.response && error.response.data && error.response.data.message) ||
-      error.message ||
-      error.toString();
+    const message = errorToMessage(error);
     toast.error(`${message}`);
   }
 };
 
-export const item__edit = async (dataObject: any, currentURL: string) => {
+export const item__edit = async (
+  dataObject: any,
+  currentURL: string,
+  route: any
+) => {
   const { _id } = dataObject;
   delete dataObject._id;
 
@@ -40,16 +61,18 @@ export const item__edit = async (dataObject: any, currentURL: string) => {
       cache: 'no-store',
     });
     const myData = await res.json();
-    if (!res.ok) {
+
+    if (!res.ok || !myData.my_data) {
       throw new Error(myData.message);
     }
 
-    return myData;
+    toast.success(`${myData.message}`);
+
+    setTimeout(() => {
+      route.back();
+    }, 2000);
   } catch (error: any) {
-    const message =
-      (error.response && error.response.data && error.response.data.message) ||
-      error.message ||
-      error.toString();
+    const message = errorToMessage(error);
     toast.error(`${message}`);
   }
 };
@@ -90,13 +113,10 @@ export const item__get_one = async (dataObject: any, currentURL: string) => {
     if (!res.ok) {
       throw new Error(myData.message);
     }
-    // console.log('myData.my_data', myData.my_data);
+
     return myData.my_data;
   } catch (error: any) {
-    const message =
-      (error.response && error.response.data && error.response.data.message) ||
-      error.message ||
-      error.toString();
+    const message = errorToMessage(error);
     toast.error(`${message}`);
   }
 };
@@ -109,9 +129,13 @@ export const delete__one = async (_id: string, currentURL: string) => {
         'Content-Type': 'application/json',
       },
     });
+    if (!res.ok) {
+      throw new Error('Removal is not possible');
+    }
     const myData = await res.json();
     toast.success(myData.message);
   } catch (error: any) {
-    throw new Error(error.message);
+    const message = errorToMessage(error);
+    toast.error(`${message}`);
   }
 };

@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
-import { toast } from 'react-toastify';
 
 import { item__add, get__all } from '@/lib/actions/refdata.actions';
 
@@ -146,14 +145,7 @@ function ServiceWorksAdd() {
       workerProtection,
     };
 
-    const myData = await item__add(created__Data, currentURL);
-    if (myData) {
-      toast.success(myData.message);
-
-      setTimeout(() => {
-        route.back();
-      }, 2000);
-    }
+    await item__add(created__Data, currentURL, route);
   };
   const handleChangeSelects = (targetName: string, targetValue: string) => {
     setFormData((prevState) => ({

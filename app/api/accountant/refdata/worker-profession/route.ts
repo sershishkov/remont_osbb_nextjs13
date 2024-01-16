@@ -59,7 +59,7 @@ export const GET = async (request: NextRequest) => {
     const myRegex = { $regex: filterSTR, $options: 'i' };
 
     filterObject = {
-      $or: [{ productGroupName: myRegex }],
+      $or: [{ workerProfessionName: myRegex }, { description: myRegex }],
     };
   }
 

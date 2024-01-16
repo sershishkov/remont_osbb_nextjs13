@@ -18,7 +18,7 @@ export const userProfile__update = async (dataObject: any) => {
     return myData;
   } catch (error: any) {
     const message =
-      (error.response && error.response.data && error.response.data.message) ||
+      (error?.response && error.response.data && error.response.data.message) ||
       error.message ||
       error.toString();
     toast.error(`${message}`);

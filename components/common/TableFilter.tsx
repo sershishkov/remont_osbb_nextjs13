@@ -21,6 +21,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import Loading from '@/app/loading';
 
 function TableSimple({
   headerFields,
@@ -94,6 +95,9 @@ function TableSimple({
     }
   };
 
+  if (!resultFetch.items || resultFetch.items.length === 0) {
+    return <Loading />;
+  }
   return (
     <Grid
       container

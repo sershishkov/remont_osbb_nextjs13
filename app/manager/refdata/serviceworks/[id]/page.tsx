@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useLayoutEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
-import { toast } from 'react-toastify';
 
 import {
   item__get_one,
@@ -216,15 +215,7 @@ function ServiceWorksEdit({ params }: Readonly<paramsProps>) {
       workerProtection,
     };
 
-    const myData = await item__edit(created__Data, currentURL);
-
-    if (myData) {
-      toast.success(myData.message);
-
-      setTimeout(() => {
-        route.back();
-      }, 2000);
-    }
+    await item__edit(created__Data, currentURL, route);
   };
   const handleChangeSelects = (targetName: string, targetValue: string) => {
     setFormData((prevState) => ({

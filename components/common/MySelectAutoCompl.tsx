@@ -19,7 +19,7 @@ const MySelectAutoCompl = ({
   selectedOption?: string;
   arrToSelect: any[];
 }) => {
-  const [objToDisplay, setObjToDisplay] = useState<any | null>(null); //for using autocomplete
+  const [objToDisplay, setObjToDisplay] = useState<any>(null); //for using autocomplete
 
   const [inputShowValue, setInputShowValue] = useState('');
 
@@ -31,8 +31,6 @@ const MySelectAutoCompl = ({
       setObjToDisplay(selectedObj);
     }
   }, [selectedOption, arrToSelect]);
-
-  // console.log('line 33', objToDisplay);
 
   return (
     <FormControl fullWidth>
@@ -46,7 +44,7 @@ const MySelectAutoCompl = ({
         id={selectName ?? ''}
         value={objToDisplay ?? null}
         inputValue={inputShowValue ?? ''}
-        onChange={(event: any, newValue: any | null) => {
+        onChange={(event: any, newValue: any) => {
           if (newValue === null) {
             newValue = '';
           }

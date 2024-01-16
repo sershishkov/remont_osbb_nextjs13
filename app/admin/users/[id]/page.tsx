@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { toast } from 'react-toastify';
 
 import { item__get_one, item__edit } from '@/lib/actions/refdata.actions';
 import { roles } from '@/constants/constants';
@@ -82,15 +81,7 @@ function ProductsEdit({ params }: Readonly<paramsProps>) {
       role,
     };
 
-    const myData = await item__edit(created__Data, currentURL);
-
-    if (myData) {
-      toast.success(myData.message);
-
-      setTimeout(() => {
-        route.back();
-      }, 2000);
-    }
+    await item__edit(created__Data, currentURL, route);
   };
   const handleChangeSelects = (targetName: string, targetValue: string) => {
     setFormData((prevState) => ({

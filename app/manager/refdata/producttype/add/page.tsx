@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { toast } from 'react-toastify';
 
 import { item__add } from '@/lib/actions/refdata.actions';
 
@@ -33,14 +32,7 @@ function ProductTypeAdd() {
       productTypeName,
     };
 
-    const myData = await item__add(created__Data, currentURL);
-    if (myData) {
-      toast.success(myData.message);
-
-      setTimeout(() => {
-        route.back();
-      }, 2000);
-    }
+    await item__add(created__Data, currentURL, route);
   };
 
   return (

@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { toast } from 'react-toastify';
 
 import { item__get_one, item__edit } from '@/lib/actions/refdata.actions';
 
@@ -49,14 +48,7 @@ function ThirdPartyServiceGroupEdit({ params }: Readonly<paramsProps>) {
       thirdPartyServiceGroupName,
     };
 
-    const myData = await item__edit(created__Data, currentURL);
-    if (myData) {
-      toast.success(myData.message);
-
-      setTimeout(() => {
-        route.back();
-      }, 2000);
-    }
+    await item__edit(created__Data, currentURL, route);
   };
 
   return (

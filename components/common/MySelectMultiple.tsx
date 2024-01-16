@@ -79,7 +79,7 @@ const MySelectMultiple = ({
           <MenuItem key={item._id} value={item._id}>
             <Checkbox
               key={item._id}
-              checked={thisSelect!.indexOf(item._id!) > -1}
+              checked={thisSelect.indexOf(item._id!) > -1}
             />
             <ListItemText primary={`${item[fieldToShow]}`} />
           </MenuItem>
