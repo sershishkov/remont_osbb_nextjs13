@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Model__ProductGroup from '@/lib/mongoose/models/manager/refdata/Model__ProductGroup';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '@/app/api/auth/[...nextauth]/options';
 
 import { connectToDB } from '@/lib/mongoose/connectToDB';
 
@@ -47,6 +49,9 @@ export const POST = async (request: NextRequest) => {
 };
 
 export const GET = async (request: NextRequest) => {
+  const session = await getServerSession(authOptions);
+  if (session) console.log(`User sss:`, session.user);
+
   const url = new URL(request.url);
   const page = parseInt(url.searchParams.get('page') ?? '0');
   const pageSize = parseInt(url.searchParams.get('limit') ?? '0');
