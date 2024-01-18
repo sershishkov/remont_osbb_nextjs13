@@ -65,7 +65,7 @@ function WorkerEdit({ params }: Readonly<paramsProps>) {
   } = formData;
 
   useEffect(() => {
-    const inputFocus = document.getElementById('firstName');
+    const inputFocus = document.getElementById('user');
     inputFocus?.focus();
   }, []);
 
@@ -315,6 +315,7 @@ function WorkerEdit({ params }: Readonly<paramsProps>) {
           id='whenIssued'
           value={whenIssued ?? ''}
           onChange={onChange}
+          InputLabelProps={{ shrink: true }}
         />
       </Grid>
 
@@ -342,6 +343,7 @@ function WorkerEdit({ params }: Readonly<paramsProps>) {
           id='birthDay'
           value={birthDay ?? ''}
           onChange={onChange}
+          InputLabelProps={{ shrink: true }}
         />
       </Grid>
 

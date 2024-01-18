@@ -58,7 +58,7 @@ function WorkersAdd() {
   } = formData;
 
   useEffect(() => {
-    const inputFocus = document.getElementById('firstName');
+    const inputFocus = document.getElementById('user');
     inputFocus?.focus();
   }, []);
 
@@ -268,6 +268,7 @@ function WorkersAdd() {
           label='whenIssued'
           type='date'
           id='whenIssued'
+          InputLabelProps={{ shrink: true }}
           value={whenIssued ?? ''}
           onChange={onChange}
         />
@@ -297,6 +298,7 @@ function WorkersAdd() {
           id='birthDay'
           value={birthDay ?? ''}
           onChange={onChange}
+          InputLabelProps={{ shrink: true }}
         />
       </Grid>
 
