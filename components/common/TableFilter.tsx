@@ -53,13 +53,24 @@ function TableSimple({
   const onChangeSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.target.value);
 
-    const all_items = await get__all(
+    const filtered_items = await get__all(
       { page: '0', limit: '0', filter: e.target.value },
       currentURL
     );
-    setTimeout(() => {
-      setResultFetch(all_items);
-    }, 2000);
+    const all_items = await get__all(
+      { page: '0', limit: '0', filter: '' },
+      currentURL
+    );
+    // console.log(all_items.items);
+    if (filtered_items.items.length === 0) {
+      setTimeout(() => {
+        setResultFetch(all_items);
+      }, 2000);
+    } else {
+      setTimeout(() => {
+        setResultFetch(filtered_items);
+      }, 2000);
+    }
   };
 
   useEffect(() => {

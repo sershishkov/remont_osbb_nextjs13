@@ -113,4 +113,25 @@ export const accountant_refData_links = [
     link: `${accountant_Refdata}/workers`,
     caption: `Работники`,
   },
+  {
+    link: `${accountant_Refdata}/client-type`,
+    caption: `Тип Клиента`,
+  },
+  {
+    link: `${accountant_Refdata}/contract-type`,
+    caption: `Тип Контракта`,
+  },
+
+  {
+    link: `${accountant_Refdata}/firm-type`,
+    caption: `Тип Фирмы`,
+  },
+  {
+    link: `${accountant_Refdata}/payment-source`,
+    caption: `Источник Средств`,
+  },
+  {
+    link: `${accountant_Refdata}/taxation-type`,
+    caption: `Налогооблажение`,
+  },
 ];
