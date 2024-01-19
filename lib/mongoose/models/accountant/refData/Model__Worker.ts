@@ -5,6 +5,7 @@ const worker__Schema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'user',
     required: [true, 'Please add an userID'],
+    unique: true,
   },
   firstName: {
     type: String,
