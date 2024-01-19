@@ -116,16 +116,9 @@ function ThirdPartyServicesEdit({ params }: Readonly<paramsProps>) {
 
     await item__edit(created__Data, currentURL, route);
   };
-  const handleChangeSelects = (targetName: string, targetValue: string) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      [targetName]: targetValue,
-    }));
-  };
-
-  const handleChangeMultipleSelects = (
+  const handleChangeSelects = (
     targetName: string,
-    targetValue: string[]
+    targetValue: string | string[]
   ) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -214,7 +207,7 @@ function ThirdPartyServicesEdit({ params }: Readonly<paramsProps>) {
             selectName={`thirdPartyServiceGroup`}
             selectLabel={`Группы сторонних работ`}
             fieldToShow={`thirdPartyServiceGroupName`}
-            handleChangeMultipleSelects={handleChangeMultipleSelects}
+            handleChangeMultipleSelects={handleChangeSelects}
             selectedOptions={
               thirdPartyServiceGroup.length !== 0 ? thirdPartyServiceGroup : []
             }

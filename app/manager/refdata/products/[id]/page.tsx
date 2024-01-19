@@ -153,16 +153,9 @@ function ProductsEdit({ params }: Readonly<paramsProps>) {
 
     await item__edit(created__Data, currentURL, route);
   };
-  const handleChangeSelects = (targetName: string, targetValue: string) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      [targetName]: targetValue,
-    }));
-  };
-
-  const handleChangeMultipleSelects = (
+  const handleChangeSelects = (
     targetName: string,
-    targetValue: string[]
+    targetValue: string | string[]
   ) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -249,7 +242,7 @@ function ProductsEdit({ params }: Readonly<paramsProps>) {
             selectName={`productGroup`}
             selectLabel={`Группы товаров`}
             fieldToShow={`productGroupName`}
-            handleChangeMultipleSelects={handleChangeMultipleSelects}
+            handleChangeMultipleSelects={handleChangeSelects}
             selectedOptions={productGroup ?? []}
             // @ts-ignore
             arrToSelect={arr__ProductGroups}

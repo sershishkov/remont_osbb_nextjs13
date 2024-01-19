@@ -217,16 +217,9 @@ function ServiceWorksEdit({ params }: Readonly<paramsProps>) {
 
     await item__edit(created__Data, currentURL, route);
   };
-  const handleChangeSelects = (targetName: string, targetValue: string) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      [targetName]: targetValue,
-    }));
-  };
-
-  const handleChangeMultipleSelects = (
+  const handleChangeSelects = (
     targetName: string,
-    targetValue: string[]
+    targetValue: string | string[]
   ) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -315,7 +308,7 @@ function ServiceWorksEdit({ params }: Readonly<paramsProps>) {
             selectName={`serviceWorkGroup`}
             selectLabel={`Группы работ`}
             fieldToShow={`serviceWorkGroupName`}
-            handleChangeMultipleSelects={handleChangeMultipleSelects}
+            handleChangeMultipleSelects={handleChangeSelects}
             selectedOptions={
               serviceWorkGroup.length !== 0 ? serviceWorkGroup : []
             }
@@ -379,7 +372,7 @@ function ServiceWorksEdit({ params }: Readonly<paramsProps>) {
             selectName={`products`}
             selectLabel={`Товары`}
             fieldToShow={'productName'}
-            handleChangeMultipleSelects={handleChangeMultipleSelects}
+            handleChangeMultipleSelects={handleChangeSelects}
             selectedOptions={products.length !== 0 ? products : []}
             // @ts-ignore
             arrToSelect={arr_Materials ?? []}
@@ -403,7 +396,7 @@ function ServiceWorksEdit({ params }: Readonly<paramsProps>) {
             selectName={`inventars`}
             selectLabel={`Инвентарь`}
             fieldToShow={'productName'}
-            handleChangeMultipleSelects={handleChangeMultipleSelects}
+            handleChangeMultipleSelects={handleChangeSelects}
             selectedOptions={inventars.length !== 0 ? inventars : []}
             // @ts-ignore
             arrToSelect={arr_Inventars ?? []}
@@ -427,7 +420,7 @@ function ServiceWorksEdit({ params }: Readonly<paramsProps>) {
             selectName={`tools`}
             selectLabel={`Инструмент`}
             fieldToShow={'productName'}
-            handleChangeMultipleSelects={handleChangeMultipleSelects}
+            handleChangeMultipleSelects={handleChangeSelects}
             selectedOptions={tools.length !== 0 ? tools : []}
             // @ts-ignore
             arrToSelect={arr_Tools ?? []}
@@ -451,7 +444,7 @@ function ServiceWorksEdit({ params }: Readonly<paramsProps>) {
             selectName={`equipment`}
             selectLabel={`Оборудование`}
             fieldToShow={'productName'}
-            handleChangeMultipleSelects={handleChangeMultipleSelects}
+            handleChangeMultipleSelects={handleChangeSelects}
             selectedOptions={equipment.length !== 0 ? equipment : []}
             // @ts-ignore
             arrToSelect={arr_Equipments ?? []}
@@ -475,7 +468,7 @@ function ServiceWorksEdit({ params }: Readonly<paramsProps>) {
             selectName={`workerProtection`}
             selectLabel={`Средства Защиты`}
             fieldToShow={'productName'}
-            handleChangeMultipleSelects={handleChangeMultipleSelects}
+            handleChangeMultipleSelects={handleChangeSelects}
             selectedOptions={
               workerProtection.length !== 0 ? workerProtection : []
             }

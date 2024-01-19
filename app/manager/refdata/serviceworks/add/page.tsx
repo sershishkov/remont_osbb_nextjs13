@@ -147,16 +147,9 @@ function ServiceWorksAdd() {
 
     await item__add(created__Data, currentURL, route);
   };
-  const handleChangeSelects = (targetName: string, targetValue: string) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      [targetName]: targetValue,
-    }));
-  };
-
-  const handleChangeMultipleSelects = (
+  const handleChangeSelects = (
     targetName: string,
-    targetValue: string[]
+    targetValue: string | string[]
   ) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -243,7 +236,7 @@ function ServiceWorksAdd() {
             selectName={`serviceWorkGroup`}
             selectLabel={`Группы работ`}
             fieldToShow={`serviceWorkGroupName`}
-            handleChangeMultipleSelects={handleChangeMultipleSelects}
+            handleChangeMultipleSelects={handleChangeSelects}
             // @ts-ignore
             arrToSelect={arr__ServiceworkGroups}
           />
@@ -304,7 +297,7 @@ function ServiceWorksAdd() {
             selectName={`products`}
             selectLabel={`Товары`}
             fieldToShow={`productName`}
-            handleChangeMultipleSelects={handleChangeMultipleSelects}
+            handleChangeMultipleSelects={handleChangeSelects}
             // @ts-ignore
             arrToSelect={arr_Materials ?? []}
           />
@@ -327,7 +320,7 @@ function ServiceWorksAdd() {
             selectName={`inventars`}
             selectLabel={`Инвентарь`}
             fieldToShow={`productName`}
-            handleChangeMultipleSelects={handleChangeMultipleSelects}
+            handleChangeMultipleSelects={handleChangeSelects}
             // @ts-ignore
             arrToSelect={arr_Inventars ?? []}
           />
@@ -350,7 +343,7 @@ function ServiceWorksAdd() {
             selectName={`tools`}
             selectLabel={`Инструмент`}
             fieldToShow={`productName`}
-            handleChangeMultipleSelects={handleChangeMultipleSelects}
+            handleChangeMultipleSelects={handleChangeSelects}
             // @ts-ignore
             arrToSelect={arr_Tools ?? []}
           />
@@ -373,7 +366,7 @@ function ServiceWorksAdd() {
             selectName={`equipment`}
             selectLabel={`Оборудование`}
             fieldToShow={`productName`}
-            handleChangeMultipleSelects={handleChangeMultipleSelects}
+            handleChangeMultipleSelects={handleChangeSelects}
             // @ts-ignore
             arrToSelect={arr_Equipments ?? []}
           />
@@ -396,7 +389,7 @@ function ServiceWorksAdd() {
             selectName={`workerProtection`}
             selectLabel={`Средства Защиты`}
             fieldToShow={`productName`}
-            handleChangeMultipleSelects={handleChangeMultipleSelects}
+            handleChangeMultipleSelects={handleChangeSelects}
             // @ts-ignore
             arrToSelect={arr_WorkerProtections ?? []}
           />

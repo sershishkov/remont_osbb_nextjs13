@@ -148,16 +148,9 @@ function WorkerEdit({ params }: Readonly<paramsProps>) {
 
     await item__edit(created__Data, currentURL, route);
   };
-  const handleChangeSelects = (targetName: string, targetValue: string) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      [targetName]: targetValue,
-    }));
-  };
-
-  const handleChangeMultipleSelects = (
+  const handleChangeSelects = (
     targetName: string,
-    targetValue: string[]
+    targetValue: string | string[]
   ) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -244,7 +237,7 @@ function WorkerEdit({ params }: Readonly<paramsProps>) {
             selectName={`workerProfessions`}
             selectLabel={`Профессии`}
             fieldToShow={`workerProfessionName`}
-            handleChangeMultipleSelects={handleChangeMultipleSelects}
+            handleChangeMultipleSelects={handleChangeSelects}
             selectedOptions={
               workerProfessions.length !== 0 ? workerProfessions : []
             }

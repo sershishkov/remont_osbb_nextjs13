@@ -111,16 +111,9 @@ function ProductsAdd() {
 
     await item__add(created__Data, currentURL, route);
   };
-  const handleChangeSelects = (targetName: string, targetValue: string) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      [targetName]: targetValue,
-    }));
-  };
-
-  const handleChangeMultipleSelects = (
+  const handleChangeSelects = (
     targetName: string,
-    targetValue: string[]
+    targetValue: string | string[]
   ) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -206,7 +199,7 @@ function ProductsAdd() {
             selectName={`productGroup`}
             selectLabel={`Группы товаров`}
             fieldToShow={`productGroupName`}
-            handleChangeMultipleSelects={handleChangeMultipleSelects}
+            handleChangeMultipleSelects={handleChangeSelects}
             // @ts-ignore
             arrToSelect={arr__ProductGroups}
           />
