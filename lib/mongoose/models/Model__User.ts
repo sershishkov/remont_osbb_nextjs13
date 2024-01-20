@@ -1,7 +1,9 @@
 import { Schema, model, models } from 'mongoose';
 import bcrypt from 'bcryptjs';
 
-const user__Schema = new Schema(
+import { I_User } from '@/interfaces/refdata';
+
+const user__Schema = new Schema<I_User>(
   {
     name: {
       type: String,

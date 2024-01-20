@@ -1,6 +1,7 @@
 import { Schema, model, models } from 'mongoose';
+import { I_ClientType } from '@/interfaces/refdata';
 
-const clientType__Schema = new Schema({
+const clientType__Schema = new Schema<I_ClientType>({
   clientTypeName: {
     type: String,
     required: [true, 'Please add a clientType'],

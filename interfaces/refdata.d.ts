@@ -167,7 +167,7 @@ export interface I_Client {
   iban?: string;
   iban_budget?: string;
 
-  passport?: string;
+  passportNumber?: string;
   firstName_imen?: string;
   patronymic_imen?: string;
   lastName_imen?: string;
@@ -192,26 +192,25 @@ export interface I_Client {
 
 export interface I_Contract {
   _id?: string;
-  contractNumber: string;
-  ourFirm: Types.ObjectId;
-  client: Types.ObjectId;
-  contractDate: Date;
-  contractDescription: string;
-  workAddress: string;
-  contractType: Types.ObjectId;
-  paymentSource: Types.ObjectId;
+  contractNumber?: string;
+  ourFirm?: Types.ObjectId;
+  client?: Types.ObjectId;
+  contractDate?: Date;
+  contractDescription?: string;
+  workAddress?: string;
+  contractType?: Types.ObjectId;
+  paymentSource?: Types.ObjectId;
 }
 
 export interface I_StoreHouse {
   _id?: string;
-  storeHouseName: string;
-  address: string;
-  products: [
+  storeHouseName?: string;
+  address?: string;
+  products?: [
     {
       product: Types.ObjectId;
       amount: number;
       priceBuy_inStore: number;
-      rowSum: number;
     }
   ];
 }

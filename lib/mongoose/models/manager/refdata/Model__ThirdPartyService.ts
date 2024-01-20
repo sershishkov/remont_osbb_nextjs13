@@ -1,6 +1,7 @@
 import { Schema, model, models } from 'mongoose';
+import { I_ThirdPartyService } from '@/interfaces/refdata';
 
-const thirdPartyService__Schema = new Schema({
+const thirdPartyService__Schema = new Schema<I_ThirdPartyService>({
   thirdPartyServiceName: {
     type: String,
     required: [true, 'Please add a thirdPartyService name'],

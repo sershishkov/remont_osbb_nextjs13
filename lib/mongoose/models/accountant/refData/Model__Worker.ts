@@ -1,6 +1,7 @@
 import { Schema, model, models } from 'mongoose';
+import { I_Worker } from '@/interfaces/refdata';
 
-const worker__Schema = new Schema({
+const worker__Schema = new Schema<I_Worker>({
   user: {
     type: Schema.Types.ObjectId,
     ref: 'user',

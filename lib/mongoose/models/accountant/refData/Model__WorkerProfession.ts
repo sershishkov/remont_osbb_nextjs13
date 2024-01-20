@@ -1,6 +1,7 @@
 import { Schema, model, models } from 'mongoose';
+import { I_WorkerProfession } from '@/interfaces/refdata';
 
-const workerProfession__Schema = new Schema({
+const workerProfession__Schema = new Schema<I_WorkerProfession>({
   workerProfessionName: {
     type: String,
     required: [true, 'Please add a workerProfession'],

@@ -1,6 +1,7 @@
 import { Schema, model, models } from 'mongoose';
+import { I_FirmType } from '@/interfaces/refdata';
 
-const firmType__Schema = new Schema({
+const firmType__Schema = new Schema<I_FirmType>({
   firmTypeLongName: {
     type: String,
     required: [true, 'Please add a firmTypeLong'],

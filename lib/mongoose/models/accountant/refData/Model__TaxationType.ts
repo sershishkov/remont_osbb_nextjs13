@@ -1,6 +1,7 @@
 import { Schema, model, models } from 'mongoose';
+import { I_TaxationType } from '@/interfaces/refdata';
 
-const taxationType__Schema = new Schema({
+const taxationType__Schema = new Schema<I_TaxationType>({
   taxationTypeName: {
     type: String,
     required: [true, 'Please add a taxationType'],

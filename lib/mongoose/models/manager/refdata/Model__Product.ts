@@ -1,6 +1,7 @@
 import { Schema, model, models } from 'mongoose';
+import { I_Product } from '@/interfaces/refdata';
 
-const product__Schema = new Schema({
+const product__Schema = new Schema<I_Product>({
   productName: {
     type: String,
     required: [true, 'Please add a product name'],

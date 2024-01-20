@@ -1,6 +1,7 @@
 import { Schema, model, models } from 'mongoose';
+import { I_ServiceWork } from '@/interfaces/refdata';
 
-const serviceWork__Schema = new Schema({
+const serviceWork__Schema = new Schema<I_ServiceWork>({
   serviceWorkName: {
     type: String,
     required: [true, 'Please add a serviceWork name'],
