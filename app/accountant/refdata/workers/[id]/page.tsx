@@ -33,13 +33,11 @@ const initState = {
   patronymic: '',
   lastName: '',
   workerProfessions: [],
-  passportSeries: '',
   passportNumber: '',
   representedBy: '',
   whenIssued: '',
   inn: '',
   birthDay: '',
-  // telNumber: '',
   address: '',
 };
 
@@ -58,13 +56,11 @@ function WorkerEdit({ params }: Readonly<paramsProps>) {
     patronymic,
     lastName,
     workerProfessions,
-    passportSeries,
     passportNumber,
     representedBy,
     whenIssued,
     inn,
     birthDay,
-    // telNumber,
     address,
   } = formData;
 
@@ -91,13 +87,11 @@ function WorkerEdit({ params }: Readonly<paramsProps>) {
             patronymic: item.patronymic!,
             lastName: item.lastName!,
             workerProfessions: arrToSet_workerProfessions ?? [],
-            passportSeries: item.passportSeries!,
             passportNumber: item.passportNumber!,
             representedBy: item.representedBy!,
             whenIssued: new Date(item.whenIssued!).toISOString().split('T')[0],
             inn: item.inn!,
             birthDay: new Date(item.birthDay!).toISOString().split('T')[0],
-            // telNumber: item.telNumber!,
             address: item.address!,
           });
           setTelNumber(item.telNumber!);
@@ -141,7 +135,6 @@ function WorkerEdit({ params }: Readonly<paramsProps>) {
       patronymic,
       lastName,
       workerProfessions,
-      passportSeries,
       passportNumber,
       representedBy,
       whenIssued,
@@ -258,20 +251,6 @@ function WorkerEdit({ params }: Readonly<paramsProps>) {
             <AddIcon color='success' sx={{ fontSize: 30 }} />
           </IconButton>
         </Stack>
-      </Grid>
-
-      <Grid item>
-        <TextField
-          margin='normal'
-          required
-          fullWidth
-          name='passportSeries'
-          label='passportSeries'
-          type='text'
-          id='passportSeries'
-          value={passportSeries ?? ''}
-          onChange={onChange}
-        />
       </Grid>
 
       <Grid item>

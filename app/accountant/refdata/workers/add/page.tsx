@@ -27,13 +27,11 @@ const initState = {
   patronymic: '',
   lastName: '',
   workerProfessions: [],
-  passportSeries: '',
   passportNumber: '',
   representedBy: '',
   whenIssued: '',
   inn: '',
   birthDay: '',
-  // telNumber: '',
   address: '',
 };
 
@@ -51,13 +49,11 @@ function WorkersAdd() {
     patronymic,
     lastName,
     workerProfessions,
-    passportSeries,
     passportNumber,
     representedBy,
     whenIssued,
     inn,
     birthDay,
-    // telNumber,
     address,
   } = formData;
 
@@ -99,7 +95,6 @@ function WorkersAdd() {
       patronymic,
       lastName,
       workerProfessions,
-      passportSeries,
       passportNumber,
       representedBy,
       whenIssued,
@@ -212,20 +207,6 @@ function WorkersAdd() {
             <AddIcon color='success' sx={{ fontSize: 30 }} />
           </IconButton>
         </Stack>
-      </Grid>
-
-      <Grid item>
-        <TextField
-          margin='normal'
-          required
-          fullWidth
-          name='passportSeries'
-          label='passportSeries'
-          type='text'
-          id='passportSeries'
-          value={passportSeries ?? ''}
-          onChange={onChange}
-        />
       </Grid>
 
       <Grid item>

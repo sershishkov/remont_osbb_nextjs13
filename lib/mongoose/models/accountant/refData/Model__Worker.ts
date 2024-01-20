@@ -24,9 +24,6 @@ const worker__Schema = new Schema({
     required: [true, 'Please add a workerProfessions id'],
   },
 
-  passportSeries: {
-    type: String,
-  },
   passportNumber: {
     type: String,
   },

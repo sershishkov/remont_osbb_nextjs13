@@ -96,7 +96,7 @@ export interface I_Worker {
   lastName?: string;
 
   workerProfessions?: Types.ObjectId[] | I_WorkerProfession[] | string[];
-  passportSeries?: string;
+
   passportNumber?: string;
   representedBy?: string;
   whenIssued?: Date;
