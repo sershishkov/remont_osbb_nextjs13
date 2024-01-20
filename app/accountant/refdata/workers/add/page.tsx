@@ -3,6 +3,9 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
+import 'react-phone-number-input/style.css';
+import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
+
 import { item__add, get__all } from '@/lib/actions/refdata.actions';
 
 import Grid from '@mui/material/Grid';
@@ -30,7 +33,7 @@ const initState = {
   whenIssued: '',
   inn: '',
   birthDay: '',
-  telNumber: '',
+  // telNumber: '',
   address: '',
 };
 
@@ -38,6 +41,7 @@ function WorkersAdd() {
   const route = useRouter();
 
   const [formData, setFormData] = useState(initState);
+  const [telNumber, setTelNumber] = useState<string>();
   const [arr__Users, setArr__Users] = useState([]);
   const [arr__WorkerProfessions, setArr__WorkerProfessions] = useState([]);
 
@@ -53,7 +57,7 @@ function WorkersAdd() {
     whenIssued,
     inn,
     birthDay,
-    telNumber,
+    // telNumber,
     address,
   } = formData;
 
@@ -295,18 +299,33 @@ function WorkersAdd() {
         />
       </Grid>
 
-      <Grid item>
-        <TextField
-          margin='normal'
+      <Grid
+        item
+        sx={{
+          height: '3.5rem',
+          display: 'flex',
+          alignItems: 'center',
+        }}
+      >
+        <PhoneInput
+          maxLength={16}
+          international
+          defaultCountry='UA'
+          countries={['UA', 'RU']}
+          value={telNumber}
+          onChange={setTelNumber}
           required
-          fullWidth
-          name='telNumber'
-          label='telNumber'
-          type='text'
-          id='telNumber'
-          value={telNumber ?? ''}
-          onChange={onChange}
         />
+        <span
+          style={{
+            color:
+              telNumber && isValidPhoneNumber(telNumber) ? undefined : 'red',
+          }}
+        >
+          {telNumber && isValidPhoneNumber(telNumber)
+            ? '   Номер корректен'
+            : '   Введите верный номер'}
+        </span>
       </Grid>
 
       <Grid item>

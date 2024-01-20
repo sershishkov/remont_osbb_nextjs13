@@ -156,8 +156,8 @@ export interface I_ClientType {
 
 export interface I_Client {
   _id?: string;
-  nameClientLong?: string;
-  nameClientShort?: string;
+  clientLongName?: string;
+  clientShortName?: string;
   firmType?: Types.ObjectId;
 
   postIndex?: string;

@@ -3,6 +3,9 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
+import 'react-phone-number-input/style.css';
+import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
+
 import {
   item__get_one,
   item__edit,
@@ -36,7 +39,7 @@ const initState = {
   whenIssued: '',
   inn: '',
   birthDay: '',
-  telNumber: '',
+  // telNumber: '',
   address: '',
 };
 
@@ -45,6 +48,7 @@ function WorkerEdit({ params }: Readonly<paramsProps>) {
   const route = useRouter();
 
   const [formData, setFormData] = useState(initState);
+  const [telNumber, setTelNumber] = useState<string>();
   const [arr__Users, setArr__Users] = useState([]);
   const [arr__WorkerProfessions, setArr__WorkerProfessions] = useState([]);
 
@@ -60,7 +64,7 @@ function WorkerEdit({ params }: Readonly<paramsProps>) {
     whenIssued,
     inn,
     birthDay,
-    telNumber,
+    // telNumber,
     address,
   } = formData;
 
@@ -93,9 +97,10 @@ function WorkerEdit({ params }: Readonly<paramsProps>) {
             whenIssued: new Date(item.whenIssued!).toISOString().split('T')[0],
             inn: item.inn!,
             birthDay: new Date(item.birthDay!).toISOString().split('T')[0],
-            telNumber: item.telNumber!,
+            // telNumber: item.telNumber!,
             address: item.address!,
           });
+          setTelNumber(item.telNumber!);
         }
       };
       myGetOne();
@@ -340,18 +345,33 @@ function WorkerEdit({ params }: Readonly<paramsProps>) {
         />
       </Grid>
 
-      <Grid item>
-        <TextField
-          margin='normal'
-          required
-          fullWidth
-          name='telNumber'
-          label='telNumber'
-          type='text'
-          id='telNumber'
+      <Grid
+        item
+        sx={{
+          height: '3.5rem',
+          display: 'flex',
+          alignItems: 'center',
+        }}
+      >
+        <PhoneInput
+          maxLength={16}
+          international
+          defaultCountry='UA'
+          countries={['UA', 'RU']}
           value={telNumber ?? ''}
-          onChange={onChange}
+          onChange={setTelNumber}
+          required
         />
+        <span
+          style={{
+            color:
+              telNumber && isValidPhoneNumber(telNumber) ? undefined : 'red',
+          }}
+        >
+          {telNumber && isValidPhoneNumber(telNumber)
+            ? '   Номер корректен'
+            : '   Введите верный номер'}
+        </span>
       </Grid>
 
       <Grid item>
