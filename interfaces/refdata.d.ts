@@ -206,13 +206,11 @@ export interface I_StoreHouse {
   _id?: string;
   storeHouseName?: string;
   address?: string;
-  products?: [
-    {
-      product: Types.ObjectId;
-      amount: number;
-      priceBuy_inStore: number;
-    }
-  ];
+  products?: {
+    product: Types.ObjectId;
+    amount: number;
+    priceBuy_inStore: number;
+  }[];
 }
 
 //////////////////////////////////////////
