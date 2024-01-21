@@ -102,7 +102,7 @@ const client__Schema = new Schema<I_Client>({
   email: {
     type: String,
     match: [
-      /^\w+([.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+      /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
       'Пожалуйста введите корректный email',
     ],
     // required: [true, 'Please add an email'],

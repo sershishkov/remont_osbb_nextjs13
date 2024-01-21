@@ -55,7 +55,6 @@ export const POST = async (request: NextRequest) => {
     !lastName_rodit ||
     !taxationType ||
     !telNumber ||
-    !email ||
     !clientType
   ) {
     return new NextResponse(

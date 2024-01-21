@@ -211,6 +211,7 @@ export interface I_StoreHouse {
     amount: number;
     priceBuy_inStore: number;
   }[];
+  responsiblePerson?: Types.ObjectId;
 }
 
 //////////////////////////////////////////

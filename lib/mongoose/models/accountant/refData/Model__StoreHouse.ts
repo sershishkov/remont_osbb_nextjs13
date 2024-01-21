@@ -25,10 +25,15 @@ const store_house__Schema = new Schema<I_StoreHouse>(
         },
         priceBuy_inStore: {
           type: Number,
-          default: 0,
+          default: 0.01,
         },
       },
     ],
+    responsiblePerson: {
+      type: Schema.Types.ObjectId,
+      ref: 'worker',
+      required: [true, 'Please add a worker id'],
+    },
   },
   {
     timestamps: true,
