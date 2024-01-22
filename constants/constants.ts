@@ -53,6 +53,10 @@ export const boss_role = ['boss', 'admin'];
 const manager_Refdata = '/manager/refdata';
 export const manager_refData_links = [
   {
+    link: `${manager_Refdata}/client`,
+    caption: `Клиенты`,
+  },
+  {
     link: `${manager_Refdata}/unit`,
     caption: `Ед.Измер`,
   },
