@@ -57,7 +57,7 @@ const initState = {
   clientType: [],
 };
 
-function ServiceWorksAdd() {
+function ClientAdd() {
   const route = useRouter();
 
   const [formData, setFormData] = useState(initState);
@@ -675,7 +675,7 @@ function ServiceWorksAdd() {
             !lastName_rodit ||
             !taxationType ||
             !telNumber ||
-            !clientType
+            (clientType && clientType.length === 0)
           }
           variant='contained'
           sx={{ mt: 3, mb: 2 }}
@@ -687,4 +687,4 @@ function ServiceWorksAdd() {
   );
 }
 
-export default ServiceWorksAdd;
+export default ClientAdd;

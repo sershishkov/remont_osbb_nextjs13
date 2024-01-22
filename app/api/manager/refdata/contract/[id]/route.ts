@@ -4,6 +4,7 @@ import Model__Contract from '@/lib/mongoose/models/manager/refdata/Model__Contra
 import Model__Client from '@/lib/mongoose/models/manager/refdata/Model__Client';
 import Model__ContractType from '@/lib/mongoose/models/accountant/refData/Model__ContractType';
 import Model__PaymentSource from '@/lib/mongoose/models/accountant/refData/Model__PaymentSource';
+import Model__Worker from '@/lib/mongoose/models/accountant/refData/Model__Worker';
 
 import { connectToDB } from '@/lib/mongoose/connectToDB';
 
@@ -37,6 +38,21 @@ export const GET = async (request: NextRequest, { params }: Props) => {
         path: 'paymentSource',
         model: Model__PaymentSource,
         select: 'paymentSourceName',
+      })
+      .populate({
+        path: 'responsibleManager',
+        model: Model__Worker,
+        select: 'lastName firstName',
+      })
+      .populate({
+        path: 'responsibleWorker',
+        model: Model__Worker,
+        select: 'lastName firstName',
+      })
+      .populate({
+        path: 'participantsOfContract.participant',
+        model: Model__Worker,
+        select: 'lastName firstName',
       });
 
     if (!one__ITEM) {
@@ -83,6 +99,9 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
     workAddress,
     contractType,
     paymentSource,
+    responsibleManager,
+    responsibleWorker,
+    participantsOfContract,
   } = myData;
 
   try {
@@ -98,6 +117,9 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
       workAddress,
       contractType,
       paymentSource,
+      responsibleManager,
+      responsibleWorker,
+      participantsOfContract,
     };
 
     const updated__ITEM = await Model__Contract.findByIdAndUpdate(

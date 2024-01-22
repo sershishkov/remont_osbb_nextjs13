@@ -4,6 +4,7 @@ import Model__Contract from '@/lib/mongoose/models/manager/refdata/Model__Contra
 import Model__Client from '@/lib/mongoose/models/manager/refdata/Model__Client';
 import Model__ContractType from '@/lib/mongoose/models/accountant/refData/Model__ContractType';
 import Model__PaymentSource from '@/lib/mongoose/models/accountant/refData/Model__PaymentSource';
+import Model__Worker from '@/lib/mongoose/models/accountant/refData/Model__Worker';
 
 import { connectToDB } from '@/lib/mongoose/connectToDB';
 
@@ -18,6 +19,9 @@ export const POST = async (request: NextRequest) => {
     workAddress,
     contractType,
     paymentSource,
+    responsibleManager,
+    responsibleWorker,
+    participantsOfContract,
   } = await request.json();
   if (
     !contractNumber ||
@@ -27,7 +31,10 @@ export const POST = async (request: NextRequest) => {
     !contractDescription ||
     !workAddress ||
     !contractType ||
-    !paymentSource
+    !paymentSource ||
+    !responsibleManager ||
+    !responsibleWorker ||
+    !participantsOfContract
   ) {
     return new NextResponse(
       JSON.stringify({
@@ -64,6 +71,9 @@ export const POST = async (request: NextRequest) => {
       workAddress,
       contractType,
       paymentSource,
+      responsibleManager,
+      responsibleWorker,
+      participantsOfContract,
     });
 
     const responseObj = {
@@ -129,6 +139,21 @@ export const GET = async (request: NextRequest) => {
         path: 'paymentSource',
         model: Model__PaymentSource,
         select: 'paymentSourceName',
+      })
+      .populate({
+        path: 'responsibleManager',
+        model: Model__Worker,
+        select: 'lastName firstName',
+      })
+      .populate({
+        path: 'responsibleWorker',
+        model: Model__Worker,
+        select: 'lastName firstName',
+      })
+      .populate({
+        path: 'participantsOfContract.participant',
+        model: Model__Worker,
+        select: 'lastName firstName',
       });
 
     if (!all__ITEMS) {

@@ -63,7 +63,7 @@ const initState = {
   clientType: [],
 };
 
-function ServiceWorksEdit({ params }: Readonly<paramsProps>) {
+function ClientEdit({ params }: Readonly<paramsProps>) {
   const { id } = params;
   const route = useRouter();
 
@@ -736,7 +736,7 @@ function ServiceWorksEdit({ params }: Readonly<paramsProps>) {
             !lastName_rodit ||
             !taxationType ||
             !telNumber ||
-            !clientType
+            (clientType && clientType.length === 0)
           }
           variant='contained'
           sx={{ mt: 3, mb: 2 }}
@@ -748,4 +748,4 @@ function ServiceWorksEdit({ params }: Readonly<paramsProps>) {
   );
 }
 
-export default ServiceWorksEdit;
+export default ClientEdit;

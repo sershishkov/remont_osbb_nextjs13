@@ -201,6 +201,12 @@ export interface I_Contract {
   workAddress?: string;
   contractType?: Types.ObjectId;
   paymentSource?: Types.ObjectId;
+  responsibleManager: Types.ObjectId;
+  responsibleWorker: Types.ObjectId;
+  participantsOfContract?: {
+    participant: Types.ObjectId;
+    participantPercentage: Number;
+  }[];
 }
 
 export interface I_StoreHouse {

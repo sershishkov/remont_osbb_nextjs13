@@ -39,6 +39,29 @@ const contract__Schema = new Schema<I_Contract>({
     ref: 'paymentSource',
     required: [true, 'Please add a paymentSource id'],
   },
+  responsibleManager: {
+    type: Schema.Types.ObjectId,
+    ref: 'worker',
+    required: [true, 'Please add a responsibleManager id'],
+  },
+  responsibleWorker: {
+    type: Schema.Types.ObjectId,
+    ref: 'worker',
+    required: [true, 'Please add a responsibleWorker id'],
+  },
+  participantsOfContract: [
+    {
+      participant: {
+        type: Schema.Types.ObjectId,
+        ref: 'worker',
+        required: [true, 'Please add a worker id'],
+      },
+      participantPercentage: {
+        type: Number,
+        required: [true, 'Please add a participantPercentage'],
+      },
+    },
+  ],
 });
 
 export default models.contract || model('contract', contract__Schema);
