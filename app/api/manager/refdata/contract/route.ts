@@ -22,6 +22,20 @@ export const POST = async (request: NextRequest) => {
     responsibleManager,
     responsibleWorker,
     participantsOfContract,
+
+    isMeasured,
+    isEstimateCalculated,
+    isEstimateHasBeenSentToClient,
+    isEstimateApprovedByClient,
+    isMaterialsHaveBeenOrdered,
+    isMaterialsDelivered,
+    isWorkCompleted,
+    isDocumentsHaveBeenIssued,
+    isDocumentsHaveBeenGivenToClient,
+    isClientReturnedSignedDocuments,
+    isContractPaid,
+    isMaterialsPaid,
+    isWorksPaid,
   } = await request.json();
   if (
     !contractNumber ||
@@ -74,6 +88,20 @@ export const POST = async (request: NextRequest) => {
       responsibleManager,
       responsibleWorker,
       participantsOfContract,
+
+      isMeasured,
+      isEstimateCalculated,
+      isEstimateHasBeenSentToClient,
+      isEstimateApprovedByClient,
+      isMaterialsHaveBeenOrdered,
+      isMaterialsDelivered,
+      isWorkCompleted,
+      isDocumentsHaveBeenIssued,
+      isDocumentsHaveBeenGivenToClient,
+      isClientReturnedSignedDocuments,
+      isContractPaid,
+      isMaterialsPaid,
+      isWorksPaid,
     });
 
     const responseObj = {

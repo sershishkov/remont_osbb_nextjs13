@@ -102,6 +102,20 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
     responsibleManager,
     responsibleWorker,
     participantsOfContract,
+
+    isMeasured,
+    isEstimateCalculated,
+    isEstimateHasBeenSentToClient,
+    isEstimateApprovedByClient,
+    isMaterialsHaveBeenOrdered,
+    isMaterialsDelivered,
+    isWorkCompleted,
+    isDocumentsHaveBeenIssued,
+    isDocumentsHaveBeenGivenToClient,
+    isClientReturnedSignedDocuments,
+    isContractPaid,
+    isMaterialsPaid,
+    isWorksPaid,
   } = myData;
 
   try {
@@ -120,6 +134,20 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
       responsibleManager,
       responsibleWorker,
       participantsOfContract,
+
+      isMeasured,
+      isEstimateCalculated,
+      isEstimateHasBeenSentToClient,
+      isEstimateApprovedByClient,
+      isMaterialsHaveBeenOrdered,
+      isMaterialsDelivered,
+      isWorkCompleted,
+      isDocumentsHaveBeenIssued,
+      isDocumentsHaveBeenGivenToClient,
+      isClientReturnedSignedDocuments,
+      isContractPaid,
+      isMaterialsPaid,
+      isWorksPaid,
     };
 
     const updated__ITEM = await Model__Contract.findByIdAndUpdate(

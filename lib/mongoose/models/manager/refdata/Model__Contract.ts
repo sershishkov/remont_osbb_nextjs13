@@ -62,6 +62,58 @@ const contract__Schema = new Schema<I_Contract>({
       },
     },
   ],
+  isMeasured: {
+    type: Boolean,
+    default: false,
+  },
+  isEstimateCalculated: {
+    type: Boolean,
+    default: false,
+  },
+  isEstimateHasBeenSentToClient: {
+    type: Boolean,
+    default: false,
+  },
+  isEstimateApprovedByClient: {
+    type: Boolean,
+    default: false,
+  },
+  isMaterialsHaveBeenOrdered: {
+    type: Boolean,
+    default: false,
+  },
+  isMaterialsDelivered: {
+    type: Boolean,
+    default: false,
+  },
+  isWorkCompleted: {
+    type: Boolean,
+    default: false,
+  },
+  isDocumentsHaveBeenIssued: {
+    type: Boolean,
+    default: false,
+  },
+  isDocumentsHaveBeenGivenToClient: {
+    type: Boolean,
+    default: false,
+  },
+  isClientReturnedSignedDocuments: {
+    type: Boolean,
+    default: false,
+  },
+  isContractPaid: {
+    type: Boolean,
+    default: false,
+  },
+  isMaterialsPaid: {
+    type: Boolean,
+    default: false,
+  },
+  isWorksPaid: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 export default models.contract || model('contract', contract__Schema);

@@ -207,6 +207,20 @@ export interface I_Contract {
     participant: Types.ObjectId;
     participantPercentage: Number;
   }[];
+
+  isMeasured: boolean;
+  isEstimateCalculated: boolean;
+  isEstimateHasBeenSentToClient: boolean;
+  isEstimateApprovedByClient: boolean;
+  isMaterialsHaveBeenOrdered: boolean;
+  isMaterialsDelivered: boolean;
+  isWorkCompleted: boolean;
+  isDocumentsHaveBeenIssued: boolean;
+  isDocumentsHaveBeenGivenToClient: boolean;
+  isClientReturnedSignedDocuments: boolean;
+  isContractPaid: boolean;
+  isMaterialsPaid: boolean;
+  isWorksPaid: boolean;
 }
 
 export interface I_StoreHouse {
