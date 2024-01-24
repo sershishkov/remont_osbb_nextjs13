@@ -122,6 +122,10 @@ export const accountant_refData_links = [
     caption: `Работники`,
   },
   {
+    link: `${accountant_Refdata}/storehouse`,
+    caption: `Склады`,
+  },
+  {
     link: `${accountant_Refdata}/client-type`,
     caption: `Тип Клиента`,
   },
