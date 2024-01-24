@@ -188,7 +188,7 @@ export interface I_Client {
   certificate_PDV: string;
   telNumber?: string;
   email?: string;
-  clientType?: Types.ObjectId[];
+  clientType?: Types.ObjectId[] | I_ClientType[];
 }
 
 export interface I_Contract {
@@ -204,6 +204,8 @@ export interface I_Contract {
   responsibleManager: Types.ObjectId;
   responsibleWorker: Types.ObjectId;
   participantsOfContract?: {
+    id?: string;
+    _id?: string;
     participant: Types.ObjectId;
     participantPercentage: Number;
   }[];

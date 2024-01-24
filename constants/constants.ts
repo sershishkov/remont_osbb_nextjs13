@@ -57,6 +57,10 @@ export const manager_refData_links = [
     caption: `Клиенты`,
   },
   {
+    link: `${manager_Refdata}/contract`,
+    caption: `Контракты`,
+  },
+  {
     link: `${manager_Refdata}/unit`,
     caption: `Ед.Измер`,
   },
