@@ -21,11 +21,9 @@ const store_house__Schema = new Schema<I_StoreHouse>(
         },
         amount: {
           type: Number,
-          default: 0,
         },
-        priceBuy_inStore: {
+        priceInStore: {
           type: Number,
-          default: 0.01,
         },
       },
     ],
@@ -46,7 +44,7 @@ store_house__Schema.virtual('totalStoreSum').get(function () {
   let totalStoreSum = 0;
 
   this.products?.forEach((item) => {
-    totalStoreSum += item.amount * item.priceBuy_inStore;
+    totalStoreSum += item.amount * item.priceInStore;
   });
   return totalStoreSum.toFixed(2);
 });

@@ -232,9 +232,65 @@ export interface I_StoreHouse {
   products?: {
     product: Types.ObjectId;
     amount: number;
-    priceBuy_inStore: number;
+    priceInStore: number;
   }[];
   responsiblePerson?: Types.ObjectId;
 }
 
+//////////////////////////////////////////
+//////////////////////////////////////////
+export interface I_DocumentNakladnaya {
+  _id?: string;
+  nakladnayaNumber: string;
+  nakladnayaDate: Date;
+  contract: Types.ObjectId;
+
+  products: [
+    {
+      product: Types.ObjectId;
+      amount: number;
+      price: number;
+    }
+  ];
+
+  storeHouse: Types.ObjectId;
+
+  active: Boolean;
+  creator: Types.ObjectId;
+  typeNakl: string;
+
+  deleted: Boolean;
+  whoDeleted: Types.ObjectId;
+}
+
+export interface I_DocumentAktOfWork {
+  _id?: string;
+  aktOfWorkNumber: string;
+  aktOfWorkDate: Date;
+  contract: Types.ObjectId;
+  thirdPartyServices: [
+    {
+      thirdPartyService: Types.ObjectId;
+      amount: number;
+      price: number;
+      description: string;
+    }
+  ];
+  serviceWorks: [
+    {
+      serviceWork: Types.ObjectId;
+      amount: number;
+      priceWorkWoker: number;
+      description: string;
+    }
+  ];
+
+  active: Boolean;
+  creator: Types.ObjectId;
+  typeNakl: string;
+
+  deleted: Boolean;
+  whoDeleted: Types.ObjectId;
+}
+//////////////////////////////////////////
 //////////////////////////////////////////

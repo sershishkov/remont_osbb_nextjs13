@@ -100,6 +100,16 @@ export const manager_refData_links = [
     caption: `Сторонние работы(услуги)`,
   },
 ];
+
+///////////////////////////////////////////////////////
+///////////////////////////////////////////////////////
+const manager_Docums = '/manager/documents';
+export const manager_Docums_links = [
+  {
+    link: `${manager_Docums}/nakladnaya`,
+    caption: `Накладные`,
+  },
+];
 ///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////
 const mainAdmin = '/admin';

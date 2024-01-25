@@ -31,14 +31,17 @@ import {
   accountant_role,
   accountant_refData_links,
   manager_refData_links,
+  manager_Docums_links,
   admin_links,
 } from '@/constants/constants';
 
-function NavigationList({ toggleDrawer }: { toggleDrawer: Function }) {
+function NavigationList({
+  toggleDrawer,
+}: Readonly<{ toggleDrawer: Function }>) {
   const router = useRouter();
   const session = useSession();
   const user = session.data?.user;
-  const [openAuth, set__openAuth] = useState<boolean>(false);
+  const [openAuth, setOpenAuth] = useState<boolean>(false);
 
   const onLogout = () => {
     signOut();
@@ -51,7 +54,7 @@ function NavigationList({ toggleDrawer }: { toggleDrawer: Function }) {
       component='nav'
       onClick={() => toggleDrawer(false)}
     >
-      <ListItemButton onClick={() => set__openAuth(!openAuth)}>
+      <ListItemButton onClick={() => setOpenAuth(!openAuth)}>
         <ListItemIcon>
           <AccountCircleIcon />
         </ListItemIcon>
@@ -143,6 +146,15 @@ function NavigationList({ toggleDrawer }: { toggleDrawer: Function }) {
         userRole={user?.role!}
         allowedRoles={manager_role}
         linksToShow={manager_refData_links}
+        groupIcon={GroupIcon}
+        itemIcon={InboxIcon}
+      />
+      <ListItemCollapse
+        caption='Первичка бух'
+        toggleDrawer={toggleDrawer}
+        userRole={user?.role!}
+        allowedRoles={manager_role}
+        linksToShow={manager_Docums_links}
         groupIcon={GroupIcon}
         itemIcon={InboxIcon}
       />

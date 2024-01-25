@@ -61,7 +61,7 @@ function TableSimple({
       { page: '0', limit: '0', filter: '' },
       currentURL
     );
-    // console.log(all_items.items);
+
     if (filtered_items.items.length === 0) {
       setTimeout(() => {
         setResultFetch(all_items);
@@ -96,7 +96,14 @@ function TableSimple({
       const arrFields = item.split('.');
 
       if (row[arrFields[0]] !== null) {
-        innerProp = row[arrFields[0]][arrFields[1]];
+        if (arrFields.length === 2) {
+          innerProp = row[arrFields[0]][arrFields[1]];
+        } else if (arrFields.length === 3) {
+          innerProp = row[arrFields[0]][arrFields[1]][arrFields[2]];
+        } else if (arrFields.length === 4) {
+          innerProp =
+            row[arrFields[0]][arrFields[1]][arrFields[2]][arrFields[3]];
+        }
       } else {
         innerProp = 'NULL';
       }
