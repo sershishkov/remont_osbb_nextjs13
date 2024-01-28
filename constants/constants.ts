@@ -157,3 +157,10 @@ export const accountant_refData_links = [
     caption: `Налогооблажение`,
   },
 ];
+
+export const arr__typeNakl = [
+  { _id: 'incoming', caption: 'Приходная' },
+  { _id: 'outgoing', caption: 'Расходная' },
+  { _id: 'returnFromBuyer', caption: 'Возврат клиента' },
+  { _id: 'returnToSupplier', caption: 'Возврат поставщику' },
+];

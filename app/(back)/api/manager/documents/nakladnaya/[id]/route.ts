@@ -138,44 +138,45 @@ export const DELETE = async (request: NextRequest, { params }: Props) => {
   const { id } = params;
   try {
     await connectToDB();
-    // const session = await getServerSession(authOptions);
-    // if (session?.user.role === 'admin') {
-    const one__ITEM = await DocumentNakladnaya.findByIdAndDelete(id);
+    const session = await getServerSession(authOptions);
+    const currentRole = session?.user.role;
+    if (currentRole === 'admin' || currentRole === 'accountant') {
+      const one__ITEM = await DocumentNakladnaya.findByIdAndDelete(id);
 
-    if (!one__ITEM) {
-      return new NextResponse(
-        JSON.stringify({
-          message: 'Нет  объекта с данным id',
-        }),
-        {
-          status: 400,
-        }
-      );
+      if (!one__ITEM) {
+        return new NextResponse(
+          JSON.stringify({
+            message: 'Нет  объекта с данным id',
+          }),
+          {
+            status: 400,
+          }
+        );
+      }
+    } else {
+      const one__ITEM = await DocumentNakladnaya.findById(id);
+      if (!one__ITEM) {
+        return new NextResponse(
+          JSON.stringify({
+            message: 'Нет  объекта с данным id',
+          }),
+          {
+            status: 400,
+          }
+        );
+      }
+
+      const new__DocumentNakladnaya = {
+        active: false,
+        deleted: true,
+        whoDeleted: session?.user._id,
+      };
+
+      await DocumentNakladnaya.findByIdAndUpdate(id, new__DocumentNakladnaya, {
+        new: true,
+        runValidators: true,
+      });
     }
-    // } else {
-    //   const one__ITEM = await DocumentNakladnaya.findById(id);
-    //   if (!one__ITEM) {
-    //     return new NextResponse(
-    //       JSON.stringify({
-    //         message: 'Нет  объекта с данным id',
-    //       }),
-    //       {
-    //         status: 400,
-    //       }
-    //     );
-    //   }
-
-    //   const new__DocumentNakladnaya = {
-    //     active: false,
-    //     deleted: true,
-    //     whoDeleted: session?.user._id,
-    //   };
-
-    //   await DocumentNakladnaya.findByIdAndUpdate(id, new__DocumentNakladnaya, {
-    //     new: true,
-    //     runValidators: true,
-    //   });
-    // }
 
     const responseObj = {
       message: 'Элемент удалён успешно',

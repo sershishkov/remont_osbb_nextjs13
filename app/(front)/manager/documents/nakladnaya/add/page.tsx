@@ -1,12 +1,12 @@
 'use client';
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-
-import 'react-phone-number-input/style.css';
-import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
+import { v4 as uuidv4 } from 'uuid';
 
 import { item__add, get__all } from '@/lib/actions/refdata.actions';
+
+import TableNakladnayaOrAkt from '@/components/documents/TableNakladnayaOrAkt';
 
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
@@ -16,145 +16,120 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
+import FormLabel from '@mui/material/FormLabel';
+import FormControl from '@mui/material/FormControl';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
 
 import MySelectAutoCompl from '@/components/common/MySelectAutoCompl';
-import MySelectMultipleAutoCompl from '@/components/common/MySelectMultipleAutoCompl';
 
-import { I_ClientType, I_FirmType, I_TaxationType } from '@/interfaces/refdata';
+import {
+  I_Product,
+  I_Contract,
+  I_StoreHouse,
+  I_Client,
+  I_LocalProduct,
+} from '@/interfaces/refdata';
 
-const currentURL = '/manager/refdata/client';
+import { generateDocNumber } from '@/lib/helpers/helperFunction';
+import { arr__typeNakl } from '@/constants/constants';
+
+const currentURL = '/manager/documents/nakladnaya';
 const initState = {
-  clientLongName: '',
-  clientShortName: '',
-  firmType: '',
+  nakladnayaNumber: '',
+  nakladnayaDate: '',
+  client: '',
+  contract: '',
 
-  postIndex: '',
-  address: '',
-  edrpou: '',
-  inn: '',
-  iban: '',
-  iban_budget: '',
+  localProducts: [],
+  storeHouse: '',
 
-  passportNumber: '',
-  firstName_imen: '',
-  patronymic_imen: '',
-  lastName_imen: '',
-  firstName_rodit: '',
-  patronymic_rodit: '',
-  lastName_rodit: '',
-
-  certificateNumber: '',
-  representedBy: '',
-  whichActsOnTheBasis: '',
-
-  jobTitle: '',
-  jobTitle_rodit: '',
-  tax: '',
-  taxationType: '',
-
-  certificate_PDV: '',
-  email: '',
-  clientType: [],
+  typeNakl: 'outgoing',
+  naklSum: 0,
 };
 
-function ClientAdd() {
+function DocumentNakladnayaAdd() {
   const route = useRouter();
 
   const [formData, setFormData] = useState(initState);
-  const [telNumber, setTelNumber] = useState<string>();
-  const [displayFizOsoba, setDisplayFizOsoba] = useState<boolean>(false);
-  const [displayFOP, setdisplayFOP] = useState<boolean>(false);
-  const [arr__FirmTypes, setArr__FirmTypes] = useState<I_FirmType[]>([]);
-  const [arr__ClientTypes, setArr__ClientTypes] = useState<I_ClientType[]>([]);
-  const [arr__TaxationType, setArr__TaxationType] = useState<I_TaxationType[]>(
-    []
-  );
-  const fizOsoba_Id = useMemo(
-    () =>
-      arr__FirmTypes?.find((item) => item.firmTypeLongName === 'Фізична особа')
-        ?._id,
-    [arr__FirmTypes]
-  );
-  const fop_Id = useMemo(
-    () =>
-      arr__FirmTypes?.find(
-        (item) => item.firmTypeLongName === 'Фізична особа-підприємець'
-      )?._id,
-    [arr__FirmTypes]
-  );
+  const [localProducts, setLocalProducts] = useState<I_LocalProduct[]>([]);
+  const [naklStages, setNaklStages] = useState({
+    active: false,
+  });
+
+  const [arr__Clients, setArr__Clients] = useState<I_Client[]>([]);
+  const [arr__Contracts, setArr__Contracts] = useState<I_Contract[]>([]);
+  const [arr__ClientContracts, setArr__ClientContracts] = useState<
+    I_Contract[]
+  >([]);
+  const [arr__Products, setArr__Products] = useState<I_Product[]>([]);
+  const [arr__StoreHouses, setArr__StoreHouses] = useState<I_StoreHouse[]>([]);
+
   const {
-    clientLongName,
-    clientShortName,
-    firmType,
+    nakladnayaNumber,
+    nakladnayaDate,
+    client,
+    contract,
 
-    postIndex,
-    address,
-    edrpou,
-    inn,
-    iban,
-    iban_budget,
-
-    passportNumber,
-    firstName_imen,
-    patronymic_imen,
-    lastName_imen,
-    firstName_rodit,
-    patronymic_rodit,
-    lastName_rodit,
-
-    certificateNumber,
-    representedBy,
-    whichActsOnTheBasis,
-
-    jobTitle,
-    jobTitle_rodit,
-    tax,
-    taxationType,
-
-    certificate_PDV,
-    email,
-    clientType,
+    storeHouse,
+    // active,
+    typeNakl,
+    naklSum,
   } = formData;
 
   useEffect(() => {
-    const inputFocus = document.getElementById('firmType');
+    const inputFocus = document.getElementById('contract');
     inputFocus?.focus();
   }, []);
 
   useEffect(() => {
     const myGetAll = async () => {
-      const firmTypes = await get__all(
+      const clients = await get__all(
         { page: '0', limit: '0', filter: '' },
-        '/accountant/refdata/firm-type'
+        '/manager/refdata/client'
       );
-      const clientTypes = await get__all(
+      const contracts = await get__all(
         { page: '0', limit: '0', filter: '' },
-        '/accountant/refdata/client-type'
+        '/manager/refdata/contract'
       );
-      const taxationType = await get__all(
+      const products = await get__all(
         { page: '0', limit: '0', filter: '' },
-        '/accountant/refdata/taxation-type'
+        '/manager/refdata/products'
+      );
+      const storehouses = await get__all(
+        { page: '0', limit: '0', filter: '' },
+        '/accountant/refdata/storehouse'
       );
 
-      setArr__FirmTypes(firmTypes.items);
-      setArr__ClientTypes(clientTypes.items);
-      setArr__TaxationType(taxationType.items);
+      setArr__Clients(clients.items);
+      setArr__Contracts(contracts.items);
+      setArr__ClientContracts(contracts.items);
+      setArr__Products(products.items);
+      setArr__StoreHouses(storehouses.items);
+
+      const defaultStoreHouse = storehouses.items.find(
+        (item: I_StoreHouse) => item.storeHouseName === 'Основной'
+      );
+      console.log(defaultStoreHouse);
+      setFormData((prevState) => ({
+        ...prevState,
+        storeHouse: defaultStoreHouse._id,
+        nakladnayaNumber: generateDocNumber(),
+        nakladnayaDate: new Date().toISOString().split('T')[0],
+      }));
     };
     myGetAll();
   }, []);
 
   useEffect(() => {
-    if (firmType === fizOsoba_Id) {
-      setDisplayFizOsoba(true);
-      setdisplayFOP(false);
-    } else if (firmType === fop_Id) {
-      setdisplayFOP(true);
-      setDisplayFizOsoba(false);
-    } else {
-      setdisplayFOP(false);
-      setDisplayFizOsoba(false);
+    if (client) {
+      const belongingContracts = arr__Contracts.filter(
+        (item) => item.client?._id.toString() === client
+      );
+      setArr__ClientContracts(belongingContracts);
     }
-  }, [firmType, fizOsoba_Id, fop_Id]);
+  }, [client, arr__Contracts]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prevState) => ({
@@ -165,39 +140,23 @@ function ClientAdd() {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    const productsToSave = localProducts.map((item) => {
+      return {
+        product: item.product,
+        amount: Number(item.amount),
+        price: Number(item.price),
+      };
+    });
+
     const created__Data = {
-      clientLongName,
-      clientShortName,
-      firmType,
+      nakladnayaNumber,
+      nakladnayaDate,
+      contract,
 
-      postIndex,
-      address,
-      edrpou,
-      inn,
-      iban,
-      iban_budget,
-
-      passportNumber,
-      firstName_imen,
-      patronymic_imen,
-      lastName_imen,
-      firstName_rodit,
-      patronymic_rodit,
-      lastName_rodit,
-
-      certificateNumber,
-      representedBy,
-      whichActsOnTheBasis,
-
-      jobTitle,
-      jobTitle_rodit,
-      tax: tax ? Number(tax) : 0,
-      taxationType,
-
-      certificate_PDV,
-      telNumber,
-      email,
-      clientType,
+      products: productsToSave,
+      storeHouse,
+      active: naklStages.active,
+      typeNakl,
     };
 
     await item__add(created__Data, currentURL, route);
@@ -215,6 +174,113 @@ function ClientAdd() {
   const onClickAddItem = (link: string) => {
     route.push(`${link}`);
   };
+  const handleChangeContractStages = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setNaklStages({
+      ...naklStages,
+      [event.target.name]: event.target.checked,
+    });
+  };
+
+  const addTableRow = () => {
+    const newItem = {
+      row_id: uuidv4(),
+      product: '',
+      unit: '',
+      amount: '',
+      price: '',
+      rowSum: '0',
+    };
+
+    setLocalProducts([...localProducts, newItem]);
+  };
+
+  const deleteTableRow = (rowID: string) => {
+    const newArr = [...localProducts].filter((item) => item.row_id !== rowID);
+    setLocalProducts(newArr);
+  };
+
+  const rowGoUp = (rowIndex: number) => {
+    const tempArr = [...localProducts];
+    tempArr.splice(rowIndex - 1, 2, tempArr[rowIndex], tempArr[rowIndex - 1]);
+
+    setLocalProducts(tempArr);
+  };
+  const rowGowDown = (rowIndex: number) => {
+    const tempArr = [...localProducts];
+    tempArr.splice(rowIndex, 2, tempArr[rowIndex + 1], tempArr[rowIndex]);
+
+    setLocalProducts(tempArr);
+  };
+
+  const recalcRow = (rowID: string) => {
+    const tempRows = [...localProducts];
+    const findRowIndex = tempRows.findIndex((item) => item.row_id === rowID);
+    const findedRow = tempRows[findRowIndex];
+
+    const recalcSum = Number(findedRow.amount) * Number(findedRow.price);
+
+    const updatedRow = {
+      ...findedRow,
+      rowSum: recalcSum.toFixed(2),
+    };
+
+    tempRows.splice(findRowIndex, 1, updatedRow);
+    setLocalProducts(tempRows);
+    recalcAllTable();
+  };
+
+  const recalcAllTable = () => {
+    let tempTotalSum = 0;
+    localProducts.forEach((item) => {
+      tempTotalSum += Number(item.amount) * Number(item.price);
+    });
+
+    setFormData((prevState) => ({
+      ...prevState,
+      naklSum: tempTotalSum,
+    }));
+  };
+
+  const handleChangeInputsInRow = (
+    rowID: string,
+    fieldName: string,
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const tempRows = [...localProducts];
+    const findRowIndex = tempRows.findIndex((item) => item.row_id === rowID);
+    const findedRow = tempRows[findRowIndex];
+
+    const updatedRow = {
+      ...findedRow,
+      [fieldName]: event.target.value,
+    };
+
+    tempRows.splice(findRowIndex, 1, updatedRow);
+    setLocalProducts(tempRows);
+  };
+
+  const handleChangeSelectsMainField = (
+    targetName: string,
+    targetValue: string
+  ) => {
+    const rowId = targetName.split('_')[1];
+
+    const temp__localProducts = [...localProducts];
+    const currentIndex = temp__localProducts.findIndex(
+      (item) => item.row_id === rowId
+    );
+    const currentProduct = arr__Products.find(
+      (item) => item._id === targetValue
+    );
+
+    temp__localProducts[currentIndex].product = targetValue;
+    //@ts-ignore
+    temp__localProducts[currentIndex].unit = currentProduct?.unit?.unitName!;
+
+    setLocalProducts(temp__localProducts);
+  };
 
   return (
     <Grid
@@ -230,154 +296,16 @@ function ClientAdd() {
         </Typography>
       </Grid>
 
-      <Grid item sx={{ mb: 2 }}>
-        <Stack
-          direction='row'
-          spacing={2}
-          // direction={{ xs: 'column', sm: 'row' }}
-        >
-          <MySelectAutoCompl
-            selectName={`firmType`}
-            selectLabel={`форма собств`}
-            fieldToShow={`firmTypeLongName`}
-            handleChangeSelects={handleChangeSelects}
-            // @ts-ignore
-            arrToSelect={arr__FirmTypes ?? []}
-          />
-
-          <IconButton
-            onClick={() => onClickAddItem('/accountant/refdata/firm-type/add')}
-          >
-            <AddIcon color='success' sx={{ fontSize: 30 }} />
-          </IconButton>
-        </Stack>
-      </Grid>
-
       <Grid item>
         <TextField
           margin='normal'
           required
           fullWidth
-          name='clientLongName'
-          label='clientLongName'
+          name='nakladnayaNumber'
+          label='nakladnayaNumber'
           type='text'
-          id='clientLongName'
-          value={clientLongName ?? ''}
-          onChange={onChange}
-        />
-      </Grid>
-
-      <Grid item>
-        <TextField
-          margin='normal'
-          required
-          fullWidth
-          name='clientShortName'
-          label='clientShortName'
-          type='text'
-          id='clientShortName'
-          value={clientShortName ?? ''}
-          onChange={onChange}
-        />
-      </Grid>
-
-      <Grid item>
-        <TextField
-          margin='normal'
-          required
-          fullWidth
-          name='postIndex'
-          label='postIndex'
-          type='text'
-          id='postIndex'
-          value={postIndex ?? ''}
-          onChange={onChange}
-        />
-      </Grid>
-
-      <Grid item>
-        <TextField
-          margin='normal'
-          required
-          fullWidth
-          name='address'
-          label='address'
-          type='text'
-          id='address'
-          value={address ?? ''}
-          onChange={onChange}
-        />
-      </Grid>
-
-      <Grid
-        item
-        sx={{ display: !displayFizOsoba && !displayFOP ? 'block' : 'none' }}
-      >
-        <TextField
-          margin='normal'
-          required
-          fullWidth
-          name='edrpou'
-          label='edrpou'
-          type='text'
-          id='edrpou'
-          value={edrpou ?? ''}
-          onChange={onChange}
-        />
-      </Grid>
-
-      <Grid
-        item
-        sx={{ display: displayFizOsoba || displayFOP ? 'block' : 'none' }}
-      >
-        <TextField
-          margin='normal'
-          required
-          fullWidth
-          name='inn'
-          label='inn'
-          type='text'
-          id='inn'
-          value={inn ?? ''}
-          onChange={onChange}
-        />
-      </Grid>
-      <Grid item sx={{ display: !displayFizOsoba ? 'block' : 'none' }}>
-        <TextField
-          margin='normal'
-          required
-          fullWidth
-          name='iban'
-          label='iban'
-          type='text'
-          id='iban'
-          value={iban ?? ''}
-          onChange={onChange}
-        />
-      </Grid>
-      <Grid item sx={{ display: !displayFizOsoba ? 'block' : 'none' }}>
-        <TextField
-          margin='normal'
-          required
-          fullWidth
-          name='iban_budget'
-          label='iban_budget'
-          type='text'
-          id='iban_budget'
-          value={iban_budget ?? ''}
-          onChange={onChange}
-        />
-      </Grid>
-      <Grid item sx={{ display: displayFizOsoba ? 'block' : 'none' }}>
-        <TextField
-          margin='normal'
-          required
-          fullWidth
-          name='passportNumber'
-          label='passportNumber'
-          type='text'
-          id='passportNumber'
-          value={passportNumber ?? ''}
+          id='nakladnayaNumber'
+          value={nakladnayaNumber ?? ''}
           onChange={onChange}
         />
       </Grid>
@@ -386,249 +314,13 @@ function ClientAdd() {
           margin='normal'
           required
           fullWidth
-          name='firstName_imen'
-          label='firstName_imen'
-          type='text'
-          id='firstName_imen'
-          value={firstName_imen ?? ''}
+          name='nakladnayaDate'
+          label='nakladnayaDate'
+          type='date'
+          id='nakladnayaDate'
+          value={nakladnayaDate ?? ''}
           onChange={onChange}
-        />
-      </Grid>
-      <Grid item>
-        <TextField
-          margin='normal'
-          required
-          fullWidth
-          name='patronymic_imen'
-          label='patronymic_imen'
-          type='text'
-          id='patronymic_imen'
-          value={patronymic_imen ?? ''}
-          onChange={onChange}
-        />
-      </Grid>
-      <Grid item>
-        <TextField
-          margin='normal'
-          required
-          fullWidth
-          name='lastName_imen'
-          label='lastName_imen'
-          type='text'
-          id='lastName_imen'
-          value={lastName_imen ?? ''}
-          onChange={onChange}
-        />
-      </Grid>
-      <Grid item>
-        <TextField
-          margin='normal'
-          required
-          fullWidth
-          name='firstName_rodit'
-          label='firstName_rodit'
-          type='text'
-          id='firstName_rodit'
-          value={firstName_rodit ?? ''}
-          onChange={onChange}
-        />
-      </Grid>
-      <Grid item>
-        <TextField
-          margin='normal'
-          required
-          fullWidth
-          name='patronymic_rodit'
-          label='patronymic_rodit'
-          type='text'
-          id='patronymic_rodit'
-          value={patronymic_rodit ?? ''}
-          onChange={onChange}
-        />
-      </Grid>
-      <Grid item>
-        <TextField
-          margin='normal'
-          required
-          fullWidth
-          name='lastName_rodit'
-          label='lastName_rodit'
-          type='text'
-          id='lastName_rodit'
-          value={lastName_rodit ?? ''}
-          onChange={onChange}
-        />
-      </Grid>
-
-      <Grid item sx={{ display: displayFOP ? 'block' : 'none' }}>
-        <TextField
-          margin='normal'
-          required
-          fullWidth
-          name='certificateNumber'
-          label='certificateNumber'
-          type='text'
-          id='certificateNumber'
-          value={certificateNumber ?? ''}
-          onChange={onChange}
-        />
-      </Grid>
-      <Grid item sx={{ display: displayFOP ? 'block' : 'none' }}>
-        <TextField
-          margin='normal'
-          required
-          fullWidth
-          name='representedBy'
-          label='representedBy'
-          type='text'
-          id='representedBy'
-          value={representedBy ?? ''}
-          onChange={onChange}
-        />
-      </Grid>
-      <Grid
-        item
-        sx={{ display: !displayFizOsoba && !displayFOP ? 'block' : 'none' }}
-      >
-        <TextField
-          margin='normal'
-          required
-          fullWidth
-          name='whichActsOnTheBasis'
-          label='whichActsOnTheBasis'
-          type='text'
-          id='whichActsOnTheBasis'
-          value={whichActsOnTheBasis ?? ''}
-          onChange={onChange}
-        />
-      </Grid>
-
-      <Grid
-        item
-        sx={{ display: !displayFizOsoba && !displayFOP ? 'block' : 'none' }}
-      >
-        <TextField
-          margin='normal'
-          required
-          fullWidth
-          name='jobTitle'
-          label='jobTitle'
-          type='text'
-          id='jobTitle'
-          value={jobTitle ?? ''}
-          onChange={onChange}
-        />
-      </Grid>
-      <Grid
-        item
-        sx={{ display: !displayFizOsoba && !displayFOP ? 'block' : 'none' }}
-      >
-        <TextField
-          margin='normal'
-          required
-          fullWidth
-          name='jobTitle_rodit'
-          label='jobTitle_rodit'
-          type='text'
-          id='jobTitle_rodit'
-          value={jobTitle_rodit ?? ''}
-          onChange={onChange}
-        />
-      </Grid>
-      <Grid item sx={{ display: !displayFizOsoba ? 'block' : 'none' }}>
-        <TextField
-          margin='normal'
-          required
-          fullWidth
-          name='tax'
-          label='tax'
-          type='number'
-          id='tax'
-          value={tax ?? '0'}
-          onChange={onChange}
-        />
-      </Grid>
-
-      <Grid item sx={{ mb: 2, display: !displayFizOsoba ? 'block' : 'none' }}>
-        <Stack
-          direction='row'
-          spacing={2}
-          // direction={{ xs: 'column', sm: 'row' }}
-        >
-          <MySelectAutoCompl
-            selectName={`taxationType`}
-            selectLabel={`Налогооблажение`}
-            fieldToShow={`taxationTypeName`}
-            handleChangeSelects={handleChangeSelects}
-            // @ts-ignore
-            arrToSelect={arr__TaxationType ?? []}
-          />
-
-          <IconButton
-            onClick={() =>
-              onClickAddItem('/accountant/refdata/taxation-type/add')
-            }
-          >
-            <AddIcon color='success' sx={{ fontSize: 30 }} />
-          </IconButton>
-        </Stack>
-      </Grid>
-      <Grid
-        item
-        sx={{ display: !displayFizOsoba && !displayFOP ? 'block' : 'none' }}
-      >
-        <TextField
-          margin='normal'
-          required
-          fullWidth
-          name='certificate_PDV'
-          label='certificate_PDV'
-          type='text'
-          id='certificate_PDV'
-          value={certificate_PDV ?? ''}
-          onChange={onChange}
-        />
-      </Grid>
-
-      <Grid
-        item
-        sx={{
-          height: '3.5rem',
-          display: 'flex',
-          alignItems: 'center',
-        }}
-      >
-        <PhoneInput
-          maxLength={16}
-          international
-          defaultCountry='UA'
-          countries={['UA', 'RU']}
-          value={telNumber}
-          onChange={setTelNumber}
-          required
-        />
-        <span
-          style={{
-            color:
-              telNumber && isValidPhoneNumber(telNumber) ? undefined : 'red',
-          }}
-        >
-          {telNumber && isValidPhoneNumber(telNumber)
-            ? '   Номер корректен'
-            : '   Введите верный номер'}
-        </span>
-      </Grid>
-      <Grid item>
-        <TextField
-          margin='normal'
-          required
-          fullWidth
-          name='email'
-          label='email'
-          type='email'
-          id='email'
-          value={email ?? ''}
-          onChange={onChange}
+          InputLabelProps={{ shrink: true }}
         />
       </Grid>
 
@@ -638,23 +330,115 @@ function ClientAdd() {
           spacing={2}
           // direction={{ xs: 'column', sm: 'row' }}
         >
-          <MySelectMultipleAutoCompl
-            selectName={`clientType`}
-            selectLabel={`Тип клиента`}
-            fieldToShow={`clientTypeName`}
-            handleChangeMultipleSelects={handleChangeSelects}
+          <MySelectAutoCompl
+            selectName={`client`}
+            selectLabel={`Клиент`}
+            fieldToShow={`clientShortName`}
+            handleChangeSelects={handleChangeSelects}
             // @ts-ignore
-            arrToSelect={arr__ClientTypes ?? []}
+            arrToSelect={arr__Clients ?? []}
           />
 
           <IconButton
-            onClick={() =>
-              onClickAddItem('/accountant/refdata/client-type/add')
-            }
+            onClick={() => onClickAddItem('/manager/refdata/client/add')}
           >
             <AddIcon color='success' sx={{ fontSize: 30 }} />
           </IconButton>
         </Stack>
+      </Grid>
+
+      <Grid item sx={{ mb: 2, display: client ? 'block' : 'none' }}>
+        <Stack
+          direction='row'
+          spacing={2}
+          // direction={{ xs: 'column', sm: 'row' }}
+        >
+          <MySelectAutoCompl
+            selectName={`contract`}
+            selectLabel={`Договор`}
+            fieldToShow={`contractDescription`}
+            handleChangeSelects={handleChangeSelects}
+            // @ts-ignore
+            arrToSelect={arr__ClientContracts ?? []}
+          />
+
+          <IconButton
+            onClick={() => onClickAddItem('/manager/refdata/contract/add')}
+          >
+            <AddIcon color='success' sx={{ fontSize: 30 }} />
+          </IconButton>
+        </Stack>
+      </Grid>
+
+      <Grid item sx={{ mb: 2 }}>
+        <Stack
+          direction='row'
+          spacing={2}
+          // direction={{ xs: 'column', sm: 'row' }}
+        >
+          <MySelectAutoCompl
+            selectName={`storeHouse`}
+            selectLabel={`Склад`}
+            fieldToShow={`storeHouseName`}
+            handleChangeSelects={handleChangeSelects}
+            selectedOption={storeHouse ?? ''}
+            // @ts-ignore
+            arrToSelect={arr__StoreHouses ?? []}
+          />
+
+          <IconButton
+            onClick={() => onClickAddItem('/accountant/refdata/storehouse/add')}
+          >
+            <AddIcon color='success' sx={{ fontSize: 30 }} />
+          </IconButton>
+        </Stack>
+      </Grid>
+      <Grid item sx={{ mb: 2 }}>
+        <MySelectAutoCompl
+          selectName={`typeNakl`}
+          selectLabel={`Тип накладной`}
+          fieldToShow={`caption`}
+          handleChangeSelects={handleChangeSelects}
+          selectedOption={typeNakl ?? ''}
+          // @ts-ignore
+          arrToSelect={arr__typeNakl ?? []}
+        />
+      </Grid>
+
+      <Grid item>
+        <FormControl component='fieldset' variant='standard'>
+          <FormLabel component='legend'>Стадии выполнения</FormLabel>
+          <FormGroup>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={naklStages.active}
+                  onChange={handleChangeContractStages}
+                  name='active'
+                />
+              }
+              label='Проведено?'
+            />
+          </FormGroup>
+        </FormControl>
+      </Grid>
+
+      <Grid item>
+        <TableNakladnayaOrAkt
+          mainFieldCaption={`Материалы`}
+          mainFieldnName={`productName`}
+          tableRows={localProducts}
+          naklSum={naklSum}
+          // selectedOptions={}
+          arrToSelectInMainColumn={arr__Products}
+          addTableRow={addTableRow}
+          deleteTableRow={deleteTableRow}
+          rowGoUp={rowGoUp}
+          rowGowDown={rowGowDown}
+          recalcRow={recalcRow}
+          handleChangeInputsInRow={handleChangeInputsInRow}
+          handleChangeSelectsMainField={handleChangeSelectsMainField}
+        />
       </Grid>
 
       <Grid item>
@@ -662,20 +446,12 @@ function ClientAdd() {
           type='submit'
           fullWidth
           disabled={
-            !clientLongName ||
-            !clientShortName ||
-            !firmType ||
-            !postIndex ||
-            !address ||
-            !firstName_imen ||
-            !patronymic_imen ||
-            !lastName_imen ||
-            !firstName_rodit ||
-            !patronymic_rodit ||
-            !lastName_rodit ||
-            !taxationType ||
-            !telNumber ||
-            (clientType && clientType.length === 0)
+            !nakladnayaNumber ||
+            !nakladnayaDate ||
+            !contract ||
+            !storeHouse ||
+            !typeNakl ||
+            (localProducts && localProducts.length === 0)
           }
           variant='contained'
           sx={{ mt: 3, mb: 2 }}
@@ -687,4 +463,4 @@ function ClientAdd() {
   );
 }
 
-export default ClientAdd;
+export default DocumentNakladnayaAdd;

@@ -3,7 +3,7 @@ import MyIconButtonAdd from '@/components/common/MyIconButtonAdd';
 import TableFilter from '@/components/common/TableFilter';
 const currentURL = `/manager/documents/nakladnaya`;
 
-function ServiceWorksList() {
+function DocumentNakladnayaList() {
   const headerFields = [
     'nakladnayaNumber',
     'active',
@@ -35,4 +35,4 @@ function ServiceWorksList() {
   );
 }
 
-export default ServiceWorksList;
+export default DocumentNakladnayaList;

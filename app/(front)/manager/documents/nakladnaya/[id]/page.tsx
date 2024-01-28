@@ -28,7 +28,7 @@ import MySelectMultipleAutoCompl from '@/components/common/MySelectMultipleAutoC
 
 import { I_ClientType, I_FirmType, I_TaxationType } from '@/interfaces/refdata';
 
-const currentURL = '/manager/refdata/client';
+const currentURL = '/manager/documents/nakladnaya';
 const initState = {
   clientLongName: '',
   clientShortName: '',
@@ -63,7 +63,7 @@ const initState = {
   clientType: [],
 };
 
-function ClientEdit({ params }: Readonly<paramsProps>) {
+function DocumentNakladnayaEdit({ params }: Readonly<paramsProps>) {
   const { id } = params;
   const route = useRouter();
 
@@ -748,4 +748,4 @@ function ClientEdit({ params }: Readonly<paramsProps>) {
   );
 }
 
-export default ClientEdit;
+export default DocumentNakladnayaEdit;

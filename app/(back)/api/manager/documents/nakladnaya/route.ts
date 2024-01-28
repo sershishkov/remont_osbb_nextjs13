@@ -9,8 +9,6 @@ import Model__StoreHouse from '@/lib/mongoose/models/accountant/refData/Model__S
 import Model__Product from '@/lib/mongoose/models/manager/refdata/Model__Product';
 import Model__Unit from '@/lib/mongoose/models/manager/refdata/Model__Unit';
 
-import Model__Worker from '@/lib/mongoose/models/accountant/refData/Model__Worker';
-
 import { connectToDB } from '@/lib/mongoose/connectToDB';
 
 export const POST = async (request: NextRequest) => {
@@ -31,12 +29,11 @@ export const POST = async (request: NextRequest) => {
     !contract ||
     !products ||
     (products && products.length === 0) ||
-    !storeHouse ||
-    !active
+    !storeHouse
   ) {
     return new NextResponse(
       JSON.stringify({
-        message: 'Please add all fields',
+        message: 'Please add all fields ',
       }),
       { status: 400 }
     );
@@ -44,6 +41,7 @@ export const POST = async (request: NextRequest) => {
 
   try {
     await connectToDB();
+
     // Check if already exists
     const already__Exists = await DocumentNakladnaya.findOne({
       nakladnayaNumber,
@@ -59,29 +57,7 @@ export const POST = async (request: NextRequest) => {
         }
       );
     }
-
     const session = await getServerSession(authOptions);
-    console.log(session?.user);
-
-    // const creatorLocal = await Model__Worker.findOne({
-    //   user: session?.user._id,
-    // });
-    const creatorLocal = await Model__Worker.findOne({
-      user: '6537cbcf588268360cb4dd9f',
-    });
-
-    if (!creatorLocal) {
-      return new NextResponse(
-        JSON.stringify({
-          message:
-            'Нет такого пользователя или работника или Вы не авторизированы!!!',
-        }),
-        {
-          status: 400,
-        }
-      );
-    }
-    // console.log(creatorLocal);
 
     const new__ITEM = await DocumentNakladnaya.create({
       nakladnayaNumber,
@@ -92,8 +68,7 @@ export const POST = async (request: NextRequest) => {
       storeHouse,
 
       active,
-      creator: creatorLocal._id,
-      // creator: null,
+      creator: session?.user._id,
       typeNakl,
     });
 
@@ -120,25 +95,35 @@ export const GET = async (request: NextRequest) => {
     await connectToDB();
     const session = await getServerSession(authOptions);
     const userRole = session?.user.role;
-    console.log(userRole);
-    if (filterSTR) {
-      const myRegex = { $regex: filterSTR, $options: 'i' };
 
-      filterObject = {
-        $or: [
-          { nakladnayaNumber: myRegex },
-          // { nakladnayaDate: myRegex },
-          // { deleted: userRole === 'admin' ? '' : false },
-          { deleted: 'false' },
-        ],
-      };
+    const myRegex = { $regex: filterSTR ?? '', $options: 'i' };
+    let deletedRestiction;
+
+    if (userRole === 'admin') {
+      deletedRestiction = {};
+    } else {
+      deletedRestiction = { deleted: false };
     }
+
+    filterObject = {
+      $and: [
+        {
+          $or: [
+            { nakladnayaNumber: myRegex },
+            { 'contract.ourFirm.clientShortName': myRegex },
+            { 'contract.client.clientShortName': myRegex },
+          ],
+        },
+        deletedRestiction,
+      ],
+    };
 
     const total: number = await DocumentNakladnaya.countDocuments({});
     const totalPages: number =
       pageSize === 0 ? total : Math.ceil(total / pageSize);
 
     const all__ITEMS = await DocumentNakladnaya.find(filterObject)
+
       .limit(pageSize)
       .skip(skip)
       .sort({

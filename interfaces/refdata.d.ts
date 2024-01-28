@@ -239,6 +239,15 @@ export interface I_StoreHouse {
 
 //////////////////////////////////////////
 //////////////////////////////////////////
+interface I_LocalProduct {
+  row_id: string;
+  product: string;
+  unit: string;
+  amount: string;
+  price: string;
+  rowSum?: string;
+}
+
 export interface I_DocumentNakladnaya {
   _id?: string;
   nakladnayaNumber: string;
