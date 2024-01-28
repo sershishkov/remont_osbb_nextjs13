@@ -282,15 +282,15 @@ export interface I_DocumentAktOfWork {
       thirdPartyService: Types.ObjectId;
       amount: number;
       price: number;
-      description: string;
+      extraInformation: string;
     }
   ];
   serviceWorks: [
     {
       serviceWork: Types.ObjectId;
       amount: number;
-      priceWorkWoker: number;
-      description: string;
+      price: number;
+      extraInformation: string;
     }
   ];
 
