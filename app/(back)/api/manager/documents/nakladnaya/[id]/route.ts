@@ -10,6 +10,7 @@ import Model__Product from '@/lib/mongoose/models/manager/refdata/Model__Product
 import Model__Unit from '@/lib/mongoose/models/manager/refdata/Model__Unit';
 
 import { connectToDB } from '@/lib/mongoose/connectToDB';
+import { updateRecomendPriceInProducts } from '../route';
 
 type Props = {
   params: {
@@ -123,6 +124,21 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
       }
     );
 
+    if (!updated__ITEM) {
+      return new NextResponse(
+        JSON.stringify({
+          message: 'Не удалось обновить накладную',
+        }),
+        {
+          status: 400,
+        }
+      );
+    }
+
+    if (typeNakl === 'incoming') {
+      updateRecomendPriceInProducts([...products]);
+    }
+
     const responseObj = {
       message: 'Элемент изменен успешно',
       my_data: updated__ITEM,
@@ -140,7 +156,7 @@ export const DELETE = async (request: NextRequest, { params }: Props) => {
     await connectToDB();
     const session = await getServerSession(authOptions);
     const currentRole = session?.user.role;
-    if (currentRole === 'admin' || currentRole === 'accountant') {
+    if (currentRole === 'admin') {
       const one__ITEM = await DocumentNakladnaya.findByIdAndDelete(id);
 
       if (!one__ITEM) {

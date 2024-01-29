@@ -9,6 +9,8 @@ import Model__StoreHouse from '@/lib/mongoose/models/accountant/refData/Model__S
 import Model__Product from '@/lib/mongoose/models/manager/refdata/Model__Product';
 import Model__Unit from '@/lib/mongoose/models/manager/refdata/Model__Unit';
 
+import { I_ProductInNakl } from '@/interfaces/refdata';
+
 import { connectToDB } from '@/lib/mongoose/connectToDB';
 
 export const POST = async (request: NextRequest) => {
@@ -71,6 +73,21 @@ export const POST = async (request: NextRequest) => {
       creator: session?.user._id,
       typeNakl,
     });
+
+    if (!new__ITEM) {
+      return new NextResponse(
+        JSON.stringify({
+          message: 'Не удалось создать накладную',
+        }),
+        {
+          status: 400,
+        }
+      );
+    }
+
+    if (typeNakl === 'incoming') {
+      updateRecomendPriceInProducts([...products]);
+    }
 
     const responseObj = {
       message: 'Добавлено успешно',
@@ -189,3 +206,91 @@ export const GET = async (request: NextRequest) => {
     return new NextResponse(error.message, { status: 500 });
   }
 };
+
+export const updateRecomendPriceInProducts = async (
+  products: I_ProductInNakl[]
+) => {
+  for (const row of products) {
+    await Model__Product.findByIdAndUpdate(row.product, {
+      priceBuyRecommend: row.price,
+    });
+  }
+};
+// @sonar-stop
+// const saveProductsToStore = async (
+//   products: any[],
+//   typeNakl: string,
+//   storeHouse: string,
+//   res: Response
+// ) => {
+//   const currentStore = await Model__StoreHouse.findById(storeHouse);
+//   const currProductsInStore = [...currentStore?.products!];
+//   const productsInNakl = [...products];
+
+//   if (typeNakl === 'incoming' || typeNakl === 'returnFromBuyer') {
+//     productsInNakl.forEach(async (itemNakl) => {
+//       const findIndexProductInStore = currProductsInStore?.findIndex(
+//         (item) => item.product === itemNakl.product
+//       );
+// @sonar-stop
+//       if (findIndexProductInStore === -1) {
+//         currProductsInStore.push({
+//           product: itemNakl.product,
+//           amount: itemNakl.amount,
+//           priceBuy_inStore: itemNakl.priceBuy,
+//         });
+//       } else {
+//         const oldProduct = currProductsInStore[findIndexProductInStore];
+//         const newProduct = {
+//           product: itemNakl.product,
+//           amount: itemNakl.amount + oldProduct.amount,
+//           priceBuy_inStore:
+//             (itemNakl.priceBuy * itemNakl.amount +
+//               oldProduct.amount * oldProduct.priceBuy_inStore) /
+//             (itemNakl.amount + oldProduct.amount),
+//         };
+
+//         currProductsInStore.splice(findIndexProductInStore, 1, newProduct);
+//       }
+//       if (typeNakl === 'incoming') {
+//         await Model__Product.findByIdAndUpdate(itemNakl.product, {
+//           priceBuy_recommend: itemNakl.priceBuy,
+//         });
+//       }
+//     });
+//   } else {
+//     productsInNakl.forEach((itemNakl) => {
+//       const findIndexProductInStore = currProductsInStore?.findIndex(
+//         (item) => item.product === itemNakl.product
+//       );
+// @sonar-stop
+//       if (findIndexProductInStore === -1) {
+//         res.status(400);
+//         throw new Error('Нет такого товара на складе');
+//       } else {
+//         const oldProduct = currProductsInStore[findIndexProductInStore];
+//         const newProduct = {
+//           product: itemNakl.product,
+//           amount: oldProduct.amount - itemNakl.amount,
+//           priceBuy_inStore: oldProduct.priceBuy_inStore,
+//         };
+
+//         currProductsInStore.splice(findIndexProductInStore, 1, newProduct);
+//       }
+//     });
+//   }
+//   await Model__StoreHouse.findByIdAndUpdate(storeHouse, {
+//     products: currProductsInStore,
+//   });
+// };
+// @sonar-stop
+//////////////////////////////////////
+// const updateProductsInStore = async (
+//   old__DocumentNakladnaya: I_DocumentNakladnaya,
+//   products: any[],
+//   typeNakl: string,
+//   storeHouse: string,
+//   res: Response
+// ) => {
+//   // Сделать реверс старой накладной а затем вызвать saveProductsToStore с новыми данными
+// };

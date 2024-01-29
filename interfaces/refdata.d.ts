@@ -248,7 +248,7 @@ interface I_LocalProduct {
   rowSum?: string;
 }
 interface I_ProductInNakl {
-  _id: string;
+  _id?: string;
   product: Types.ObjectId | I_Product | string;
   amount: number;
   price: number;
