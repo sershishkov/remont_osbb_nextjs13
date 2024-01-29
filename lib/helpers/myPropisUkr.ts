@@ -38,7 +38,7 @@ const mapNumbers: any = {
   900: [2, 1, "дев'ятсот"],
 };
 
-var mapOrders = [
+const mapOrders = [
   {
     _Gender: false,
     _arrStates: ['гривня', 'гривні', 'гривень'],
@@ -50,10 +50,13 @@ var mapOrders = [
   { _Gender: true, _arrStates: ['триліон', 'триліона', 'триліонів'] },
 ];
 
-var objKop = { _Gender: false, _arrStates: ['копійка', 'копійки', 'копійок'] };
+const objKop = {
+  _Gender: false,
+  _arrStates: ['копійка', 'копійки', 'копійок'],
+};
 
 function Value(dVal: number, bGender: any) {
-  var xVal = mapNumbers[dVal];
+  let xVal = mapNumbers[dVal];
   if (xVal[1] === 1) {
     return xVal[2];
   } else {
@@ -62,9 +65,10 @@ function Value(dVal: number, bGender: any) {
 }
 
 function From0To999(fValue: any, oObjDesc: any, fnAddNum: any, fnAddDesc: any) {
-  var nCurrState = 2;
+  let nCurrState = 2;
+  let fCurr: number;
   if (Math.floor(fValue / 100) > 0) {
-    var fCurr: number = Math.floor(fValue / 100) * 100;
+    fCurr = Math.floor(fValue / 100) * 100;
     fnAddNum(Value(fCurr, oObjDesc._Gender));
     nCurrState = mapNumbers[fCurr][0];
     fValue -= fCurr;
@@ -92,12 +96,12 @@ function From0To999(fValue: any, oObjDesc: any, fnAddNum: any, fnAddDesc: any) {
 }
 
 export function FloatToSamplesInWordsUkr(fAmount: number): string {
-  var fInt = Math.floor(fAmount + 0.005);
-  var fDec = Math.floor((fAmount - fInt) * 100 + 0.5);
+  let fInt = Math.floor(fAmount + 0.005);
+  let fDec = Math.floor((fAmount - fInt) * 100 + 0.5);
 
-  var arrRet: any[] = [];
-  // var iOrder = 0;
-  var arrSouthands = [];
+  const arrRet: any[] = [];
+
+  const arrSouthands = [];
   for (; fInt > 0.9999; fInt /= 1000) {
     arrSouthands.push(Math.floor(fInt % 1000));
   }
@@ -108,7 +112,7 @@ export function FloatToSamplesInWordsUkr(fAmount: number): string {
   function PushToRes(strVal: any) {
     arrRet.push(strVal);
   }
-  for (var iSouth = arrSouthands.length - 1; iSouth >= 0; --iSouth) {
+  for (let iSouth = arrSouthands.length - 1; iSouth >= 0; --iSouth) {
     From0To999(arrSouthands[iSouth], mapOrders[iSouth], PushToRes, PushToRes);
   }
 
@@ -124,5 +128,3 @@ export function FloatToSamplesInWordsUkr(fAmount: number): string {
 
   return arrRet.join(' ');
 }
-
-// console.log(FloatToSamplesInWordsUkr(9993594123.82));
