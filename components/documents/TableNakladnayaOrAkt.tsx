@@ -22,10 +22,11 @@ import MySelectAutoCompl from '@/components/common/MySelectAutoCompl';
 function TableNakladnayaOrAkt({
   mainFieldCaption,
   mainFieldnName,
+  mainFieldId,
   tableRows,
   naklSum,
-  // selectedOptions,
   arrToSelectInMainColumn,
+
   addTableRow,
   deleteTableRow,
   rowGoUp,
@@ -36,10 +37,11 @@ function TableNakladnayaOrAkt({
 }: Readonly<{
   mainFieldCaption: string;
   mainFieldnName: string;
+  mainFieldId: string;
   tableRows: any[];
-  naklSum: number;
-  // selectedOptions?: string[];
+  naklSum: string;
   arrToSelectInMainColumn: any[];
+
   addTableRow: () => void;
   deleteTableRow: (rowID: string) => void;
   rowGoUp: (rowIndex: number) => void;
@@ -77,7 +79,7 @@ function TableNakladnayaOrAkt({
             </TableCell>
             <TableCell colSpan={5}></TableCell>
             <TableCell colSpan={3}>
-              <Typography>{naklSum.toFixed(2)}</Typography>
+              <Typography>{naklSum}</Typography>
             </TableCell>
           </TableRow>
 
@@ -120,6 +122,7 @@ function TableNakladnayaOrAkt({
                     selectLabel={``}
                     fieldToShow={mainFieldnName}
                     handleChangeSelects={handleChangeSelectsMainField}
+                    selectedOption={tableRows[rowIndex][mainFieldId]}
                     // @ts-ignore
                     arrToSelect={arrToSelectInMainColumn ?? []}
                   />
@@ -129,6 +132,12 @@ function TableNakladnayaOrAkt({
                   <TextField
                     name={`${row.row_id}-amount`}
                     // label='amount'
+                    placeholder='0.00'
+                    inputProps={{
+                      pattern: '/^d*.d{2}$/',
+                      // pattern: '^d*.d{4}$',
+                      // step: '.01',
+                    }}
                     type='number'
                     id={`${row.row_id}-amount`}
                     value={row.amount ?? ''}
@@ -142,6 +151,7 @@ function TableNakladnayaOrAkt({
                   <TextField
                     name={`${row.row_id}-price`}
                     // label='price'
+                    placeholder='0.00'
                     type='number'
                     id={`${row.row_id}-price`}
                     value={row.price ?? ''}

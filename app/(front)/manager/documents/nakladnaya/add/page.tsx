@@ -73,13 +73,13 @@ function DocumentNakladnayaAdd() {
     contract,
 
     storeHouse,
-    // active,
+
     typeNakl,
     naklSum,
   } = formData;
 
   useEffect(() => {
-    const inputFocus = document.getElementById('contract');
+    const inputFocus = document.getElementById('client');
     inputFocus?.focus();
   }, []);
 
@@ -111,7 +111,7 @@ function DocumentNakladnayaAdd() {
       const defaultStoreHouse = storehouses.items.find(
         (item: I_StoreHouse) => item.storeHouseName === 'Основной'
       );
-      console.log(defaultStoreHouse);
+
       setFormData((prevState) => ({
         ...prevState,
         storeHouse: defaultStoreHouse._id,
@@ -174,6 +174,7 @@ function DocumentNakladnayaAdd() {
   const onClickAddItem = (link: string) => {
     route.push(`${link}`);
   };
+
   const handleChangeContractStages = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -417,7 +418,11 @@ function DocumentNakladnayaAdd() {
                   name='active'
                 />
               }
-              label='Проведено?'
+              label={
+                naklStages.active
+                  ? 'Провести документ'
+                  : 'Не проводить документ'
+              }
             />
           </FormGroup>
         </FormControl>
@@ -427,9 +432,9 @@ function DocumentNakladnayaAdd() {
         <TableNakladnayaOrAkt
           mainFieldCaption={`Материалы`}
           mainFieldnName={`productName`}
+          mainFieldId={`product`}
           tableRows={localProducts}
-          naklSum={naklSum}
-          // selectedOptions={}
+          naklSum={naklSum.toFixed(2)}
           arrToSelectInMainColumn={arr__Products}
           addTableRow={addTableRow}
           deleteTableRow={deleteTableRow}
@@ -456,7 +461,9 @@ function DocumentNakladnayaAdd() {
           variant='contained'
           sx={{ mt: 3, mb: 2 }}
         >
-          Сохранить
+          {naklStages.active
+            ? 'Сохранить и провести '
+            : 'Сохранить без проведения'}
         </Button>
       </Grid>
     </Grid>

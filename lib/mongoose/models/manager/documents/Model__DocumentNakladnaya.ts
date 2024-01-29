@@ -77,7 +77,7 @@ dokument_nakladnaya__Schema.virtual('totalNaklSum').get(function () {
   this.products.forEach((item) => {
     totalNaklSumSell += item.amount * item.price;
   });
-  return totalNaklSumSell;
+  return totalNaklSumSell.toFixed(2);
 });
 
 export default models.dokument_nakladnaya ||

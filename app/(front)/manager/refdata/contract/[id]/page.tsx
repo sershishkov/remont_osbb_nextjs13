@@ -597,7 +597,7 @@ function ContractEdit({ params }: Readonly<paramsProps>) {
           </Grid>
           <Grid item>
             {localParticipants.length > 0 &&
-              localParticipants.map((item) => (
+              localParticipants.map((item, rowIndex) => (
                 <Grid
                   container
                   key={item.id}
@@ -613,9 +613,7 @@ function ContractEdit({ params }: Readonly<paramsProps>) {
                       fieldToShow={`lastName`}
                       handleChangeSelects={handleChangeSelectsParticipant}
                       selectedOption={
-                        localParticipants.find(
-                          (localPart) => localPart.id === item.id
-                        )?.participant
+                        localParticipants[rowIndex]['participant']
                       }
                       // @ts-ignore
                       arrToSelect={arr__Workers ?? []}

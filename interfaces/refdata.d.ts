@@ -242,10 +242,16 @@ export interface I_StoreHouse {
 interface I_LocalProduct {
   row_id: string;
   product: string;
-  unit: string;
+  unit: string | I_Unit;
   amount: string;
   price: string;
   rowSum?: string;
+}
+interface I_ProductInNakl {
+  _id: string;
+  product: Types.ObjectId | I_Product | string;
+  amount: number;
+  price: number;
 }
 
 export interface I_DocumentNakladnaya {
@@ -254,13 +260,7 @@ export interface I_DocumentNakladnaya {
   nakladnayaDate: Date;
   contract: Types.ObjectId;
 
-  products: [
-    {
-      product: Types.ObjectId;
-      amount: number;
-      price: number;
-    }
-  ];
+  products: I_ProductInNakl[];
 
   storeHouse: Types.ObjectId;
 
