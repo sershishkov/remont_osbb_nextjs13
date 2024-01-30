@@ -5,7 +5,7 @@ import Link from '@mui/material/Link';
 
 function Footer() {
   return (
-    <Grid container justifyContent='space-between'>
+    <Grid container justifyContent='space-between' id='footer'>
       <Grid item xs={6}>
         <Grid
           container

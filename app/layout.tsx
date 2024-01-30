@@ -31,7 +31,9 @@ export default function RootLayout({
           <body className={inter.className} suppressHydrationWarning={true}>
             <ToastProvider>
               <Navbar />
-              <main className={styles.main}>{children}</main>
+              <main id='main' className={styles.main}>
+                {children}
+              </main>
               <Footer />
             </ToastProvider>
           </body>

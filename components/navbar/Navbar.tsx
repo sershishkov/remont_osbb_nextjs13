@@ -35,7 +35,7 @@ function Navbar() {
   //   localStorage.setItem('theme', JSON.stringify(event.target.checked));
   // };
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1 }} id='navbar'>
       <AppBar position='fixed'>
         <Toolbar>
           <IconButton

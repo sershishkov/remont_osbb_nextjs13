@@ -1,6 +1,9 @@
 import React from 'react';
 
 import { FloatToSamplesInWordsUkr } from '@/lib/helpers/myPropisUkr';
+import { I_Client, I_Contract, I_LProduct } from '@/interfaces/refdata';
+
+import { arr__typeNakl } from '@/constants/constants';
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -8,46 +11,94 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import TableFooter from '@mui/material/TableFooter';
 
 import classes from './styles.module.css';
+import { Grid } from '@mui/material';
 
-const tableRows = [
-  {
-    _id: 'id_1',
-    product: 'Цемент',
-    unit: 'мешок',
-    amount: 140,
-    price: 4,
-    rowSum: 560,
-  },
-  {
-    _id: 'id_2',
-    product: 'Уголь',
-    unit: 'тонна',
-    amount: 2,
-    price: 500,
-    rowSum: 1000,
-  },
-  {
-    _id: 'id_3',
-    product: 'Пена',
-    unit: 'шт',
-    amount: 3,
-    price: 120,
-    rowSum: 360,
-  },
-];
+function NakladnToPrint({
+  nakladnayaNumber,
+  nakladnayaDate,
+  ourFirmObj,
+  clientObj,
+  contractObj,
+  typeNakl,
+  naklSum,
+  tableRows,
+}: Readonly<{
+  nakladnayaNumber: string;
+  nakladnayaDate: Date;
+  ourFirmObj: I_Client;
+  clientObj: I_Client;
+  contractObj: I_Contract;
 
-function NakladnToPrint() {
-  const sumPropis = FloatToSamplesInWordsUkr(1011.54);
+  typeNakl: string;
+  naklSum: number;
+  tableRows: I_LProduct[];
+}>) {
+  const sumPropis = FloatToSamplesInWordsUkr(naklSum);
+  const objTypeNakl = arr__typeNakl.find((item) => item._id === typeNakl);
+  const naklCaption =
+    objTypeNakl?.caption + ' ' + objTypeNakl?.prefix + nakladnayaNumber;
+  const naklDateToString = new Date(nakladnayaDate).toLocaleDateString(
+    'uk-UA',
+    {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric',
+    }
+  );
+  const contractDateToString = new Date(
+    contractObj?.contractDate! ?? ''
+  ).toLocaleDateString('uk-UA', {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric',
+  });
+
+  //@ts-ignore
+  const ourFirm = `${ourFirmObj?.firmType!.firmTypeShortName!} « ${
+    ourFirmObj?.clientShortName
+  } », ${ourFirmObj?.edrpou ? `ЄДРПОУ :${ourFirmObj?.edrpou}` : ''} ${
+    ourFirmObj?.inn ? `ІНН :${ourFirmObj?.inn}` : ''
+  }`;
+
+  const ourFirmAddress = `${ourFirmObj?.postIndex}, ${ourFirmObj?.address}`;
+
+  const ourIBAN = ourFirmObj?.iban;
+  //@ts-ignore
+  const ourTaxationType = `${ourFirmObj?.firmType!.firmTypeShortName!} « ${
+    ourFirmObj?.clientShortName
+    //@ts-ignore
+  } » ${ourFirmObj?.taxationType.taxationTypeName}`;
+
+  //@ts-ignore
+  const payerFirm = `${clientObj?.firmType!.firmTypeShortName!} « ${
+    clientObj?.clientShortName
+  } », ${clientObj?.edrpou ? `ЄДРПОУ :${clientObj?.edrpou}` : ''} ${
+    clientObj?.inn ? `ІНН :${clientObj?.inn}` : ''
+  }`;
+
+  const clientFirmAddress = `${clientObj?.postIndex}, ${clientObj?.address}`;
+
+  const clientIBAN = clientObj?.iban;
+
+  const contractNumber = contractObj?.contractNumber;
+  const ourBoss = `${
+    ourFirmObj?.firstName_imen
+  } ${ourFirmObj?.lastName_imen?.toUpperCase()}`;
+
+  const clientBoss = `${
+    clientObj?.firstName_imen
+  } ${clientObj?.lastName_imen?.toUpperCase()}`;
+
   return (
     <div className={classes.page}>
-      <TableContainer>
+      <TableContainer sx={{ margin: 0 }}>
         <Table
           padding='none'
           sx={{
             width: '100%',
+            margin: 0,
             backgroundColor: 'white',
             '& td,th': {
               color: 'black',
@@ -63,6 +114,7 @@ function NakladnToPrint() {
           >
             <TableRow
               sx={{
+                height: '1mm',
                 '& td, th': {
                   color: 'transparent',
                 },
@@ -117,20 +169,20 @@ function NakladnToPrint() {
 
             <TableRow>
               <TableCell colSpan={10} align='center'>
-                ВИДАТКОВА НАКЛАДНА № ВН-24.01.08.10.15
+                {naklCaption}
               </TableCell>
             </TableRow>
             <TableRow>
               <TableCell colSpan={10} align='center'>
-                Від 08 січня 2024 року
+                Від {naklDateToString}
               </TableCell>
             </TableRow>
             <TableRow>
               <TableCell colSpan={3} align='left'>
-                Постачальник
+                Постачальник:
               </TableCell>
               <TableCell colSpan={7} align='left'>
-                ТОВ «АЗОТЕЯ 2» ЄДРПОУ : 44438025
+                {ourFirm}
               </TableCell>
             </TableRow>
             <TableRow>
@@ -138,7 +190,7 @@ function NakladnToPrint() {
                 Адреса:
               </TableCell>
               <TableCell colSpan={7} align='left'>
-                69104 м. Запоріжжя, вул. Чумаченка, буд.23В, кв. 123
+                {ourFirmAddress}
               </TableCell>
             </TableRow>
             <TableRow>
@@ -146,14 +198,12 @@ function NakladnToPrint() {
                 IBAN:
               </TableCell>
               <TableCell colSpan={7} align='left'>
-                UA59 307770 00000 26004211129297 ПАТ &quot; Акцент-БАНК &quot;,
-                МФО 307770
+                {ourIBAN}
               </TableCell>
             </TableRow>
             <TableRow sx={{ marginBottom: '20mm' }}>
               <TableCell colSpan={10} align='left'>
-                ТОВ «АЗОТЕЯ 2» є платником на прибуток на загальних засадах (без
-                ПДВ).
+                {ourTaxationType}
               </TableCell>
             </TableRow>
             <TableRow
@@ -172,7 +222,7 @@ function NakladnToPrint() {
                 Платник:
               </TableCell>
               <TableCell colSpan={7} align='left'>
-                ОСББ « Добробут 35 » ЄДРПОУ : 40282339
+                {payerFirm}
               </TableCell>
             </TableRow>
             <TableRow>
@@ -180,7 +230,7 @@ function NakladnToPrint() {
                 Адреса:
               </TableCell>
               <TableCell colSpan={7} align='left'>
-                69121, м.Запоріжжя,вул.Днiпровськi Пороги, 35
+                {clientFirmAddress}
               </TableCell>
             </TableRow>
             <TableRow>
@@ -188,13 +238,12 @@ function NakladnToPrint() {
                 IBAN:
               </TableCell>
               <TableCell colSpan={7} align='left'>
-                UA203204780000026009924440846, АБ &quot;УКРГАЗБАНК &quot;, МФО
-                320478
+                {clientIBAN}
               </TableCell>
             </TableRow>
             <TableRow>
               <TableCell colSpan={10} align='left'>
-                Договір № 24.01.08.10.17 від « 08 » січня 2024 року
+                Договір № {contractNumber} від {contractDateToString}
               </TableCell>
             </TableRow>
           </TableHead>
@@ -226,19 +275,19 @@ function NakladnToPrint() {
             {tableRows &&
               tableRows.length > 0 &&
               tableRows.map((item, rowIndex) => (
-                <TableRow key={item._id}>
+                <TableRow key={item.row_id}>
                   <TableCell align='center'>{rowIndex + 1}</TableCell>
                   <TableCell align='left' colSpan={5}>
                     {item.product}
                   </TableCell>
-                  <TableCell align='center'> {item.unit}</TableCell>
+                  <TableCell align='center'>{item.unit}</TableCell>
                   <TableCell align='center'>{item.amount}</TableCell>
                   <TableCell align='center'>{item.price}</TableCell>
                   <TableCell align='center'>{item.rowSum}</TableCell>
                 </TableRow>
               ))}
           </TableBody>
-          <TableFooter
+          <TableBody
             sx={{
               '& td,th': {
                 border: '1px solid transparent',
@@ -250,7 +299,7 @@ function NakladnToPrint() {
               <TableCell align='left' colSpan={8}>
                 Всього без ПДВ
               </TableCell>
-              <TableCell align='center'>1011,54</TableCell>
+              <TableCell align='center'>{naklSum.toFixed(2)}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell></TableCell>
@@ -264,7 +313,7 @@ function NakladnToPrint() {
               <TableCell align='left' colSpan={8}>
                 Загальна сума без ПДВ
               </TableCell>
-              <TableCell align='center'>1011,54</TableCell>
+              <TableCell align='center'>{naklSum.toFixed(2)}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell align='left' colSpan={10}>
@@ -281,10 +330,29 @@ function NakladnToPrint() {
             </TableRow>
             <TableRow>
               <TableCell align='center' colSpan={5}>
-                __________________ Віталій ТКАЧОВ
+                <Grid container direction='row'>
+                  <Grid
+                    item
+                    sx={{
+                      borderBottom: '1px solid black',
+                      flex: 1,
+                    }}
+                  ></Grid>
+                  <Grid item sx={{ flex: 1 }}>
+                    {ourBoss}
+                  </Grid>
+                </Grid>
               </TableCell>
               <TableCell align='center' colSpan={5}>
-                ___________________ Олександр ТРОЦКО
+                <Grid container direction='row'>
+                  <Grid
+                    item
+                    sx={{ borderBottom: '1px solid black', flex: 1 }}
+                  ></Grid>
+                  <Grid item sx={{ flex: 1 }}>
+                    {clientBoss}
+                  </Grid>
+                </Grid>
               </TableCell>
             </TableRow>
             <TableRow>
@@ -295,7 +363,7 @@ function NakladnToPrint() {
                 МП
               </TableCell>
             </TableRow>
-          </TableFooter>
+          </TableBody>
         </Table>
       </TableContainer>
     </div>

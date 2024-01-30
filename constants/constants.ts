@@ -159,8 +159,16 @@ export const accountant_refData_links = [
 ];
 
 export const arr__typeNakl = [
-  { _id: 'incoming', caption: 'Приходная' },
-  { _id: 'outgoing', caption: 'Расходная' },
-  { _id: 'returnFromBuyer', caption: 'Возврат клиента' },
-  { _id: 'returnToSupplier', caption: 'Возврат поставщику' },
+  { _id: 'incoming', caption: 'Прибуткова накладна', prefix: '№ ПН-' },
+  { _id: 'outgoing', caption: 'Видаткова накладна', prefix: '№ ВН-' },
+  {
+    _id: 'returnFromBuyer',
+    caption: 'Накладна - Повернення клієнта',
+    prefix: '№ НПК-',
+  },
+  {
+    _id: 'returnToSupplier',
+    caption: 'Накладна - Повернення постачальнику',
+    prefix: '№ НПП-',
+  },
 ];

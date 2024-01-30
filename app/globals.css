@@ -107,10 +107,12 @@ a {
 }
 
 @media print {
-  html,
-  body {
-    width: 210mm;
-    height: 297mm;
+  #navbar,
+  #footer {
+    display: none;
+  }
+  #main {
+    padding: 0;
   }
 }
 

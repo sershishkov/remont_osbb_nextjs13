@@ -156,7 +156,7 @@ export interface I_ClientType {
 
 export interface I_Client {
   _id?: string;
-  firmType?: Types.ObjectId;
+  firmType?: Types.ObjectId | I_FirmType | string;
 
   clientLongName?: string;
   clientShortName?: string;
@@ -183,7 +183,7 @@ export interface I_Client {
   jobTitle?: string;
   jobTitle_rodit?: string;
   tax?: number;
-  taxationType?: Types.ObjectId;
+  taxationType?: Types.ObjectId | I_TaxationType | string;
 
   certificate_PDV: string;
   telNumber?: string;
@@ -239,7 +239,7 @@ export interface I_StoreHouse {
 
 //////////////////////////////////////////
 //////////////////////////////////////////
-interface I_LocalProduct {
+export interface I_LocalProduct {
   row_id: string;
   product: string;
   unit: string | I_Unit;
@@ -247,7 +247,15 @@ interface I_LocalProduct {
   price: string;
   rowSum?: string;
 }
-interface I_ProductInNakl {
+export interface I_LProduct {
+  row_id: string;
+  product: string;
+  unit: string;
+  amount: string;
+  price: string;
+  rowSum: string;
+}
+export interface I_ProductInNakl {
   _id?: string;
   product: Types.ObjectId | I_Product | string;
   amount: number;

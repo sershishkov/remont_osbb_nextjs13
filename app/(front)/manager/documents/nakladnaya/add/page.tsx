@@ -71,9 +71,7 @@ function DocumentNakladnayaAdd() {
     nakladnayaDate,
     client,
     contract,
-
     storeHouse,
-
     typeNakl,
     naklSum,
   } = formData;

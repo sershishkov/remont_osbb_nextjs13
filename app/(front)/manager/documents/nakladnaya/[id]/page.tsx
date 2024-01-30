@@ -27,6 +27,7 @@ import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
+import Link from '@mui/material/Link';
 
 import MySelectAutoCompl from '@/components/common/MySelectAutoCompl';
 
@@ -60,6 +61,7 @@ function DocumentNakladnayaEdit({ params }: Readonly<paramsProps>) {
   const route = useRouter();
 
   const [formData, setFormData] = useState(initState);
+
   const [localProducts, setLocalProducts] = useState<I_LocalProduct[]>([]);
   const [naklStages, setNaklStages] = useState({
     active: false,
@@ -491,25 +493,55 @@ function DocumentNakladnayaEdit({ params }: Readonly<paramsProps>) {
         />
       </Grid>
 
-      <Grid item>
-        <Button
-          type='submit'
-          fullWidth
-          disabled={
-            !nakladnayaNumber ||
-            !nakladnayaDate ||
-            !contract ||
-            !storeHouse ||
-            !typeNakl ||
-            (localProducts && localProducts.length === 0)
-          }
-          variant='contained'
-          sx={{ mt: 3, mb: 2 }}
+      <Grid item sx={{ width: '100%' }}>
+        <Grid
+          container
+          direction='row'
+          justifyContent='space-around'
+          alignItems='center'
+          sx={{ width: '100%' }}
         >
-          {naklStages.active
-            ? 'Сохранить и провести '
-            : 'Сохранить без проведения'}
-        </Button>
+          <Grid item>
+            <Button
+              type='submit'
+              fullWidth
+              disabled={
+                !nakladnayaNumber ||
+                !nakladnayaDate ||
+                !contract ||
+                !storeHouse ||
+                !typeNakl ||
+                (localProducts && localProducts.length === 0)
+              }
+              variant='contained'
+              sx={{ mt: 3, mb: 2 }}
+            >
+              {naklStages.active
+                ? 'Сохранить и провести '
+                : 'Сохранить без проведения'}
+            </Button>
+          </Grid>
+          <Grid item>
+            <Button
+              component={Link}
+              href={`${currentURL}/print/${id}`}
+              fullWidth
+              color='success'
+              disabled={
+                !nakladnayaNumber ||
+                !nakladnayaDate ||
+                !contract ||
+                !storeHouse ||
+                !typeNakl ||
+                (localProducts && localProducts.length === 0)
+              }
+              variant='contained'
+              sx={{ mt: 3, mb: 2 }}
+            >
+              На печать
+            </Button>
+          </Grid>
+        </Grid>
       </Grid>
     </Grid>
   );
