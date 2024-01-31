@@ -6,7 +6,7 @@ const currentURL = `/manager/documents/nakladnaya`;
 function DocumentNakladnayaList() {
   const headerFields = [
     'nakladnayaNumber',
-    'active',
+    'isActive',
     'typeNakl',
     'totalNaklSum',
     'ourFirm',
@@ -14,7 +14,7 @@ function DocumentNakladnayaList() {
   ];
   const tableFields = [
     'nakladnayaNumber',
-    'active',
+    'isActive',
     'typeNakl',
     'totalNaklSum',
     'contract.ourFirm.clientShortName',

@@ -1,16 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/app/(back)/api/auth/[...nextauth]/options';
-import DocumentNakladnaya from '@/lib/mongoose/models/manager/documents/Model__DocumentNakladnaya';
+
+import Model__DocumentAkt from '@/lib/mongoose/models/manager/documents/Model__DocumentAkt';
 
 import Model__Contract from '@/lib/mongoose/models/manager/refdata/Model__Contract';
 import Model__Client from '@/lib/mongoose/models/manager/refdata/Model__Client';
-import Model__StoreHouse from '@/lib/mongoose/models/accountant/refData/Model__StoreHouse';
-import Model__Product from '@/lib/mongoose/models/manager/refdata/Model__Product';
+import Model__ThirdPartyService from '@/lib/mongoose/models/manager/refdata/Model__ThirdPartyService';
+import Model__ServiceWork from '@/lib/mongoose/models/manager/refdata/Model__ServiceWork';
+
 import Model__Unit from '@/lib/mongoose/models/manager/refdata/Model__Unit';
 
 import { connectToDB } from '@/lib/mongoose/connectToDB';
-import { updateRecomendPriceInProducts } from '../route';
 
 type Props = {
   params: {
@@ -22,7 +23,7 @@ export const GET = async (request: NextRequest, { params }: Props) => {
   const { id } = params;
   try {
     await connectToDB();
-    const one__ITEM = await DocumentNakladnaya.findById(id)
+    const one__ITEM = await Model__DocumentAkt.findById(id)
       .populate({
         path: 'contract',
         model: Model__Contract,
@@ -41,9 +42,9 @@ export const GET = async (request: NextRequest, { params }: Props) => {
         ],
       })
       .populate({
-        path: 'products.product',
-        model: Model__Product,
-        select: 'productName',
+        path: 'thirdPartyServices.thirdPartyService',
+        model: Model__ThirdPartyService,
+        select: 'thirdPartyServiceName',
         populate: [
           {
             path: 'unit',
@@ -53,9 +54,16 @@ export const GET = async (request: NextRequest, { params }: Props) => {
         ],
       })
       .populate({
-        path: 'storeHouse',
-        model: Model__StoreHouse,
-        select: 'storeHouseName',
+        path: 'serviceWorks.serviceWork',
+        model: Model__ServiceWork,
+        select: 'serviceWorkName',
+        populate: [
+          {
+            path: 'unit',
+            model: Model__Unit,
+            select: 'unitName',
+          },
+        ],
       });
 
     if (!one__ITEM) {
@@ -93,29 +101,35 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
     );
   }
   const {
-    nakladnayaNumber,
-    nakladnayaDate,
+    aktOfWorkNumber,
+    aktOfWorkDate,
     contract,
-    products,
-    storeHouse,
+
+    thirdPartyServices,
+    serviceWorks,
+
     isActive,
-    typeNakl,
+
+    typeAkt,
   } = myData;
 
   try {
     await connectToDB();
 
     const new__ITEM = {
-      nakladnayaNumber,
-      nakladnayaDate,
+      aktOfWorkNumber,
+      aktOfWorkDate,
       contract,
-      products,
-      storeHouse,
+
+      thirdPartyServices,
+      serviceWorks,
+
       isActive,
-      typeNakl,
+
+      typeAkt,
     };
 
-    const updated__ITEM = await DocumentNakladnaya.findByIdAndUpdate(
+    const updated__ITEM = await Model__DocumentAkt.findByIdAndUpdate(
       id,
       new__ITEM,
       {
@@ -133,10 +147,6 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
           status: 400,
         }
       );
-    }
-
-    if (typeNakl === 'incoming') {
-      updateRecomendPriceInProducts([...products]);
     }
 
     const responseObj = {
@@ -157,7 +167,7 @@ export const DELETE = async (request: NextRequest, { params }: Props) => {
     const session = await getServerSession(authOptions);
     const currentRole = session?.user.role;
     if (currentRole === 'admin') {
-      const one__ITEM = await DocumentNakladnaya.findByIdAndDelete(id);
+      const one__ITEM = await Model__DocumentAkt.findByIdAndDelete(id);
 
       if (!one__ITEM) {
         return new NextResponse(
@@ -170,7 +180,7 @@ export const DELETE = async (request: NextRequest, { params }: Props) => {
         );
       }
     } else {
-      const one__ITEM = await DocumentNakladnaya.findById(id);
+      const one__ITEM = await Model__DocumentAkt.findById(id);
       if (!one__ITEM) {
         return new NextResponse(
           JSON.stringify({
@@ -188,7 +198,7 @@ export const DELETE = async (request: NextRequest, { params }: Props) => {
         whoDeleted: session?.user._id,
       };
 
-      await DocumentNakladnaya.findByIdAndUpdate(id, new__DocumentNakladnaya, {
+      await Model__DocumentAkt.findByIdAndUpdate(id, new__DocumentNakladnaya, {
         new: true,
         runValidators: true,
       });

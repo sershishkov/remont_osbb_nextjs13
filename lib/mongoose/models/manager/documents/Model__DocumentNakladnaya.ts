@@ -40,13 +40,13 @@ const dokument_nakladnaya__Schema = new Schema<I_DocumentNakladnaya>(
       required: [true, 'Please add a store_house id'],
     },
 
-    active: {
+    isActive: {
       type: Boolean,
       default: false,
     },
     creator: {
       type: Schema.Types.ObjectId,
-      ref: 'worker',
+      ref: 'user',
       // required: [true, 'Please add a worker id'],
     },
     typeNakl: {
@@ -55,14 +55,14 @@ const dokument_nakladnaya__Schema = new Schema<I_DocumentNakladnaya>(
       default: 'outgoing',
     },
 
-    deleted: {
+    isDeleted: {
       type: Boolean,
       default: false,
     },
 
     whoDeleted: {
       type: Schema.Types.ObjectId,
-      ref: 'worker',
+      ref: 'user',
     },
   },
   {

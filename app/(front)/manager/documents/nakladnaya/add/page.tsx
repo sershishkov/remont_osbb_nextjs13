@@ -55,7 +55,7 @@ function DocumentNakladnayaAdd() {
   const [formData, setFormData] = useState(initState);
   const [localProducts, setLocalProducts] = useState<I_LocalProduct[]>([]);
   const [naklStages, setNaklStages] = useState({
-    active: false,
+    isActive: false,
   });
 
   const [arr__Clients, setArr__Clients] = useState<I_Client[]>([]);
@@ -153,7 +153,7 @@ function DocumentNakladnayaAdd() {
 
       products: productsToSave,
       storeHouse,
-      active: naklStages.active,
+      isActive: naklStages.isActive,
       typeNakl,
     };
 
@@ -411,13 +411,13 @@ function DocumentNakladnayaAdd() {
             <FormControlLabel
               control={
                 <Switch
-                  checked={naklStages.active}
+                  checked={naklStages.isActive}
                   onChange={handleChangeContractStages}
                   name='active'
                 />
               }
               label={
-                naklStages.active
+                naklStages.isActive
                   ? 'Провести документ'
                   : 'Не проводить документ'
               }
@@ -459,7 +459,7 @@ function DocumentNakladnayaAdd() {
           variant='contained'
           sx={{ mt: 3, mb: 2 }}
         >
-          {naklStages.active
+          {naklStages.isActive
             ? 'Сохранить и провести '
             : 'Сохранить без проведения'}
         </Button>

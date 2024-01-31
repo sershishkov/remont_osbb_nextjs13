@@ -22,7 +22,7 @@ export const POST = async (request: NextRequest) => {
     products,
     storeHouse,
 
-    active,
+    isActive,
 
     typeNakl,
   } = await request.json();
@@ -69,7 +69,7 @@ export const POST = async (request: NextRequest) => {
       products,
       storeHouse,
 
-      active,
+      isActive,
       creator: session?.user._id,
       typeNakl,
     });
@@ -119,7 +119,7 @@ export const GET = async (request: NextRequest) => {
     if (userRole === 'admin') {
       deletedRestiction = {};
     } else {
-      deletedRestiction = { deleted: false };
+      deletedRestiction = { isDeleted: false };
     }
 
     filterObject = {

@@ -272,12 +272,46 @@ export interface I_DocumentNakladnaya {
 
   storeHouse: Types.ObjectId;
 
-  active: Boolean;
+  isActive: Boolean;
   creator: Types.ObjectId;
   typeNakl: string;
 
-  deleted: Boolean;
+  isDeleted: Boolean;
   whoDeleted: Types.ObjectId;
+}
+
+export interface I_ThirdPartyServiceInAkt {
+  _id?: string;
+
+  thirdPartyService?: Types.ObjectId | I_ThirdPartyService | string;
+  amount?: number;
+  price?: number;
+  extraInformation?: string;
+}
+export interface I_ServiceWorkInAkt {
+  _id?: string;
+
+  serviceWork?: Types.ObjectId | I_ServiceWork | string;
+  amount?: number;
+  price?: number;
+  extraInformation?: string;
+}
+export interface I_LThirdPartyService {
+  row_id: string;
+  thirdPartyService: string;
+  unit: string;
+  amount: string;
+  price: string;
+  rowSum: string;
+}
+
+export interface I_LServiceWork {
+  row_id: string;
+  serviceWork: string;
+  unit: string;
+  amount: string;
+  price: string;
+  rowSum: string;
 }
 
 export interface I_DocumentAktOfWork {
@@ -285,28 +319,14 @@ export interface I_DocumentAktOfWork {
   aktOfWorkNumber: string;
   aktOfWorkDate: Date;
   contract: Types.ObjectId;
-  thirdPartyServices: [
-    {
-      thirdPartyService: Types.ObjectId;
-      amount: number;
-      price: number;
-      extraInformation: string;
-    }
-  ];
-  serviceWorks: [
-    {
-      serviceWork: Types.ObjectId;
-      amount: number;
-      price: number;
-      extraInformation: string;
-    }
-  ];
+  thirdPartyServices: I_ThirdPartyServiceInAkt[];
+  serviceWorks: I_ServiceWorkInAkt[];
 
-  active: Boolean;
+  isActive: Boolean;
   creator: Types.ObjectId;
-  typeNakl: string;
+  typeAkt: string;
 
-  deleted: Boolean;
+  isDeleted: Boolean;
   whoDeleted: Types.ObjectId;
 }
 //////////////////////////////////////////
