@@ -27,7 +27,14 @@ export const POST = async (request: NextRequest) => {
     typeAkt,
   } = await request.json();
 
-  if (!aktOfWorkNumber || !contract) {
+  if (
+    !aktOfWorkNumber ||
+    !contract ||
+    (thirdPartyServices &&
+      thirdPartyServices.length === 0 &&
+      serviceWorks &&
+      serviceWorks.length === 0)
+  ) {
     return new NextResponse(
       JSON.stringify({
         message: 'Please add all fields ',

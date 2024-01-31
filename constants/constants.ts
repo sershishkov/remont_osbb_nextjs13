@@ -109,6 +109,10 @@ export const manager_Docums_links = [
     link: `${manager_Docums}/nakladnaya`,
     caption: `Накладные`,
   },
+  {
+    link: `${manager_Docums}/akt-of-work`,
+    caption: `Акты`,
+  },
 ];
 ///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////
@@ -170,5 +174,18 @@ export const arr__typeNakl = [
     _id: 'returnToSupplier',
     caption: 'Накладна - Повернення постачальнику',
     prefix: '№ НПП-',
+  },
+];
+
+export const arr__typeAkt = [
+  {
+    _id: 'incoming',
+    caption: 'Вхідний акт виконаних робіт',
+    prefix: '№ ВАВР-',
+  },
+  {
+    _id: 'outgoing',
+    caption: 'АКТ виконаних робіт (послуг) ',
+    prefix: '№ АВР-',
   },
 ];

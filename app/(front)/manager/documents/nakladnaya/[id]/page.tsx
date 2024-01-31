@@ -49,7 +49,6 @@ const initState = {
   client: '',
   contract: '',
 
-  localProducts: [],
   storeHouse: '',
 
   typeNakl: 'outgoing',

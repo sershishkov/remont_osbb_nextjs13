@@ -299,19 +299,23 @@ export interface I_ServiceWorkInAkt {
 export interface I_LThirdPartyService {
   row_id: string;
   thirdPartyService: string;
+  extraInformation?: string;
   unit: string;
   amount: string;
   price: string;
   rowSum: string;
+  extraInformation?: string;
 }
 
 export interface I_LServiceWork {
   row_id: string;
   serviceWork: string;
+  extraInformation?: string;
   unit: string;
   amount: string;
   price: string;
   rowSum: string;
+  extraInformation?: string;
 }
 
 export interface I_DocumentAktOfWork {
@@ -328,6 +332,11 @@ export interface I_DocumentAktOfWork {
 
   isDeleted: Boolean;
   whoDeleted: Types.ObjectId;
+  totalSums?: {
+    totalThirdPartySum: string;
+    totalServiceWorkSum: string;
+    totalAktSum: string;
+  };
 }
 //////////////////////////////////////////
 //////////////////////////////////////////

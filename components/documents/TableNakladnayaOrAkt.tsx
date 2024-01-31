@@ -34,6 +34,7 @@ function TableNakladnayaOrAkt({
   recalcRow,
   handleChangeInputsInRow,
   handleChangeSelectsMainField,
+  showExtraInformation = false,
 }: Readonly<{
   mainFieldCaption: string;
   mainFieldnName: string;
@@ -56,6 +57,7 @@ function TableNakladnayaOrAkt({
     targetName: string,
     targetValue: string
   ) => void;
+  showExtraInformation?: boolean;
 }>) {
   return (
     <TableContainer component={Paper} sx={{ maxHeight: 700 }}>
@@ -77,7 +79,9 @@ function TableNakladnayaOrAkt({
                 <PlusOneIcon color='success' sx={{ fontSize: '2rem' }} />
               </IconButton>
             </TableCell>
-            <TableCell colSpan={5}></TableCell>
+            <TableCell
+              colSpan={showExtraInformation === true ? 6 : 5}
+            ></TableCell>
             <TableCell colSpan={3}>
               <Typography>{naklSum}</Typography>
             </TableCell>
@@ -94,6 +98,17 @@ function TableNakladnayaOrAkt({
               №
             </TableCell>
             <TableCell align='center'>{mainFieldCaption}</TableCell>
+
+            <TableCell
+              align='center'
+              sx={{
+                width: 150,
+                display: showExtraInformation ? 'table-cell' : 'none',
+              }}
+            >
+              Доп Инфо
+            </TableCell>
+
             <TableCell align='center' sx={{ width: 75 }}>
               Од. Вимиру
             </TableCell>
@@ -127,6 +142,27 @@ function TableNakladnayaOrAkt({
                     arrToSelect={arrToSelectInMainColumn ?? []}
                   />
                 </TableCell>
+
+                <TableCell
+                  align='center'
+                  sx={{ display: showExtraInformation ? 'table-cell' : 'none' }}
+                >
+                  <TextField
+                    name={`${row.row_id}-extraInformation`}
+                    multiline
+                    type='text'
+                    id={`${row.row_id}-extraInformation`}
+                    value={row.extraInformation ?? ''}
+                    onChange={(e) =>
+                      handleChangeInputsInRow(
+                        row.row_id!,
+                        'extraInformation',
+                        e
+                      )
+                    }
+                  />
+                </TableCell>
+
                 <TableCell align='center'>{row.unit ?? ''}</TableCell>
                 <TableCell align='center'>
                   <TextField
