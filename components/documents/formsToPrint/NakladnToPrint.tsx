@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { FloatToSamplesInWordsUkr } from '@/lib/helpers/myPropisUkr';
+import { Export22Doc } from '@/lib/helpers/helperFunction';
 import { I_Client, I_Contract, I_LProduct } from '@/interfaces/refdata';
 
 import { arr__typeNakl } from '@/constants/constants';
@@ -11,9 +12,10 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
 
 import classes from './styles.module.css';
-import { Grid } from '@mui/material';
 
 function NakladnToPrint({
   nakladnayaNumber,
@@ -35,6 +37,10 @@ function NakladnToPrint({
   naklSum: number;
   tableRows: I_LProduct[];
 }>) {
+  const convertToDocHandler = () => {
+    Export22Doc('page', nakladnayaNumber);
+  };
+
   const sumPropis = FloatToSamplesInWordsUkr(naklSum);
   const objTypeNakl = arr__typeNakl.find((item) => item._id === typeNakl);
   const naklCaption =
@@ -92,8 +98,8 @@ function NakladnToPrint({
   } ${clientObj?.lastName_imen?.toUpperCase()}`;
 
   return (
-    <div className={classes.page}>
-      <TableContainer sx={{ margin: 0 }}>
+    <div className={classes.page} id='page'>
+      <TableContainer sx={{ margin: 0 }} id='table-to-save'>
         <Table
           padding='none'
           sx={{
@@ -117,6 +123,8 @@ function NakladnToPrint({
                 height: '1mm',
                 '& td, th': {
                   color: 'transparent',
+                  // display: 'none',
+                  visibility: 'hidden',
                 },
               }}
             >
@@ -366,6 +374,25 @@ function NakladnToPrint({
           </TableBody>
         </Table>
       </TableContainer>
+      <Grid
+        id='convert-buttons'
+        container
+        direction='row'
+        justifyContent='space-around'
+        alignItems='center'
+        sx={{ display: 'none' }}
+      >
+        <Grid item>
+          <Button fullWidth variant='contained' onClick={convertToDocHandler}>
+            Save to Doc
+          </Button>
+        </Grid>
+        <Grid item>
+          <Button fullWidth variant='contained' onClick={() => {}}>
+            Save to PDF
+          </Button>
+        </Grid>
+      </Grid>
     </div>
   );
 }
