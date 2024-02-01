@@ -412,7 +412,7 @@ function DocumentNakladnayaAdd() {
                 <Switch
                   checked={naklStages.isActive}
                   onChange={handleChangeContractStages}
-                  name='active'
+                  name='isActive'
                 />
               }
               label={

@@ -317,6 +317,15 @@ export interface I_LServiceWork {
   rowSum: string;
   extraInformation?: string;
 }
+export interface I_WorkRows {
+  row_id: string;
+  workName: string;
+  extraInformation: string;
+  unit: string;
+  amount: string;
+  price: string;
+  rowSum: string;
+}
 
 export interface I_DocumentAktOfWork {
   _id?: string;

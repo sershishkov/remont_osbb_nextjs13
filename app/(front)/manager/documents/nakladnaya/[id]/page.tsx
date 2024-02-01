@@ -166,7 +166,7 @@ function DocumentNakladnayaEdit({ params }: Readonly<paramsProps>) {
 
           setNaklStages((prevState) => ({
             ...prevState,
-            active: item.active,
+            isActive: item.isActive,
           }));
 
           setLocalProducts(newLocalProducts ?? []);
@@ -461,7 +461,7 @@ function DocumentNakladnayaEdit({ params }: Readonly<paramsProps>) {
                 <Switch
                   checked={naklStages.isActive}
                   onChange={handleChangeContractStages}
-                  name='active'
+                  name='isActive'
                 />
               }
               label={
