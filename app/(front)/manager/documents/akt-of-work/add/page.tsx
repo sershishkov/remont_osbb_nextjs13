@@ -420,33 +420,69 @@ function DocumentAktOfWorkAdd() {
           Полная сумма: {aktSum.toFixed(2)}
         </Typography>
       </Grid>
+      <Grid item>
+        <Grid container direction='row' alignItems='center' spacing={3}>
+          <Grid item>
+            <TextField
+              margin='normal'
+              required
+              fullWidth
+              name='aktOfWorkNumber'
+              label='aktOfWorkNumber'
+              type='text'
+              id='aktOfWorkNumber'
+              value={aktOfWorkNumber ?? ''}
+              onChange={onChange}
+            />
+          </Grid>
+          <Grid item>
+            <TextField
+              margin='normal'
+              required
+              fullWidth
+              name='aktOfWorkDate'
+              label='aktOfWorkDate'
+              type='date'
+              id='aktOfWorkDate'
+              value={aktOfWorkDate ?? ''}
+              onChange={onChange}
+              InputLabelProps={{ shrink: true }}
+            />
+          </Grid>
+          <Grid item sx={{ flex: 1 }}>
+            <MySelectAutoCompl
+              selectName={`typeAkt`}
+              selectLabel={`Тип акта`}
+              fieldToShow={`caption`}
+              handleChangeSelects={handleChangeSelects}
+              selectedOption={typeAkt ?? ''}
+              // @ts-ignore
+              arrToSelect={arr__typeAkt ?? []}
+            />
+          </Grid>
 
-      <Grid item>
-        <TextField
-          margin='normal'
-          required
-          fullWidth
-          name='aktOfWorkNumber'
-          label='aktOfWorkNumber'
-          type='text'
-          id='aktOfWorkNumber'
-          value={aktOfWorkNumber ?? ''}
-          onChange={onChange}
-        />
-      </Grid>
-      <Grid item>
-        <TextField
-          margin='normal'
-          required
-          fullWidth
-          name='aktOfWorkDate'
-          label='aktOfWorkDate'
-          type='date'
-          id='aktOfWorkDate'
-          value={aktOfWorkDate ?? ''}
-          onChange={onChange}
-          InputLabelProps={{ shrink: true }}
-        />
+          <Grid item sx={{ flex: 1 }}>
+            <FormControl component='fieldset' variant='standard'>
+              <FormLabel component='legend'>Стадии выполнения</FormLabel>
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={naklStages.isActive}
+                      onChange={handleChangeContractStages}
+                      name='isActive'
+                    />
+                  }
+                  label={
+                    naklStages.isActive
+                      ? 'Провести документ'
+                      : 'Не проводить документ'
+                  }
+                />
+              </FormGroup>
+            </FormControl>
+          </Grid>
+        </Grid>
       </Grid>
 
       <Grid item sx={{ mb: 2 }}>
@@ -493,40 +529,6 @@ function DocumentAktOfWorkAdd() {
             <AddIcon color='success' sx={{ fontSize: 30 }} />
           </IconButton>
         </Stack>
-      </Grid>
-
-      <Grid item sx={{ mb: 2 }}>
-        <MySelectAutoCompl
-          selectName={`typeAkt`}
-          selectLabel={`Тип акта`}
-          fieldToShow={`caption`}
-          handleChangeSelects={handleChangeSelects}
-          selectedOption={typeAkt ?? ''}
-          // @ts-ignore
-          arrToSelect={arr__typeAkt ?? []}
-        />
-      </Grid>
-
-      <Grid item>
-        <FormControl component='fieldset' variant='standard'>
-          <FormLabel component='legend'>Стадии выполнения</FormLabel>
-          <FormGroup>
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={naklStages.isActive}
-                  onChange={handleChangeContractStages}
-                  name='isActive'
-                />
-              }
-              label={
-                naklStages.isActive
-                  ? 'Провести документ'
-                  : 'Не проводить документ'
-              }
-            />
-          </FormGroup>
-        </FormControl>
       </Grid>
 
       <Grid item>

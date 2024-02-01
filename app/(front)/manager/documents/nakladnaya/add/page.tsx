@@ -293,33 +293,68 @@ function DocumentNakladnayaAdd() {
           Добавить
         </Typography>
       </Grid>
-
       <Grid item>
-        <TextField
-          margin='normal'
-          required
-          fullWidth
-          name='nakladnayaNumber'
-          label='nakladnayaNumber'
-          type='text'
-          id='nakladnayaNumber'
-          value={nakladnayaNumber ?? ''}
-          onChange={onChange}
-        />
-      </Grid>
-      <Grid item>
-        <TextField
-          margin='normal'
-          required
-          fullWidth
-          name='nakladnayaDate'
-          label='nakladnayaDate'
-          type='date'
-          id='nakladnayaDate'
-          value={nakladnayaDate ?? ''}
-          onChange={onChange}
-          InputLabelProps={{ shrink: true }}
-        />
+        <Grid container direction='row' alignItems='center' spacing={3}>
+          <Grid item>
+            <TextField
+              margin='normal'
+              required
+              fullWidth
+              name='nakladnayaNumber'
+              label='nakladnayaNumber'
+              type='text'
+              id='nakladnayaNumber'
+              value={nakladnayaNumber ?? ''}
+              onChange={onChange}
+            />
+          </Grid>
+          <Grid item>
+            <TextField
+              margin='normal'
+              required
+              fullWidth
+              name='nakladnayaDate'
+              label='nakladnayaDate'
+              type='date'
+              id='nakladnayaDate'
+              value={nakladnayaDate ?? ''}
+              onChange={onChange}
+              InputLabelProps={{ shrink: true }}
+            />
+          </Grid>
+          <Grid item sx={{ flex: 1 }}>
+            <MySelectAutoCompl
+              selectName={`typeNakl`}
+              selectLabel={`Тип накладной`}
+              fieldToShow={`caption`}
+              handleChangeSelects={handleChangeSelects}
+              selectedOption={typeNakl ?? ''}
+              // @ts-ignore
+              arrToSelect={arr__typeNakl ?? []}
+            />
+          </Grid>
+          <Grid item sx={{ flex: 1 }}>
+            <FormControl component='fieldset' variant='standard'>
+              <FormLabel component='legend'>Стадии выполнения</FormLabel>
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={naklStages.isActive}
+                      onChange={handleChangeContractStages}
+                      name='isActive'
+                    />
+                  }
+                  label={
+                    naklStages.isActive
+                      ? 'Провести документ'
+                      : 'Не проводить документ'
+                  }
+                />
+              </FormGroup>
+            </FormControl>
+          </Grid>
+        </Grid>
       </Grid>
 
       <Grid item sx={{ mb: 2 }}>
@@ -390,39 +425,6 @@ function DocumentNakladnayaAdd() {
             <AddIcon color='success' sx={{ fontSize: 30 }} />
           </IconButton>
         </Stack>
-      </Grid>
-      <Grid item sx={{ mb: 2 }}>
-        <MySelectAutoCompl
-          selectName={`typeNakl`}
-          selectLabel={`Тип накладной`}
-          fieldToShow={`caption`}
-          handleChangeSelects={handleChangeSelects}
-          selectedOption={typeNakl ?? ''}
-          // @ts-ignore
-          arrToSelect={arr__typeNakl ?? []}
-        />
-      </Grid>
-
-      <Grid item>
-        <FormControl component='fieldset' variant='standard'>
-          <FormLabel component='legend'>Стадии выполнения</FormLabel>
-          <FormGroup>
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={naklStages.isActive}
-                  onChange={handleChangeContractStages}
-                  name='isActive'
-                />
-              }
-              label={
-                naklStages.isActive
-                  ? 'Провести документ'
-                  : 'Не проводить документ'
-              }
-            />
-          </FormGroup>
-        </FormControl>
       </Grid>
 
       <Grid item>
