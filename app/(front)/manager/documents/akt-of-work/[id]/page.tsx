@@ -22,6 +22,7 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
@@ -70,7 +71,7 @@ function DocumentAktOfWorkEdit({ params }: Readonly<paramsProps>) {
     []
   );
   const [naklStages, setNaklStages] = useState({
-    isActive: false,
+    isActive: true,
   });
 
   const [arr__Clients, setArr__Clients] = useState<I_Client[]>([]);
@@ -603,6 +604,13 @@ function DocumentAktOfWorkEdit({ params }: Readonly<paramsProps>) {
             onClick={() => onClickAddItem('/manager/refdata/contract/add')}
           >
             <AddIcon color='success' sx={{ fontSize: 30 }} />
+          </IconButton>
+          <IconButton
+            onClick={() =>
+              onClickAddItem(`/manager/refdata/contract/${contract}`)
+            }
+          >
+            <EditIcon color='primary' sx={{ fontSize: 30 }} />
           </IconButton>
         </Stack>
       </Grid>

@@ -54,7 +54,7 @@ function DocumentNakladnayaAdd() {
   const [formData, setFormData] = useState(initState);
   const [localProducts, setLocalProducts] = useState<I_LocalProduct[]>([]);
   const [naklStages, setNaklStages] = useState({
-    isActive: false,
+    isActive: true,
   });
 
   const [arr__Clients, setArr__Clients] = useState<I_Client[]>([]);

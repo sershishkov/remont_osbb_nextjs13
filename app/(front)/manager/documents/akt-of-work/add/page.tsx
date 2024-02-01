@@ -60,7 +60,7 @@ function DocumentAktOfWorkAdd() {
     []
   );
   const [naklStages, setNaklStages] = useState({
-    isActive: false,
+    isActive: true,
   });
 
   const [arr__Clients, setArr__Clients] = useState<I_Client[]>([]);

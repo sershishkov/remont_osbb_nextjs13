@@ -188,7 +188,8 @@ function ContractEdit({ params }: Readonly<paramsProps>) {
         const item: I_Contract = await item__get_one({ _id: id }, currentURL);
 
         if (item) {
-          setFormData({
+          setFormData((prevState) => ({
+            ...prevState,
             contractNumber: item.contractNumber!,
             ourFirm: item.ourFirm!._id.toString(),
             client: item.client!._id.toString(),
@@ -203,7 +204,7 @@ function ContractEdit({ params }: Readonly<paramsProps>) {
             paymentSource: item.paymentSource!._id.toString(),
             responsibleManager: item.responsibleManager._id.toString(),
             responsibleWorker: item.responsibleWorker._id.toString(),
-          });
+          }));
 
           setContractStages({
             isMeasured: item.isMeasured,
