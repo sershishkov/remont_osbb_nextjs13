@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -24,6 +25,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 
 import MySelectAutoCompl from '@/components/common/MySelectAutoCompl';
+import { boss_role } from '@/constants/constants';
 
 import {
   I_Client,
@@ -56,8 +58,15 @@ export interface ILocalParticipant {
 
 function ContractAdd() {
   const route = useRouter();
+  const session = useSession();
+  const user = session?.data?.user;
 
   const [formData, setFormData] = useState(initState);
+  const [otherParticipantsSum, setOtherParticipantsSum] = useState(0);
+  const [mainParticipantSum, setMainParticipantSum] = useState(100);
+  const [otherParticipants, setOtherParticipants] = useState<
+    ILocalParticipant[]
+  >([]);
 
   const [arr__ourFirms, setArr__ourFirms] = useState<I_Client[]>([]);
   const [arr__Clients, setArr__Clients] = useState<I_Client[]>([]);
@@ -69,9 +78,6 @@ function ContractAdd() {
     I_PaymentSource[]
   >([]);
   const [arr__Workers, setArr__Workers] = useState<I_Worker[]>([]);
-  const [localParticipants, setLocalParticipants] = useState<
-    ILocalParticipant[]
-  >([]);
 
   const [contractStages, setContractStages] = useState({
     isMeasured: false,
@@ -200,12 +206,17 @@ function ContractAdd() {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const actualParticipants = localParticipants.map((item) => {
+    const actualOtherParticipants = otherParticipants.map((item) => {
       return {
         participant: item.participant,
         participantPercentage: Number(item.participantPercentage),
       };
     });
+
+    const mainParticipant = {
+      participant: responsibleManager,
+      participantPercentage: mainParticipantSum,
+    };
 
     const created__Data = {
       contractNumber,
@@ -219,10 +230,7 @@ function ContractAdd() {
       paymentSource,
       responsibleManager,
       responsibleWorker,
-      participantsOfContract:
-        actualParticipants.length > 0
-          ? actualParticipants
-          : [{ participant: responsibleManager, participantPercentage: 100 }],
+      participantsOfContract: [mainParticipant, ...actualOtherParticipants],
 
       isMeasured,
       isEstimateCalculated,
@@ -256,13 +264,13 @@ function ContractAdd() {
   ) => {
     const rowId = targetName.split('_')[1];
 
-    const temp__localParticipants = [...localParticipants];
+    const temp__localParticipants = [...otherParticipants];
     const currentIndex = temp__localParticipants.findIndex(
       (item) => item.id === rowId
     );
     temp__localParticipants[currentIndex].participant = targetValue;
 
-    setLocalParticipants(temp__localParticipants);
+    setOtherParticipants(temp__localParticipants);
   };
 
   const onClickAddItem = (link: string) => {
@@ -276,28 +284,46 @@ function ContractAdd() {
       participantPercentage: '0',
     };
 
-    setLocalParticipants((prevState) => [...prevState, newParticipant]);
+    setOtherParticipants((prevState) => [...prevState, newParticipant]);
   };
 
   const deleteParticipant = (id: string) => {
-    const filteredParticipants = localParticipants.filter(
+    const deletedParticipant = otherParticipants.find((item) => item.id === id);
+    const deletedSum = Number(deletedParticipant?.participantPercentage);
+
+    const newOthersSum = otherParticipantsSum - deletedSum;
+    const newMainSum = 100 - newOthersSum;
+
+    const filteredParticipants = otherParticipants.filter(
       (item) => item.id !== id
     );
-    setLocalParticipants(filteredParticipants);
+    setOtherParticipants(filteredParticipants);
+    setOtherParticipantsSum(newOthersSum);
+    setMainParticipantSum(newMainSum);
+  };
+
+  const reculcParticipantsSum = () => {
+    const otherPartSum = otherParticipants.reduce(
+      (sum, item) => sum + Number(item.participantPercentage),
+      0
+    );
+    const mainSum = 100 - otherPartSum;
+    setOtherParticipantsSum(otherPartSum);
+    setMainParticipantSum(mainSum);
   };
 
   const onChangePercentage = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     id: string
   ) => {
-    const temp__localParticipants = [...localParticipants];
+    const temp__localParticipants = [...otherParticipants];
     const currentIndex = temp__localParticipants.findIndex(
       (item) => item.id === id
     );
     temp__localParticipants[currentIndex].participantPercentage =
       e.target.value;
 
-    setLocalParticipants(temp__localParticipants);
+    setOtherParticipants(temp__localParticipants);
   };
 
   const handleChangeContractStages = (
@@ -482,6 +508,7 @@ function ContractAdd() {
         <Stack
           direction='row'
           spacing={2}
+          alignItems={`center`}
           // direction={{ xs: 'column', sm: 'row' }}
         >
           <MySelectAutoCompl
@@ -492,7 +519,14 @@ function ContractAdd() {
             // @ts-ignore
             arrToSelect={arr__Workers ?? []}
           />
-
+          <Typography
+            variant='h6'
+            sx={{
+              color: mainParticipantSum < 0 ? 'red' : 'green',
+            }}
+          >
+            {mainParticipantSum.toFixed(2)}%
+          </Typography>
           <IconButton
             onClick={() => onClickAddItem('/accountant/refdata/workers/add')}
           >
@@ -524,7 +558,10 @@ function ContractAdd() {
         </Stack>
       </Grid>
 
-      <Grid item>
+      <Grid
+        item
+        sx={{ display: boss_role.includes(user?.role!) ? 'block' : 'none' }}
+      >
         <Grid container direction='column'>
           <Grid item>
             <Stack
@@ -534,16 +571,22 @@ function ContractAdd() {
               spacing={2}
             >
               <Typography variant='h3' align='center'>
-                Участники сделки
+                Другие участники сделки
               </Typography>
               <Button onClick={addParticipant} variant='contained'>
                 Добавить участника
               </Button>
+              <Typography
+                variant='h6'
+                sx={{ color: otherParticipantsSum > 100 ? 'red' : 'green' }}
+              >
+                Сумма {otherParticipantsSum}%
+              </Typography>
             </Stack>
           </Grid>
           <Grid item>
-            {localParticipants.length > 0 &&
-              localParticipants.map((item) => (
+            {otherParticipants.length > 0 &&
+              otherParticipants.map((item) => (
                 <Grid
                   container
                   key={item.id}
@@ -573,6 +616,7 @@ function ContractAdd() {
                       id={`participantPercentage-${item.id}`}
                       value={item.participantPercentage ?? ''}
                       onChange={(e) => onChangePercentage(e, item.id)}
+                      onBlur={reculcParticipantsSum}
                     />
                   </Grid>
                   <Grid item>
@@ -742,7 +786,8 @@ function ContractAdd() {
             !contractType ||
             !paymentSource ||
             !responsibleManager ||
-            !responsibleWorker
+            !responsibleWorker ||
+            mainParticipantSum < 0
           }
           variant='contained'
           sx={{ mt: 3, mb: 2 }}
