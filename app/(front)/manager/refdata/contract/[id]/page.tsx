@@ -406,220 +406,231 @@ function ContractEdit({ params }: Readonly<paramsProps>) {
           Редактировать
         </Typography>
       </Grid>
-
       <Grid item>
-        <TextField
-          margin='normal'
-          required
-          fullWidth
-          name='contractNumber'
-          label='contractNumber'
-          type='text'
-          id='contractNumber'
-          value={contractNumber ?? ''}
-          onChange={onChange}
-        />
-      </Grid>
-
-      <Grid item sx={{ mb: 2 }}>
-        <Stack
-          direction='row'
-          spacing={2}
-          // direction={{ xs: 'column', sm: 'row' }}
-        >
-          <MySelectAutoCompl
-            selectName={`ourFirm`}
-            selectLabel={`Наша фирма`}
-            fieldToShow={`clientShortName`}
-            handleChangeSelects={handleChangeSelects}
-            selectedOption={ourFirm ?? ''}
-            // @ts-ignore
-            arrToSelect={arr__ourFirms ?? []}
-          />
-
-          <IconButton
-            onClick={() => onClickAddItem('/manager/refdata/client/add')}
-          >
-            <AddIcon color='success' sx={{ fontSize: 30 }} />
-          </IconButton>
-        </Stack>
-      </Grid>
-
-      <Grid item sx={{ mb: 2 }}>
-        <Stack
-          direction='row'
-          spacing={2}
-          // direction={{ xs: 'column', sm: 'row' }}
-        >
-          <MySelectAutoCompl
-            selectName={`client`}
-            selectLabel={`Клиент`}
-            fieldToShow={`clientShortName`}
-            handleChangeSelects={handleChangeSelects}
-            selectedOption={client ?? ''}
-            // @ts-ignore
-            arrToSelect={arr__Clients ?? []}
-          />
-
-          <IconButton
-            onClick={() => onClickAddItem('/manager/refdata/client/add')}
-          >
-            <AddIcon color='success' sx={{ fontSize: 30 }} />
-          </IconButton>
-        </Stack>
-      </Grid>
-
-      <Grid item>
-        <TextField
-          margin='normal'
-          required
-          fullWidth
-          name='contractDate'
-          label='contractDate'
-          type='date'
-          id='contractDate'
-          value={contractDate ?? ''}
-          onChange={onChange}
-          InputLabelProps={{ shrink: true }}
-        />
-      </Grid>
-
-      <Grid item>
-        <TextField
-          margin='normal'
-          multiline
-          required
-          fullWidth
-          name='contractDescription'
-          label='contractDescription'
-          type='text'
-          id='contractDescription'
-          value={contractDescription ?? ''}
-          onChange={onChange}
-        />
-      </Grid>
-
-      <Grid item>
-        <TextField
-          margin='normal'
-          multiline
-          required
-          fullWidth
-          name='workAddress'
-          label='workAddress'
-          type='text'
-          id='workAddress'
-          value={workAddress ?? ''}
-          onChange={onChange}
-        />
-      </Grid>
-
-      <Grid item sx={{ mb: 2 }}>
-        <Stack
-          direction='row'
-          spacing={2}
-          // direction={{ xs: 'column', sm: 'row' }}
-        >
-          <MySelectAutoCompl
-            selectName={`contractType`}
-            selectLabel={`Тип контракта`}
-            fieldToShow={`contractTypeName`}
-            handleChangeSelects={handleChangeSelects}
-            selectedOption={contractType ?? ''}
-            // @ts-ignore
-            arrToSelect={arr__ContractTypes ?? []}
-          />
-
-          <IconButton
-            onClick={() =>
-              onClickAddItem('/accountant/refdata/contract-type/add')
-            }
-          >
-            <AddIcon color='success' sx={{ fontSize: 30 }} />
-          </IconButton>
-        </Stack>
-      </Grid>
-
-      <Grid item sx={{ mb: 2 }}>
-        <Stack
-          direction='row'
-          spacing={2}
-          // direction={{ xs: 'column', sm: 'row' }}
-        >
-          <MySelectAutoCompl
-            selectName={`paymentSource`}
-            selectLabel={`Источник средств`}
-            fieldToShow={`paymentSourceName`}
-            handleChangeSelects={handleChangeSelects}
-            selectedOption={paymentSource ?? ''}
-            // @ts-ignore
-            arrToSelect={arr__PaymentSources ?? []}
-          />
-
-          <IconButton
-            onClick={() =>
-              onClickAddItem('/accountant/refdata/payment-source/add')
-            }
-          >
-            <AddIcon color='success' sx={{ fontSize: 30 }} />
-          </IconButton>
-        </Stack>
-      </Grid>
-
-      <Grid item sx={{ mb: 2 }}>
-        <Stack
-          direction='row'
-          spacing={2}
+        <Grid
+          container
+          direction={`row`}
+          justifyContent={`flex-start`}
           alignItems={`center`}
-          // direction={{ xs: 'column', sm: 'row' }}
+          spacing={2}
         >
-          <MySelectAutoCompl
-            selectName={`responsibleManager`}
-            selectLabel={`Ответственный менеджер`}
-            fieldToShow={`lastName`}
-            handleChangeSelects={handleChangeSelects}
-            selectedOption={responsibleManager ?? ''}
-            // @ts-ignore
-            arrToSelect={arr__Workers ?? []}
-          />
-          <Typography
-            variant='h6'
-            sx={{
-              color: mainParticipantSum < 0 ? 'red' : 'green',
-            }}
-          >
-            {mainParticipantSum.toFixed(2)}%
-          </Typography>
-          <IconButton
-            onClick={() => onClickAddItem('/accountant/refdata/workers/add')}
-          >
-            <AddIcon color='success' sx={{ fontSize: 30 }} />
-          </IconButton>
-        </Stack>
+          <Grid item>
+            <TextField
+              margin='normal'
+              required
+              fullWidth
+              name='contractNumber'
+              label='contractNumber'
+              type='text'
+              id='contractNumber'
+              value={contractNumber ?? ''}
+              onChange={onChange}
+            />
+          </Grid>
+          <Grid item>
+            <TextField
+              margin='normal'
+              required
+              fullWidth
+              name='contractDate'
+              label='contractDate'
+              type='date'
+              id='contractDate'
+              value={contractDate ?? ''}
+              onChange={onChange}
+              InputLabelProps={{ shrink: true }}
+            />
+          </Grid>
+          <Grid item sx={{ minWidth: 230 }}>
+            <Stack
+              direction='row'
+              spacing={2}
+              alignItems={`center`}
+              // direction={{ xs: 'column', sm: 'row' }}
+            >
+              <MySelectAutoCompl
+                selectName={`contractType`}
+                selectLabel={`Тип контракта`}
+                fieldToShow={`contractTypeName`}
+                handleChangeSelects={handleChangeSelects}
+                selectedOption={contractType ?? ''}
+                // @ts-ignore
+                arrToSelect={arr__ContractTypes ?? []}
+              />
+
+              <IconButton
+                onClick={() =>
+                  onClickAddItem('/accountant/refdata/contract-type/add')
+                }
+              >
+                <AddIcon color='success' sx={{ fontSize: 30 }} />
+              </IconButton>
+            </Stack>
+          </Grid>
+          <Grid item sx={{ minWidth: 230 }}>
+            <Stack
+              direction='row'
+              spacing={2}
+              // direction={{ xs: 'column', sm: 'row' }}
+            >
+              <MySelectAutoCompl
+                selectName={`paymentSource`}
+                selectLabel={`Источник средств`}
+                fieldToShow={`paymentSourceName`}
+                handleChangeSelects={handleChangeSelects}
+                selectedOption={paymentSource ?? ''}
+                // @ts-ignore
+                arrToSelect={arr__PaymentSources ?? []}
+              />
+
+              <IconButton
+                onClick={() =>
+                  onClickAddItem('/accountant/refdata/payment-source/add')
+                }
+              >
+                <AddIcon color='success' sx={{ fontSize: 30 }} />
+              </IconButton>
+            </Stack>
+          </Grid>
+
+          <Grid item sx={{ minWidth: 300 }}>
+            <Stack
+              direction='row'
+              spacing={2}
+              alignItems={`center`}
+              // direction={{ xs: 'column', sm: 'row' }}
+            >
+              <MySelectAutoCompl
+                selectName={`responsibleManager`}
+                selectLabel={`Отв.Менеджер`}
+                fieldToShow={`lastName`}
+                handleChangeSelects={handleChangeSelects}
+                selectedOption={responsibleManager ?? ''}
+                // @ts-ignore
+                arrToSelect={arr__Workers ?? []}
+              />
+              <Typography
+                variant='body2'
+                sx={{
+                  color: mainParticipantSum < 0 ? 'red' : 'green',
+                }}
+              >
+                {mainParticipantSum.toFixed(2)}%
+              </Typography>
+            </Stack>
+          </Grid>
+          <Grid item sx={{ minWidth: 300 }}>
+            <Stack
+              direction='row'
+              spacing={2}
+              // direction={{ xs: 'column', sm: 'row' }}
+            >
+              <MySelectAutoCompl
+                selectName={`responsibleWorker`}
+                selectLabel={`Отв.исполнитель`}
+                fieldToShow={`lastName`}
+                handleChangeSelects={handleChangeSelects}
+                selectedOption={responsibleWorker ?? ''}
+                // @ts-ignore
+                arrToSelect={arr__Workers ?? []}
+              />
+
+              <IconButton
+                onClick={() =>
+                  onClickAddItem('/accountant/refdata/workers/add')
+                }
+              >
+                <AddIcon color='success' sx={{ fontSize: 30 }} />
+              </IconButton>
+            </Stack>
+          </Grid>
+        </Grid>
       </Grid>
 
-      <Grid item sx={{ mb: 2 }}>
-        <Stack
-          direction='row'
+      <Grid item>
+        <Grid
+          container
+          direction={`row`}
+          justifyContent={`flex-start`}
+          alignItems={`center`}
           spacing={2}
-          // direction={{ xs: 'column', sm: 'row' }}
         >
-          <MySelectAutoCompl
-            selectName={`responsibleWorker`}
-            selectLabel={`Ответственный исполнитель`}
-            fieldToShow={`lastName`}
-            handleChangeSelects={handleChangeSelects}
-            selectedOption={responsibleWorker ?? ''}
-            // @ts-ignore
-            arrToSelect={arr__Workers ?? []}
-          />
+          <Grid item sx={{ flex: 1 }}>
+            <MySelectAutoCompl
+              selectName={`ourFirm`}
+              selectLabel={`Наша фирма`}
+              fieldToShow={`clientShortName`}
+              handleChangeSelects={handleChangeSelects}
+              selectedOption={ourFirm ?? ''}
+              // @ts-ignore
+              arrToSelect={arr__ourFirms ?? []}
+            />
+          </Grid>
 
-          <IconButton
-            onClick={() => onClickAddItem('/accountant/refdata/workers/add')}
-          >
-            <AddIcon color='success' sx={{ fontSize: 30 }} />
-          </IconButton>
-        </Stack>
+          <Grid item sx={{ flex: 1 }}>
+            <Stack
+              direction='row'
+              spacing={2}
+              // direction={{ xs: 'column', sm: 'row' }}
+            >
+              <MySelectAutoCompl
+                selectName={`client`}
+                selectLabel={`Клиент`}
+                fieldToShow={`clientShortName`}
+                handleChangeSelects={handleChangeSelects}
+                selectedOption={client ?? ''}
+                // @ts-ignore
+                arrToSelect={arr__Clients ?? []}
+              />
+
+              <IconButton
+                onClick={() => onClickAddItem('/manager/refdata/client/add')}
+              >
+                <AddIcon color='success' sx={{ fontSize: 30 }} />
+              </IconButton>
+            </Stack>
+          </Grid>
+        </Grid>
+      </Grid>
+
+      <Grid item>
+        <Grid
+          container
+          direction={`row`}
+          justifyContent={`space-between`}
+          alignItems={`center`}
+          spacing={2}
+        >
+          <Grid item sx={{ flex: 1 }}>
+            <TextField
+              margin='normal'
+              multiline
+              required
+              fullWidth
+              name='contractDescription'
+              label='contractDescription'
+              type='text'
+              id='contractDescription'
+              value={contractDescription ?? ''}
+              onChange={onChange}
+            />
+          </Grid>
+
+          <Grid item sx={{ flex: 1 }}>
+            <TextField
+              margin='normal'
+              multiline
+              required
+              fullWidth
+              name='workAddress'
+              label='workAddress'
+              type='text'
+              id='workAddress'
+              value={workAddress ?? ''}
+              onChange={onChange}
+            />
+          </Grid>
+        </Grid>
       </Grid>
 
       <Grid
