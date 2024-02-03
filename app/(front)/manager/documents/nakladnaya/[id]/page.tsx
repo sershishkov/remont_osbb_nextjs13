@@ -370,7 +370,7 @@ function DocumentNakladnayaEdit({ params }: Readonly<paramsProps>) {
               InputLabelProps={{ shrink: true }}
             />
           </Grid>
-          <Grid item sx={{ flex: 1 }}>
+          <Grid item sx={{ width: 300 }}>
             <MySelectAutoCompl
               selectName={`typeNakl`}
               selectLabel={`Тип накладной`}
@@ -382,7 +382,7 @@ function DocumentNakladnayaEdit({ params }: Readonly<paramsProps>) {
             />
           </Grid>
 
-          <Grid item sx={{ flex: 1 }}>
+          <Grid item sx={{ width: 250 }}>
             <FormControl component='fieldset' variant='standard'>
               <FormLabel component='legend'>Стадии выполнения</FormLabel>
               <FormGroup>
@@ -402,6 +402,31 @@ function DocumentNakladnayaEdit({ params }: Readonly<paramsProps>) {
                 />
               </FormGroup>
             </FormControl>
+          </Grid>
+          <Grid item sx={{ width: 250 }}>
+            <Stack
+              direction='row'
+              spacing={2}
+              // direction={{ xs: 'column', sm: 'row' }}
+            >
+              <MySelectAutoCompl
+                selectName={`storeHouse`}
+                selectLabel={`Склад`}
+                fieldToShow={`storeHouseName`}
+                handleChangeSelects={handleChangeSelects}
+                selectedOption={storeHouse ?? ''}
+                // @ts-ignore
+                arrToSelect={arr__StoreHouses ?? []}
+              />
+
+              <IconButton
+                onClick={() =>
+                  onClickAddItem('/accountant/refdata/storehouse/add')
+                }
+              >
+                <AddIcon color='success' sx={{ fontSize: 30 }} />
+              </IconButton>
+            </Stack>
           </Grid>
         </Grid>
       </Grid>
@@ -457,30 +482,6 @@ function DocumentNakladnayaEdit({ params }: Readonly<paramsProps>) {
             }
           >
             <EditIcon color='primary' sx={{ fontSize: 30 }} />
-          </IconButton>
-        </Stack>
-      </Grid>
-
-      <Grid item sx={{ mb: 2 }}>
-        <Stack
-          direction='row'
-          spacing={2}
-          // direction={{ xs: 'column', sm: 'row' }}
-        >
-          <MySelectAutoCompl
-            selectName={`storeHouse`}
-            selectLabel={`Склад`}
-            fieldToShow={`storeHouseName`}
-            handleChangeSelects={handleChangeSelects}
-            selectedOption={storeHouse ?? ''}
-            // @ts-ignore
-            arrToSelect={arr__StoreHouses ?? []}
-          />
-
-          <IconButton
-            onClick={() => onClickAddItem('/accountant/refdata/storehouse/add')}
-          >
-            <AddIcon color='success' sx={{ fontSize: 30 }} />
           </IconButton>
         </Stack>
       </Grid>
