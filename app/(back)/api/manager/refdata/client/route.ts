@@ -41,6 +41,7 @@ export const POST = async (request: NextRequest) => {
     email,
     clientType,
   } = await request.json();
+
   if (
     !clientLongName ||
     !clientShortName ||
@@ -54,7 +55,6 @@ export const POST = async (request: NextRequest) => {
     !patronymic_rodit ||
     !lastName_rodit ||
     !taxationType ||
-    !telNumber ||
     !clientType
   ) {
     return new NextResponse(

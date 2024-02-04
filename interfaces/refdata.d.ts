@@ -360,7 +360,7 @@ export interface I_DocumentInvoice {
 
   isActive: Boolean;
   creator: Types.ObjectId;
-  typeAkt: string;
+  typeInvoice: string;
 
   isDeleted: Boolean;
   whoDeleted: Types.ObjectId;

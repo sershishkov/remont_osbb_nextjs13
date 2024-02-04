@@ -114,7 +114,21 @@ function TableSimple({
   };
 
   if (!resultFetch.items || resultFetch.items.length === 0) {
-    return <Loading />;
+    return (
+      <Grid
+        container
+        direction={`column`}
+        justifyContent={`flex-start`}
+        alignItems={`center`}
+      >
+        <Grid item>
+          <h2>Если долго крутиться - то пока в базе ничего нет</h2>
+        </Grid>
+        <Grid item>
+          <Loading />
+        </Grid>
+      </Grid>
+    );
   }
   return (
     <Grid

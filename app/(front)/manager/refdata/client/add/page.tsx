@@ -57,13 +57,13 @@ const initState = {
   clientType: [],
 };
 
-function ClientAdd() {
+function NewClientAdd() {
   const route = useRouter();
 
   const [formData, setFormData] = useState(initState);
   const [telNumber, setTelNumber] = useState<string>();
   const [displayFizOsoba, setDisplayFizOsoba] = useState<boolean>(false);
-  const [displayFOP, setdisplayFOP] = useState<boolean>(false);
+  const [displayFOP, setDisplayFOP] = useState<boolean>(false);
   const [arr__FirmTypes, setArr__FirmTypes] = useState<I_FirmType[]>([]);
   const [arr__ClientTypes, setArr__ClientTypes] = useState<I_ClientType[]>([]);
   const [arr__TaxationType, setArr__TaxationType] = useState<I_TaxationType[]>(
@@ -146,12 +146,12 @@ function ClientAdd() {
   useEffect(() => {
     if (firmType === fizOsoba_Id) {
       setDisplayFizOsoba(true);
-      setdisplayFOP(false);
+      setDisplayFOP(false);
     } else if (firmType === fop_Id) {
-      setdisplayFOP(true);
+      setDisplayFOP(true);
       setDisplayFizOsoba(false);
     } else {
-      setdisplayFOP(false);
+      setDisplayFOP(false);
       setDisplayFizOsoba(false);
     }
   }, [firmType, fizOsoba_Id, fop_Id]);
@@ -195,13 +195,15 @@ function ClientAdd() {
       taxationType,
 
       certificate_PDV,
-      telNumber,
+      telNumber: telNumber ?? '',
       email,
       clientType,
     };
+    console.log(created__Data);
 
     await item__add(created__Data, currentURL, route);
   };
+
   const handleChangeSelects = (
     targetName: string,
     targetValue: string | string[]
@@ -259,7 +261,7 @@ function ClientAdd() {
           required
           fullWidth
           name='clientLongName'
-          label='clientLongName'
+          label='Полное название'
           type='text'
           id='clientLongName'
           value={clientLongName ?? ''}
@@ -273,7 +275,7 @@ function ClientAdd() {
           required
           fullWidth
           name='clientShortName'
-          label='clientShortName'
+          label='Сокращенное название'
           type='text'
           id='clientShortName'
           value={clientShortName ?? ''}
@@ -287,11 +289,16 @@ function ClientAdd() {
           required
           fullWidth
           name='postIndex'
-          label='postIndex'
-          type='text'
+          label='Почтовый индекс'
+          type='number'
           id='postIndex'
           value={postIndex ?? ''}
           onChange={onChange}
+          inputProps={{
+            min: '10000',
+            step: '1',
+            max: '99999',
+          }}
         />
       </Grid>
 
@@ -301,7 +308,7 @@ function ClientAdd() {
           required
           fullWidth
           name='address'
-          label='address'
+          label='Адрес'
           type='text'
           id='address'
           value={address ?? ''}
@@ -315,10 +322,10 @@ function ClientAdd() {
       >
         <TextField
           margin='normal'
-          required
+          // required
           fullWidth
           name='edrpou'
-          label='edrpou'
+          label='ЄДРПОУ'
           type='text'
           id='edrpou'
           value={edrpou ?? ''}
@@ -332,10 +339,10 @@ function ClientAdd() {
       >
         <TextField
           margin='normal'
-          required
+          // required
           fullWidth
           name='inn'
-          label='inn'
+          label='ІПН'
           type='text'
           id='inn'
           value={inn ?? ''}
@@ -345,10 +352,10 @@ function ClientAdd() {
       <Grid item sx={{ display: !displayFizOsoba ? 'block' : 'none' }}>
         <TextField
           margin='normal'
-          required
+          // required
           fullWidth
           name='iban'
-          label='iban'
+          label='IBAN - собственные'
           type='text'
           id='iban'
           value={iban ?? ''}
@@ -358,10 +365,10 @@ function ClientAdd() {
       <Grid item sx={{ display: !displayFizOsoba ? 'block' : 'none' }}>
         <TextField
           margin='normal'
-          required
+          // required
           fullWidth
           name='iban_budget'
-          label='iban_budget'
+          label='IBAN - бюджет'
           type='text'
           id='iban_budget'
           value={iban_budget ?? ''}
@@ -371,10 +378,10 @@ function ClientAdd() {
       <Grid item sx={{ display: displayFizOsoba ? 'block' : 'none' }}>
         <TextField
           margin='normal'
-          required
+          // required
           fullWidth
           name='passportNumber'
-          label='passportNumber'
+          label='Паспортные данные'
           type='text'
           id='passportNumber'
           value={passportNumber ?? ''}
@@ -386,8 +393,21 @@ function ClientAdd() {
           margin='normal'
           required
           fullWidth
+          name='lastName_imen'
+          label='Фамилия (именительный)'
+          type='text'
+          id='lastName_imen'
+          value={lastName_imen ?? ''}
+          onChange={onChange}
+        />
+      </Grid>
+      <Grid item>
+        <TextField
+          margin='normal'
+          required
+          fullWidth
           name='firstName_imen'
-          label='firstName_imen'
+          label='Имя (именительный)'
           type='text'
           id='firstName_imen'
           value={firstName_imen ?? ''}
@@ -400,23 +420,24 @@ function ClientAdd() {
           required
           fullWidth
           name='patronymic_imen'
-          label='patronymic_imen'
+          label='Отчество (именительный)'
           type='text'
           id='patronymic_imen'
           value={patronymic_imen ?? ''}
           onChange={onChange}
         />
       </Grid>
+
       <Grid item>
         <TextField
           margin='normal'
           required
           fullWidth
-          name='lastName_imen'
-          label='lastName_imen'
+          name='lastName_rodit'
+          label='Фамилия (родительный)'
           type='text'
-          id='lastName_imen'
-          value={lastName_imen ?? ''}
+          id='lastName_rodit'
+          value={lastName_rodit ?? ''}
           onChange={onChange}
         />
       </Grid>
@@ -426,7 +447,7 @@ function ClientAdd() {
           required
           fullWidth
           name='firstName_rodit'
-          label='firstName_rodit'
+          label='Имя (родительный)'
           type='text'
           id='firstName_rodit'
           value={firstName_rodit ?? ''}
@@ -439,23 +460,10 @@ function ClientAdd() {
           required
           fullWidth
           name='patronymic_rodit'
-          label='patronymic_rodit'
+          label='Отчество (родительный)'
           type='text'
           id='patronymic_rodit'
           value={patronymic_rodit ?? ''}
-          onChange={onChange}
-        />
-      </Grid>
-      <Grid item>
-        <TextField
-          margin='normal'
-          required
-          fullWidth
-          name='lastName_rodit'
-          label='lastName_rodit'
-          type='text'
-          id='lastName_rodit'
-          value={lastName_rodit ?? ''}
           onChange={onChange}
         />
       </Grid>
@@ -463,10 +471,10 @@ function ClientAdd() {
       <Grid item sx={{ display: displayFOP ? 'block' : 'none' }}>
         <TextField
           margin='normal'
-          required
+          // required
           fullWidth
           name='certificateNumber'
-          label='certificateNumber'
+          label='Номер сертификата'
           type='text'
           id='certificateNumber'
           value={certificateNumber ?? ''}
@@ -476,10 +484,10 @@ function ClientAdd() {
       <Grid item sx={{ display: displayFOP ? 'block' : 'none' }}>
         <TextField
           margin='normal'
-          required
+          // required
           fullWidth
           name='representedBy'
-          label='representedBy'
+          label='Кем и когда выдан сертификат?'
           type='text'
           id='representedBy'
           value={representedBy ?? ''}
@@ -492,10 +500,11 @@ function ClientAdd() {
       >
         <TextField
           margin='normal'
-          required
+          // required
           fullWidth
           name='whichActsOnTheBasis'
-          label='whichActsOnTheBasis'
+          label='На каком основании действует?'
+          placeholder='Статуту'
           type='text'
           id='whichActsOnTheBasis'
           value={whichActsOnTheBasis ?? ''}
@@ -509,10 +518,11 @@ function ClientAdd() {
       >
         <TextField
           margin='normal'
-          required
+          // required
           fullWidth
           name='jobTitle'
-          label='jobTitle'
+          label='Должность первого лица (именительный)'
+          placeholder='Директор'
           type='text'
           id='jobTitle'
           value={jobTitle ?? ''}
@@ -525,10 +535,11 @@ function ClientAdd() {
       >
         <TextField
           margin='normal'
-          required
+          // required
           fullWidth
           name='jobTitle_rodit'
-          label='jobTitle_rodit'
+          label='Должность первого лица (родительный)'
+          placeholder='директора'
           type='text'
           id='jobTitle_rodit'
           value={jobTitle_rodit ?? ''}
@@ -538,10 +549,10 @@ function ClientAdd() {
       <Grid item sx={{ display: !displayFizOsoba ? 'block' : 'none' }}>
         <TextField
           margin='normal'
-          required
+          // required
           fullWidth
           name='tax'
-          label='tax'
+          label='Процент налогообложения?'
           type='number'
           id='tax'
           value={tax ?? '0'}
@@ -579,10 +590,10 @@ function ClientAdd() {
       >
         <TextField
           margin='normal'
-          required
+          // required
           fullWidth
           name='certificate_PDV'
-          label='certificate_PDV'
+          label='Сертификат ПДВ'
           type='text'
           id='certificate_PDV'
           value={certificate_PDV ?? ''}
@@ -605,7 +616,7 @@ function ClientAdd() {
           countries={['UA', 'RU']}
           value={telNumber}
           onChange={setTelNumber}
-          required
+          // required
         />
         <span
           style={{
@@ -621,7 +632,7 @@ function ClientAdd() {
       <Grid item>
         <TextField
           margin='normal'
-          required
+          // required
           fullWidth
           name='email'
           label='email'
@@ -674,7 +685,6 @@ function ClientAdd() {
             !patronymic_rodit ||
             !lastName_rodit ||
             !taxationType ||
-            !telNumber ||
             (clientType && clientType.length === 0)
           }
           variant='contained'
@@ -687,4 +697,4 @@ function ClientAdd() {
   );
 }
 
-export default ClientAdd;
+export default NewClientAdd;

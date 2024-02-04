@@ -97,7 +97,7 @@ const client__Schema = new Schema<I_Client>({
   },
   telNumber: {
     type: String,
-    required: [true, 'Please add a telNumber'],
+    // required: [true, 'Please add a telNumber'],
   },
   email: {
     type: String,

@@ -4,7 +4,7 @@ import TableFilter from '@/components/common/TableFilter';
 const currentURL = `/manager/refdata/client`;
 
 function ServiceWorksList() {
-  const headerFields = ['Фирма', 'ТИП', 'telNumber', 'email'];
+  const headerFields = ['Фирма', 'ТИП', 'Тел:', 'email'];
   const tableFields = [
     'clientLongName',
     'firmType.firmTypeShortName',

@@ -2,12 +2,13 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/app/(back)/api/auth/[...nextauth]/options';
 
-import Model__DocumentAkt from '@/lib/mongoose/models/manager/documents/Model__DocumentAkt';
+import Model__DocumentInvoice from '@/lib/mongoose/models/manager/documents/Model__DocumentInvoice';
 
 import Model__Contract from '@/lib/mongoose/models/manager/refdata/Model__Contract';
 import Model__Client from '@/lib/mongoose/models/manager/refdata/Model__Client';
 import Model__ThirdPartyService from '@/lib/mongoose/models/manager/refdata/Model__ThirdPartyService';
 import Model__ServiceWork from '@/lib/mongoose/models/manager/refdata/Model__ServiceWork';
+import Model__Product from '@/lib/mongoose/models/manager/refdata/Model__Product';
 
 import Model__Unit from '@/lib/mongoose/models/manager/refdata/Model__Unit';
 
@@ -15,25 +16,28 @@ import { connectToDB } from '@/lib/mongoose/connectToDB';
 
 export const POST = async (request: NextRequest) => {
   const {
-    aktOfWorkNumber,
-    aktOfWorkDate,
+    invoiceNumber,
+    invoiceDate,
     contract,
 
     thirdPartyServices,
     serviceWorks,
+    products,
 
     isActive,
 
-    typeAkt,
+    typeInvoice,
   } = await request.json();
 
   if (
-    !aktOfWorkNumber ||
+    !invoiceNumber ||
     !contract ||
     (thirdPartyServices &&
       thirdPartyServices.length === 0 &&
       serviceWorks &&
-      serviceWorks.length === 0)
+      serviceWorks.length === 0 &&
+      products &&
+      products.length === 0)
   ) {
     return new NextResponse(
       JSON.stringify({
@@ -47,8 +51,8 @@ export const POST = async (request: NextRequest) => {
     await connectToDB();
 
     // Check if already exists
-    const already__Exists = await Model__DocumentAkt.findOne({
-      aktOfWorkNumber,
+    const already__Exists = await Model__DocumentInvoice.findOne({
+      invoiceNumber,
     });
 
     if (already__Exists) {
@@ -63,17 +67,18 @@ export const POST = async (request: NextRequest) => {
     }
     const session = await getServerSession(authOptions);
 
-    const new__ITEM = await Model__DocumentAkt.create({
-      aktOfWorkNumber,
-      aktOfWorkDate,
+    const new__ITEM = await Model__DocumentInvoice.create({
+      invoiceNumber,
+      invoiceDate,
       contract,
 
       thirdPartyServices,
       serviceWorks,
+      products,
 
       isActive,
 
-      typeAkt,
+      typeInvoice,
       creator: session?.user._id,
     });
 
@@ -125,7 +130,7 @@ export const GET = async (request: NextRequest) => {
       $and: [
         {
           $or: [
-            { aktOfWorkNumber: myRegex },
+            { invoiceNumber: myRegex },
             { 'contract.ourFirm.clientShortName': myRegex },
             { 'contract.client.clientShortName': myRegex },
           ],
@@ -134,16 +139,16 @@ export const GET = async (request: NextRequest) => {
       ],
     };
 
-    const total: number = await Model__DocumentAkt.countDocuments({});
+    const total: number = await Model__DocumentInvoice.countDocuments({});
     const totalPages: number =
       pageSize === 0 ? total : Math.ceil(total / pageSize);
 
-    const all__ITEMS = await Model__DocumentAkt.find(filterObject)
+    const all__ITEMS = await Model__DocumentInvoice.find(filterObject)
 
       .limit(pageSize)
       .skip(skip)
       .sort({
-        aktOfWorkNumber: -1,
+        invoiceNumber: -1,
       })
       .populate({
         path: 'contract',
@@ -178,6 +183,18 @@ export const GET = async (request: NextRequest) => {
         path: 'serviceWorks.serviceWork',
         model: Model__ServiceWork,
         select: 'serviceWorkName',
+        populate: [
+          {
+            path: 'unit',
+            model: Model__Unit,
+            select: 'unitName',
+          },
+        ],
+      })
+      .populate({
+        path: 'products.product',
+        model: Model__Product,
+        select: 'productName',
         populate: [
           {
             path: 'unit',
