@@ -24,9 +24,7 @@ export const POST = async (request: NextRequest) => {
     !user ||
     !firstName ||
     !lastName ||
-    !workerProfessions ||
-    !inn ||
-    !telNumber
+    (workerProfessions && workerProfessions.length === 0)
   ) {
     return new NextResponse(
       JSON.stringify({

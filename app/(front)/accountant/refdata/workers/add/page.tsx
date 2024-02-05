@@ -100,7 +100,7 @@ function WorkersAdd() {
       whenIssued,
       inn,
       birthDay,
-      telNumber,
+      telNumber: telNumber ?? '',
       address,
     };
 
@@ -136,12 +136,25 @@ function WorkersAdd() {
 
       <MySelectAutoCompl
         selectName={`user`}
-        selectLabel={`User`}
+        selectLabel={`Имя пользователя на сайте`}
         fieldToShow={`name`}
         handleChangeSelects={handleChangeSelects}
         // @ts-ignore
         arrToSelect={arr__Users}
       />
+      <Grid item>
+        <TextField
+          margin='normal'
+          required
+          fullWidth
+          name='lastName'
+          label='Фамилия'
+          type='text'
+          id='lastName'
+          value={lastName ?? ''}
+          onChange={onChange}
+        />
+      </Grid>
 
       <Grid item>
         <TextField
@@ -149,7 +162,7 @@ function WorkersAdd() {
           required
           fullWidth
           name='firstName'
-          label='firstName'
+          label='Имя'
           type='text'
           id='firstName'
           value={firstName ?? ''}
@@ -160,10 +173,10 @@ function WorkersAdd() {
       <Grid item>
         <TextField
           margin='normal'
-          required
+          // required
           fullWidth
           name='patronymic'
-          label='patronymic'
+          label='Отчество'
           type='text'
           id='patronymic'
           value={patronymic ?? ''}
@@ -171,19 +184,6 @@ function WorkersAdd() {
         />
       </Grid>
 
-      <Grid item>
-        <TextField
-          margin='normal'
-          required
-          fullWidth
-          name='lastName'
-          label='lastName'
-          type='text'
-          id='lastName'
-          value={lastName ?? ''}
-          onChange={onChange}
-        />
-      </Grid>
       <Grid item sx={{ mb: 2 }}>
         <Stack
           direction='row'
@@ -212,10 +212,10 @@ function WorkersAdd() {
       <Grid item>
         <TextField
           margin='normal'
-          required
+          // required
           fullWidth
           name='passportNumber'
-          label='passportNumber'
+          label='Серия и номер паспорта'
           type='text'
           id='passportNumber'
           value={passportNumber ?? ''}
@@ -226,10 +226,10 @@ function WorkersAdd() {
       <Grid item>
         <TextField
           margin='normal'
-          required
+          // required
           fullWidth
           name='representedBy'
-          label='representedBy'
+          label='Кем выдан паспорт'
           type='text'
           id='representedBy'
           value={representedBy ?? ''}
@@ -240,10 +240,10 @@ function WorkersAdd() {
       <Grid item>
         <TextField
           margin='normal'
-          required
+          // required
           fullWidth
           name='whenIssued'
-          label='whenIssued'
+          label='Когда выдан паспорт'
           type='date'
           id='whenIssued'
           InputLabelProps={{ shrink: true }}
@@ -255,10 +255,10 @@ function WorkersAdd() {
       <Grid item>
         <TextField
           margin='normal'
-          required
+          // required
           fullWidth
           name='inn'
-          label='inn'
+          label='ІПН'
           type='text'
           id='inn'
           value={inn ?? ''}
@@ -268,10 +268,10 @@ function WorkersAdd() {
       <Grid item>
         <TextField
           margin='normal'
-          required
+          // required
           fullWidth
           name='birthDay'
-          label='birthDay'
+          label='Дата рождения'
           type='date'
           id='birthDay'
           value={birthDay ?? ''}
@@ -295,7 +295,7 @@ function WorkersAdd() {
           countries={['UA', 'RU']}
           value={telNumber}
           onChange={setTelNumber}
-          required
+          // required
         />
         <span
           style={{
@@ -316,7 +316,7 @@ function WorkersAdd() {
           maxRows={4}
           fullWidth
           name='address'
-          label='address'
+          label='Адрес роживания'
           type='text'
           id='address'
           value={address ?? ''}
@@ -329,12 +329,7 @@ function WorkersAdd() {
           type='submit'
           fullWidth
           disabled={
-            !user ||
-            !firstName ||
-            !lastName ||
-            workerProfessions.length === 0 ||
-            !inn ||
-            !telNumber
+            !user || !firstName || !lastName || workerProfessions.length === 0
           }
           variant='contained'
           sx={{ mt: 3, mb: 2 }}

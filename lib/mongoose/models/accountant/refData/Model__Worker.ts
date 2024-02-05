@@ -8,6 +8,10 @@ const worker__Schema = new Schema<I_Worker>({
     required: [true, 'Please add an userID'],
     unique: true,
   },
+  lastName: {
+    type: String,
+    required: [true, 'Please add a firstName'],
+  },
   firstName: {
     type: String,
     required: [true, 'Please add a firstName'],
@@ -15,10 +19,7 @@ const worker__Schema = new Schema<I_Worker>({
   patronymic: {
     type: String,
   },
-  lastName: {
-    type: String,
-    required: [true, 'Please add a firstName'],
-  },
+
   workerProfessions: {
     type: [Schema.Types.ObjectId],
     ref: 'workerProfession',

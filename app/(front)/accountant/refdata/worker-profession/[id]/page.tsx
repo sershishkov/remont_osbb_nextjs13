@@ -79,7 +79,7 @@ function WorkerProfessionEdit({ params }: Readonly<paramsProps>) {
           required
           fullWidth
           name='workerProfessionName'
-          label='workerProfessionName'
+          label='Профессия'
           type='text'
           id='workerProfessionName'
           value={workerProfessionName ?? ''}
