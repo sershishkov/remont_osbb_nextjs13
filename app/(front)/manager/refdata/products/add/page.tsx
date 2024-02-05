@@ -144,7 +144,7 @@ function ProductsAdd() {
           required
           fullWidth
           name='productName'
-          label='productName'
+          label='Наименование'
           type='text'
           id='productName'
           value={productName ?? ''}
@@ -174,7 +174,7 @@ function ProductsAdd() {
         >
           <MySelectAutoCompl
             selectName={`unit`}
-            selectLabel={`Размерность`}
+            selectLabel={`Ед.изм`}
             fieldToShow={`unitName`}
             handleChangeSelects={handleChangeSelects}
             // @ts-ignore
@@ -219,7 +219,7 @@ function ProductsAdd() {
         >
           <MySelectAutoCompl
             selectName={`productType`}
-            selectLabel={`Тип`}
+            selectLabel={`Тип товара`}
             fieldToShow={`productTypeName`}
             handleChangeSelects={handleChangeSelects}
             // @ts-ignore
@@ -240,7 +240,7 @@ function ProductsAdd() {
 
           fullWidth
           name='priceBuyRecommend'
-          label='priceBuyRecommend'
+          label='Цена Закупки'
           type='number'
           id='priceBuyRecommend'
           value={priceBuyRecommend ?? ''}
@@ -258,7 +258,7 @@ function ProductsAdd() {
 
           fullWidth
           name='normPerOne'
-          label='normPerOne'
+          label='Расход на еденицу'
           type='number'
           id='normPerOne'
           value={normPerOne ?? ''}
@@ -274,7 +274,7 @@ function ProductsAdd() {
           // required
           fullWidth
           name='amountInPackage'
-          label='amountInPackage'
+          label='Кол-во в упаковке'
           type='number'
           id='amountInPackage'
           value={amountInPackage ?? ''}
@@ -287,7 +287,7 @@ function ProductsAdd() {
           // required
           fullWidth
           name='weight'
-          label='weight'
+          label='Вес единицы'
           type='number'
           id='weight'
           value={weight ?? ''}
@@ -300,7 +300,7 @@ function ProductsAdd() {
           // required
           fullWidth
           name='height'
-          label='height'
+          label='Высота'
           type='number'
           id='height'
           value={height ?? ''}
@@ -313,7 +313,7 @@ function ProductsAdd() {
           // required
           fullWidth
           name='width'
-          label='width'
+          label='Ширина '
           type='number'
           id='width'
           value={width ?? ''}
@@ -326,7 +326,7 @@ function ProductsAdd() {
           // required
           fullWidth
           name='length'
-          label='length'
+          label='Длина'
           type='number'
           id='length'
           value={length ?? ''}
@@ -339,7 +339,7 @@ function ProductsAdd() {
           // required
           fullWidth
           name='paintingArea'
-          label='paintingArea'
+          label='Площадь покраски еденицы'
           type='number'
           id='paintingArea'
           value={paintingArea ?? ''}

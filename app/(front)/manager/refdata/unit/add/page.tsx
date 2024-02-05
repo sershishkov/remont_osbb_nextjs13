@@ -48,7 +48,7 @@ function UnitAdd() {
           required
           fullWidth
           name='unitName'
-          label='unitName'
+          label='Единица измерения'
           type='text'
           id='unitName'
           value={unitName}

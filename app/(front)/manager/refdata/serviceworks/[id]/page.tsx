@@ -251,7 +251,7 @@ function ServiceWorksEdit({ params }: Readonly<paramsProps>) {
           required
           fullWidth
           name='serviceWorkName'
-          label='serviceWorkName'
+          label='Наминеование работы'
           type='text'
           id='serviceWorkName'
           value={serviceWorkName ?? ''}
@@ -281,7 +281,7 @@ function ServiceWorksEdit({ params }: Readonly<paramsProps>) {
         >
           <MySelectAutoCompl
             selectName={`unit`}
-            selectLabel={`Размерность`}
+            selectLabel={`Ед.изм`}
             fieldToShow={`unitName`}
             handleChangeSelects={handleChangeSelects}
             // prettier-ignore
@@ -333,7 +333,7 @@ function ServiceWorksEdit({ params }: Readonly<paramsProps>) {
 
           fullWidth
           name='priceWorkerRecommend'
-          label='priceWorkerRecommend'
+          label='Цена за работу исполнителю'
           type='number'
           id='priceWorkerRecommend'
           value={priceWorkerRecommend ?? ''}
@@ -351,7 +351,7 @@ function ServiceWorksEdit({ params }: Readonly<paramsProps>) {
 
           fullWidth
           name='priceClientRecommend'
-          label='priceClientRecommend'
+          label='Цена за работу клиенту'
           type='number'
           id='priceClientRecommend'
           value={priceClientRecommend ?? ''}
@@ -370,7 +370,7 @@ function ServiceWorksEdit({ params }: Readonly<paramsProps>) {
         >
           <MySelectMultipleAutoCompl
             selectName={`products`}
-            selectLabel={`Товары`}
+            selectLabel={`Материалы`}
             fieldToShow={'productName'}
             handleChangeMultipleSelects={handleChangeSelects}
             selectedOptions={products.length !== 0 ? products : []}

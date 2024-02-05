@@ -147,7 +147,7 @@ function ThirdPartyServicesAdd() {
         >
           <MySelectAutoCompl
             selectName={`unit`}
-            selectLabel={`Размерность`}
+            selectLabel={`Ед.изм`}
             fieldToShow={`unitName`}
             handleChangeSelects={handleChangeSelects}
             // @ts-ignore
@@ -194,7 +194,7 @@ function ThirdPartyServicesAdd() {
 
           fullWidth
           name='priceBuyRecommend'
-          label='priceBuyRecommend'
+          label='Входящая цена'
           type='number'
           id='priceBuyRecommend'
           value={priceBuyRecommend ?? ''}

@@ -48,7 +48,7 @@ function ProductTypeAdd() {
           required
           fullWidth
           name='productTypeName'
-          label='productTypeName'
+          label='Тип товара'
           type='text'
           id='productTypeName'
           value={productTypeName}

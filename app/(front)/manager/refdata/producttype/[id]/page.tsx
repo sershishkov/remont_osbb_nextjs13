@@ -63,7 +63,7 @@ function ProductTypeEdit({ params }: Readonly<paramsProps>) {
           required
           fullWidth
           name='productTypeName'
-          label='productTypeName'
+          label='Тип товара'
           type='text'
           id='productTypeName'
           value={productTypeName ?? ''}

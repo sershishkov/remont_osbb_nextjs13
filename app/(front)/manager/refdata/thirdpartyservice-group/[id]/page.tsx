@@ -64,7 +64,7 @@ function ThirdPartyServiceGroupEdit({ params }: Readonly<paramsProps>) {
           required
           fullWidth
           name='thirdPartyServiceGroupName'
-          label='thirdPartyServiceGroupName'
+          label='Группа работ (сторонние)'
           type='text'
           id='thirdPartyServiceGroupName'
           value={thirdPartyServiceGroupName ?? ''}

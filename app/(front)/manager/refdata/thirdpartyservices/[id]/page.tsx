@@ -150,7 +150,7 @@ function ThirdPartyServicesEdit({ params }: Readonly<paramsProps>) {
           required
           fullWidth
           name='thirdPartyServiceName'
-          label='thirdPartyServiceName'
+          label='Сторонний сервис'
           type='text'
           id='thirdPartyServiceName'
           value={thirdPartyServiceName ?? ''}
@@ -180,7 +180,7 @@ function ThirdPartyServicesEdit({ params }: Readonly<paramsProps>) {
         >
           <MySelectAutoCompl
             selectName={`unit`}
-            selectLabel={`Размерность`}
+            selectLabel={`Ед.изм`}
             fieldToShow={`unitName`}
             handleChangeSelects={handleChangeSelects}
             // prettier-ignore
@@ -232,7 +232,7 @@ function ThirdPartyServicesEdit({ params }: Readonly<paramsProps>) {
 
           fullWidth
           name='priceBuyRecommend'
-          label='priceBuyRecommend'
+          label='Входящая цена'
           type='number'
           id='priceBuyRecommend'
           value={priceBuyRecommend ?? ''}

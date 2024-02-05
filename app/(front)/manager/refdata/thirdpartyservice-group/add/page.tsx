@@ -49,7 +49,7 @@ function ThirdPartyServiceGroupAdd() {
           required
           fullWidth
           name='thirdPartyServiceGroupName'
-          label='thirdPartyServiceGroupName'
+          label='Группа работ (сторонние)'
           type='text'
           id='thirdPartyServiceGroupName'
           value={thirdPartyServiceGroupName}

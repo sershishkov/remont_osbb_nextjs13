@@ -48,7 +48,7 @@ function ServiceWorkGroupAdd() {
           required
           fullWidth
           name='serviceWorkGroupName'
-          label='serviceWorkGroupName'
+          label='Группа работ'
           type='text'
           id='serviceWorkGroupName'
           value={serviceWorkGroupName}

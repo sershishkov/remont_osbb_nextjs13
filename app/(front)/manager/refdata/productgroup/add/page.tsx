@@ -48,7 +48,7 @@ function ProductGroupAdd() {
           required
           fullWidth
           name='productGroupName'
-          label='productGroupName'
+          label='Группа товаров'
           type='text'
           id='productGroupName'
           value={productGroupName}
