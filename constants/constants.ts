@@ -16,12 +16,12 @@ export const roles = [
     caption: 'Менеджер',
   },
   {
-    _id: 'accountant',
-    caption: 'Бухгалтер',
-  },
-  {
     _id: 'boss',
     caption: 'Руководитель',
+  },
+  {
+    _id: 'accountant',
+    caption: 'Бухгалтер',
   },
   {
     _id: 'admin',
@@ -188,5 +188,18 @@ export const arr__typeAkt = [
     _id: 'outgoing',
     caption: 'АКТ виконаних робіт (послуг) ',
     prefix: '№ АВР-',
+  },
+];
+
+export const arr__typeInvoice = [
+  {
+    _id: 'incoming',
+    caption: 'Вхідний рахунок',
+    prefix: '№ ВР-',
+  },
+  {
+    _id: 'outgoing',
+    caption: 'Рахунок - фактура',
+    prefix: '№ СФ-',
   },
 ];

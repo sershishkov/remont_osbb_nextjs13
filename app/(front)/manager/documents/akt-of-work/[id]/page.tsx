@@ -503,7 +503,7 @@ function DocumentAktOfWorkEdit({ params }: Readonly<paramsProps>) {
               required
               fullWidth
               name='aktOfWorkNumber'
-              label='aktOfWorkNumber'
+              label='№ акта'
               type='text'
               id='aktOfWorkNumber'
               value={aktOfWorkNumber ?? ''}
@@ -516,7 +516,7 @@ function DocumentAktOfWorkEdit({ params }: Readonly<paramsProps>) {
               required
               fullWidth
               name='aktOfWorkDate'
-              label='aktOfWorkDate'
+              label='Дата акта'
               type='date'
               id='aktOfWorkDate'
               value={aktOfWorkDate ?? ''}

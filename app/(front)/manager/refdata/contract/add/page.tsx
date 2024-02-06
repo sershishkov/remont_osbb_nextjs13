@@ -363,7 +363,7 @@ function ContractAdd() {
               required
               fullWidth
               name='contractNumber'
-              label='contractNumber'
+              label='Номер контракта'
               type='text'
               id='contractNumber'
               value={contractNumber ?? ''}
@@ -376,7 +376,7 @@ function ContractAdd() {
               required
               fullWidth
               name='contractDate'
-              label='contractDate'
+              label='Дата Контракта'
               type='date'
               id='contractDate'
               value={contractDate ?? ''}
@@ -545,7 +545,7 @@ function ContractAdd() {
               required
               fullWidth
               name='contractDescription'
-              label='contractDescription'
+              label='Описание работ'
               type='text'
               id='contractDescription'
               value={contractDescription ?? ''}
@@ -560,7 +560,7 @@ function ContractAdd() {
               required
               fullWidth
               name='workAddress'
-              label='workAddress'
+              label='Адрес выполнения работ'
               type='text'
               id='workAddress'
               value={workAddress ?? ''}

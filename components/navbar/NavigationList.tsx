@@ -97,7 +97,7 @@ function NavigationList({
                 <ListItemIcon>
                   <PersonPinIcon />
                 </ListItemIcon>
-                <ListItemText primary={`${user.name}`} />
+                <ListItemText primary={user.name} />
               </ListItemButton>
             </>
           ) : (

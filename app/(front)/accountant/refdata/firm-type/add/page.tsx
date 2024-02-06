@@ -59,7 +59,7 @@ function FirmTypeAdd() {
           required
           fullWidth
           name='firmTypeLongName'
-          label='firmTypeLongName'
+          label='Полное название'
           type='text'
           id='firmTypeLongName'
           value={firmTypeLongName ?? ''}
@@ -73,7 +73,7 @@ function FirmTypeAdd() {
           maxRows={4}
           fullWidth
           name='firmTypeShortName'
-          label='firmTypeShortName'
+          label='Сокращенное название'
           type='text'
           id='firmTypeShortName'
           value={firmTypeShortName ?? ''}

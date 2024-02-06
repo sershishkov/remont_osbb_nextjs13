@@ -57,7 +57,7 @@ function PaymentSourceAdd() {
           required
           fullWidth
           name='paymentSourceName'
-          label='paymentSourceName'
+          label='Источник средств'
           type='text'
           id='paymentSourceName'
           value={paymentSourceName ?? ''}

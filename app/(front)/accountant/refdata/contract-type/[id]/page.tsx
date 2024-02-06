@@ -76,7 +76,7 @@ function ContractTypeEdit({ params }: Readonly<paramsProps>) {
           required
           fullWidth
           name='contractTypeName'
-          label='contractTypeName'
+          label='Тип контракта'
           type='text'
           id='contractTypeName'
           value={contractTypeName ?? ''}

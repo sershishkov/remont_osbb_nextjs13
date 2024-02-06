@@ -76,7 +76,7 @@ function PaymentSourceEdit({ params }: Readonly<paramsProps>) {
           required
           fullWidth
           name='paymentSourceName'
-          label='paymentSourceName'
+          label='Источник средств'
           type='text'
           id='paymentSourceName'
           value={paymentSourceName ?? ''}

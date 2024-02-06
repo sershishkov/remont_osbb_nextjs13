@@ -57,7 +57,7 @@ function TaxationTypeAdd() {
           required
           fullWidth
           name='taxationTypeName'
-          label='taxationTypeName'
+          label='Тип налогообложения'
           type='text'
           id='taxationTypeName'
           value={taxationTypeName ?? ''}

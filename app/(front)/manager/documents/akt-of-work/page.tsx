@@ -5,12 +5,12 @@ const currentURL = `/manager/documents/akt-of-work`;
 
 function DocumentAktOfWorkList() {
   const headerFields = [
-    'aktOfWorkNumber',
-    'isActive',
-    'typeAkt',
-    'totalAktSum',
-    'ourFirm',
-    'client',
+    '№ Акта',
+    'Проведен',
+    'Тип актк',
+    'Сумма акта',
+    'Наша фирма',
+    'Клиент',
   ];
   const tableFields = [
     'aktOfWorkNumber',

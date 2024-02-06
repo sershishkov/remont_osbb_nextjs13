@@ -76,7 +76,7 @@ function ClientTypeEdit({ params }: Readonly<paramsProps>) {
           required
           fullWidth
           name='clientTypeName'
-          label='clientTypeName'
+          label='Тип клиента'
           type='text'
           id='clientTypeName'
           value={clientTypeName ?? ''}

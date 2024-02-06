@@ -57,7 +57,7 @@ function ContractTypeAdd() {
           required
           fullWidth
           name='contractTypeName'
-          label='contractTypeName'
+          label='Тип контракта'
           type='text'
           id='contractTypeName'
           value={contractTypeName ?? ''}

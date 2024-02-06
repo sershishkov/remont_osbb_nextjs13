@@ -301,7 +301,7 @@ function DocumentNakladnayaAdd() {
               required
               fullWidth
               name='nakladnayaNumber'
-              label='nakladnayaNumber'
+              label='№ накладной'
               type='text'
               id='nakladnayaNumber'
               value={nakladnayaNumber ?? ''}
@@ -314,7 +314,7 @@ function DocumentNakladnayaAdd() {
               required
               fullWidth
               name='nakladnayaDate'
-              label='nakladnayaDate'
+              label='Дата накладной'
               type='date'
               id='nakladnayaDate'
               value={nakladnayaDate ?? ''}

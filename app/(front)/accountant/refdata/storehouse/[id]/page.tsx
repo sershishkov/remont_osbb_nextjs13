@@ -121,7 +121,7 @@ function StoreHouseEdit({ params }: Readonly<paramsProps>) {
           required
           fullWidth
           name='storeHouseName'
-          label='storeHouseName'
+          label='Название склада'
           type='text'
           id='storeHouseName'
           value={storeHouseName ?? ''}
@@ -134,7 +134,7 @@ function StoreHouseEdit({ params }: Readonly<paramsProps>) {
           required
           fullWidth
           name='address'
-          label='address'
+          label='Адрес'
           type='text'
           id='address'
           value={address ?? ''}

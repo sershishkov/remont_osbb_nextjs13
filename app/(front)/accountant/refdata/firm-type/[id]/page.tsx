@@ -79,7 +79,7 @@ function FirmTypeEdit({ params }: Readonly<paramsProps>) {
           required
           fullWidth
           name='firmTypeLongName'
-          label='firmTypeLongName'
+          label='Полное название'
           type='text'
           id='firmTypeLongName'
           value={firmTypeLongName ?? ''}
@@ -93,7 +93,7 @@ function FirmTypeEdit({ params }: Readonly<paramsProps>) {
           maxRows={4}
           fullWidth
           name='firmTypeShortName'
-          label='firmTypeShortName'
+          label='Сокращенное название'
           type='text'
           id='firmTypeShortName'
           value={firmTypeShortName ?? ''}

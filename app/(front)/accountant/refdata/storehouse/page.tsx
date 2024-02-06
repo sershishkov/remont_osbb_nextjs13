@@ -4,7 +4,7 @@ import TableFilter from '@/components/common/TableFilter';
 const currentURL = `/accountant/refdata/storehouse`;
 
 function StoreHouseList() {
-  const headerFields = ['storeHouseName', 'address', 'responsiblePerson'];
+  const headerFields = ['Наименование', 'Адрес', 'Ответственный'];
   const tableFields = [
     'storeHouseName',
     'address',

@@ -76,7 +76,7 @@ function TaxationTypeEdit({ params }: Readonly<paramsProps>) {
           required
           fullWidth
           name='taxationTypeName'
-          label='taxationTypeName'
+          label='Тип налогообложения'
           type='text'
           id='taxationTypeName'
           value={taxationTypeName ?? ''}

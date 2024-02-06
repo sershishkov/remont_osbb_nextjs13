@@ -5,11 +5,11 @@ const currentURL = `/manager/refdata/contract`;
 
 function ContractList() {
   const headerFields = [
-    'contractNumber',
-    'ourFirm',
-    'client',
+    'Номер контракта',
+    'наша фирма',
+    'Клиент',
 
-    'contractDescription',
+    'Описание работ',
   ];
   const tableFields = [
     'contractNumber',

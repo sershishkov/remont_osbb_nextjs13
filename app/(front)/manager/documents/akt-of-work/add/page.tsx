@@ -428,7 +428,7 @@ function DocumentAktOfWorkAdd() {
               required
               fullWidth
               name='aktOfWorkNumber'
-              label='aktOfWorkNumber'
+              label='№ акта'
               type='text'
               id='aktOfWorkNumber'
               value={aktOfWorkNumber ?? ''}
@@ -441,7 +441,7 @@ function DocumentAktOfWorkAdd() {
               required
               fullWidth
               name='aktOfWorkDate'
-              label='aktOfWorkDate'
+              label='Дата акта'
               type='date'
               id='aktOfWorkDate'
               value={aktOfWorkDate ?? ''}
