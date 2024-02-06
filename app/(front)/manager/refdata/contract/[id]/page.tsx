@@ -30,7 +30,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 
 import MySelectAutoCompl from '@/components/common/MySelectAutoCompl';
-import { boss_role } from '@/constants/constants';
+import { accountant_role } from '@/constants/constants';
 import {
   I_Client,
   I_ContractType,
@@ -635,7 +635,9 @@ function ContractEdit({ params }: Readonly<paramsProps>) {
 
       <Grid
         item
-        sx={{ display: boss_role.includes(user?.role!) ? 'block' : 'none' }}
+        sx={{
+          display: accountant_role.includes(user?.role!) ? 'block' : 'none',
+        }}
       >
         <Grid container direction='column'>
           <Grid item>

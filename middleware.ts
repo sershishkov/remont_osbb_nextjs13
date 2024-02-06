@@ -6,8 +6,8 @@ import {
   client_role,
   worker_role,
   manager_role,
-  accountant_role,
   boss_role,
+  accountant_role,
 } from '@/constants/constants';
 
 export default withAuth(
@@ -27,10 +27,10 @@ export default withAuth(
         !worker_role.includes(roleFromToken)) ||
       (request.nextUrl.pathname.startsWith('/manager') &&
         !manager_role.includes(roleFromToken)) ||
-      (request.nextUrl.pathname.startsWith('/accountant') &&
-        !accountant_role.includes(roleFromToken)) ||
       (request.nextUrl.pathname.startsWith('/boss') &&
         !boss_role.includes(roleFromToken)) ||
+      (request.nextUrl.pathname.startsWith('/accountant') &&
+        !accountant_role.includes(roleFromToken)) ||
       (request.nextUrl.pathname.startsWith('/admin') &&
         roleFromToken !== 'admin')
     ) {
