@@ -146,7 +146,7 @@ export const GET = async (request: NextRequest) => {
       .limit(pageSize)
       .skip(skip)
       .sort({
-        clientLongName: 1,
+        contractDate: -1,
       })
       .populate({
         path: 'ourFirm',

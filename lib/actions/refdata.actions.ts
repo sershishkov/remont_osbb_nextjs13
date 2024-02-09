@@ -3,12 +3,9 @@ import { MyRequestParams } from '@/interfaces/CommonInterfaces';
 
 const errorToMessage = (newError: any) => {
   const message =
-    (newError?.response &&
-      newError.response.data &&
-      newError.response.data.message) ||
+    newError?.response?.data?.message ||
     newError.message ||
     newError.toString();
-
   return message;
 };
 
@@ -92,9 +89,13 @@ export const get__all = async (
       }
     );
     const myData = await res.json();
+    if (!res.ok || !myData.my_data) {
+      throw new Error(myData.message);
+    }
     return myData.my_data;
   } catch (error: any) {
-    throw new Error(error.message);
+    const message = errorToMessage(error);
+    toast.error(`${message}`);
   }
 };
 
@@ -129,11 +130,12 @@ export const delete__one = async (_id: string, currentURL: string) => {
         'Content-Type': 'application/json',
       },
     });
-    if (!res.ok) {
-      throw new Error('Removal is not possible');
-    }
     const myData = await res.json();
-    toast.success(myData.message);
+    if (!res.ok) {
+      throw new Error(myData.message);
+    } else {
+      toast.success(myData.message);
+    }
   } catch (error: any) {
     const message = errorToMessage(error);
     toast.error(`${message}`);

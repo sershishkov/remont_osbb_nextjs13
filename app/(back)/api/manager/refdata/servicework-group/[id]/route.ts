@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Model__ServiceWorkGroup from '@/lib/mongoose/models/manager/refdata/Model__ServiceWorkGroup';
+import Model__ServiceWork from '@/lib/mongoose/models/manager/refdata/Model__ServiceWork';
 
 import { connectToDB } from '@/lib/mongoose/connectToDB';
 
@@ -81,24 +82,40 @@ export const DELETE = async (request: NextRequest, { params }: Props) => {
   const { id } = params;
   try {
     await connectToDB();
-    const one__ITEM = await Model__ServiceWorkGroup.findByIdAndDelete(id);
 
-    if (!one__ITEM) {
+    const related__Service = await Model__ServiceWork.findOne({
+      serviceWorkGroup: [id],
+    });
+
+    if (related__Service) {
       return new NextResponse(
         JSON.stringify({
-          message: 'Нет  объекта с данным id',
+          message: 'не возможно удалить этот елемент, есть связанные элементы',
         }),
         {
-          status: 400,
+          status: 403,
         }
       );
-    }
-    const responseObj = {
-      message: 'Элемент удалён успешно',
-      my_data: {},
-    };
+    } else {
+      const one__ITEM = await Model__ServiceWorkGroup.findByIdAndDelete(id);
 
-    return new NextResponse(JSON.stringify(responseObj), { status: 200 });
+      if (!one__ITEM) {
+        return new NextResponse(
+          JSON.stringify({
+            message: 'Нет  объекта с данным id',
+          }),
+          {
+            status: 400,
+          }
+        );
+      }
+      const responseObj = {
+        message: 'Элемент удалён успешно',
+        my_data: {},
+      };
+
+      return new NextResponse(JSON.stringify(responseObj), { status: 200 });
+    }
   } catch (error: any) {
     return new NextResponse(error.message, { status: 500 });
   }

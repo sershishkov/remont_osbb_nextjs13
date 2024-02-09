@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Model__ClientType from '@/lib/mongoose/models/accountant/refData/Model__ClientType';
+import Model__Client from '@/lib/mongoose/models/manager/refdata/Model__Client';
 
 import { connectToDB } from '@/lib/mongoose/connectToDB';
 
@@ -81,24 +82,40 @@ export const DELETE = async (request: NextRequest, { params }: Props) => {
   const { id } = params;
   try {
     await connectToDB();
-    const one__ITEM = await Model__ClientType.findByIdAndDelete(id);
 
-    if (!one__ITEM) {
+    const related__ThirdPartyService = await Model__Client.findOne({
+      clientType: [id],
+    });
+
+    if (related__ThirdPartyService) {
       return new NextResponse(
         JSON.stringify({
-          message: 'Нет  объекта с данным id',
+          message: 'не возможно удалить этот елемент, есть связанные элементы',
         }),
         {
-          status: 400,
+          status: 403,
         }
       );
-    }
-    const responseObj = {
-      message: 'Элемент удалён успешно',
-      my_data: {},
-    };
+    } else {
+      const one__ITEM = await Model__ClientType.findByIdAndDelete(id);
 
-    return new NextResponse(JSON.stringify(responseObj), { status: 200 });
+      if (!one__ITEM) {
+        return new NextResponse(
+          JSON.stringify({
+            message: 'Нет  объекта с данным id',
+          }),
+          {
+            status: 400,
+          }
+        );
+      }
+      const responseObj = {
+        message: 'Элемент удалён успешно',
+        my_data: {},
+      };
+
+      return new NextResponse(JSON.stringify(responseObj), { status: 200 });
+    }
   } catch (error: any) {
     return new NextResponse(error.message, { status: 500 });
   }
