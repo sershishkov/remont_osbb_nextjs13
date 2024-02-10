@@ -17,6 +17,7 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
@@ -537,11 +538,19 @@ function DocumentAktOfWorkAdd() {
           >
             <AddIcon color='success' sx={{ fontSize: 30 }} />
           </IconButton>
+          <IconButton
+            onClick={() =>
+              onClickAddItem(`/manager/refdata/contract/${contract}`)
+            }
+          >
+            <EditIcon color='primary' sx={{ fontSize: 30 }} />
+          </IconButton>
         </Stack>
       </Grid>
 
       <Grid item>
         <TableNakladnayaOrAkt
+          linkToAddNewItem={`/manager/refdata/thirdpartyservices/add`}
           mainFieldCaption={`Сервисы`}
           mainFieldnName={`thirdPartyServiceName`}
           mainFieldId={`thirdPartyService`}
@@ -560,6 +569,7 @@ function DocumentAktOfWorkAdd() {
       </Grid>
       <Grid item>
         <TableNakladnayaOrAkt
+          linkToAddNewItem={`/manager/refdata/serviceworks/add`}
           mainFieldCaption={`Работы`}
           mainFieldnName={`serviceWorkName`}
           mainFieldId={`serviceWork`}

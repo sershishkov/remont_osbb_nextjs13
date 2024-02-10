@@ -2,6 +2,7 @@ import React from 'react';
 
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
+import Link from '@mui/material/Link';
 
 import TableContainer from '@mui/material/TableContainer';
 import Paper from '@mui/material/Paper';
@@ -19,7 +20,9 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 
 import MySelectAutoCompl from '@/components/common/MySelectAutoCompl';
+
 function TableNakladnayaOrAkt({
+  linkToAddNewItem,
   mainFieldCaption,
   mainFieldnName,
   mainFieldId,
@@ -36,6 +39,7 @@ function TableNakladnayaOrAkt({
   handleChangeSelectsMainField,
   showExtraInformation = false,
 }: Readonly<{
+  linkToAddNewItem: string;
   mainFieldCaption: string;
   mainFieldnName: string;
   mainFieldId: string;
@@ -97,7 +101,11 @@ function TableNakladnayaOrAkt({
             >
               №
             </TableCell>
-            <TableCell align='center'>{mainFieldCaption}</TableCell>
+            <TableCell align='center'>
+              <Link href={linkToAddNewItem} variant='button'>
+                {mainFieldCaption}
+              </Link>
+            </TableCell>
 
             <TableCell
               align='center'

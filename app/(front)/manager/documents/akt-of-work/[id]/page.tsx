@@ -626,6 +626,7 @@ function DocumentAktOfWorkEdit({ params }: Readonly<paramsProps>) {
 
       <Grid item>
         <TableNakladnayaOrAkt
+          linkToAddNewItem={`/manager/refdata/thirdpartyservices/add`}
           mainFieldCaption={`Сервисы`}
           mainFieldnName={`thirdPartyServiceName`}
           mainFieldId={`thirdPartyService`}
@@ -644,6 +645,7 @@ function DocumentAktOfWorkEdit({ params }: Readonly<paramsProps>) {
       </Grid>
       <Grid item>
         <TableNakladnayaOrAkt
+          linkToAddNewItem={`/manager/refdata/serviceworks/add`}
           mainFieldCaption={`Работы`}
           mainFieldnName={`serviceWorkName`}
           mainFieldId={`serviceWork`}

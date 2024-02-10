@@ -4,13 +4,22 @@ import TableFilter from '@/components/common/TableFilter';
 const currentURL = `/manager/documents/nakladnaya`;
 
 function DocumentNakladnayaList() {
-  const headerFields = ['№ накладн', 'Сумма накладн', 'Наша Фирма', 'Клиент'];
+  const headerFields = [
+    '№ Дог',
+    '№ накладн',
+    'Сумма накладн',
+    'Наша Фирма',
+    'Клиент',
+    'Работа',
+  ];
   const tableFields = [
+    'contract.contractNumber',
     'nakladnayaNumber',
 
     'totalNaklSum',
     'contract.ourFirm.clientShortName',
     'contract.client.clientShortName',
+    'contract.contractDescription',
   ];
 
   return (

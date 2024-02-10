@@ -497,6 +497,7 @@ function DocumentNakladnayaEdit({ params }: Readonly<paramsProps>) {
 
       <Grid item>
         <TableNakladnayaOrAkt
+          linkToAddNewItem={`/manager/refdata/products/add`}
           mainFieldCaption={`Материалы`}
           mainFieldnName={`productName`}
           mainFieldId={`product`}

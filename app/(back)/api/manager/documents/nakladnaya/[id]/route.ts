@@ -182,7 +182,7 @@ export const DELETE = async (request: NextRequest, { params }: Props) => {
         }
       );
     } else {
-      await one__ITEM.delete();
+      await DocumentNakladnaya.findByIdAndDelete(id);
     }
 
     const responseObj = {
