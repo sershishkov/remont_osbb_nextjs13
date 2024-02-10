@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useLayoutEffect } from 'react';
+import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -43,7 +44,7 @@ import {
   I_ServiceWorkInAkt,
 } from '@/interfaces/refdata';
 
-import { arr__typeAkt } from '@/constants/constants';
+import { arr__typeAkt, accountant_role } from '@/constants/constants';
 
 const currentURL = '/manager/documents/akt-of-work';
 const initState = {
@@ -61,6 +62,8 @@ const initState = {
 function DocumentAktOfWorkEdit({ params }: Readonly<paramsProps>) {
   const { id } = params;
   const route = useRouter();
+  const session = useSession();
+  const userRole = session?.data?.user.role;
 
   const [formData, setFormData] = useState(initState);
 
@@ -536,7 +539,13 @@ function DocumentAktOfWorkEdit({ params }: Readonly<paramsProps>) {
             />
           </Grid>
 
-          <Grid item sx={{ flex: 1 }}>
+          <Grid
+            item
+            sx={{
+              flex: 1,
+              display: accountant_role.includes(userRole!) ? 'flex' : 'none',
+            }}
+          >
             <FormControl component='fieldset' variant='standard'>
               <FormLabel component='legend'>Стадии выполнения</FormLabel>
               <FormGroup>

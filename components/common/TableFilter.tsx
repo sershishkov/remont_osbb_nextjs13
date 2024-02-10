@@ -217,7 +217,13 @@ function TableSimple({
                   <TableRow key={row._id}>
                     {tableFields.length > 0 &&
                       tableFields.map((item) => (
-                        <TableCell align='center' key={item}>
+                        <TableCell
+                          align='center'
+                          key={item}
+                          sx={{
+                            color: row.isActive === true ? 'green' : undefined,
+                          }}
+                        >
                           {getMyItem(row, item)}
                         </TableCell>
                       ))}

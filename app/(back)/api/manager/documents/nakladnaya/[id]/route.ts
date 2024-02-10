@@ -11,6 +11,7 @@ import Model__Unit from '@/lib/mongoose/models/manager/refdata/Model__Unit';
 
 import { connectToDB } from '@/lib/mongoose/connectToDB';
 import { updateRecomendPriceInProducts } from '../route';
+import { accountant_role } from '@/constants/constants';
 
 type Props = {
   params: {
@@ -154,44 +155,34 @@ export const DELETE = async (request: NextRequest, { params }: Props) => {
   const { id } = params;
   try {
     await connectToDB();
+
+    const one__ITEM = await DocumentNakladnaya.findById(id);
+
+    if (!one__ITEM) {
+      return new NextResponse(
+        JSON.stringify({
+          message: 'Нет  объекта с данным id',
+        }),
+        {
+          status: 400,
+        }
+      );
+    }
     const session = await getServerSession(authOptions);
     const currentRole = session?.user.role;
-    if (currentRole === 'admin') {
-      const one__ITEM = await DocumentNakladnaya.findByIdAndDelete(id);
 
-      if (!one__ITEM) {
-        return new NextResponse(
-          JSON.stringify({
-            message: 'Нет  объекта с данным id',
-          }),
-          {
-            status: 400,
-          }
-        );
-      }
+    if (!accountant_role.includes(currentRole!) || one__ITEM.isActive) {
+      return new NextResponse(
+        JSON.stringify({
+          message:
+            'Не возможно удалить наклажную! Либо у вас нет прав, либо необходимо накладную снять с проведения',
+        }),
+        {
+          status: 403,
+        }
+      );
     } else {
-      const one__ITEM = await DocumentNakladnaya.findById(id);
-      if (!one__ITEM) {
-        return new NextResponse(
-          JSON.stringify({
-            message: 'Нет  объекта с данным id',
-          }),
-          {
-            status: 400,
-          }
-        );
-      }
-
-      const new__DocumentNakladnaya = {
-        isActive: false,
-        isDeleted: true,
-        whoDeleted: session?.user._id,
-      };
-
-      await DocumentNakladnaya.findByIdAndUpdate(id, new__DocumentNakladnaya, {
-        new: true,
-        runValidators: true,
-      });
+      await one__ITEM.delete();
     }
 
     const responseObj = {

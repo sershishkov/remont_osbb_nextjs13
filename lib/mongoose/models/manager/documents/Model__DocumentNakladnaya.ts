@@ -54,16 +54,6 @@ const dokument_nakladnaya__Schema = new Schema<I_DocumentNakladnaya>(
       enum: ['incoming', 'outgoing', 'returnFromBuyer', 'returnToSupplier'],
       default: 'outgoing',
     },
-
-    isDeleted: {
-      type: Boolean,
-      default: false,
-    },
-
-    whoDeleted: {
-      type: Schema.Types.ObjectId,
-      ref: 'user',
-    },
   },
   {
     timestamps: true,

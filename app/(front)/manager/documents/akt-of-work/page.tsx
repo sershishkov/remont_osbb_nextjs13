@@ -4,18 +4,10 @@ import TableFilter from '@/components/common/TableFilter';
 const currentURL = `/manager/documents/akt-of-work`;
 
 function DocumentAktOfWorkList() {
-  const headerFields = [
-    '№ Акта',
-    'Проведен',
-    'Тип актк',
-    'Сумма акта',
-    'Наша фирма',
-    'Клиент',
-  ];
+  const headerFields = ['№ Акта', 'Сумма акта', 'Наша фирма', 'Клиент'];
   const tableFields = [
     'aktOfWorkNumber',
-    'isActive',
-    'typeAkt',
+
     'totalSums.totalAktSum',
     'contract.ourFirm.clientShortName',
     'contract.client.clientShortName',

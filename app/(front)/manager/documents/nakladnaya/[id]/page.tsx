@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import { v4 as uuidv4 } from 'uuid';
 
 import TableNakladnayaOrAkt from '@/components/documents/TableNakladnayaOrAkt';
@@ -41,7 +42,7 @@ import {
   I_ProductInNakl,
 } from '@/interfaces/refdata';
 
-import { arr__typeNakl } from '@/constants/constants';
+import { accountant_role, arr__typeNakl } from '@/constants/constants';
 
 const currentURL = '/manager/documents/nakladnaya';
 const initState = {
@@ -59,6 +60,8 @@ const initState = {
 function DocumentNakladnayaEdit({ params }: Readonly<paramsProps>) {
   const { id } = params;
   const route = useRouter();
+  const session = useSession();
+  const userRole = session?.data?.user.role;
 
   const [formData, setFormData] = useState(initState);
 
@@ -382,7 +385,13 @@ function DocumentNakladnayaEdit({ params }: Readonly<paramsProps>) {
             />
           </Grid>
 
-          <Grid item sx={{ width: 250 }}>
+          <Grid
+            item
+            sx={{
+              width: 250,
+              display: accountant_role.includes(userRole!) ? 'block' : 'none',
+            }}
+          >
             <FormControl component='fieldset' variant='standard'>
               <FormLabel component='legend'>Стадии выполнения</FormLabel>
               <FormGroup>

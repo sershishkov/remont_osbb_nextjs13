@@ -14,7 +14,7 @@ const user__Schema = new Schema<I_User>(
       required: [true, 'Please add an email'],
       unique: true,
       match: [
-        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+        /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
         'Please add a valid email',
       ],
     },
@@ -31,8 +31,8 @@ const user__Schema = new Schema<I_User>(
         'client',
         'worker',
         'manager',
-        'accountant',
         'boss',
+        'accountant',
         'admin',
       ],
       default: 'user',

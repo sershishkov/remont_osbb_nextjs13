@@ -275,9 +275,7 @@ export interface I_DocumentNakladnaya {
   isActive: Boolean;
   creator: Types.ObjectId;
   typeNakl: string;
-
-  isDeleted: Boolean;
-  whoDeleted: Types.ObjectId;
+  totalNaklSum?: string;
 }
 
 export interface I_ThirdPartyServiceInAkt {
@@ -339,8 +337,6 @@ export interface I_DocumentAktOfWork {
   creator: Types.ObjectId;
   typeAkt: string;
 
-  isDeleted: Boolean;
-  whoDeleted: Types.ObjectId;
   totalSums?: {
     totalThirdPartySum: string;
     totalServiceWorkSum: string;
@@ -362,8 +358,6 @@ export interface I_DocumentInvoice {
   creator: Types.ObjectId;
   typeInvoice: string;
 
-  isDeleted: Boolean;
-  whoDeleted: Types.ObjectId;
   totalSums?: {
     totalThirdPartySum: string;
     totalServiceWorkSum: string;

@@ -1,12 +1,14 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { v4 as uuidv4 } from 'uuid';
 
 import { item__add, get__all } from '@/lib/actions/refdata.actions';
 
 import TableNakladnayaOrAkt from '@/components/documents/TableNakladnayaOrAkt';
+import { accountant_role, arr__typeNakl } from '@/constants/constants';
 
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
@@ -33,7 +35,6 @@ import {
 } from '@/interfaces/refdata';
 
 import { generateDocNumber } from '@/lib/helpers/helperFunction';
-import { arr__typeNakl } from '@/constants/constants';
 
 const currentURL = '/manager/documents/nakladnaya';
 const initState = {
@@ -50,6 +51,8 @@ const initState = {
 
 function DocumentNakladnayaAdd() {
   const route = useRouter();
+  const session = useSession();
+  const userRole = session?.data?.user.role;
 
   const [formData, setFormData] = useState(initState);
   const [localProducts, setLocalProducts] = useState<I_LocalProduct[]>([]);
@@ -333,7 +336,13 @@ function DocumentNakladnayaAdd() {
               arrToSelect={arr__typeNakl ?? []}
             />
           </Grid>
-          <Grid item sx={{ width: 250 }}>
+          <Grid
+            item
+            sx={{
+              width: 250,
+              display: accountant_role.includes(userRole!) ? 'block' : 'none',
+            }}
+          >
             <FormControl component='fieldset' variant='standard'>
               <FormLabel component='legend'>Стадии выполнения</FormLabel>
               <FormGroup>

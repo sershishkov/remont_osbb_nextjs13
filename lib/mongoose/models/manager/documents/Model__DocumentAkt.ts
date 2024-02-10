@@ -71,16 +71,6 @@ const dokument_akt__Schema = new Schema<I_DocumentAktOfWork>(
       enum: ['incoming', 'outgoing'],
       default: 'outgoing',
     },
-
-    isDeleted: {
-      type: Boolean,
-      default: false,
-    },
-
-    whoDeleted: {
-      type: Schema.Types.ObjectId,
-      ref: 'user',
-    },
   },
   {
     timestamps: true,

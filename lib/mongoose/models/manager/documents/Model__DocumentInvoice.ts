@@ -88,16 +88,6 @@ const dokument_invoice__Schema = new Schema<I_DocumentInvoice>(
       enum: ['incoming', 'outgoing'],
       default: 'outgoing',
     },
-
-    isDeleted: {
-      type: Boolean,
-      default: false,
-    },
-
-    whoDeleted: {
-      type: Schema.Types.ObjectId,
-      ref: 'user',
-    },
   },
   {
     timestamps: true,

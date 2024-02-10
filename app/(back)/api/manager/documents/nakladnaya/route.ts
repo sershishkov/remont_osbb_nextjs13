@@ -110,28 +110,14 @@ export const GET = async (request: NextRequest) => {
 
   try {
     await connectToDB();
-    const session = await getServerSession(authOptions);
-    const userRole = session?.user.role;
 
     const myRegex = { $regex: filterSTR ?? '', $options: 'i' };
-    let deletedRestiction;
-
-    if (userRole === 'admin') {
-      deletedRestiction = {};
-    } else {
-      deletedRestiction = { isDeleted: false };
-    }
 
     filterObject = {
-      $and: [
-        {
-          $or: [
-            { nakladnayaNumber: myRegex },
-            { 'contract.ourFirm.clientShortName': myRegex },
-            { 'contract.client.clientShortName': myRegex },
-          ],
-        },
-        deletedRestiction,
+      $or: [
+        { nakladnayaNumber: myRegex },
+        { 'contract.ourFirm.clientShortName': myRegex },
+        { 'contract.client.clientShortName': myRegex },
       ],
     };
 

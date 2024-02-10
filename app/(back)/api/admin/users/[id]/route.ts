@@ -54,21 +54,18 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
   try {
     await connectToDB();
 
-    const new__ITEM = {
-      name,
-      email,
-      password,
-      role: role === 'admin' ? 'user' : role,
-    };
+    const one__ITEM = await Model__User.findById(id);
 
-    const updated__ITEM = await Model__User.findByIdAndUpdate(id, new__ITEM, {
-      new: true,
-      runValidators: true,
-    });
+    one__ITEM.name = name;
+    one__ITEM.email = email;
+    one__ITEM.password = password;
+    one__ITEM.name = role === 'admin' ? 'user' : role;
+
+    one__ITEM.save();
 
     const responseObj = {
       message: 'Элемент изменен успешно',
-      my_data: updated__ITEM,
+      my_data: one__ITEM,
     };
 
     return new NextResponse(JSON.stringify(responseObj), { status: 200 });
