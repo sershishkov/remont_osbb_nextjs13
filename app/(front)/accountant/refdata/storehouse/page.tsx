@@ -1,7 +1,13 @@
+import type { Metadata } from 'next';
+
 import MyIconButtonAdd from '@/components/common/MyIconButtonAdd';
 
 import TableFilter from '@/components/common/TableFilter';
 const currentURL = `/accountant/refdata/storehouse`;
+
+export const metadata: Metadata = {
+  title: 'Склады',
+};
 
 function StoreHouseList() {
   const headerFields = ['Наименование', 'Адрес', 'Ответственный'];

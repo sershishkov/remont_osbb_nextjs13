@@ -1,7 +1,13 @@
+import type { Metadata } from 'next';
+
 import MyIconButtonAdd from '@/components/common/MyIconButtonAdd';
 
 import TableFilter from '@/components/common/TableFilter';
 const currentURL = `/manager/refdata/products`;
+
+export const metadata: Metadata = {
+  title: 'Товары',
+};
 
 function ProductsList() {
   const headerFields = ['Наименование', 'ед.изм', 'Цена вход', 'Тип товара'];

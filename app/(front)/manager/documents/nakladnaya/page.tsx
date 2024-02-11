@@ -1,7 +1,13 @@
+import type { Metadata } from 'next';
+
 import MyIconButtonAdd from '@/components/common/MyIconButtonAdd';
 
 import TableFilter from '@/components/common/TableFilter';
 const currentURL = `/manager/documents/nakladnaya`;
+
+export const metadata: Metadata = {
+  title: 'Накладные',
+};
 
 function DocumentNakladnayaList() {
   const headerFields = [

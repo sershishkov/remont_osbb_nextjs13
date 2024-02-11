@@ -1,7 +1,13 @@
+import type { Metadata } from 'next';
+
 import MyIconButtonAdd from '@/components/common/MyIconButtonAdd';
 
 import TableFilter from '@/components/common/TableFilter';
 const currentURL = `/accountant/refdata/payment-source`;
+
+export const metadata: Metadata = {
+  title: 'Источник средств',
+};
 
 function PaymentSourceList() {
   const headerFields = ['Наименование'];

@@ -1,7 +1,13 @@
+import type { Metadata } from 'next';
+
 import MyIconButtonAdd from '@/components/common/MyIconButtonAdd';
 
 import TableFilter from '@/components/common/TableFilter';
 const currentURL = `/manager/refdata/serviceworks`;
+
+export const metadata: Metadata = {
+  title: 'Услуги (работы)',
+};
 
 function ServiceWorksList() {
   const headerFields = ['Наименование', 'ед.изм', 'Цена Вход'];
