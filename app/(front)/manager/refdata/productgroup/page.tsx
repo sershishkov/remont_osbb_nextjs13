@@ -5,11 +5,13 @@ import MyIconButtonAdd from '@/components/common/MyIconButtonAdd';
 import TableFilter from '@/components/common/TableFilter';
 const currentURL = `/manager/refdata/productgroup`;
 
+const title = 'Группы товаров';
+
 export const metadata: Metadata = {
-  title: 'Группы товаров',
+  title: title,
 };
 
-function ProductGroupList() {
+export default function ProductGroupList() {
   const headerFields = ['Наименование'];
   const tableFields = ['productGroupName'];
   return (
@@ -20,10 +22,8 @@ function ProductGroupList() {
         headerFields={headerFields}
         tableFields={tableFields}
         currentURL={currentURL}
-        tableHeader={`Группы товаров`}
+        tableHeader={title}
       />
     </>
   );
 }
-
-export default ProductGroupList;

@@ -1,89 +1,16 @@
-'use client';
-
-import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-
-import { item__get_one, item__edit } from '@/lib/actions/refdata.actions';
-
+import type { Metadata } from 'next';
 import { paramsProps } from '@/interfaces/CommonInterfaces';
+import ServWorkGrAddEdit from '../ServWorkGrAddEdit';
 
-import Grid from '@mui/material/Grid';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
+const title = 'Редактировать Группу работ';
 
-const currentURL = '/manager/refdata/servicework-group';
+export const metadata: Metadata = {
+  title: title,
+};
 
-function ServiceWorkGroupEdit({ params }: Readonly<paramsProps>) {
+export default function ServiceWorkGroupEdit({
+  params,
+}: Readonly<paramsProps>) {
   const { id } = params;
-  const route = useRouter();
-
-  const [serviceWorkGroupName, setServiceWorkGroupName] = useState<string>('');
-
-  useEffect(() => {
-    const inputFocus = document.getElementById('serviceWorkGroupName');
-    inputFocus?.focus();
-  }, []);
-
-  useEffect(() => {
-    if (id) {
-      const myGetOne = async () => {
-        const myData = await item__get_one({ _id: id }, currentURL);
-        setServiceWorkGroupName(myData.serviceWorkGroupName);
-      };
-      myGetOne();
-    }
-  }, [id]);
-
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setServiceWorkGroupName(e.target.value);
-  };
-
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const created__Data = {
-      _id: id,
-      serviceWorkGroupName,
-    };
-
-    await item__edit(created__Data, currentURL, route);
-  };
-
-  return (
-    <Grid component='form' onSubmit={onSubmit} container direction='column'>
-      <Grid item className='item item-heading'>
-        <Typography variant='h3' align='center'>
-          Редактировать
-        </Typography>
-      </Grid>
-      <Grid item>
-        <TextField
-          margin='normal'
-          required
-          fullWidth
-          name='serviceWorkGroupName'
-          label='Группа работ'
-          type='text'
-          id='serviceWorkGroupName'
-          value={serviceWorkGroupName ?? ''}
-          onChange={onChange}
-        />
-      </Grid>
-
-      <Grid item>
-        <Button
-          type='submit'
-          fullWidth
-          disabled={serviceWorkGroupName.length === 0}
-          variant='contained'
-          sx={{ mt: 3, mb: 2 }}
-        >
-          Сохранить
-        </Button>
-      </Grid>
-    </Grid>
-  );
+  return <ServWorkGrAddEdit id={id} mode='edit' title={title} />;
 }
-
-export default ServiceWorkGroupEdit;

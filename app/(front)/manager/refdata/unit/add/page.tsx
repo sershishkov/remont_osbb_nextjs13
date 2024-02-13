@@ -8,8 +8,6 @@ export const metadata: Metadata = {
   title: title,
 };
 
-function UnitAdd() {
+export default function UnitAdd() {
   return <UnitAddEdit mode='add' title={title} />;
 }
-
-export default UnitAdd;

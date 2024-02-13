@@ -8,9 +8,7 @@ export const metadata: Metadata = {
   title: title,
 };
 
-function UnitEdit({ params }: Readonly<paramsProps>) {
+export default function UnitEdit({ params }: Readonly<paramsProps>) {
   const { id } = params;
   return <UnitAddEdit id={id} mode='edit' title={title} />;
 }
-
-export default UnitEdit;

@@ -14,19 +14,19 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
-const currentURL = '/manager/refdata/unit';
+const currentURL = '/manager/refdata/productgroup';
 
-export default function UnitAddEdit({
+function ProductGrAddEdit({
   id,
   mode,
   title,
 }: Readonly<{ id?: string; mode: string; title: string }>) {
   const route = useRouter();
 
-  const [unitName, setUnitName] = useState<string>('');
+  const [productGroupName, setProductGroupName] = useState<string>('');
 
   useEffect(() => {
-    const inputFocus = document.getElementById('unitName');
+    const inputFocus = document.getElementById('productGroupName');
     inputFocus?.focus();
   }, []);
 
@@ -34,21 +34,21 @@ export default function UnitAddEdit({
     if (id) {
       const myGetOne = async () => {
         const myData = await item__get_one({ _id: id }, currentURL);
-        setUnitName(myData.unitName);
+        setProductGroupName(myData.productGroupName);
       };
       myGetOne();
     }
   }, [id]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUnitName(e.target.value);
+    setProductGroupName(e.target.value);
   };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const created__Data = {
-      unitName,
+      productGroupName,
     };
 
     if (mode === 'add') {
@@ -72,11 +72,11 @@ export default function UnitAddEdit({
           margin='normal'
           required
           fullWidth
-          name='unitName'
-          label='Единица измерения'
+          name='productGroupName'
+          label='Группа товаров'
           type='text'
-          id='unitName'
-          value={unitName ?? ''}
+          id='productGroupName'
+          value={productGroupName ?? ''}
           onChange={onChange}
         />
       </Grid>
@@ -85,7 +85,7 @@ export default function UnitAddEdit({
         <Button
           type='submit'
           fullWidth
-          disabled={unitName.length === 0}
+          disabled={productGroupName.length === 0}
           variant='contained'
           sx={{ mt: 3, mb: 2 }}
         >
@@ -95,3 +95,5 @@ export default function UnitAddEdit({
     </Grid>
   );
 }
+
+export default ProductGrAddEdit;

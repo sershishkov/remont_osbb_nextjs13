@@ -5,11 +5,13 @@ import MyIconButtonAdd from '@/components/common/MyIconButtonAdd';
 import TableFilter from '@/components/common/TableFilter';
 const currentURL = `/manager/refdata/servicework-group`;
 
+const title = 'Группы работ';
+
 export const metadata: Metadata = {
-  title: 'Группы работ',
+  title: title,
 };
 
-function ServiceWorkGroupList() {
+export default function ServiceWorkGroupList() {
   const headerFields = ['Наименование'];
   const tableFields = ['serviceWorkGroupName'];
   return (
@@ -20,10 +22,8 @@ function ServiceWorkGroupList() {
         headerFields={headerFields}
         tableFields={tableFields}
         currentURL={currentURL}
-        tableHeader={`Группы работ`}
+        tableHeader={title}
       />
     </>
   );
 }
-
-export default ServiceWorkGroupList;

@@ -5,8 +5,10 @@ import MyIconButtonAdd from '@/components/common/MyIconButtonAdd';
 import TableFilter from '@/components/common/TableFilter';
 const currentURL = `/manager/refdata/thirdpartyservices`;
 
+const title = 'Сторонние сервисы';
+
 export const metadata: Metadata = {
-  title: 'Сторонние сервисы',
+  title: title,
 };
 
 function ThirdPartyServicesList() {
@@ -25,7 +27,7 @@ function ThirdPartyServicesList() {
         headerFields={headerFields}
         tableFields={tableFields}
         currentURL={currentURL}
-        tableHeader={`Сторонние сервисы`}
+        tableHeader={title}
       />
     </>
   );

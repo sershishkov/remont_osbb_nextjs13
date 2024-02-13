@@ -5,11 +5,13 @@ import MyIconButtonAdd from '@/components/common/MyIconButtonAdd';
 import TableFilter from '@/components/common/TableFilter';
 const currentURL = `/manager/refdata/unit`;
 
+const title = 'Единицы измерения';
+
 export const metadata: Metadata = {
-  title: 'Единицы измерения',
+  title: title,
 };
 
-function UnitList() {
+export default function UnitList() {
   const headerFields = ['Ед.изм'];
   const tableFields = ['unitName'];
   return (
@@ -20,10 +22,8 @@ function UnitList() {
         headerFields={headerFields}
         tableFields={tableFields}
         currentURL={currentURL}
-        tableHeader={`Единицы измерения`}
+        tableHeader={title}
       />
     </>
   );
 }
-
-export default UnitList;

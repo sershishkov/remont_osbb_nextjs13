@@ -14,19 +14,20 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
-const currentURL = '/manager/refdata/unit';
+const currentURL = '/manager/refdata/thirdpartyservice-group';
 
-export default function UnitAddEdit({
+function ThirdServGroupAddEdit({
   id,
   mode,
   title,
 }: Readonly<{ id?: string; mode: string; title: string }>) {
   const route = useRouter();
 
-  const [unitName, setUnitName] = useState<string>('');
+  const [thirdPartyServiceGroupName, setThirdPartyServiceGroupName] =
+    useState<string>('');
 
   useEffect(() => {
-    const inputFocus = document.getElementById('unitName');
+    const inputFocus = document.getElementById('thirdPartyServiceGroupName');
     inputFocus?.focus();
   }, []);
 
@@ -34,21 +35,21 @@ export default function UnitAddEdit({
     if (id) {
       const myGetOne = async () => {
         const myData = await item__get_one({ _id: id }, currentURL);
-        setUnitName(myData.unitName);
+        setThirdPartyServiceGroupName(myData.thirdPartyServiceGroupName);
       };
       myGetOne();
     }
   }, [id]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUnitName(e.target.value);
+    setThirdPartyServiceGroupName(e.target.value);
   };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const created__Data = {
-      unitName,
+      thirdPartyServiceGroupName,
     };
 
     if (mode === 'add') {
@@ -72,11 +73,11 @@ export default function UnitAddEdit({
           margin='normal'
           required
           fullWidth
-          name='unitName'
-          label='Единица измерения'
+          name='thirdPartyServiceGroupName'
+          label='Группа работ (сторонние)'
           type='text'
-          id='unitName'
-          value={unitName ?? ''}
+          id='thirdPartyServiceGroupName'
+          value={thirdPartyServiceGroupName ?? ''}
           onChange={onChange}
         />
       </Grid>
@@ -85,7 +86,7 @@ export default function UnitAddEdit({
         <Button
           type='submit'
           fullWidth
-          disabled={unitName.length === 0}
+          disabled={thirdPartyServiceGroupName.length === 0}
           variant='contained'
           sx={{ mt: 3, mb: 2 }}
         >
@@ -95,3 +96,5 @@ export default function UnitAddEdit({
     </Grid>
   );
 }
+
+export default ThirdServGroupAddEdit;

@@ -5,11 +5,13 @@ import MyIconButtonAdd from '@/components/common/MyIconButtonAdd';
 import TableFilter from '@/components/common/TableFilter';
 const currentURL = `/manager/refdata/thirdpartyservice-group`;
 
+const title = 'Группы сторонних сервисов';
+
 export const metadata: Metadata = {
-  title: 'Группы сторонних сервисов',
+  title: title,
 };
 
-function ThirdPartyServiceGroupList() {
+export default function ThirdPartyServiceGroupList() {
   const headerFields = ['Наименование'];
   const tableFields = ['thirdPartyServiceGroupName'];
   return (
@@ -20,10 +22,8 @@ function ThirdPartyServiceGroupList() {
         headerFields={headerFields}
         tableFields={tableFields}
         currentURL={currentURL}
-        tableHeader={`Группы сторонних сервисов`}
+        tableHeader={title}
       />
     </>
   );
 }
-
-export default ThirdPartyServiceGroupList;

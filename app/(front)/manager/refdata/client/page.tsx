@@ -5,11 +5,13 @@ import MyIconButtonAdd from '@/components/common/MyIconButtonAdd';
 import TableFilter from '@/components/common/TableFilter';
 const currentURL = `/manager/refdata/client`;
 
+const title = 'Контрагенты';
+
 export const metadata: Metadata = {
-  title: 'Контрагенты',
+  title: title,
 };
 
-function ServiceWorksList() {
+export default function ServiceWorksList() {
   const headerFields = ['Фирма', 'ТИП', 'Тел:', 'email'];
   const tableFields = [
     'clientLongName',
@@ -26,10 +28,8 @@ function ServiceWorksList() {
         headerFields={headerFields}
         tableFields={tableFields}
         currentURL={currentURL}
-        tableHeader={`Контрагенты`}
+        tableHeader={title}
       />
     </>
   );
 }
-
-export default ServiceWorksList;

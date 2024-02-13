@@ -5,8 +5,10 @@ import MyIconButtonAdd from '@/components/common/MyIconButtonAdd';
 import TableFilter from '@/components/common/TableFilter';
 const currentURL = `/manager/refdata/serviceworks`;
 
+const title = 'Услуги (работы)';
+
 export const metadata: Metadata = {
-  title: 'Услуги (работы)',
+  title: title,
 };
 
 function ServiceWorksList() {
@@ -25,7 +27,7 @@ function ServiceWorksList() {
         headerFields={headerFields}
         tableFields={tableFields}
         currentURL={currentURL}
-        tableHeader={`Услуги (работы)`}
+        tableHeader={title}
       />
     </>
   );

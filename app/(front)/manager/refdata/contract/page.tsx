@@ -5,11 +5,13 @@ import MyIconButtonAdd from '@/components/common/MyIconButtonAdd';
 import TableFilter from '@/components/common/TableFilter';
 const currentURL = `/manager/refdata/contract`;
 
+const title = 'Контракты';
+
 export const metadata: Metadata = {
-  title: 'Контракты',
+  title: title,
 };
 
-function ContractList() {
+export default function ContractList() {
   const headerFields = [
     'Номер контракта',
     'наша фирма',
@@ -33,10 +35,8 @@ function ContractList() {
         headerFields={headerFields}
         tableFields={tableFields}
         currentURL={currentURL}
-        tableHeader={`Контракты`}
+        tableHeader={title}
       />
     </>
   );
 }
-
-export default ContractList;
