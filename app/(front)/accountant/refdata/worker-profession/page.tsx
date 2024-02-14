@@ -5,11 +5,13 @@ import MyIconButtonAdd from '@/components/common/MyIconButtonAdd';
 import TableFilter from '@/components/common/TableFilter';
 const currentURL = `/accountant/refdata/worker-profession`;
 
+const title = 'Профессии';
+
 export const metadata: Metadata = {
-  title: 'Профессии',
+  title: title,
 };
 
-function WorkerProfessionList() {
+export default function WorkerProfessionList() {
   const headerFields = ['Наименование'];
   const tableFields = ['workerProfessionName'];
   return (
@@ -20,10 +22,8 @@ function WorkerProfessionList() {
         headerFields={headerFields}
         tableFields={tableFields}
         currentURL={currentURL}
-        tableHeader={`Профессии`}
+        tableHeader={title}
       />
     </>
   );
 }
-
-export default WorkerProfessionList;

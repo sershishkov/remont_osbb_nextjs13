@@ -5,11 +5,13 @@ import MyIconButtonAdd from '@/components/common/MyIconButtonAdd';
 import TableFilter from '@/components/common/TableFilter';
 const currentURL = `/admin/users`;
 
+const title = 'ПольЗователи';
+
 export const metadata: Metadata = {
-  title: 'ПольЗователи',
+  title: title,
 };
 
-function AdminUsersList() {
+export default function AdminUsersList() {
   const headerFields = ['Name', 'email', 'role'];
   const tableFields = ['name', 'email', 'role'];
 
@@ -21,10 +23,8 @@ function AdminUsersList() {
         headerFields={headerFields}
         tableFields={tableFields}
         currentURL={currentURL}
-        tableHeader={`ПольЗователи`}
+        tableHeader={title}
       />
     </>
   );
 }
-
-export default AdminUsersList;

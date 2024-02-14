@@ -5,11 +5,13 @@ import MyIconButtonAdd from '@/components/common/MyIconButtonAdd';
 import TableFilter from '@/components/common/TableFilter';
 const currentURL = `/accountant/refdata/payment-source`;
 
+const title = 'Источники средств';
+
 export const metadata: Metadata = {
-  title: 'Источник средств',
+  title: title,
 };
 
-function PaymentSourceList() {
+export default function PaymentSourceList() {
   const headerFields = ['Наименование'];
   const tableFields = ['paymentSourceName'];
   return (
@@ -20,10 +22,8 @@ function PaymentSourceList() {
         headerFields={headerFields}
         tableFields={tableFields}
         currentURL={currentURL}
-        tableHeader={`Источник средств`}
+        tableHeader={title}
       />
     </>
   );
 }
-
-export default PaymentSourceList;

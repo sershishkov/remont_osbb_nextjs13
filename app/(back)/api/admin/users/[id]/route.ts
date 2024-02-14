@@ -59,7 +59,7 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
     one__ITEM.name = name;
     one__ITEM.email = email;
     one__ITEM.password = password;
-    one__ITEM.name = role === 'admin' ? 'user' : role;
+    one__ITEM.role = role === 'admin' ? 'user' : role;
 
     one__ITEM.save();
 

@@ -5,11 +5,13 @@ import MyIconButtonAdd from '@/components/common/MyIconButtonAdd';
 import TableFilter from '@/components/common/TableFilter';
 const currentURL = `/accountant/refdata/contract-type`;
 
+const title = 'Типы Контрактов';
+
 export const metadata: Metadata = {
-  title: 'Тип Контракта',
+  title: title,
 };
 
-function ContractTypeList() {
+export default function ContractTypeList() {
   const headerFields = ['Наименование'];
   const tableFields = ['contractTypeName'];
   return (
@@ -20,10 +22,8 @@ function ContractTypeList() {
         headerFields={headerFields}
         tableFields={tableFields}
         currentURL={currentURL}
-        tableHeader={`Тип Контракта`}
+        tableHeader={title}
       />
     </>
   );
 }
-
-export default ContractTypeList;

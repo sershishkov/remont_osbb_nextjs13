@@ -5,11 +5,13 @@ import MyIconButtonAdd from '@/components/common/MyIconButtonAdd';
 import TableFilter from '@/components/common/TableFilter';
 const currentURL = `/accountant/refdata/firm-type`;
 
+const title = 'Формы собственности';
+
 export const metadata: Metadata = {
-  title: 'Формы собственности',
+  title: title,
 };
 
-function FirmTypeList() {
+export default function FirmTypeList() {
   const headerFields = ['Полное', 'Сокращенное'];
   const tableFields = ['firmTypeLongName', 'firmTypeShortName'];
   return (
@@ -20,10 +22,8 @@ function FirmTypeList() {
         headerFields={headerFields}
         tableFields={tableFields}
         currentURL={currentURL}
-        tableHeader={`Формы собственности`}
+        tableHeader={title}
       />
     </>
   );
 }
-
-export default FirmTypeList;

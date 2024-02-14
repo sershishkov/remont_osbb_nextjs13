@@ -5,11 +5,13 @@ import MyIconButtonAdd from '@/components/common/MyIconButtonAdd';
 import TableFilter from '@/components/common/TableFilter';
 const currentURL = `/accountant/refdata/taxation-type`;
 
+const title = 'Типы налогооблажения';
+
 export const metadata: Metadata = {
-  title: 'Тип налогооблажения',
+  title: title,
 };
 
-function TaxationTypeList() {
+export default function TaxationTypeList() {
   const headerFields = ['Наименование'];
   const tableFields = ['taxationTypeName'];
   return (
@@ -20,10 +22,8 @@ function TaxationTypeList() {
         headerFields={headerFields}
         tableFields={tableFields}
         currentURL={currentURL}
-        tableHeader={`Тип налогооблажения`}
+        tableHeader={title}
       />
     </>
   );
 }
-
-export default TaxationTypeList;

@@ -5,11 +5,13 @@ import MyIconButtonAdd from '@/components/common/MyIconButtonAdd';
 import TableFilter from '@/components/common/TableFilter';
 const currentURL = `/accountant/refdata/client-type`;
 
+const title = 'Типы Клиентов';
+
 export const metadata: Metadata = {
-  title: 'Тип Клиента',
+  title: title,
 };
 
-function ClientTypeList() {
+export default function ClientTypeList() {
   const headerFields = ['Наименование'];
   const tableFields = ['clientTypeName'];
   return (
@@ -20,10 +22,8 @@ function ClientTypeList() {
         headerFields={headerFields}
         tableFields={tableFields}
         currentURL={currentURL}
-        tableHeader={`Тип Клиента`}
+        tableHeader={title}
       />
     </>
   );
 }
-
-export default ClientTypeList;
