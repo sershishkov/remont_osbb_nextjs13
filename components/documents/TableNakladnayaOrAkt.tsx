@@ -78,15 +78,14 @@ function TableNakladnayaOrAkt({
       >
         <TableHead>
           <TableRow>
-            <TableCell>
-              <IconButton onClick={addTableRow}>
-                <PlusOneIcon color='success' sx={{ fontSize: '2rem' }} />
-              </IconButton>
-            </TableCell>
+            <TableCell sx={{ width: 50 }}></TableCell>
             <TableCell
               colSpan={showExtraInformation === true ? 6 : 5}
-            ></TableCell>
-            <TableCell colSpan={3}>
+              align='right'
+            >
+              <Typography>Сумма: </Typography>
+            </TableCell>
+            <TableCell colSpan={3} align='center'>
               <Typography>{naklSum}</Typography>
             </TableCell>
           </TableRow>
@@ -102,6 +101,9 @@ function TableNakladnayaOrAkt({
               №
             </TableCell>
             <TableCell align='center'>
+              <IconButton onClick={addTableRow} sx={{ marginRight: 20 }}>
+                <PlusOneIcon color='success' sx={{ fontSize: '2rem' }} />
+              </IconButton>
               <Link href={linkToAddNewItem} variant='button'>
                 {mainFieldCaption}
               </Link>

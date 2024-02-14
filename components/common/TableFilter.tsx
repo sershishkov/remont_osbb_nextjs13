@@ -221,7 +221,11 @@ function TableSimple({
                           align='center'
                           key={item}
                           sx={{
-                            color: row.isActive === true ? 'green' : undefined,
+                            color:
+                              row.hasOwnProperty('isActive') &&
+                              row.isActive === false
+                                ? 'red'
+                                : undefined,
                           }}
                         >
                           {getMyItem(row, item)}
