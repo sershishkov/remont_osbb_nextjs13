@@ -5,11 +5,13 @@ import MyIconButtonAdd from '@/components/common/MyIconButtonAdd';
 import TableFilter from '@/components/common/TableFilter';
 const currentURL = `/manager/documents/akt-of-work`;
 
+const title = 'Акты';
+
 export const metadata: Metadata = {
-  title: 'Акты',
+  title: title,
 };
 
-function DocumentAktOfWorkList() {
+export default function DocumentAktOfWorkList() {
   const headerFields = [
     '№ Дог',
     '№ Акта',
@@ -36,10 +38,8 @@ function DocumentAktOfWorkList() {
         headerFields={headerFields}
         tableFields={tableFields}
         currentURL={currentURL}
-        tableHeader={`Акты`}
+        tableHeader={title}
       />
     </>
   );
 }
-
-export default DocumentAktOfWorkList;

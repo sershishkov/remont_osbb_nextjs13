@@ -5,11 +5,13 @@ import MyIconButtonAdd from '@/components/common/MyIconButtonAdd';
 import TableFilter from '@/components/common/TableFilter';
 const currentURL = `/manager/documents/nakladnaya`;
 
+const title = 'Накладные';
+
 export const metadata: Metadata = {
-  title: 'Накладные',
+  title: title,
 };
 
-function DocumentNakladnayaList() {
+export default function DocumentNakladnayaList() {
   const headerFields = [
     '№ Дог',
     '№ накладн',
@@ -36,10 +38,8 @@ function DocumentNakladnayaList() {
         headerFields={headerFields}
         tableFields={tableFields}
         currentURL={currentURL}
-        tableHeader={`Накладные`}
+        tableHeader={title}
       />
     </>
   );
 }
-
-export default DocumentNakladnayaList;
