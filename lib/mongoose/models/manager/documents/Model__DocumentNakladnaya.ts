@@ -32,6 +32,9 @@ const dokument_nakladnaya__Schema = new Schema<I_DocumentNakladnaya>(
           type: Number,
           required: [true, 'Please add a price'],
         },
+        extraInformation: {
+          type: String,
+        },
       },
     ],
     storeHouse: {

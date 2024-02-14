@@ -66,7 +66,7 @@ function NakladnayaPrint({ params }: Readonly<paramsProps>) {
                 product: inner_item.product.productName,
                 //@ts-ignore
                 unit: inner_item.product.unit.unitName,
-
+                extraInformation: inner_item?.extraInformation!,
                 amount: inner_item?.amount.toString(),
                 price: inner_item?.price.toFixed(2),
                 rowSum: (inner_item?.amount * inner_item?.price).toFixed(2),

@@ -286,7 +286,7 @@ function NakladnToPrint({
                 <TableRow key={item.row_id}>
                   <TableCell align='center'>{rowIndex + 1}</TableCell>
                   <TableCell align='left' colSpan={5}>
-                    {item.product}
+                    {item.product} {item.extraInformation}
                   </TableCell>
                   <TableCell align='center'>{item.unit}</TableCell>
                   <TableCell align='center'>{item.amount}</TableCell>

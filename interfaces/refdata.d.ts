@@ -242,6 +242,7 @@ export interface I_StoreHouse {
 export interface I_LocalProduct {
   row_id: string;
   product: string;
+  extraInformation?: string;
   unit: string | I_Unit;
   amount: string;
   price: string;
@@ -250,6 +251,7 @@ export interface I_LocalProduct {
 export interface I_LProduct {
   row_id: string;
   product: string;
+  extraInformation?: string;
   unit: string;
   amount: string;
   price: string;
@@ -258,6 +260,7 @@ export interface I_LProduct {
 export interface I_ProductInNakl {
   _id?: string;
   product: Types.ObjectId | I_Product | string;
+  extraInformation?: string;
   amount: number;
   price: number;
 }

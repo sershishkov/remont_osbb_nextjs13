@@ -174,6 +174,7 @@ function NaklAddEdit({
 
                 amount: inner_item?.amount.toString(),
                 price: inner_item?.price.toString(),
+                extraInformation: inner_item?.extraInformation!,
                 rowSum: (inner_item?.amount * inner_item?.price).toFixed(2),
               };
             }
@@ -202,6 +203,7 @@ function NaklAddEdit({
     const productsToSave = localProducts.map((item) => {
       return {
         product: item.product,
+        extraInformation: item.extraInformation,
         amount: Number(item.amount),
         price: Number(item.price),
       };
@@ -256,6 +258,7 @@ function NaklAddEdit({
       amount: '',
       price: '',
       rowSum: '0',
+      extraInformation: '',
     };
 
     setLocalProducts([...localProducts, newItem]);
@@ -527,6 +530,7 @@ function NaklAddEdit({
           recalcRow={recalcRow}
           handleChangeInputsInRow={handleChangeInputsInRow}
           handleChangeSelectsMainField={handleChangeSelectsMainField}
+          showExtraInformation={true}
         />
       </Grid>
 
