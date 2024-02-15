@@ -203,3 +203,5 @@ export const arr__typeInvoice = [
     prefix: '№ СФ-',
   },
 ];
+
+export const arr__TypeOfOSBB = ['ЖБК', 'ЖСК', 'ОСББ'];

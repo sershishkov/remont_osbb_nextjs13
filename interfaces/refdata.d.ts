@@ -285,6 +285,7 @@ export interface I_ThirdPartyServiceInAkt {
   _id?: string;
 
   thirdPartyService?: Types.ObjectId | I_ThirdPartyService | string;
+  product?: string;
   amount?: number;
   price?: number;
   extraInformation?: string;
@@ -293,6 +294,7 @@ export interface I_ServiceWorkInAkt {
   _id?: string;
 
   serviceWork?: Types.ObjectId | I_ServiceWork | string;
+  product?: string;
   amount?: number;
   price?: number;
   extraInformation?: string;
@@ -300,6 +302,7 @@ export interface I_ServiceWorkInAkt {
 export interface I_LThirdPartyService {
   row_id: string;
   thirdPartyService: string;
+  product?: string;
   extraInformation?: string;
   unit: string;
   amount: string;
@@ -311,6 +314,7 @@ export interface I_LThirdPartyService {
 export interface I_LServiceWork {
   row_id: string;
   serviceWork: string;
+  product?: string;
   extraInformation?: string;
   unit: string;
   amount: string;
@@ -320,7 +324,8 @@ export interface I_LServiceWork {
 }
 export interface I_WorkRows {
   row_id: string;
-  workName: string;
+  workName?: string;
+  product?: string;
   extraInformation: string;
   unit: string;
   amount: string;
@@ -335,6 +340,7 @@ export interface I_DocumentAktOfWork {
   contract: Types.ObjectId;
   thirdPartyServices: I_ThirdPartyServiceInAkt[];
   serviceWorks: I_ServiceWorkInAkt[];
+  product?: string;
 
   isActive: Boolean;
   creator: Types.ObjectId;

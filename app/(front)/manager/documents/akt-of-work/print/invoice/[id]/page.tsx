@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
 
 import { item__get_one, get__all } from '@/lib/actions/refdata.actions';
-import AktToPrint from '@/components/documents/formsToPrint/AktToPrint';
+import InvoiceToPrint from '@/components/documents/formsToPrint/InvoiceToPrint';
 import { paramsProps } from '@/interfaces/CommonInterfaces';
 import {
   I_Contract,
@@ -10,6 +10,8 @@ import {
   I_ThirdPartyServiceInAkt,
   I_ServiceWorkInAkt,
   I_WorkRows,
+  I_LProduct,
+  I_DocumentNakladnaya,
 } from '@/interfaces/refdata';
 
 const currentURL = '/manager/documents/akt-of-work';
@@ -18,14 +20,18 @@ const initState = {
   aktOfWorkDate: new Date(),
   typeAkt: '',
   aktSum: 0,
+  relatedNaklSum: 0,
 };
 
-function AktOfWorkPrint({ params }: Readonly<paramsProps>) {
+export default function InvoiceAktPrint({ params }: Readonly<paramsProps>) {
   const { id } = params;
   const [formData, setFormData] = useState(initState);
-  const [tableRows, setTableRows] = useState<I_WorkRows[]>([]);
+  const [tableRows, setTableRows] = useState<I_WorkRows[] | I_LProduct[]>([]);
   const [arr__Clients, setArr__Clients] = useState<I_Client[]>([]);
   const [arr__Contracts, setArr__Contracts] = useState<I_Contract[]>([]);
+  const [arr__RelatedNakls, setArr__RelatedNakls] = useState<
+    I_DocumentNakladnaya[]
+  >([]);
 
   const [localOurFirmObj, setLocalOurFirmObj] = useState<I_Client>();
   const [localClientObj, setLocalClientObj] = useState<I_Client>();
@@ -41,14 +47,21 @@ function AktOfWorkPrint({ params }: Readonly<paramsProps>) {
         { page: '0', limit: '0', filter: '' },
         '/manager/refdata/contract'
       );
+      const localArrOfRelNakl = await get__all(
+        { page: '0', limit: '0', filter: '' },
+        '/manager/documents/nakladnaya'
+      );
 
       setArr__Clients(clients.items);
       setArr__Contracts(contracts.items);
+      setArr__RelatedNakls(localArrOfRelNakl.items);
     };
+
     myGetAll();
   }, []);
 
-  const { aktOfWorkNumber, aktOfWorkDate, typeAkt, aktSum } = formData;
+  const { aktOfWorkNumber, aktOfWorkDate, typeAkt, aktSum, relatedNaklSum } =
+    formData;
 
   useLayoutEffect(() => {
     if (id) {
@@ -68,12 +81,23 @@ function AktOfWorkPrint({ params }: Readonly<paramsProps>) {
             //@ts-ignore
             localContract?.contractType?.contractTypeName;
 
+          const arrNakl = arr__RelatedNakls.filter(
+            (nakl) => nakl.contract._id === item.contract._id
+          );
+
+          const totalNakl = arrNakl.reduce(
+            (accumulator, currentValue) =>
+              accumulator + Number(currentValue.totalNaklSum),
+            0
+          );
+
           setFormData((prevState) => ({
             ...prevState,
             aktOfWorkNumber: item.aktOfWorkNumber,
             aktOfWorkDate: new Date(item.aktOfWorkDate!),
             typeAkt: item.typeAkt,
             aktSum: Number(item.totalSums.totalAktSum),
+            relatedNaklSum: totalNakl,
           }));
           setLocalOurFirmObj(localOurFirm);
           setLocalClientObj(localClient);
@@ -103,18 +127,24 @@ function AktOfWorkPrint({ params }: Readonly<paramsProps>) {
                 inner_item?.serviceWork?.unit!.unitName
               }, `;
             });
+            const sumToShow =
+              Number(item.totalSums.totalAktSum) + relatedNaklSum;
 
             const newRow = {
               row_id: ' row_id',
               //@ts-ignore
-              workName: `${allThirdString} ${allServString}`,
+              product: `${allThirdString} ${allServString}`,
               extraInformation: '',
               //@ts-ignore
               unit: 'послуга',
               amount: '1',
-              price: item.totalSums.totalAktSum,
-              rowSum: item.totalSums.totalAktSum,
+              price: sumToShow.toFixed(2),
+              rowSum: sumToShow.toFixed(2),
             };
+            setFormData((prevState) => ({
+              ...prevState,
+              aktSum: sumToShow,
+            }));
             setTableRows([newRow]);
           } else {
             const arrToSetRowsThird = item.thirdPartyServices?.map(
@@ -122,7 +152,7 @@ function AktOfWorkPrint({ params }: Readonly<paramsProps>) {
                 return {
                   row_id: inner_item._id!.toString(),
                   //@ts-ignore
-                  workName:
+                  product:
                     //@ts-ignore
                     inner_item?.thirdPartyService?.thirdPartyServiceName!,
                   extraInformation: inner_item?.extraInformation!,
@@ -139,7 +169,7 @@ function AktOfWorkPrint({ params }: Readonly<paramsProps>) {
                 return {
                   row_id: inner_item._id!.toString(),
                   //@ts-ignore
-                  workName:
+                  product:
                     //@ts-ignore
                     inner_item?.serviceWork?.serviceWorkName!,
                   extraInformation: inner_item?.extraInformation!,
@@ -160,17 +190,15 @@ function AktOfWorkPrint({ params }: Readonly<paramsProps>) {
   }, [arr__Clients, arr__Contracts, id]);
 
   return (
-    <AktToPrint
-      aktOfWorkNumber={aktOfWorkNumber}
-      aktOfWorkDate={aktOfWorkDate}
+    <InvoiceToPrint
+      nakladnayaNumber={aktOfWorkNumber}
+      nakladnayaDate={aktOfWorkDate}
       ourFirmObj={localOurFirmObj!}
       clientObj={localClientObj!}
       contractObj={localContractObj!}
-      typeAkt={typeAkt}
-      aktSum={aktSum}
+      typeNakl={typeAkt}
+      naklSum={aktSum}
       tableRows={tableRows}
     />
   );
 }
-
-export default AktOfWorkPrint;

@@ -708,7 +708,7 @@ function AktAddEdit({
           <Grid item sx={{ display: mode === 'edit' ? 'block' : 'none' }}>
             <Button
               component={Link}
-              href={`${currentURL}/print/${id}`}
+              href={`${currentURL}/print/akt/${id}`}
               fullWidth
               color='success'
               disabled={
@@ -724,7 +724,29 @@ function AktAddEdit({
               variant='contained'
               sx={{ mt: 3, mb: 2 }}
             >
-              На печать
+              Печать Акт
+            </Button>
+          </Grid>
+          <Grid item sx={{ display: mode === 'edit' ? 'block' : 'none' }}>
+            <Button
+              component={Link}
+              href={`${currentURL}/print/invoice/${id}`}
+              fullWidth
+              color='success'
+              disabled={
+                !aktOfWorkNumber ||
+                !aktOfWorkDate ||
+                !contract ||
+                !typeAkt ||
+                (localThirdPartyServices &&
+                  localThirdPartyServices.length === 0 &&
+                  localServiceWorks &&
+                  localServiceWorks.length === 0)
+              }
+              variant='contained'
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Печать Счет
             </Button>
           </Grid>
         </Grid>

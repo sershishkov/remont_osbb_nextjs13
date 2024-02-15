@@ -14,6 +14,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
 import classes from './styles.module.css';
 
@@ -99,7 +100,149 @@ function NakladnToPrint({
 
   return (
     <div className={classes.page} id='page'>
-      <TableContainer sx={{ margin: 0 }} id='table-to-save'>
+      <Grid container direction={`column`} className={classes.naklHeader}>
+        {/* //////////////////////////////////////// */}
+        <Grid item sx={{ width: '100%' }}>
+          <Grid
+            container
+            direction={`row`}
+            justifyContent={`center`}
+            alignItems={`center`}
+          >
+            <Typography variant='h5' sx={{ color: 'black' }}>
+              {naklCaption}
+            </Typography>
+          </Grid>
+        </Grid>
+        <Grid item sx={{ width: '100%' }} mb={1}>
+          <Grid
+            container
+            direction={`row`}
+            justifyContent={`center`}
+            alignItems={`center`}
+          >
+            <Typography variant='h6' sx={{ color: 'black' }}>
+              Від {naklDateToString}
+            </Typography>
+          </Grid>
+        </Grid>
+        <Grid item sx={{ width: '100%' }}>
+          <Grid container direction={`row`} alignItems={`center`}>
+            <Grid item xs={2}>
+              <Typography variant='body2' sx={{ color: 'black' }}>
+                Постачальник:
+              </Typography>
+            </Grid>
+            <Grid item xs={10}>
+              <Typography variant='body2' sx={{ color: 'black' }}>
+                {ourFirm}
+              </Typography>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item sx={{ width: '100%' }}>
+          <Grid container direction={`row`} alignItems={`center`}>
+            <Grid item xs={2}>
+              <Typography variant='body2' sx={{ color: 'black' }}>
+                {' '}
+                Адреса:
+              </Typography>
+            </Grid>
+            <Grid item xs={10}>
+              <Typography variant='body2' sx={{ color: 'black' }}>
+                {ourFirmAddress}
+              </Typography>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item sx={{ width: '100%' }}>
+          <Grid container direction={`row`} alignItems={`center`}>
+            <Grid item xs={2}>
+              <Typography variant='body2' sx={{ color: 'black' }}>
+                IBAN:
+              </Typography>
+            </Grid>
+            <Grid item xs={10}>
+              <Typography variant='body2' sx={{ color: 'black' }}>
+                {ourIBAN}
+              </Typography>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item sx={{ width: '100%', marginBottom: 2 }}>
+          <Grid
+            container
+            direction={`row`}
+            justifyContent={`flex-start`}
+            alignItems={`center`}
+          >
+            <Typography variant='body2' sx={{ color: 'black' }}>
+              {ourTaxationType}
+            </Typography>
+          </Grid>
+        </Grid>
+        {/* //////////////////////////////////////// */}
+        {/* //////////////////////////////////////// */}
+
+        <Grid item sx={{ width: '100%' }}>
+          <Grid container direction={`row`} alignItems={`center`}>
+            <Grid item xs={2}>
+              <Typography variant='body2' sx={{ color: 'black' }}>
+                Платник:
+              </Typography>
+            </Grid>
+            <Grid item xs={10}>
+              <Typography variant='body2' sx={{ color: 'black' }}>
+                {payerFirm}
+              </Typography>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item sx={{ width: '100%' }}>
+          <Grid container direction={`row`} alignItems={`center`}>
+            <Grid item xs={2}>
+              <Typography variant='body2' sx={{ color: 'black' }}>
+                {' '}
+                Адреса:
+              </Typography>
+            </Grid>
+            <Grid item xs={10}>
+              <Typography variant='body2' sx={{ color: 'black' }}>
+                {clientFirmAddress}
+              </Typography>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item sx={{ width: '100%' }}>
+          <Grid container direction={`row`} alignItems={`center`}>
+            <Grid item xs={2}>
+              <Typography variant='body2' sx={{ color: 'black' }}>
+                IBAN:
+              </Typography>
+            </Grid>
+            <Grid item xs={10}>
+              <Typography variant='body2' sx={{ color: 'black' }}>
+                {clientIBAN}
+              </Typography>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item sx={{ width: '100%' }}>
+          <Grid
+            container
+            direction={`row`}
+            justifyContent={`flex-start`}
+            alignItems={`center`}
+          >
+            <Typography variant='body2' sx={{ color: 'black' }}>
+              Договір № {contractNumber} від {contractDateToString}
+            </Typography>
+          </Grid>
+        </Grid>
+        {/* //////////////////////////////////////// */}
+      </Grid>
+
+      <TableContainer sx={{ margin: '4px 0' }} id='table-to-save'>
         <Table
           padding='none'
           sx={{
@@ -114,179 +257,43 @@ function NakladnToPrint({
           <TableHead
             sx={{
               '& td, th': {
-                borderBottom: '1px solid transparent',
+                border: '1px solid black',
               },
             }}
           >
-            <TableRow
-              sx={{
-                height: '1mm',
-                '& td, th': {
-                  color: 'transparent',
-                  // display: 'none',
-                  visibility: 'hidden',
-                },
-              }}
-            >
-              <TableCell
-                align='center'
-                sx={{
-                  width: '8mm',
-                }}
-              >
-                1
-              </TableCell>
-              <TableCell align='center'>2</TableCell>
-              <TableCell align='center'>3</TableCell>
-              <TableCell align='center'>4</TableCell>
-              <TableCell align='center'>5</TableCell>
-              <TableCell align='center'>6</TableCell>
-              <TableCell
-                align='center'
-                sx={{
-                  width: '16mm',
-                }}
-              >
-                7
-              </TableCell>
-              <TableCell
-                align='center'
-                sx={{
-                  width: '20mm',
-                }}
-              >
-                8
-              </TableCell>
-              <TableCell
-                align='center'
-                sx={{
-                  width: '20mm',
-                }}
-              >
-                9
-              </TableCell>
-              <TableCell
-                align='center'
-                sx={{
-                  width: '20mm',
-                }}
-              >
-                10
-              </TableCell>
-            </TableRow>
-
             <TableRow>
-              <TableCell colSpan={10} align='center'>
-                {naklCaption}
+              <TableCell align='center' sx={{ width: '8mm' }}>
+                № п/п
               </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell colSpan={10} align='center'>
-                Від {naklDateToString}
+              <TableCell align='center'>Найменування</TableCell>
+              <TableCell align='center' sx={{ width: '16mm' }}>
+                Од. Вимиру
               </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell colSpan={3} align='left'>
-                Постачальник:
+              <TableCell align='center' sx={{ width: '18mm' }}>
+                Кількість
               </TableCell>
-              <TableCell colSpan={7} align='left'>
-                {ourFirm}
+              <TableCell align='center' sx={{ width: '20mm' }}>
+                Ціна без ПДВ,грн.
               </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell colSpan={3} align='left'>
-                Адреса:
-              </TableCell>
-              <TableCell colSpan={7} align='left'>
-                {ourFirmAddress}
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell colSpan={3} align='left'>
-                IBAN:
-              </TableCell>
-              <TableCell colSpan={7} align='left'>
-                {ourIBAN}
-              </TableCell>
-            </TableRow>
-            <TableRow sx={{ marginBottom: '20mm' }}>
-              <TableCell colSpan={10} align='left'>
-                {ourTaxationType}
-              </TableCell>
-            </TableRow>
-            <TableRow
-              sx={{
-                '& td,th': {
-                  color: 'transparent',
-                },
-              }}
-            >
-              <TableCell colSpan={10} align='center'>
-                разделитель
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell colSpan={3} align='left'>
-                Платник:
-              </TableCell>
-              <TableCell colSpan={7} align='left'>
-                {payerFirm}
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell colSpan={3} align='left'>
-                Адреса:
-              </TableCell>
-              <TableCell colSpan={7} align='left'>
-                {clientFirmAddress}
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell colSpan={3} align='left'>
-                IBAN:
-              </TableCell>
-              <TableCell colSpan={7} align='left'>
-                {clientIBAN}
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell colSpan={10} align='left'>
-                Договір № {contractNumber} від {contractDateToString}
+              <TableCell align='center' sx={{ width: '20mm' }}>
+                Сума без ПДВ,грн
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody
             sx={{
-              outline: '1px solid black',
               '& td,th': {
                 border: '1px solid black',
               },
             }}
           >
-            <TableRow
-              sx={{
-                outline: '1px solid black',
-                '& td,th': {
-                  border: '1px solid black',
-                },
-              }}
-            >
-              <TableCell align='center'>№ п/п</TableCell>
-              <TableCell align='center' colSpan={5}>
-                Найменування
-              </TableCell>
-              <TableCell align='center'>Од. Вимиру</TableCell>
-              <TableCell align='center'>Кількість</TableCell>
-              <TableCell align='center'>Ціна без ПДВ,грн.</TableCell>
-              <TableCell align='center'>Сума без ПДВ,грн</TableCell>
-            </TableRow>
             {tableRows &&
               tableRows.length > 0 &&
               tableRows.map((item, rowIndex) => (
                 <TableRow key={item.row_id}>
                   <TableCell align='center'>{rowIndex + 1}</TableCell>
-                  <TableCell align='left' colSpan={5}>
-                    {item.product} {item.extraInformation}
+                  <TableCell align='left' sx={{ paddingLeft: 1 }}>
+                    {item.product} {item.extraInformation ?? ''}
                   </TableCell>
                   <TableCell align='center'>{item.unit}</TableCell>
                   <TableCell align='center'>{item.amount}</TableCell>
@@ -295,85 +302,141 @@ function NakladnToPrint({
                 </TableRow>
               ))}
           </TableBody>
-          <TableBody
-            sx={{
-              '& td,th': {
-                border: '1px solid transparent',
-              },
-            }}
-          >
-            <TableRow>
-              <TableCell></TableCell>
-              <TableCell align='left' colSpan={8}>
-                Всього без ПДВ
-              </TableCell>
-              <TableCell align='center'>{naklSum.toFixed(2)}</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell></TableCell>
-              <TableCell align='left' colSpan={8}>
-                ПДВ
-              </TableCell>
-              <TableCell align='center'>0,00</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell></TableCell>
-              <TableCell align='left' colSpan={8}>
-                Загальна сума без ПДВ
-              </TableCell>
-              <TableCell align='center'>{naklSum.toFixed(2)}</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell align='left' colSpan={10}>
-                Всього до сплати:{sumPropis}
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell align='left' colSpan={5}>
-                Відпустив
-              </TableCell>
-              <TableCell align='left' colSpan={5}>
-                Отримал
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell align='center' colSpan={5}>
-                <Grid container direction='row'>
-                  <Grid
-                    item
-                    sx={{
-                      borderBottom: '1px solid black',
-                      flex: 1,
-                    }}
-                  ></Grid>
-                  <Grid item sx={{ flex: 1 }}>
-                    {ourBoss}
-                  </Grid>
-                </Grid>
-              </TableCell>
-              <TableCell align='center' colSpan={5}>
-                <Grid container direction='row'>
-                  <Grid
-                    item
-                    sx={{ borderBottom: '1px solid black', flex: 1 }}
-                  ></Grid>
-                  <Grid item sx={{ flex: 1 }}>
-                    {clientBoss}
-                  </Grid>
-                </Grid>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell align='left' colSpan={5}>
-                МП
-              </TableCell>
-              <TableCell align='left' colSpan={5}>
-                МП
-              </TableCell>
-            </TableRow>
-          </TableBody>
         </Table>
       </TableContainer>
+
+      <Grid container direction={`column`} className={classes.sum}>
+        <Grid item sx={{ width: '100%' }}>
+          <Grid container direction={`row`}>
+            <Grid item xs={10}>
+              <Typography
+                variant='body2'
+                sx={{ color: 'black', paddingLeft: 5 }}
+              >
+                Всього без ПДВ
+              </Typography>
+            </Grid>
+            <Grid item xs={2}>
+              <Typography
+                variant='body2'
+                align='center'
+                sx={{ color: 'black' }}
+              >
+                {naklSum.toFixed(2)}
+              </Typography>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item sx={{ width: '100%' }}>
+          <Grid container direction={`row`}>
+            <Grid item xs={10}>
+              <Typography
+                variant='body2'
+                sx={{ color: 'black', paddingLeft: 5 }}
+              >
+                ПДВ
+              </Typography>
+            </Grid>
+            <Grid item xs={2}>
+              <Typography
+                variant='body2'
+                align='center'
+                sx={{ color: 'black' }}
+              >
+                0,00
+              </Typography>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item sx={{ width: '100%' }}>
+          <Grid container direction={`row`}>
+            <Grid item xs={10}>
+              <Typography
+                variant='body2'
+                sx={{ color: 'black', paddingLeft: 5 }}
+              >
+                Загальна сума без ПДВ
+              </Typography>
+            </Grid>
+            <Grid item xs={2}>
+              <Typography
+                variant='body2'
+                align='center'
+                sx={{ color: 'black' }}
+              >
+                {naklSum.toFixed(2)}
+              </Typography>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item sx={{ width: '100%' }}>
+          <Grid container direction={`row`}>
+            <Grid item xs={12}>
+              <Typography variant='body1' align='left' sx={{ color: 'black' }}>
+                Всього до сплати: <strong>{sumPropis}</strong>
+              </Typography>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+
+      <Grid container direction={`row`} mt={2} className={classes.sign}>
+        <Grid item xs={6}>
+          <Grid container direction={`column`}>
+            <Grid item sx={{ width: '100%' }}>
+              <Typography variant='body1' sx={{ color: 'black' }}>
+                Відпустив
+              </Typography>
+            </Grid>
+            <Grid item sx={{ width: '100%' }}>
+              <Grid container direction={`row`} sx={{ paddingRight: 2 }}>
+                <Grid
+                  item
+                  sx={{ borderBottom: '1px solid black', flex: 1 }}
+                ></Grid>
+                <Grid item>
+                  <Typography variant='body1' sx={{ color: 'black' }}>
+                    {ourBoss}
+                  </Typography>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item sx={{ width: '100%' }}>
+              <Typography variant='body2' sx={{ color: 'black' }}>
+                МП
+              </Typography>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item xs={6}>
+          <Grid container direction={`column`} sx={{ paddingRight: 2 }}>
+            <Grid item sx={{ width: '100%' }}>
+              <Typography variant='body1' sx={{ color: 'black' }}>
+                Отримал
+              </Typography>
+            </Grid>
+            <Grid item sx={{ width: '100%' }}>
+              <Grid container direction={`row`}>
+                <Grid
+                  item
+                  sx={{ borderBottom: '1px solid black', flex: 1 }}
+                ></Grid>
+                <Grid item>
+                  <Typography variant='body1' sx={{ color: 'black' }}>
+                    {clientBoss}
+                  </Typography>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item sx={{ width: '100%' }}>
+              <Typography variant='body2' sx={{ color: 'black' }}>
+                МП
+              </Typography>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+
       <Grid
         id='convert-buttons'
         container

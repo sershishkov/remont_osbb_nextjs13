@@ -565,7 +565,7 @@ function NaklAddEdit({
           <Grid item sx={{ display: mode === 'edit' ? 'block' : 'none' }}>
             <Button
               component={Link}
-              href={`${currentURL}/print/${id}`}
+              href={`${currentURL}/print/nakladnaya/${id}`}
               fullWidth
               color='success'
               disabled={
@@ -579,7 +579,27 @@ function NaklAddEdit({
               variant='contained'
               sx={{ mt: 3, mb: 2 }}
             >
-              На печать
+              Печать накладная
+            </Button>
+          </Grid>
+          <Grid item sx={{ display: mode === 'edit' ? 'block' : 'none' }}>
+            <Button
+              component={Link}
+              href={`${currentURL}/print/invoice/${id}`}
+              fullWidth
+              color='success'
+              disabled={
+                !nakladnayaNumber ||
+                !nakladnayaDate ||
+                !contract ||
+                !storeHouse ||
+                !typeNakl ||
+                (localProducts && localProducts.length === 0)
+              }
+              variant='contained'
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Печать Счет
             </Button>
           </Grid>
         </Grid>

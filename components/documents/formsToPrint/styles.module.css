@@ -1,7 +1,7 @@
 .page {
   width: 210mm;
   min-height: 297mm;
-  padding: 10mm;
+  padding: 5mm 10mm 5mm 20mm;
   background: white;
   color: black;
 }
@@ -15,8 +15,8 @@
 
 @media print {
   .page {
-    width: initial;
-    padding-top: 5mm;
+    width: 210mm;
+    padding: 5mm 10mm 5mm 20mm;
     min-height: initial;
     background: initial;
   }

@@ -5,6 +5,7 @@ import Model__Client from '@/lib/mongoose/models/manager/refdata/Model__Client';
 import Model__ContractType from '@/lib/mongoose/models/accountant/refData/Model__ContractType';
 import Model__PaymentSource from '@/lib/mongoose/models/accountant/refData/Model__PaymentSource';
 import Model__Worker from '@/lib/mongoose/models/accountant/refData/Model__Worker';
+import Model__FirmType from '@/lib/mongoose/models/accountant/refData/Model__FirmType';
 
 import { connectToDB } from '@/lib/mongoose/connectToDB';
 
@@ -157,6 +158,13 @@ export const GET = async (request: NextRequest) => {
         path: 'client',
         model: Model__Client,
         select: 'clientShortName',
+        populate: [
+          {
+            path: 'firmType',
+            model: Model__FirmType,
+            select: 'firmTypeShortName',
+          },
+        ],
       })
       .populate({
         path: 'contractType',
