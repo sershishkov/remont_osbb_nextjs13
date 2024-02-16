@@ -13,6 +13,7 @@ import {
   I_LProduct,
   I_DocumentNakladnaya,
 } from '@/interfaces/refdata';
+import { arr__TypeOfOSBB } from '@/constants/constants';
 
 const currentURL = '/manager/documents/akt-of-work';
 const initState = {
@@ -77,19 +78,27 @@ export default function InvoiceAktPrint({ params }: Readonly<paramsProps>) {
           const localContract = arr__Contracts.find(
             (contract) => contract._id === item.contract._id
           );
-          const localContactType =
-            //@ts-ignore
-            localContract?.contractType?.contractTypeName;
 
           const arrNakl = arr__RelatedNakls.filter(
             (nakl) => nakl.contract._id === item.contract._id
           );
-
           const totalNakl = arrNakl.reduce(
             (accumulator, currentValue) =>
               accumulator + Number(currentValue.totalNaklSum),
             0
           );
+
+          const localContactType =
+            //@ts-ignore
+            localContract?.contractType?.contractTypeName;
+          //@ts-ignore
+          const firmType = localContract?.client?.firmType?.firmTypeShortName;
+
+          const injectPhrase = arr__TypeOfOSBB.includes(firmType)
+            ? 'у житловому будинку за адресою: '
+            : ' за адресою:';
+          const workAddress = localContract?.workAddress;
+          const contractDescription = `${localContract?.contractDescription} ${injectPhrase} ${workAddress}`;
 
           setFormData((prevState) => ({
             ...prevState,
@@ -110,22 +119,15 @@ export default function InvoiceAktPrint({ params }: Readonly<paramsProps>) {
               (inner_item: I_ThirdPartyServiceInAkt) => {
                 allThirdString += `${
                   //@ts-ignore
-                  //@ts-ignore
                   inner_item?.thirdPartyService?.thirdPartyServiceName!
-                } ${inner_item?.extraInformation!} ${inner_item?.amount!.toString()} ${
-                  //@ts-ignore
-                  inner_item?.thirdPartyService?.unit!.unitName
-                }, `;
+                } ${inner_item?.extraInformation!}, `;
               }
             );
             item.serviceWorks?.forEach((inner_item: I_ServiceWorkInAkt) => {
               allServString += `${
                 //@ts-ignore
                 inner_item?.serviceWork?.serviceWorkName!
-              } ${inner_item?.extraInformation!} ${inner_item?.amount!.toString()} ${
-                //@ts-ignore
-                inner_item?.serviceWork?.unit!.unitName
-              }, `;
+              } ${inner_item?.extraInformation!}, `;
             });
             const sumToShow =
               Number(item.totalSums.totalAktSum) + relatedNaklSum;
@@ -133,7 +135,7 @@ export default function InvoiceAktPrint({ params }: Readonly<paramsProps>) {
             const newRow = {
               row_id: ' row_id',
               //@ts-ignore
-              product: `${allThirdString} ${allServString}`,
+              product: `${contractDescription} (${allThirdString} ${allServString})`,
               extraInformation: '',
               //@ts-ignore
               unit: 'послуга',

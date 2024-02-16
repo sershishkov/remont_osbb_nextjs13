@@ -359,13 +359,88 @@ function NaklAddEdit({
       autoComplete='off'
     >
       <Grid item className='item item-heading'>
-        <Typography variant='h3' align='center'>
-          {title}
-        </Typography>
+        <Grid
+          container
+          direction='row'
+          alignItems='center'
+          justifyContent={`space-between`}
+          spacing={1}
+        >
+          <Grid item>
+            <Typography variant='body2' align='left'>
+              {title}
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Typography variant='body2' align='left'>
+              Сумма: {naklSum.toFixed(2)}
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Button
+              type='submit'
+              size='small'
+              fullWidth
+              disabled={
+                !nakladnayaNumber ||
+                !nakladnayaDate ||
+                !contract ||
+                !storeHouse ||
+                !typeNakl ||
+                (localProducts && localProducts.length === 0)
+              }
+              variant='contained'
+            >
+              {naklStages.isActive
+                ? 'Сохранить и провести '
+                : 'Сохранить без проведения'}
+            </Button>
+          </Grid>
+          <Grid item sx={{ display: mode === 'edit' ? 'block' : 'none' }}>
+            <Button
+              component={Link}
+              href={`${currentURL}/print/nakladnaya/${id}`}
+              fullWidth
+              size='small'
+              color='success'
+              disabled={
+                !nakladnayaNumber ||
+                !nakladnayaDate ||
+                !contract ||
+                !storeHouse ||
+                !typeNakl ||
+                (localProducts && localProducts.length === 0)
+              }
+              variant='contained'
+            >
+              Печать накладная
+            </Button>
+          </Grid>
+          <Grid item sx={{ display: mode === 'edit' ? 'block' : 'none' }}>
+            <Button
+              component={Link}
+              href={`${currentURL}/print/invoice/${id}`}
+              fullWidth
+              size='small'
+              color='success'
+              disabled={
+                !nakladnayaNumber ||
+                !nakladnayaDate ||
+                !contract ||
+                !storeHouse ||
+                !typeNakl ||
+                (localProducts && localProducts.length === 0)
+              }
+              variant='contained'
+            >
+              Печать Счет
+            </Button>
+          </Grid>
+        </Grid>
       </Grid>
       <Grid item>
-        <Grid container direction='row' alignItems='center' spacing={3}>
-          <Grid item>
+        <Grid container direction='row' alignItems='center' spacing={1}>
+          <Grid item sx={{ width: 150 }}>
             <TextField
               margin='normal'
               required
@@ -378,7 +453,7 @@ function NaklAddEdit({
               onChange={onChange}
             />
           </Grid>
-          <Grid item>
+          <Grid item sx={{ width: 150 }}>
             <TextField
               margin='normal'
               required
@@ -392,7 +467,7 @@ function NaklAddEdit({
               InputLabelProps={{ shrink: true }}
             />
           </Grid>
-          <Grid item sx={{ width: 300 }}>
+          <Grid item sx={{ width: 150 }}>
             <MySelectAutoCompl
               selectName={`typeNakl`}
               selectLabel={`Тип накладной`}
@@ -407,34 +482,28 @@ function NaklAddEdit({
           <Grid
             item
             sx={{
-              width: 250,
+              width: 110,
               display: accountant_role.includes(userRole!) ? 'block' : 'none',
+              // border: '1px solid red',
             }}
           >
             <FormControl component='fieldset' variant='standard'>
-              <FormLabel component='legend'>Стадии выполнения</FormLabel>
+              <FormLabel component='legend'>
+                {naklStages.isActive ? 'Проведен' : 'Не Проведен'}
+              </FormLabel>
               <FormGroup>
-                <FormControlLabel
-                  control={
-                    <Switch
-                      checked={naklStages.isActive}
-                      onChange={handleChangeContractStages}
-                      name='isActive'
-                    />
-                  }
-                  label={
-                    naklStages.isActive
-                      ? 'Провести документ'
-                      : 'Не проводить документ'
-                  }
+                <Switch
+                  checked={naklStages.isActive}
+                  onChange={handleChangeContractStages}
+                  name='isActive'
                 />
               </FormGroup>
             </FormControl>
           </Grid>
-          <Grid item sx={{ width: 250 }}>
+          <Grid item sx={{ width: 200, display: 'none' }}>
             <Stack
               direction='row'
-              spacing={2}
+              spacing={1}
               // direction={{ xs: 'column', sm: 'row' }}
             >
               <MySelectAutoCompl
@@ -456,62 +525,61 @@ function NaklAddEdit({
               </IconButton>
             </Stack>
           </Grid>
+          <Grid item sx={{ width: 300 }}>
+            <Stack
+              direction='row'
+              spacing={1}
+              // direction={{ xs: 'column', sm: 'row' }}
+            >
+              <MySelectAutoCompl
+                selectName={`client`}
+                selectLabel={`Клиент`}
+                fieldToShow={`clientShortName`}
+                handleChangeSelects={handleChangeSelects}
+                selectedOption={client ?? ''}
+                // @ts-ignore
+                arrToSelect={arr__Clients ?? []}
+              />
+
+              <IconButton
+                onClick={() => onClickAddItem('/manager/refdata/client/add')}
+              >
+                <AddIcon color='success' sx={{ fontSize: 30 }} />
+              </IconButton>
+            </Stack>
+          </Grid>
+
+          <Grid item sx={{ flex: 1, display: client ? 'block' : 'none' }}>
+            <Stack
+              direction='row'
+              spacing={2}
+              // direction={{ xs: 'column', sm: 'row' }}
+            >
+              <MySelectAutoCompl
+                selectName={`contract`}
+                selectLabel={`Договор`}
+                fieldToShow={`contractDescription`}
+                handleChangeSelects={handleChangeSelects}
+                selectedOption={contract ?? ''}
+                // @ts-ignore
+                arrToSelect={arr__ClientContracts ?? []}
+              />
+
+              <IconButton
+                onClick={() => onClickAddItem('/manager/refdata/contract/add')}
+              >
+                <AddIcon color='success' sx={{ fontSize: 30 }} />
+              </IconButton>
+              <IconButton
+                onClick={() =>
+                  onClickAddItem(`/manager/refdata/contract/${contract}`)
+                }
+              >
+                <EditIcon color='primary' sx={{ fontSize: 30 }} />
+              </IconButton>
+            </Stack>
+          </Grid>
         </Grid>
-      </Grid>
-
-      <Grid item sx={{ mb: 2 }}>
-        <Stack
-          direction='row'
-          spacing={2}
-          // direction={{ xs: 'column', sm: 'row' }}
-        >
-          <MySelectAutoCompl
-            selectName={`client`}
-            selectLabel={`Клиент`}
-            fieldToShow={`clientShortName`}
-            handleChangeSelects={handleChangeSelects}
-            selectedOption={client ?? ''}
-            // @ts-ignore
-            arrToSelect={arr__Clients ?? []}
-          />
-
-          <IconButton
-            onClick={() => onClickAddItem('/manager/refdata/client/add')}
-          >
-            <AddIcon color='success' sx={{ fontSize: 30 }} />
-          </IconButton>
-        </Stack>
-      </Grid>
-
-      <Grid item sx={{ mb: 2, display: client ? 'block' : 'none' }}>
-        <Stack
-          direction='row'
-          spacing={2}
-          // direction={{ xs: 'column', sm: 'row' }}
-        >
-          <MySelectAutoCompl
-            selectName={`contract`}
-            selectLabel={`Договор`}
-            fieldToShow={`contractDescription`}
-            handleChangeSelects={handleChangeSelects}
-            selectedOption={contract ?? ''}
-            // @ts-ignore
-            arrToSelect={arr__ClientContracts ?? []}
-          />
-
-          <IconButton
-            onClick={() => onClickAddItem('/manager/refdata/contract/add')}
-          >
-            <AddIcon color='success' sx={{ fontSize: 30 }} />
-          </IconButton>
-          <IconButton
-            onClick={() =>
-              onClickAddItem(`/manager/refdata/contract/${contract}`)
-            }
-          >
-            <EditIcon color='primary' sx={{ fontSize: 30 }} />
-          </IconButton>
-        </Stack>
       </Grid>
 
       <Grid item>
@@ -532,77 +600,6 @@ function NaklAddEdit({
           handleChangeSelectsMainField={handleChangeSelectsMainField}
           showExtraInformation={true}
         />
-      </Grid>
-
-      <Grid item sx={{ width: '100%' }}>
-        <Grid
-          container
-          direction='row'
-          justifyContent='space-around'
-          alignItems='center'
-          sx={{ width: '100%' }}
-        >
-          <Grid item>
-            <Button
-              type='submit'
-              fullWidth
-              disabled={
-                !nakladnayaNumber ||
-                !nakladnayaDate ||
-                !contract ||
-                !storeHouse ||
-                !typeNakl ||
-                (localProducts && localProducts.length === 0)
-              }
-              variant='contained'
-              sx={{ mt: 3, mb: 2 }}
-            >
-              {naklStages.isActive
-                ? 'Сохранить и провести '
-                : 'Сохранить без проведения'}
-            </Button>
-          </Grid>
-          <Grid item sx={{ display: mode === 'edit' ? 'block' : 'none' }}>
-            <Button
-              component={Link}
-              href={`${currentURL}/print/nakladnaya/${id}`}
-              fullWidth
-              color='success'
-              disabled={
-                !nakladnayaNumber ||
-                !nakladnayaDate ||
-                !contract ||
-                !storeHouse ||
-                !typeNakl ||
-                (localProducts && localProducts.length === 0)
-              }
-              variant='contained'
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Печать накладная
-            </Button>
-          </Grid>
-          <Grid item sx={{ display: mode === 'edit' ? 'block' : 'none' }}>
-            <Button
-              component={Link}
-              href={`${currentURL}/print/invoice/${id}`}
-              fullWidth
-              color='success'
-              disabled={
-                !nakladnayaNumber ||
-                !nakladnayaDate ||
-                !contract ||
-                !storeHouse ||
-                !typeNakl ||
-                (localProducts && localProducts.length === 0)
-              }
-              variant='contained'
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Печать Счет
-            </Button>
-          </Grid>
-        </Grid>
       </Grid>
     </Grid>
   );

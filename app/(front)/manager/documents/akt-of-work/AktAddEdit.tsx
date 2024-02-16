@@ -502,17 +502,95 @@ function AktAddEdit({
       autoComplete='off'
     >
       <Grid item className='item item-heading'>
-        <Typography variant='h3' align='center'>
-          {title}
-        </Typography>
-        <Typography variant='h6' align='center'>
-          Полная сумма: {aktSum.toFixed(2)}
-        </Typography>
+        <Grid
+          container
+          direction='row'
+          alignItems='center'
+          justifyContent={`space-between`}
+          spacing={1}
+        >
+          <Grid item>
+            <Typography variant='body2' align='left'>
+              {title}
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Typography variant='body2' align='left'>
+              Сумма: {aktSum.toFixed(2)}
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Button
+              type='submit'
+              fullWidth
+              size='small'
+              disabled={
+                !aktOfWorkNumber ||
+                !aktOfWorkDate ||
+                !contract ||
+                !typeAkt ||
+                (localThirdPartyServices &&
+                  localThirdPartyServices.length === 0 &&
+                  localServiceWorks &&
+                  localServiceWorks.length === 0)
+              }
+              variant='contained'
+            >
+              {naklStages.isActive
+                ? 'Сохранить и провести '
+                : 'Сохранить без проведения'}
+            </Button>
+          </Grid>
+          <Grid item sx={{ display: mode === 'edit' ? 'block' : 'none' }}>
+            <Button
+              component={Link}
+              href={`${currentURL}/print/akt/${id}`}
+              fullWidth
+              size='small'
+              color='success'
+              disabled={
+                !aktOfWorkNumber ||
+                !aktOfWorkDate ||
+                !contract ||
+                !typeAkt ||
+                (localThirdPartyServices &&
+                  localThirdPartyServices.length === 0 &&
+                  localServiceWorks &&
+                  localServiceWorks.length === 0)
+              }
+              variant='contained'
+            >
+              Печать Акт
+            </Button>
+          </Grid>
+          <Grid item sx={{ display: mode === 'edit' ? 'block' : 'none' }}>
+            <Button
+              component={Link}
+              href={`${currentURL}/print/invoice/${id}`}
+              fullWidth
+              size='small'
+              color='success'
+              disabled={
+                !aktOfWorkNumber ||
+                !aktOfWorkDate ||
+                !contract ||
+                !typeAkt ||
+                (localThirdPartyServices &&
+                  localThirdPartyServices.length === 0 &&
+                  localServiceWorks &&
+                  localServiceWorks.length === 0)
+              }
+              variant='contained'
+            >
+              Печать Счет
+            </Button>
+          </Grid>
+        </Grid>
       </Grid>
 
       <Grid item>
-        <Grid container direction='row' alignItems='center' spacing={3}>
-          <Grid item>
+        <Grid container direction='row' alignItems='center' spacing={1}>
+          <Grid item sx={{ width: 150 }}>
             <TextField
               margin='normal'
               required
@@ -525,7 +603,7 @@ function AktAddEdit({
               onChange={onChange}
             />
           </Grid>
-          <Grid item>
+          <Grid item sx={{ width: 150 }}>
             <TextField
               margin='normal'
               required
@@ -539,7 +617,7 @@ function AktAddEdit({
               InputLabelProps={{ shrink: true }}
             />
           </Grid>
-          <Grid item sx={{ flex: 1 }}>
+          <Grid item sx={{ width: 150 }}>
             <MySelectAutoCompl
               selectName={`typeAkt`}
               selectLabel={`Тип акта`}
@@ -554,86 +632,79 @@ function AktAddEdit({
           <Grid
             item
             sx={{
-              flex: 1,
-              display: accountant_role.includes(userRole!) ? 'flex' : 'none',
+              width: 115,
+              display: accountant_role.includes(userRole!) ? 'block' : 'none',
+              // border: '1px solid red',
             }}
           >
             <FormControl component='fieldset' variant='standard'>
-              <FormLabel component='legend'>Стадии выполнения</FormLabel>
+              <FormLabel component='legend'>
+                {naklStages.isActive ? 'Проведен' : 'Не Проведен'}
+              </FormLabel>
               <FormGroup>
-                <FormControlLabel
-                  control={
-                    <Switch
-                      checked={naklStages.isActive}
-                      onChange={handleChangeContractStages}
-                      name='isActive'
-                    />
-                  }
-                  label={
-                    naklStages.isActive
-                      ? 'Провести документ'
-                      : 'Не проводить документ'
-                  }
+                <Switch
+                  checked={naklStages.isActive}
+                  onChange={handleChangeContractStages}
+                  name='isActive'
                 />
               </FormGroup>
             </FormControl>
           </Grid>
+          <Grid item sx={{ width: 300 }}>
+            <Stack
+              direction='row'
+              spacing={1}
+              // direction={{ xs: 'column', sm: 'row' }}
+            >
+              <MySelectAutoCompl
+                selectName={`client`}
+                selectLabel={`Клиент`}
+                fieldToShow={`clientShortName`}
+                handleChangeSelects={handleChangeSelects}
+                selectedOption={client ?? ''}
+                // @ts-ignore
+                arrToSelect={arr__Clients ?? []}
+              />
+
+              <IconButton
+                onClick={() => onClickAddItem('/manager/refdata/client/add')}
+              >
+                <AddIcon color='success' sx={{ fontSize: 30 }} />
+              </IconButton>
+            </Stack>
+          </Grid>
+
+          <Grid item sx={{ flex: 1, display: client ? 'block' : 'none' }}>
+            <Stack
+              direction='row'
+              spacing={2}
+              // direction={{ xs: 'column', sm: 'row' }}
+            >
+              <MySelectAutoCompl
+                selectName={`contract`}
+                selectLabel={`Договор`}
+                fieldToShow={`contractDescription`}
+                handleChangeSelects={handleChangeSelects}
+                selectedOption={contract ?? ''}
+                // @ts-ignore
+                arrToSelect={arr__ClientContracts ?? []}
+              />
+
+              <IconButton
+                onClick={() => onClickAddItem('/manager/refdata/contract/add')}
+              >
+                <AddIcon color='success' sx={{ fontSize: 30 }} />
+              </IconButton>
+              <IconButton
+                onClick={() =>
+                  onClickAddItem(`/manager/refdata/contract/${contract}`)
+                }
+              >
+                <EditIcon color='primary' sx={{ fontSize: 30 }} />
+              </IconButton>
+            </Stack>
+          </Grid>
         </Grid>
-      </Grid>
-
-      <Grid item sx={{ mb: 2 }}>
-        <Stack
-          direction='row'
-          spacing={2}
-          // direction={{ xs: 'column', sm: 'row' }}
-        >
-          <MySelectAutoCompl
-            selectName={`client`}
-            selectLabel={`Клиент`}
-            fieldToShow={`clientShortName`}
-            handleChangeSelects={handleChangeSelects}
-            selectedOption={client ?? ''}
-            // @ts-ignore
-            arrToSelect={arr__Clients ?? []}
-          />
-
-          <IconButton
-            onClick={() => onClickAddItem('/manager/refdata/client/add')}
-          >
-            <AddIcon color='success' sx={{ fontSize: 30 }} />
-          </IconButton>
-        </Stack>
-      </Grid>
-
-      <Grid item sx={{ mb: 2, display: client ? 'block' : 'none' }}>
-        <Stack
-          direction='row'
-          spacing={2}
-          // direction={{ xs: 'column', sm: 'row' }}
-        >
-          <MySelectAutoCompl
-            selectName={`contract`}
-            selectLabel={`Договор`}
-            fieldToShow={`contractDescription`}
-            handleChangeSelects={handleChangeSelects}
-            selectedOption={contract ?? ''}
-            // @ts-ignore
-            arrToSelect={arr__ClientContracts ?? []}
-          />
-
-          <IconButton
-            onClick={() => onClickAddItem('/manager/refdata/contract/add')}
-          >
-            <AddIcon color='success' sx={{ fontSize: 30 }} />
-          </IconButton>
-          <IconButton
-            onClick={() =>
-              onClickAddItem(`/manager/refdata/contract/${contract}`)
-            }
-          >
-            <EditIcon color='primary' sx={{ fontSize: 30 }} />
-          </IconButton>
-        </Stack>
       </Grid>
 
       <Grid item>
@@ -682,74 +753,7 @@ function AktAddEdit({
           justifyContent='space-around'
           alignItems='center'
           sx={{ width: '100%' }}
-        >
-          <Grid item>
-            <Button
-              type='submit'
-              fullWidth
-              disabled={
-                !aktOfWorkNumber ||
-                !aktOfWorkDate ||
-                !contract ||
-                !typeAkt ||
-                (localThirdPartyServices &&
-                  localThirdPartyServices.length === 0 &&
-                  localServiceWorks &&
-                  localServiceWorks.length === 0)
-              }
-              variant='contained'
-              sx={{ mt: 3, mb: 2 }}
-            >
-              {naklStages.isActive
-                ? 'Сохранить и провести '
-                : 'Сохранить без проведения'}
-            </Button>
-          </Grid>
-          <Grid item sx={{ display: mode === 'edit' ? 'block' : 'none' }}>
-            <Button
-              component={Link}
-              href={`${currentURL}/print/akt/${id}`}
-              fullWidth
-              color='success'
-              disabled={
-                !aktOfWorkNumber ||
-                !aktOfWorkDate ||
-                !contract ||
-                !typeAkt ||
-                (localThirdPartyServices &&
-                  localThirdPartyServices.length === 0 &&
-                  localServiceWorks &&
-                  localServiceWorks.length === 0)
-              }
-              variant='contained'
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Печать Акт
-            </Button>
-          </Grid>
-          <Grid item sx={{ display: mode === 'edit' ? 'block' : 'none' }}>
-            <Button
-              component={Link}
-              href={`${currentURL}/print/invoice/${id}`}
-              fullWidth
-              color='success'
-              disabled={
-                !aktOfWorkNumber ||
-                !aktOfWorkDate ||
-                !contract ||
-                !typeAkt ||
-                (localThirdPartyServices &&
-                  localThirdPartyServices.length === 0 &&
-                  localServiceWorks &&
-                  localServiceWorks.length === 0)
-              }
-              variant='contained'
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Печать Счет
-            </Button>
-          </Grid>
-        </Grid>
+        ></Grid>
       </Grid>
     </Grid>
   );

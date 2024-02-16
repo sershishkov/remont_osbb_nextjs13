@@ -64,7 +64,12 @@ function TableNakladnayaOrAkt({
   showExtraInformation?: boolean;
 }>) {
   return (
-    <TableContainer component={Paper} sx={{ maxHeight: 700 }}>
+    <TableContainer
+      component={Paper}
+      sx={{
+        maxHeight: 600,
+      }}
+    >
       <Table
         stickyHeader
         padding='none'

@@ -13,6 +13,8 @@ import {
   I_DocumentNakladnaya,
 } from '@/interfaces/refdata';
 
+import { arr__TypeOfOSBB } from '@/constants/constants';
+
 const currentURL = '/manager/documents/akt-of-work';
 const initState = {
   aktOfWorkNumber: '',
@@ -89,6 +91,14 @@ function AktOfWorkPrint({ params }: Readonly<paramsProps>) {
           const localContactType =
             //@ts-ignore
             localContract?.contractType?.contractTypeName;
+          //@ts-ignore
+          const firmType = localContract?.client?.firmType?.firmTypeShortName;
+
+          const injectPhrase = arr__TypeOfOSBB.includes(firmType)
+            ? 'у житловому будинку за адресою: '
+            : ' за адресою:';
+          const workAddress = localContract?.workAddress;
+          const contractDescription = `${localContract?.contractDescription} ${injectPhrase} ${workAddress}`;
 
           setFormData((prevState) => ({
             ...prevState,
@@ -109,22 +119,15 @@ function AktOfWorkPrint({ params }: Readonly<paramsProps>) {
               (inner_item: I_ThirdPartyServiceInAkt) => {
                 allThirdString += `${
                   //@ts-ignore
-                  //@ts-ignore
                   inner_item?.thirdPartyService?.thirdPartyServiceName!
-                } ${inner_item?.extraInformation!} ${inner_item?.amount!.toString()} ${
-                  //@ts-ignore
-                  inner_item?.thirdPartyService?.unit!.unitName
-                }, `;
+                } ${inner_item?.extraInformation!}, `;
               }
             );
             item.serviceWorks?.forEach((inner_item: I_ServiceWorkInAkt) => {
               allServString += `${
                 //@ts-ignore
                 inner_item?.serviceWork?.serviceWorkName!
-              } ${inner_item?.extraInformation!} ${inner_item?.amount!.toString()} ${
-                //@ts-ignore
-                inner_item?.serviceWork?.unit!.unitName
-              }, `;
+              } ${inner_item?.extraInformation!}, `;
             });
 
             const sumToShow =
@@ -133,7 +136,7 @@ function AktOfWorkPrint({ params }: Readonly<paramsProps>) {
             const newRow = {
               row_id: ' row_id',
               //@ts-ignore
-              workName: `${allThirdString} ${allServString}`,
+              workName: `${contractDescription} (${allThirdString} ${allServString})`,
               extraInformation: '',
               //@ts-ignore
               unit: 'послуга',

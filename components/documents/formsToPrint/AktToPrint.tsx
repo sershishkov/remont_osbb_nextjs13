@@ -354,8 +354,8 @@ function AktToPrint({
           <Grid container direction={`row`}>
             <Grid item xs={12}>
               <Typography variant='body1' align='left' sx={{ color: 'black' }}>
-                Загальна вартість виконаних робіт (послуг):
-                <strong> {`(${sumPropis}).), без ПДВ.`}</strong>
+                Загальна вартість виконаних робіт (послуг):{' '}
+                <strong>{`(${sumPropis}), без ПДВ.`}</strong>
               </Typography>
             </Grid>
           </Grid>
