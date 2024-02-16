@@ -354,23 +354,3 @@ export interface I_DocumentAktOfWork {
 }
 //////////////////////////////////////////
 //////////////////////////////////////////
-export interface I_DocumentInvoice {
-  _id?: string;
-  invoiceNumber: string;
-  invoiceDate: Date;
-  contract: Types.ObjectId;
-  thirdPartyServices: I_ThirdPartyServiceInAkt[];
-  serviceWorks: I_ServiceWorkInAkt[];
-  products: I_ProductInNakl[];
-
-  isActive: Boolean;
-  creator: Types.ObjectId;
-  typeInvoice: string;
-
-  totalSums?: {
-    totalThirdPartySum: string;
-    totalServiceWorkSum: string;
-    totalProductSum: string;
-    totalInvoiceSum: string;
-  };
-}

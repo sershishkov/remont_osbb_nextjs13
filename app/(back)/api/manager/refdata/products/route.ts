@@ -77,15 +77,48 @@ export const GET = async (request: NextRequest) => {
   const url = new URL(request.url);
   const page = parseInt(url.searchParams.get('page') ?? '0');
   const pageSize = parseInt(url.searchParams.get('limit') ?? '0');
-  const filterSTR = url.searchParams.get('filter') ?? '';
   const skip = (page - 1) * pageSize;
+
+  const filterSTR = url.searchParams.get('filter') ?? '';
+  const unit = url.searchParams.get('unit') ?? '';
+  const productType = url.searchParams.get('productType') ?? '';
+  const productGroup = url.searchParams.get('productGroup') ?? '';
+
   let filterObject = {};
 
-  if (filterSTR) {
-    const myRegex = { $regex: filterSTR, $options: 'i' };
+  const myRegex = { $regex: filterSTR, $options: 'i' };
 
+  const andArr = [];
+
+  if (filterSTR) {
+    const orObject = {
+      $or: [{ productName: myRegex }, { description: myRegex }],
+    };
+    andArr.push(orObject);
+  }
+
+  if (unit) {
+    const unit__Obj = { unit: unit };
+    andArr.push(unit__Obj);
+  }
+
+  if (productGroup) {
+    const newProductGroup = JSON.parse(productGroup);
+
+    const productGroup__Obj = {
+      productGroup: { $all: newProductGroup },
+    };
+    andArr.push(productGroup__Obj);
+  }
+
+  if (productType) {
+    const productType__Obj = { productType: productType };
+    andArr.push(productType__Obj);
+  }
+
+  if (andArr.length > 0) {
     filterObject = {
-      $or: [{ productName: myRegex }],
+      $and: andArr,
     };
   }
 
