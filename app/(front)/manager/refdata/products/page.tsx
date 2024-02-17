@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 import MyIconButtonAdd from '@/components/common/MyIconButtonAdd';
 
-import TableFilter from '@/components/common/TableFilter';
+import ProductListShow from './ProductListShow';
 const currentURL = `/manager/refdata/products`;
 
 const title = 'Товары';
@@ -24,7 +24,7 @@ export default function ProductsList() {
     <>
       <MyIconButtonAdd href={`${currentURL}/add`} />
 
-      <TableFilter
+      <ProductListShow
         headerFields={headerFields}
         tableFields={tableFields}
         currentURL={currentURL}

@@ -84,6 +84,8 @@ export const GET = async (request: NextRequest) => {
   const productType = url.searchParams.get('productType') ?? '';
   const productGroup = url.searchParams.get('productGroup') ?? '';
 
+  console.log(productGroup);
+
   let filterObject = {};
 
   const myRegex = { $regex: filterSTR, $options: 'i' };
@@ -103,11 +105,10 @@ export const GET = async (request: NextRequest) => {
   }
 
   if (productGroup) {
-    const newProductGroup = JSON.parse(productGroup);
-
     const productGroup__Obj = {
-      productGroup: { $all: newProductGroup },
+      productGroup: productGroup,
     };
+    console.log(productGroup);
     andArr.push(productGroup__Obj);
   }
 

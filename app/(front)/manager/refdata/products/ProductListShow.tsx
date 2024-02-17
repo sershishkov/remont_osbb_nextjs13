@@ -22,9 +22,16 @@ import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
+import MySelectAutoCompl from '@/components/common/MySelectAutoCompl';
 import MySpinner from '@/components/common/MySpinner';
 
-function TableSimple({
+const initState = {
+  unit: '',
+  productType: '',
+  productGroup: '',
+};
+
+export default function ProductListShow({
   headerFields,
   tableFields,
   currentURL,
@@ -35,12 +42,19 @@ function TableSimple({
   readonly currentURL: string;
   readonly tableHeader: string;
 }) {
+  const [formData, setFormData] = useState(initState);
+  const [arr__Units, setArr__Units] = useState([]);
+  const [arr__ProductGroups, setArr__ProductGroups] = useState([]);
+  const [arr__ProductTypes, setArr__ProductTypes] = useState([]);
+
   const [searchText, setSearchText] = useState('');
   const [resultFetch, setResultFetch] = useState({
     items: [],
     total: '',
     totalPages: '',
   });
+
+  const { unit, productType, productGroup } = formData;
 
   const deleteHanler = async (_id: string) => {
     await delete__one(_id, currentURL);
@@ -53,15 +67,6 @@ function TableSimple({
 
   const onChangeSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.target.value);
-
-    const filtered_items = await get__all(
-      { page: '0', limit: '0', filter: e.target.value },
-      currentURL
-    );
-
-    setTimeout(() => {
-      setResultFetch(filtered_items);
-    }, 2000);
   };
 
   useEffect(() => {
@@ -70,6 +75,22 @@ function TableSimple({
         { page: '0', limit: '0', filter: '' },
         currentURL
       );
+      const units = await get__all(
+        { page: '0', limit: '0', filter: '' },
+        '/manager/refdata/unit'
+      );
+      const productgroups = await get__all(
+        { page: '0', limit: '0', filter: '' },
+        '/manager/refdata/productgroup'
+      );
+      const producttypes = await get__all(
+        { page: '0', limit: '0', filter: '' },
+        '/manager/refdata/producttype'
+      );
+
+      setArr__Units(units.items);
+      setArr__ProductGroups(productgroups.items);
+      setArr__ProductTypes(producttypes.items);
       setResultFetch(myItems);
     };
     myGetAll();
@@ -80,6 +101,39 @@ function TableSimple({
     const searchInput = document.getElementById('searchText');
     searchInput?.focus();
   }, []);
+
+  useEffect(() => {
+    if (unit || productType || productGroup || searchText) {
+      const myGetAll = async () => {
+        const filtered_items = await get__all(
+          {
+            page: '0',
+            limit: '0',
+            filter: searchText,
+            unit: unit,
+            productType: productType,
+            productGroup: productGroup,
+          },
+          currentURL
+        );
+
+        setTimeout(() => {
+          setResultFetch(filtered_items);
+        }, 2000);
+      };
+      myGetAll();
+    }
+  }, [unit, productType, productGroup, searchText, currentURL]);
+
+  const handleChangeSelects = (
+    targetName: string,
+    targetValue: string | string[]
+  ) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [targetName]: targetValue,
+    }));
+  };
 
   const getMyItem = (row: any, item: string) => {
     let innerProp;
@@ -117,7 +171,7 @@ function TableSimple({
     >
       <Grid item sx={{ width: '100%' }}>
         <Grid container alignItems='center' justifyContent='space-between'>
-          <Grid item sm={9}>
+          <Grid item sx={{ width: 300 }}>
             <TextField
               margin='normal'
               focused
@@ -130,8 +184,43 @@ function TableSimple({
               onChange={onChangeSearch}
             />
           </Grid>
-          <Grid item sm={3}>
-            <Typography align='center'>{`Найдено:${resultFetch.items?.length}`}</Typography>
+          <Grid item sx={{ width: 120 }}>
+            <MySelectAutoCompl
+              selectName={`unit`}
+              selectLabel={`Ед.изм`}
+              fieldToShow={`unitName`}
+              handleChangeSelects={handleChangeSelects}
+              selectedOption={unit ?? ''}
+              // @ts-ignore
+              arrToSelect={arr__Units}
+            />
+          </Grid>
+          <Grid item sx={{ width: 200 }}>
+            <MySelectAutoCompl
+              selectName={`productType`}
+              selectLabel={`Тип товара`}
+              fieldToShow={`productTypeName`}
+              handleChangeSelects={handleChangeSelects}
+              selectedOption={productType ?? ''}
+              // @ts-ignore
+              arrToSelect={arr__ProductTypes}
+            />
+          </Grid>
+
+          <Grid item sx={{ width: 200 }}>
+            <MySelectAutoCompl
+              selectName={`productGroup`}
+              selectLabel={`Группы товаров`}
+              fieldToShow={`productGroupName`}
+              handleChangeSelects={handleChangeSelects}
+              selectedOption={productGroup ?? ''}
+              // @ts-ignore
+              arrToSelect={arr__ProductGroups}
+            />
+          </Grid>
+
+          <Grid item>
+            <Typography align='center'>{`Найдено:${resultFetch?.items?.length}`}</Typography>
           </Grid>
         </Grid>
       </Grid>
@@ -233,5 +322,3 @@ function TableSimple({
     </Grid>
   );
 }
-
-export default TableSimple;

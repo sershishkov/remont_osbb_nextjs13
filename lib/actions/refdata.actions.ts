@@ -75,19 +75,37 @@ export const item__edit = async (
 };
 
 export const get__all = async (
-  dataObject: MyRequestParams,
+  // dataObject: MyRequestParams,
+  dataObject: any,
   currentURL: string
 ) => {
   try {
-    const res = await fetch(
-      `/api${currentURL}/?page=${dataObject?.page}&limit=${dataObject?.limit}&filter=${dataObject?.filter}`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    );
+    let queryString = '';
+    const sizeObject = Object.keys(dataObject).length;
+    if (sizeObject > 0) {
+      queryString = '/?';
+    }
+
+    for (const field in dataObject) {
+      queryString += `${field}=${dataObject[field]}&`;
+    }
+
+    const res = await fetch(`/api${currentURL}${queryString}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    // const res = await fetch(
+    //   `/api${currentURL}/?page=${dataObject?.page}&limit=${dataObject?.limit}&filter=${dataObject?.filter}`,
+    //   {
+    //     method: 'GET',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //   }
+    // );
     const myData = await res.json();
     if (!res.ok || !myData.my_data) {
       throw new Error(myData.message);
