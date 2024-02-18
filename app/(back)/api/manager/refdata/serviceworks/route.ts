@@ -78,7 +78,7 @@ export const GET = async (request: NextRequest) => {
   const skip = (page - 1) * pageSize;
 
   const filterSTR = url.searchParams.get('filter') ?? '';
-  const description = url.searchParams.get('description') ?? '';
+
   const unit = url.searchParams.get('unit') ?? '';
   const serviceWorkGroup = url.searchParams.get('serviceWorkGroup') ?? '';
   const products = url.searchParams.get('products') ?? '';

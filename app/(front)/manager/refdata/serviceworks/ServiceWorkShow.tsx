@@ -29,47 +29,89 @@ import MySpinner from '@/components/common/MySpinner';
 
 const initState = {
   unit: '',
-  productType: '',
-  productGroup: [],
+  serviceWorkGroup: [],
+  products: [],
+  inventars: [],
+  tools: [],
+  equipment: [],
+  workerProtection: [],
 };
 
 const headerFields = [
   'Наименование',
   'ед.изм',
   'Цена вход',
-  'Тип товара',
-  'Группы товаров',
+  'Группы работ',
+
+  'Материалы',
+  'Инвентарь',
+  'Инструмент',
+  'Оборудование',
+  'Средства защиты',
 ];
 
 const tableFields = [
-  'productName',
+  'serviceWorkName',
   'unit',
-  'priceBuyRecommend',
-  'productType',
-  'productGroup',
+  'priceWorkerRecommend',
+  'serviceWorkGroup',
+
+  'products',
+  'inventars',
+  'tools',
+  'equipment',
+  'workerProtection',
 ];
 
 const arrToShow = (enteredArr: any) => {
   const localArr = JSON.parse(JSON.stringify(enteredArr));
+
   const transformedArr = localArr.map((currentItem: any) => {
-    let arrToString = '';
-    currentItem.productGroup.forEach((element: any) => {
-      arrToString += `${element.productGroupName}, `;
+    let serviceWork__ToString = '';
+    let products__ToString = '';
+    let inventars__ToString = '';
+    let tools__ToString = '';
+    let equipment__ToString = '';
+    let workerProtection__ToString = '';
+
+    currentItem.serviceWorkGroup.forEach((element: any) => {
+      serviceWork__ToString += `${element.serviceWorkGroupName}, `;
+    });
+
+    currentItem.products.forEach((element: any) => {
+      products__ToString += `${element.productName}, `;
+    });
+    currentItem.inventars.forEach((element: any) => {
+      inventars__ToString += `${element.productName}, `;
+    });
+    currentItem.tools.forEach((element: any) => {
+      tools__ToString += `${element.productName}, `;
+    });
+    currentItem.equipment.forEach((element: any) => {
+      equipment__ToString += `${element.productName}, `;
+    });
+    currentItem.workerProtection.forEach((element: any) => {
+      workerProtection__ToString += `${element.productName}, `;
     });
 
     return {
       _id: currentItem._id,
-      productName: currentItem.productName,
+      serviceWorkName: currentItem.serviceWorkName,
       unit: currentItem.unit.unitName,
-      priceBuyRecommend: currentItem.priceBuyRecommend,
-      productType: currentItem.productType.productTypeName,
-      productGroup: arrToString,
+      priceWorkerRecommend: currentItem.priceWorkerRecommend,
+      serviceWorkGroup: serviceWork__ToString,
+
+      products: products__ToString,
+      inventars: inventars__ToString,
+      tools: tools__ToString,
+      equipment: equipment__ToString,
+      workerProtection: workerProtection__ToString,
     };
   });
   return transformedArr;
 };
 
-export default function ProductListShow({
+export default function ServiceWorkShow({
   currentURL,
   tableHeader,
 }: {
@@ -79,14 +121,26 @@ export default function ProductListShow({
   const [formData, setFormData] = useState(initState);
   const [countTotalItems, setCountTotalItems] = useState(0);
   const [arr__Units, setArr__Units] = useState([]);
-  const [arr__ProductGroups, setArr__ProductGroups] = useState([]);
-  const [arr__ProductTypes, setArr__ProductTypes] = useState([]);
+  const [arr__ServiceWorkGroups, setArr__ServiceWorkGroups] = useState([]);
+  const [arr__Materials, setArr__Materials] = useState([]);
+  const [arr__Inventars, setArr__Inventars] = useState([]);
+  const [arr__Tools, setArr__Tools] = useState([]);
+  const [arr__Equipments, setArr__Equipments] = useState([]);
+  const [arr__WorkerProtections, setArr__WorkerProtections] = useState([]);
 
   const [searchText, setSearchText] = useState('');
   const [totalResults, setTotalResults] = useState([]);
   const [resultFetch, setResultFetch] = useState([]);
 
-  const { unit, productType, productGroup } = formData;
+  const {
+    unit,
+    serviceWorkGroup,
+    products,
+    inventars,
+    tools,
+    equipment,
+    workerProtection,
+  } = formData;
 
   useEffect(() => {
     const myGetAll = async () => {
@@ -98,18 +152,39 @@ export default function ProductListShow({
         { page: '0', limit: '0', filter: '' },
         '/manager/refdata/unit'
       );
-      const productgroups = await get__all(
+      const serviceWorkGroup = await get__all(
         { page: '0', limit: '0', filter: '' },
-        '/manager/refdata/productgroup'
+        '/manager/refdata/servicework-group'
       );
-      const producttypes = await get__all(
+      const products = await get__all(
         { page: '0', limit: '0', filter: '' },
-        '/manager/refdata/producttype'
+        '/manager/refdata/products'
+      );
+
+      const arr_Materials = products?.items.filter(
+        (item: any) => item.productType?.productTypeName === 'стройматериалы'
+      );
+      const arr_Inventars = products?.items.filter(
+        (item: any) => item.productType?.productTypeName === 'инвентарь'
+      );
+      const arr_Tools = products?.items.filter(
+        (item: any) => item.productType?.productTypeName === 'инструмент'
+      );
+      const arr_Equipments = products?.items.filter(
+        (item: any) => item.productType?.productTypeName === 'оборудование'
+      );
+      const arr_WorkerProtections = products?.items.filter(
+        (item: any) => item.productType?.productTypeName === 'средство защиты'
       );
 
       setArr__Units(units.items);
-      setArr__ProductGroups(productgroups.items);
-      setArr__ProductTypes(producttypes.items);
+      setArr__ServiceWorkGroups(serviceWorkGroup.items);
+
+      setArr__Materials(arr_Materials);
+      setArr__Inventars(arr_Inventars);
+      setArr__Tools(arr_Tools);
+      setArr__Equipments(arr_Equipments);
+      setArr__WorkerProtections(arr_WorkerProtections);
 
       setCountTotalItems(getTotalItems.total);
       setTotalResults(arrToShow(getTotalItems.items));
@@ -146,8 +221,12 @@ export default function ProductListShow({
         filter: searchText,
 
         unit: unit,
-        productType: productType,
-        productGroup: productGroup,
+        serviceWorkGroup: serviceWorkGroup,
+        products: products,
+        inventars: inventars,
+        tools: tools,
+        equipment: equipment,
+        workerProtection: workerProtection,
       },
       currentURL
     );
@@ -209,27 +288,16 @@ export default function ProductListShow({
               arrToSelect={arr__Units}
             />
           </Grid>
-          <Grid item sx={{ width: 200 }}>
-            <MySelectAutoCompl
-              selectName={`productType`}
-              selectLabel={`Тип товара`}
-              fieldToShow={`productTypeName`}
-              handleChangeSelects={handleChangeSelects}
-              selectedOption={productType ?? ''}
-              // @ts-ignore
-              arrToSelect={arr__ProductTypes}
-            />
-          </Grid>
 
           <Grid item sx={{ width: 200 }}>
             <MySelectMultipleAutoCompl
-              selectName={`productGroup`}
-              selectLabel={`Группы товаров`}
-              fieldToShow={`productGroupName`}
+              selectName={`serviceWorkGroup`}
+              selectLabel={`Группы работ`}
+              fieldToShow={`serviceWorkGroupName`}
               handleChangeMultipleSelects={handleChangeSelects}
-              selectedOptions={productGroup ?? []}
+              selectedOptions={serviceWorkGroup ?? []}
               // @ts-ignore
-              arrToSelect={arr__ProductGroups}
+              arrToSelect={arr__ServiceWorkGroups}
             />
           </Grid>
 
@@ -245,6 +313,71 @@ export default function ProductListShow({
             <IconButton onClick={handleRestart}>
               <RestartAltIcon color='error' />
             </IconButton>
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid item sx={{ width: '100%' }}>
+        <Grid
+          container
+          alignItems='center'
+          justifyContent='space-between'
+          spacing={1}
+        >
+          <Grid item sx={{ width: 200 }}>
+            <MySelectMultipleAutoCompl
+              selectName={`products`}
+              selectLabel={`Материалы`}
+              fieldToShow={`productName`}
+              handleChangeMultipleSelects={handleChangeSelects}
+              selectedOptions={products ?? []}
+              // @ts-ignore
+              arrToSelect={arr__Materials}
+            />
+          </Grid>
+
+          <Grid item sx={{ width: 200 }}>
+            <MySelectMultipleAutoCompl
+              selectName={`inventars`}
+              selectLabel={`Инвентарь`}
+              fieldToShow={`productName`}
+              handleChangeMultipleSelects={handleChangeSelects}
+              selectedOptions={inventars ?? []}
+              // @ts-ignore
+              arrToSelect={arr__Inventars}
+            />
+          </Grid>
+          <Grid item sx={{ width: 200 }}>
+            <MySelectMultipleAutoCompl
+              selectName={`tools`}
+              selectLabel={`Инструмент`}
+              fieldToShow={`productName`}
+              handleChangeMultipleSelects={handleChangeSelects}
+              selectedOptions={tools ?? []}
+              // @ts-ignore
+              arrToSelect={arr__Tools}
+            />
+          </Grid>
+          <Grid item sx={{ width: 200 }}>
+            <MySelectMultipleAutoCompl
+              selectName={`equipment`}
+              selectLabel={`Оборудование`}
+              fieldToShow={`productName`}
+              handleChangeMultipleSelects={handleChangeSelects}
+              selectedOptions={equipment ?? []}
+              // @ts-ignore
+              arrToSelect={arr__Equipments}
+            />
+          </Grid>
+          <Grid item sx={{ width: 200 }}>
+            <MySelectMultipleAutoCompl
+              selectName={`workerProtection`}
+              selectLabel={`Средства защиты`}
+              fieldToShow={`productName`}
+              handleChangeMultipleSelects={handleChangeSelects}
+              selectedOptions={workerProtection ?? []}
+              // @ts-ignore
+              arrToSelect={arr__WorkerProtections}
+            />
           </Grid>
         </Grid>
       </Grid>
