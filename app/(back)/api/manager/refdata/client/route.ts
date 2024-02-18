@@ -132,26 +132,55 @@ export const GET = async (request: NextRequest) => {
   const url = new URL(request.url);
   const page = parseInt(url.searchParams.get('page') ?? '0');
   const pageSize = parseInt(url.searchParams.get('limit') ?? '0');
-  const filterSTR = url.searchParams.get('filter') ?? '';
   const skip = (page - 1) * pageSize;
+
+  const filterSTR = url.searchParams.get('filter') ?? '';
+  const firmType = url.searchParams.get('firmType') ?? '';
+  const taxationType = url.searchParams.get('taxationType') ?? '';
+  const clientType = url.searchParams.get('clientType') ?? '';
+
   let filterObject = {};
+  const andArr = [];
 
   if (filterSTR) {
     const myRegex = { $regex: filterSTR, $options: 'i' };
-
-    filterObject = {
+    const orObject = {
       $or: [
         { clientLongName: myRegex },
         { clientShortName: myRegex },
+
         { postIndex: myRegex },
         { address: myRegex },
         { edrpou: myRegex },
         { inn: myRegex },
+        { iban: myRegex },
+        { iban_budget: myRegex },
+
         { passportNumber: myRegex },
+        { patronymic_imen: myRegex },
         { lastName_imen: myRegex },
+        { firstName_imen: myRegex },
         { telNumber: myRegex },
         { email: myRegex },
       ],
+    };
+    andArr.push(orObject);
+  }
+
+  if (firmType) {
+    andArr.push({ firmType: firmType });
+  }
+  if (taxationType) {
+    andArr.push({ taxationType: taxationType });
+  }
+  if (clientType) {
+    const toArr = clientType.split(',');
+    andArr.push({ clientType: { $all: toArr } });
+  }
+
+  if (andArr.length > 0) {
+    filterObject = {
+      $and: andArr,
     };
   }
 

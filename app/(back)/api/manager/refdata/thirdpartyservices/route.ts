@@ -67,18 +67,52 @@ export const GET = async (request: NextRequest) => {
   const url = new URL(request.url);
   const page = parseInt(url.searchParams.get('page') ?? '0');
   const pageSize = parseInt(url.searchParams.get('limit') ?? '0');
-  const filterSTR = url.searchParams.get('filter') ?? '';
   const skip = (page - 1) * pageSize;
+
+  const filterSTR = url.searchParams.get('filter') ?? '';
+  const unit = url.searchParams.get('unit') ?? '';
+  const thirdPartyServiceGroup =
+    url.searchParams.get('thirdPartyServiceGroup') ?? '';
+
   let filterObject = {};
+
+  const andArr = [];
 
   if (filterSTR) {
     const myRegex = { $regex: filterSTR, $options: 'i' };
-
-    filterObject = {
-      $or: [{ thirdPartyServiceName: myRegex }],
+    const orObject = {
+      $or: [
+        { thirdPartyServiceName: myRegex },
+        { description: myRegex },
+        {
+          $expr: {
+            $regexMatch: {
+              input: { $toString: `$priceBuyRecommend` },
+              regex: filterSTR,
+            },
+          },
+        },
+      ],
     };
+    andArr.push(orObject);
   }
 
+  if (unit) {
+    andArr.push({ unit: unit });
+  }
+
+  if (thirdPartyServiceGroup) {
+    const toArr = thirdPartyServiceGroup.split(',');
+    andArr.push({
+      thirdPartyServiceGroup: { $all: toArr },
+    });
+  }
+
+  if (andArr.length > 0) {
+    filterObject = {
+      $and: andArr,
+    };
+  }
   try {
     await connectToDB();
 

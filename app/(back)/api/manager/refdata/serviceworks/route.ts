@@ -75,15 +75,75 @@ export const GET = async (request: NextRequest) => {
   const url = new URL(request.url);
   const page = parseInt(url.searchParams.get('page') ?? '0');
   const pageSize = parseInt(url.searchParams.get('limit') ?? '0');
-  const filterSTR = url.searchParams.get('filter') ?? '';
   const skip = (page - 1) * pageSize;
+
+  const filterSTR = url.searchParams.get('filter') ?? '';
+  const description = url.searchParams.get('description') ?? '';
+  const unit = url.searchParams.get('unit') ?? '';
+  const serviceWorkGroup = url.searchParams.get('serviceWorkGroup') ?? '';
+  const products = url.searchParams.get('products') ?? '';
+  const inventars = url.searchParams.get('inventars') ?? '';
+  const tools = url.searchParams.get('tools') ?? '';
+  const equipment = url.searchParams.get('equipment') ?? '';
+  const workerProtection = url.searchParams.get('workerProtection') ?? '';
+
   let filterObject = {};
+
+  const andArr = [];
 
   if (filterSTR) {
     const myRegex = { $regex: filterSTR, $options: 'i' };
+    const orObject = {
+      $or: [
+        { serviceWorkName: myRegex },
+        { description: myRegex },
+        {
+          $expr: {
+            $regexMatch: {
+              input: { $toString: `$priceWorkerRecommend` },
+              regex: filterSTR,
+            },
+          },
+        },
+      ],
+    };
+    andArr.push(orObject);
+  }
 
+  if (unit) {
+    andArr.push({ unit: unit });
+  }
+
+  if (serviceWorkGroup) {
+    const toArr = serviceWorkGroup.split(',');
+    andArr.push({
+      serviceWorkGroup: { $all: toArr },
+    });
+  }
+  if (products) {
+    const toArr = products.split(',');
+    andArr.push({ products: { $all: toArr } });
+  }
+  if (inventars) {
+    const toArr = inventars.split(',');
+    andArr.push({ inventars: { $all: toArr } });
+  }
+  if (tools) {
+    const toArr = tools.split(',');
+    andArr.push({ tools: { $all: toArr } });
+  }
+  if (equipment) {
+    const toArr = equipment.split(',');
+    andArr.push({ equipment: { $all: toArr } });
+  }
+  if (workerProtection) {
+    const toArr = workerProtection.split(',');
+    andArr.push({ workerProtection: { $all: toArr } });
+  }
+
+  if (andArr.length > 0) {
     filterObject = {
-      $or: [{ serviceWorkName: myRegex }],
+      $and: andArr,
     };
   }
 

@@ -1,5 +1,4 @@
 import { toast } from 'react-toastify';
-import { MyRequestParams } from '@/interfaces/CommonInterfaces';
 
 const errorToMessage = (newError: any) => {
   const message =
@@ -97,15 +96,6 @@ export const get__all = async (
       },
     });
 
-    // const res = await fetch(
-    //   `/api${currentURL}/?page=${dataObject?.page}&limit=${dataObject?.limit}&filter=${dataObject?.filter}`,
-    //   {
-    //     method: 'GET',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //   }
-    // );
     const myData = await res.json();
     if (!res.ok || !myData.my_data) {
       throw new Error(myData.message);

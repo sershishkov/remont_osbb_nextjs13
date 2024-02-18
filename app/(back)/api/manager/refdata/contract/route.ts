@@ -120,20 +120,66 @@ export const GET = async (request: NextRequest) => {
   const url = new URL(request.url);
   const page = parseInt(url.searchParams.get('page') ?? '0');
   const pageSize = parseInt(url.searchParams.get('limit') ?? '0');
-  const filterSTR = url.searchParams.get('filter') ?? '';
   const skip = (page - 1) * pageSize;
+
+  const filterSTR = url.searchParams.get('filter') ?? '';
+  const ourFirm = url.searchParams.get('ourFirm') ?? '';
+  const client = url.searchParams.get('client') ?? '';
+  const contractDateStart = url.searchParams.get('contractDateStart') ?? '';
+  const contractDateEnd = url.searchParams.get('contractDateEnd') ?? '';
+  const contractType = url.searchParams.get('contractType') ?? '';
+  const paymentSource = url.searchParams.get('paymentSource') ?? '';
+  const responsibleManager = url.searchParams.get('responsibleManager') ?? '';
+  const responsibleWorker = url.searchParams.get('responsibleWorker') ?? '';
+  const participants = url.searchParams.get('participants') ?? '';
+
   let filterObject = {};
+  const andArr = [];
 
   if (filterSTR) {
     const myRegex = { $regex: filterSTR, $options: 'i' };
 
-    filterObject = {
+    const orObject = {
       $or: [
         { contractNumber: myRegex },
         { contractDescription: myRegex },
         { workAddress: myRegex },
       ],
     };
+    andArr.push(orObject);
+  }
+
+  if (ourFirm) {
+    andArr.push({ ourFirm: ourFirm });
+  }
+  if (client) {
+    andArr.push({ client: client });
+  }
+
+  if (contractDateStart && contractDateEnd) {
+    andArr.push({
+      contractDate: {
+        $elemMatch: { $gte: contractDateStart, $lte: contractDateEnd },
+      },
+    });
+  }
+
+  if (contractType) {
+    andArr.push({ contractType: contractType });
+  }
+  if (paymentSource) {
+    andArr.push({ paymentSource: paymentSource });
+  }
+  if (responsibleManager) {
+    andArr.push({ responsibleManager: responsibleManager });
+  }
+  if (responsibleWorker) {
+    andArr.push({ responsibleWorker: responsibleWorker });
+  }
+  if (participants) {
+    const toArr = participants.split(',');
+
+    andArr.push({ 'participantsOfContract.participant': { $all: toArr } });
   }
 
   try {

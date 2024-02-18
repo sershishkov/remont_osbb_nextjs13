@@ -81,23 +81,62 @@ export const GET = async (request: NextRequest) => {
   const url = new URL(request.url);
   const page = parseInt(url.searchParams.get('page') ?? '0');
   const pageSize = parseInt(url.searchParams.get('limit') ?? '0');
-  const filterSTR = url.searchParams.get('filter') ?? '';
   const skip = (page - 1) * pageSize;
+
+  const filterSTR = url.searchParams.get('filter') ?? '';
+  const workerProfessions = url.searchParams.get('workerProfessions') ?? '';
+  const birthDateStart = url.searchParams.get('birthDateStart') ?? '';
+  const birthDateEnd = url.searchParams.get('birthDateEnd') ?? '';
+  const whenPassportIssuedDateStart =
+    url.searchParams.get('whenPassportIssuedDateStart') ?? '';
+  const whenPassportIssuedDateEnd =
+    url.searchParams.get('whenPassportIssuedDateEnd') ?? '';
+
   let filterObject = {};
+
+  const andArr = [];
 
   if (filterSTR) {
     const myRegex = { $regex: filterSTR, $options: 'i' };
-
-    filterObject = {
+    const orObject = {
       $or: [
         { firstName: myRegex },
         { patronymic: myRegex },
         { lastName: myRegex },
         { passportNumber: myRegex },
+        { representedBy: myRegex },
         { inn: myRegex },
         { telNumber: myRegex },
         { address: myRegex },
       ],
+    };
+    andArr.push(orObject);
+  }
+
+  if (workerProfessions) {
+    const toArr = workerProfessions.split(',');
+    andArr.push({ workerProfessions: { $all: toArr } });
+  }
+
+  if (birthDateStart && birthDateEnd) {
+    andArr.push({
+      birthDay: { $elemMatch: { $gte: birthDateStart, $lte: birthDateEnd } },
+    });
+  }
+  if (whenPassportIssuedDateStart && whenPassportIssuedDateEnd) {
+    andArr.push({
+      whenIssued: {
+        $elemMatch: {
+          $gte: whenPassportIssuedDateStart,
+          $lte: whenPassportIssuedDateEnd,
+        },
+      },
+    });
+  }
+
+  if (andArr.length > 0) {
+    filterObject = {
+      $and: andArr,
     };
   }
 

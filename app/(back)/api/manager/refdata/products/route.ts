@@ -84,37 +84,43 @@ export const GET = async (request: NextRequest) => {
   const productType = url.searchParams.get('productType') ?? '';
   const productGroup = url.searchParams.get('productGroup') ?? '';
 
-  console.log(productGroup);
-
   let filterObject = {};
-
-  const myRegex = { $regex: filterSTR, $options: 'i' };
 
   const andArr = [];
 
   if (filterSTR) {
+    const myRegex = { $regex: filterSTR, $options: 'i' };
     const orObject = {
-      $or: [{ productName: myRegex }, { description: myRegex }],
+      $or: [
+        { productName: myRegex },
+        { description: myRegex },
+        {
+          $expr: {
+            $regexMatch: {
+              input: { $toString: `$priceBuyRecommend` },
+              regex: filterSTR,
+            },
+          },
+        },
+      ],
     };
     andArr.push(orObject);
   }
 
   if (unit) {
-    const unit__Obj = { unit: unit };
-    andArr.push(unit__Obj);
+    andArr.push({ unit: unit });
   }
 
   if (productGroup) {
-    const productGroup__Obj = {
-      productGroup: productGroup,
-    };
-    console.log(productGroup);
-    andArr.push(productGroup__Obj);
+    const toArr = productGroup.split(',');
+
+    andArr.push({
+      productGroup: { $all: toArr },
+    });
   }
 
   if (productType) {
-    const productType__Obj = { productType: productType };
-    andArr.push(productType__Obj);
+    andArr.push({ productType: productType });
   }
 
   if (andArr.length > 0) {

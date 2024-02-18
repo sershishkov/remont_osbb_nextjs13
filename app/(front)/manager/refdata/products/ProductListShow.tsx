@@ -10,7 +10,6 @@ import TableHead from '@mui/material/TableHead';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
-import TableFooter from '@mui/material/TableFooter';
 
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
@@ -18,60 +17,80 @@ import IconButton from '@mui/material/IconButton';
 
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
+import SearchIcon from '@mui/icons-material/Search';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
 import MySelectAutoCompl from '@/components/common/MySelectAutoCompl';
+import MySelectMultipleAutoCompl from '@/components/common/MySelectMultipleAutoCompl';
 import MySpinner from '@/components/common/MySpinner';
 
 const initState = {
   unit: '',
   productType: '',
-  productGroup: '',
+  productGroup: [],
+};
+
+const headerFields = [
+  'Наименование',
+  'ед.изм',
+  'Цена вход',
+  'Тип товара',
+  'Группы товаров',
+];
+
+const tableFields = [
+  'productName',
+  'unit',
+  'priceBuyRecommend',
+  'productType',
+  'productGroup',
+];
+
+const arrToShow = (enteredArr: any) => {
+  const localArr = JSON.parse(JSON.stringify(enteredArr));
+  const transformedArr = localArr.map((currentItem: any) => {
+    let arrToString = '';
+    currentItem.productGroup.forEach((element: any) => {
+      arrToString += `${element.productGroupName}, `;
+    });
+
+    return {
+      _id: currentItem._id,
+      productName: currentItem.productName,
+      unit: currentItem.unit.unitName,
+      priceBuyRecommend: currentItem.priceBuyRecommend,
+      productType: currentItem.productType.productTypeName,
+      productGroup: arrToString,
+    };
+  });
+  return transformedArr;
 };
 
 export default function ProductListShow({
-  headerFields,
-  tableFields,
   currentURL,
   tableHeader,
 }: {
-  readonly headerFields: string[];
-  readonly tableFields: string[];
   readonly currentURL: string;
   readonly tableHeader: string;
 }) {
   const [formData, setFormData] = useState(initState);
+  const [countTotalItems, setCountTotalItems] = useState(initState);
   const [arr__Units, setArr__Units] = useState([]);
   const [arr__ProductGroups, setArr__ProductGroups] = useState([]);
   const [arr__ProductTypes, setArr__ProductTypes] = useState([]);
 
   const [searchText, setSearchText] = useState('');
-  const [resultFetch, setResultFetch] = useState({
-    items: [],
-    total: '',
-    totalPages: '',
-  });
+  const [totalResults, setTotalResults] = useState([]);
+  const [resultFetch, setResultFetch] = useState([]);
 
   const { unit, productType, productGroup } = formData;
 
-  const deleteHanler = async (_id: string) => {
-    await delete__one(_id, currentURL);
-    setResultFetch(
-      await get__all({ page: '0', limit: '0', filter: '' }, currentURL)
-    );
-
-    setSearchText('');
-  };
-
-  const onChangeSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchText(e.target.value);
-  };
-
   useEffect(() => {
     const myGetAll = async () => {
-      const myItems = await get__all(
+      const getTotalItems = await get__all(
         { page: '0', limit: '0', filter: '' },
         currentURL
       );
@@ -91,7 +110,10 @@ export default function ProductListShow({
       setArr__Units(units.items);
       setArr__ProductGroups(productgroups.items);
       setArr__ProductTypes(producttypes.items);
-      setResultFetch(myItems);
+
+      setCountTotalItems(getTotalItems.total);
+      setTotalResults(arrToShow(getTotalItems.items));
+      setResultFetch(arrToShow(getTotalItems.items));
     };
     myGetAll();
   }, [currentURL]);
@@ -102,28 +124,9 @@ export default function ProductListShow({
     searchInput?.focus();
   }, []);
 
-  useEffect(() => {
-    if (unit || productType || productGroup || searchText) {
-      const myGetAll = async () => {
-        const filtered_items = await get__all(
-          {
-            page: '0',
-            limit: '0',
-            filter: searchText,
-            unit: unit,
-            productType: productType,
-            productGroup: productGroup,
-          },
-          currentURL
-        );
-
-        setTimeout(() => {
-          setResultFetch(filtered_items);
-        }, 2000);
-      };
-      myGetAll();
-    }
-  }, [unit, productType, productGroup, searchText, currentURL]);
+  const onChangeSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchText(e.target.value);
+  };
 
   const handleChangeSelects = (
     targetName: string,
@@ -135,27 +138,34 @@ export default function ProductListShow({
     }));
   };
 
-  const getMyItem = (row: any, item: string) => {
-    let innerProp;
-    if (item.includes('.')) {
-      const arrFields = item.split('.');
+  const handleSearch = async () => {
+    const filtered_items = await get__all(
+      {
+        page: '0',
+        limit: '0',
+        filter: searchText,
 
-      if (row[arrFields[0]] !== null) {
-        if (arrFields.length === 2) {
-          innerProp = row[arrFields[0]][arrFields[1]];
-        } else if (arrFields.length === 3) {
-          innerProp = row[arrFields[0]][arrFields[1]][arrFields[2]];
-        } else if (arrFields.length === 4) {
-          innerProp =
-            row[arrFields[0]][arrFields[1]][arrFields[2]][arrFields[3]];
-        }
-      } else {
-        innerProp = 'NULL';
-      }
-      return `${innerProp}`;
-    } else {
-      return `${row[item]}`;
-    }
+        unit: unit,
+        productType: productType,
+        productGroup: productGroup,
+      },
+      currentURL
+    );
+
+    setResultFetch(arrToShow(filtered_items?.items));
+  };
+  const handleRestart = () => {
+    setResultFetch(totalResults);
+    setFormData(initState);
+  };
+
+  const deleteHanler = async (_id: string) => {
+    await delete__one(_id, currentURL);
+    setResultFetch(
+      await get__all({ page: '0', limit: '0', filter: '' }, currentURL)
+    );
+    setFormData(initState);
+    setSearchText('');
   };
 
   return (
@@ -164,23 +174,27 @@ export default function ProductListShow({
       alignItems='center'
       direction='column'
       sx={{
-        // border: '1px solid yellow',
         maxWidth: 1200,
         minWidth: 600,
       }}
     >
       <Grid item sx={{ width: '100%' }}>
-        <Grid container alignItems='center' justifyContent='space-between'>
-          <Grid item sx={{ width: 300 }}>
+        <Grid
+          container
+          alignItems='center'
+          justifyContent='space-between'
+          spacing={1}
+        >
+          <Grid item sx={{ flex: 1 }}>
             <TextField
               margin='normal'
               focused
               fullWidth
               id='searchText'
               name='searchText'
-              label='searchText'
+              label='Строка поиска'
               type='search'
-              value={searchText}
+              value={searchText ?? ''}
               onChange={onChangeSearch}
             />
           </Grid>
@@ -208,39 +222,37 @@ export default function ProductListShow({
           </Grid>
 
           <Grid item sx={{ width: 200 }}>
-            <MySelectAutoCompl
+            <MySelectMultipleAutoCompl
               selectName={`productGroup`}
               selectLabel={`Группы товаров`}
               fieldToShow={`productGroupName`}
-              handleChangeSelects={handleChangeSelects}
-              selectedOption={productGroup ?? ''}
+              handleChangeMultipleSelects={handleChangeSelects}
+              selectedOptions={productGroup ?? []}
               // @ts-ignore
               arrToSelect={arr__ProductGroups}
             />
           </Grid>
 
           <Grid item>
-            <Typography align='center'>{`Найдено:${resultFetch?.items?.length}`}</Typography>
+            <Typography align='center'>{`Найдено:${resultFetch?.length}`}</Typography>
+          </Grid>
+          <Grid item>
+            <IconButton onClick={handleSearch}>
+              <SearchIcon color='success' />
+            </IconButton>
+          </Grid>
+          <Grid item>
+            <IconButton onClick={handleRestart}>
+              <RestartAltIcon color='error' />
+            </IconButton>
           </Grid>
         </Grid>
       </Grid>
-      {!resultFetch?.items || resultFetch?.items.length === 0 ? (
+      {!resultFetch || resultFetch?.length === 0 ? (
         <MySpinner />
       ) : (
         <Grid item sx={{ width: '100%' }}>
-          <TableContainer
-            component={Paper}
-            sx={
-              {
-                // maxWidth: 1200,
-                // minWidth: 600,
-                // maxHeight: 700,
-                // margin: '0 auto',
-                // padding: 0,
-                // border: '1px solid red',
-              }
-            }
-          >
+          <TableContainer component={Paper} sx={{ maxHeight: 600 }}>
             <Table
               stickyHeader
               sx={{
@@ -259,7 +271,7 @@ export default function ProductListShow({
                   </TableCell>
                   <TableCell
                     colSpan={2}
-                  >{` Всего ${resultFetch.total}`}</TableCell>
+                  >{` Всего ${countTotalItems}`}</TableCell>
                 </TableRow>
                 <TableRow>
                   {headerFields.length > 0 &&
@@ -278,23 +290,13 @@ export default function ProductListShow({
                 </TableRow>
               </TableHead>
               <TableBody>
-                {resultFetch.items.length > 0 &&
-                  resultFetch.items.map((row: any) => (
+                {resultFetch.length > 0 &&
+                  resultFetch.map((row: any) => (
                     <TableRow key={row._id}>
                       {tableFields.length > 0 &&
                         tableFields.map((item) => (
-                          <TableCell
-                            align='center'
-                            key={item}
-                            sx={{
-                              color:
-                                row.hasOwnProperty('isActive') &&
-                                row.isActive === false
-                                  ? 'red'
-                                  : undefined,
-                            }}
-                          >
-                            {getMyItem(row, item)}
+                          <TableCell align='center' key={item}>
+                            {row[item]}
                           </TableCell>
                         ))}
 
@@ -314,7 +316,6 @@ export default function ProductListShow({
                     </TableRow>
                   ))}
               </TableBody>
-              <TableFooter></TableFooter>
             </Table>
           </TableContainer>
         </Grid>
