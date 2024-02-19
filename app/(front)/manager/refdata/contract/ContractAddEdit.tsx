@@ -208,7 +208,9 @@ function ContractAddEdit({
           setFormData((prevState) => ({
             ...prevState,
             contractNumber: item.contractNumber!,
+            //@ts-ignore
             ourFirm: item.ourFirm!._id.toString(),
+            //@ts-ignore
             client: item.client!._id.toString(),
 
             contractDate: new Date(item.contractDate!)
@@ -217,9 +219,13 @@ function ContractAddEdit({
 
             contractDescription: item.contractDescription!,
             workAddress: item.workAddress!,
+            //@ts-ignore
             contractType: item.contractType!._id.toString(),
+            //@ts-ignore
             paymentSource: item.paymentSource!._id.toString(),
+            //@ts-ignore
             responsibleManager: item.responsibleManager._id.toString(),
+            //@ts-ignore
             responsibleWorker: item.responsibleWorker._id.toString(),
           }));
 
@@ -248,6 +254,7 @@ function ContractAddEdit({
           const newParticipants = shortParticipant?.map((member) => {
             return {
               id: uuidv4(),
+              //@ts-ignore
               participant: member.participant._id.toString(),
               participantPercentage: member.participantPercentage.toString(),
             };

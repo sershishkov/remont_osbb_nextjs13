@@ -159,7 +159,8 @@ export const GET = async (request: NextRequest) => {
   if (contractDateStart && contractDateEnd) {
     andArr.push({
       contractDate: {
-        $elemMatch: { $gte: contractDateStart, $lte: contractDateEnd },
+        $gte: new Date(contractDateStart),
+        $lte: new Date(contractDateEnd),
       },
     });
   }
@@ -180,6 +181,12 @@ export const GET = async (request: NextRequest) => {
     const toArr = participants.split(',');
 
     andArr.push({ 'participantsOfContract.participant': { $all: toArr } });
+  }
+
+  if (andArr.length > 0) {
+    filterObject = {
+      $and: andArr,
+    };
   }
 
   try {

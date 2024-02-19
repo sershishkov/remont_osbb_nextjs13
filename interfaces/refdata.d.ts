@@ -194,19 +194,19 @@ export interface I_Client {
 export interface I_Contract {
   _id?: string;
   contractNumber?: string;
-  ourFirm?: Types.ObjectId;
-  client?: Types.ObjectId;
+  ourFirm?: Types.ObjectId | I_Client | string;
+  client?: Types.ObjectId | I_Client | string;
   contractDate?: Date;
   contractDescription?: string;
   workAddress?: string;
-  contractType?: Types.ObjectId;
-  paymentSource?: Types.ObjectId;
-  responsibleManager: Types.ObjectId;
-  responsibleWorker: Types.ObjectId;
+  contractType?: Types.ObjectId | I_ContractType | string;
+  paymentSource?: Types.ObjectId | I_PaymentSource | string;
+  responsibleManager: Types.ObjectId | I_Worker | string;
+  responsibleWorker: Types.ObjectId | I_Worker | string;
   participantsOfContract?: {
     id?: string;
     _id?: string;
-    participant: Types.ObjectId;
+    participant: Types.ObjectId | I_Worker | string;
     participantPercentage: Number;
   }[];
 

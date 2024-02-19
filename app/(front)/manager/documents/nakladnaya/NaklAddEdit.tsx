@@ -138,6 +138,7 @@ function NaklAddEdit({
   useEffect(() => {
     if (client) {
       const belongingContracts = arr__Contracts.filter(
+        //@ts-ignore
         (item) => item.client?._id.toString() === client
       );
       setArr__ClientContracts(belongingContracts);
