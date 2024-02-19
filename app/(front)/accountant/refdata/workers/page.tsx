@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 import MyIconButtonAdd from '@/components/common/MyIconButtonAdd';
 
-import TableFilter from '@/components/common/TableFilter';
+import WorkersShow from './WorkersShow';
 const currentURL = `/accountant/refdata/workers`;
 
 const title = 'Сотрудники';
@@ -12,19 +12,11 @@ export const metadata: Metadata = {
 };
 
 export default function WorkersList() {
-  const headerFields = ['Фамилия', 'Имя', 'NikName'];
-  const tableFields = ['lastName', 'firstName', 'user.name'];
-
   return (
     <>
       <MyIconButtonAdd href={`${currentURL}/add`} />
 
-      <TableFilter
-        headerFields={headerFields}
-        tableFields={tableFields}
-        currentURL={currentURL}
-        tableHeader={title}
-      />
+      <WorkersShow currentURL={currentURL} tableHeader={title} />
     </>
   );
 }

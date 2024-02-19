@@ -87,10 +87,6 @@ export const GET = async (request: NextRequest) => {
   const workerProfessions = url.searchParams.get('workerProfessions') ?? '';
   const birthDateStart = url.searchParams.get('birthDateStart') ?? '';
   const birthDateEnd = url.searchParams.get('birthDateEnd') ?? '';
-  const whenPassportIssuedDateStart =
-    url.searchParams.get('whenPassportIssuedDateStart') ?? '';
-  const whenPassportIssuedDateEnd =
-    url.searchParams.get('whenPassportIssuedDateEnd') ?? '';
 
   let filterObject = {};
 
@@ -120,16 +116,9 @@ export const GET = async (request: NextRequest) => {
 
   if (birthDateStart && birthDateEnd) {
     andArr.push({
-      birthDay: { $elemMatch: { $gte: birthDateStart, $lte: birthDateEnd } },
-    });
-  }
-  if (whenPassportIssuedDateStart && whenPassportIssuedDateEnd) {
-    andArr.push({
-      whenIssued: {
-        $elemMatch: {
-          $gte: whenPassportIssuedDateStart,
-          $lte: whenPassportIssuedDateEnd,
-        },
+      birthDay: {
+        $gte: new Date(birthDateStart),
+        $lte: new Date(birthDateEnd),
       },
     });
   }
