@@ -19,6 +19,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
 import SearchIcon from '@mui/icons-material/Search';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import PrintIcon from '@mui/icons-material/Print';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -34,7 +35,6 @@ const initState = {
 };
 
 const headerFields = [
-  '№ Дог',
   '№ накладн',
   'Дата',
 
@@ -45,7 +45,6 @@ const headerFields = [
 ];
 
 const tableFields = [
-  'contractNumber',
   'nakladnayaNumber',
   'nakladnayaDate',
 
@@ -60,7 +59,6 @@ const arrToShow = (enteredArr: any) => {
   const transformedArr = localArr.map((currentItem: any) => {
     return {
       _id: currentItem._id,
-      contractNumber: currentItem.contract.contractNumber,
       nakladnayaNumber: currentItem.nakladnayaNumber,
       nakladnayaDate: new Date(currentItem.nakladnayaDate).toLocaleDateString(
         'uk-UA',
@@ -168,6 +166,7 @@ export default function NaklShow({
   const handleRestart = () => {
     setResultFetch(totalResults);
     setFormData(initState);
+    setSearchText('');
   };
 
   const deleteHanler = async (_id: string) => {
@@ -279,14 +278,14 @@ export default function NaklShow({
               <TableHead>
                 <TableRow>
                   <TableCell
+                    align='center'
                     colSpan={
                       headerFields.length ? headerFields.length : undefined
                     }
-                    sx={{ textAlign: 'center' }}
                   >
                     {`${tableHeader} `}
                   </TableCell>
-                  <TableCell colSpan={2}>{` Всего ${
+                  <TableCell align='center' colSpan={4}>{` Всего ${
                     countTotalItems ?? 0
                   }`}</TableCell>
                 </TableRow>
@@ -298,11 +297,29 @@ export default function NaklShow({
                       </TableCell>
                     ))}
 
-                  <TableCell style={{ width: 25 }} align='center'>
+                  <TableCell
+                    sx={{ width: '0.8rem', fontSize: '0.8rem' }}
+                    align='center'
+                  >
+                    print nakl
+                  </TableCell>
+                  <TableCell
+                    sx={{ width: '0.8rem', fontSize: '0.8rem' }}
+                    align='center'
+                  >
+                    print inv
+                  </TableCell>
+                  <TableCell
+                    sx={{ width: '0.8rem', fontSize: '0.8rem' }}
+                    align='center'
+                  >
                     edit
                   </TableCell>
-                  <TableCell style={{ width: 25 }} align='center'>
-                    delete
+                  <TableCell
+                    sx={{ width: '0.8rem', fontSize: '0.8rem' }}
+                    align='center'
+                  >
+                    del
                   </TableCell>
                 </TableRow>
               </TableHead>
@@ -317,17 +334,51 @@ export default function NaklShow({
                           </TableCell>
                         ))}
 
-                      <TableCell align='center'>
+                      <TableCell align='center' sx={{ width: 15 }}>
                         <IconButton
+                          size='small'
+                          component={Link}
+                          href={`${currentURL}/print/nakladnaya/${row._id}`}
+                        >
+                          <PrintIcon
+                            sx={{ width: '1.2rem', fontSize: '1.2rem' }}
+                            color='success'
+                          />
+                        </IconButton>
+                      </TableCell>
+                      <TableCell align='center' sx={{ width: 15 }}>
+                        <IconButton
+                          size='small'
+                          component={Link}
+                          href={`${currentURL}/print/invoice/${row._id}`}
+                        >
+                          <PrintIcon
+                            sx={{ width: '1.2rem', fontSize: '1.2rem' }}
+                            color='success'
+                          />
+                        </IconButton>
+                      </TableCell>
+                      <TableCell align='center' sx={{ width: 15 }}>
+                        <IconButton
+                          size='small'
                           component={Link}
                           href={`${currentURL}/${row._id}`}
                         >
-                          <EditIcon color='primary' />
+                          <EditIcon
+                            sx={{ width: '1.2rem', fontSize: '1.2rem' }}
+                            color='primary'
+                          />
                         </IconButton>
                       </TableCell>
-                      <TableCell align='center'>
-                        <IconButton onClick={() => deleteHanler(row._id)}>
-                          <DeleteForeverIcon color='error' />
+                      <TableCell align='center' sx={{ width: 15 }}>
+                        <IconButton
+                          size='small'
+                          onClick={() => deleteHanler(row._id)}
+                        >
+                          <DeleteForeverIcon
+                            sx={{ width: '1.2rem', fontSize: '1.2rem' }}
+                            color='error'
+                          />
                         </IconButton>
                       </TableCell>
                     </TableRow>

@@ -160,6 +160,7 @@ export default function ClientsShow({
   const handleRestart = () => {
     setResultFetch(totalResults);
     setFormData(initState);
+    setSearchText('');
   };
 
   const deleteHanler = async (_id: string) => {

@@ -155,6 +155,7 @@ export default function WorkersShow({
   const handleRestart = () => {
     setResultFetch(totalResults);
     setFormData(initState);
+    setSearchText('');
   };
 
   const deleteHanler = async (_id: string) => {

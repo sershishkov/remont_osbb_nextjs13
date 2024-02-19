@@ -19,53 +19,65 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
 import SearchIcon from '@mui/icons-material/Search';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import PrintIcon from '@mui/icons-material/Print';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
 import MySelectAutoCompl from '@/components/common/MySelectAutoCompl';
-import MySelectMultipleAutoCompl from '@/components/common/MySelectMultipleAutoCompl';
 import MySpinner from '@/components/common/MySpinner';
 
 const initState = {
-  unit: '',
-  thirdPartyServiceGroup: [],
+  contract: '',
+
+  aktDateStart: '',
+  aktDateEnd: '',
 };
 
 const headerFields = [
-  'Наименование',
-  'ед.изм',
-  'Цена вход',
-  'Группы сторонних сервисов',
+  '№ акта',
+  'Дата',
+
+  'Сумма акта',
+  'Наша Фирма',
+  'Клиент',
+  'Работа',
 ];
 
 const tableFields = [
-  'thirdPartyServiceName',
-  'unit',
-  'priceBuyRecommend',
-  'thirdPartyServiceGroup',
+  'aktOfWorkNumber',
+  'aktOfWorkDate',
+
+  'totalAktSum',
+  'ourFirm',
+  'client',
+  'contractDescription',
 ];
 
 const arrToShow = (enteredArr: any) => {
   const localArr = JSON.parse(JSON.stringify(enteredArr));
   const transformedArr = localArr.map((currentItem: any) => {
-    let arrToString = '';
-    currentItem.thirdPartyServiceGroup.forEach((element: any) => {
-      arrToString += `${element.thirdPartyServiceGroupName}, `;
-    });
-
     return {
       _id: currentItem._id,
-      thirdPartyServiceName: currentItem.thirdPartyServiceName,
-      unit: currentItem.unit.unitName,
-      priceBuyRecommend: currentItem.priceBuyRecommend,
-      thirdPartyServiceGroup: arrToString,
+      aktOfWorkNumber: currentItem.aktOfWorkNumber,
+      aktOfWorkDate: new Date(currentItem.aktOfWorkDate).toLocaleDateString(
+        'uk-UA',
+        {
+          day: '2-digit',
+          month: 'long',
+          year: 'numeric',
+        }
+      ),
+      totalAktSum: currentItem.totalSums.totalAktSum,
+      ourFirm: currentItem.contract.ourFirm.clientShortName,
+      client: currentItem.contract.client.clientShortName,
+      contractDescription: currentItem.contract.contractDescription,
     };
   });
   return transformedArr;
 };
 
-export default function ThirdServShow({
+export default function AktShow({
   currentURL,
   tableHeader,
 }: {
@@ -74,15 +86,19 @@ export default function ThirdServShow({
 }) {
   const [formData, setFormData] = useState(initState);
   const [countTotalItems, setCountTotalItems] = useState(0);
-  const [arr__Units, setArr__Units] = useState([]);
-  const [arr__ThirdPartyServiceGroups, setArr__ThirdPartyServiceGroups] =
-    useState([]);
+
+  const [arr__Contracts, setArr__Contracts] = useState([]);
 
   const [searchText, setSearchText] = useState('');
   const [totalResults, setTotalResults] = useState([]);
   const [resultFetch, setResultFetch] = useState([]);
 
-  const { unit, thirdPartyServiceGroup } = formData;
+  const {
+    contract,
+
+    aktDateStart,
+    aktDateEnd,
+  } = formData;
 
   useEffect(() => {
     const myGetAll = async () => {
@@ -90,17 +106,13 @@ export default function ThirdServShow({
         { page: '0', limit: '0', filter: '' },
         currentURL
       );
-      const units = await get__all(
+
+      const contracts = await get__all(
         { page: '0', limit: '0', filter: '' },
-        '/manager/refdata/unit'
-      );
-      const thirdpartyserviceGroup = await get__all(
-        { page: '0', limit: '0', filter: '' },
-        '/manager/refdata/thirdpartyservice-group'
+        '/manager/refdata/contract'
       );
 
-      setArr__Units(units.items);
-      setArr__ThirdPartyServiceGroups(thirdpartyserviceGroup.items);
+      setArr__Contracts(contracts.items);
 
       setCountTotalItems(getTotalItems.total);
       setTotalResults(arrToShow(getTotalItems.items));
@@ -117,6 +129,12 @@ export default function ThirdServShow({
 
   const onChangeSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.target.value);
+  };
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
   };
 
   const handleChangeSelects = (
@@ -136,8 +154,9 @@ export default function ThirdServShow({
         limit: '0',
         filter: searchText,
 
-        unit: unit,
-        thirdPartyServiceGroup: thirdPartyServiceGroup,
+        aktDateStart: aktDateStart,
+        aktDateEnd: aktDateEnd,
+        contract: contract,
       },
       currentURL
     );
@@ -189,27 +208,43 @@ export default function ThirdServShow({
               onChange={onChangeSearch}
             />
           </Grid>
-          <Grid item sx={{ width: 120 }}>
-            <MySelectAutoCompl
-              selectName={`unit`}
-              selectLabel={`Ед.изм`}
-              fieldToShow={`unitName`}
-              handleChangeSelects={handleChangeSelects}
-              selectedOption={unit ?? ''}
-              // @ts-ignore
-              arrToSelect={arr__Units}
+          <Grid item sx={{ width: 150 }}>
+            <TextField
+              margin='normal'
+              // required
+              fullWidth
+              name='aktDateStart'
+              label='Дата старт'
+              type='date'
+              id='aktDateStart'
+              value={aktDateStart ?? ''}
+              onChange={onChange}
+              InputLabelProps={{ shrink: true }}
             />
           </Grid>
-
-          <Grid item sx={{ width: 200 }}>
-            <MySelectMultipleAutoCompl
-              selectName={`thirdPartyServiceGroup`}
-              selectLabel={`Группы сторонних сервисов`}
-              fieldToShow={`thirdPartyServiceGroupName`}
-              handleChangeMultipleSelects={handleChangeSelects}
-              selectedOptions={thirdPartyServiceGroup ?? []}
+          <Grid item sx={{ width: 150 }}>
+            <TextField
+              margin='normal'
+              // required
+              fullWidth
+              name='aktDateEnd'
+              label='Дата финиш'
+              type='date'
+              id='aktDateEnd'
+              value={aktDateEnd ?? ''}
+              onChange={onChange}
+              InputLabelProps={{ shrink: true }}
+            />
+          </Grid>
+          <Grid item sx={{ width: 300 }}>
+            <MySelectAutoCompl
+              selectName={`contract`}
+              selectLabel={`Контракты`}
+              fieldToShow={`contractDescription`}
+              handleChangeSelects={handleChangeSelects}
+              selectedOption={contract ?? ''}
               // @ts-ignore
-              arrToSelect={arr__ThirdPartyServiceGroups}
+              arrToSelect={arr__Contracts}
             />
           </Grid>
 
@@ -228,6 +263,7 @@ export default function ThirdServShow({
           </Grid>
         </Grid>
       </Grid>
+
       {!resultFetch || resultFetch?.length === 0 ? (
         <MySpinner />
       ) : (
@@ -242,14 +278,14 @@ export default function ThirdServShow({
               <TableHead>
                 <TableRow>
                   <TableCell
+                    align='center'
                     colSpan={
                       headerFields.length ? headerFields.length : undefined
                     }
-                    sx={{ textAlign: 'center' }}
                   >
                     {`${tableHeader} `}
                   </TableCell>
-                  <TableCell colSpan={2}>{` Всего ${
+                  <TableCell align='center' colSpan={4}>{` Всего ${
                     countTotalItems ?? 0
                   }`}</TableCell>
                 </TableRow>
@@ -261,11 +297,29 @@ export default function ThirdServShow({
                       </TableCell>
                     ))}
 
-                  <TableCell style={{ width: 25 }} align='center'>
+                  <TableCell
+                    sx={{ width: '0.8rem', fontSize: '0.8rem' }}
+                    align='center'
+                  >
+                    print akt
+                  </TableCell>
+                  <TableCell
+                    sx={{ width: '0.8rem', fontSize: '0.8rem' }}
+                    align='center'
+                  >
+                    print inv
+                  </TableCell>
+                  <TableCell
+                    sx={{ width: '0.8rem', fontSize: '0.8rem' }}
+                    align='center'
+                  >
                     edit
                   </TableCell>
-                  <TableCell style={{ width: 25 }} align='center'>
-                    delete
+                  <TableCell
+                    sx={{ width: '0.8rem', fontSize: '0.8rem' }}
+                    align='center'
+                  >
+                    del
                   </TableCell>
                 </TableRow>
               </TableHead>
@@ -280,17 +334,51 @@ export default function ThirdServShow({
                           </TableCell>
                         ))}
 
-                      <TableCell align='center'>
+                      <TableCell align='center' sx={{ width: 15 }}>
                         <IconButton
+                          size='small'
+                          component={Link}
+                          href={`${currentURL}/print/akt/${row._id}`}
+                        >
+                          <PrintIcon
+                            sx={{ width: '1.2rem', fontSize: '1.2rem' }}
+                            color='success'
+                          />
+                        </IconButton>
+                      </TableCell>
+                      <TableCell align='center' sx={{ width: 15 }}>
+                        <IconButton
+                          size='small'
+                          component={Link}
+                          href={`${currentURL}/print/invoice/${row._id}`}
+                        >
+                          <PrintIcon
+                            sx={{ width: '1.2rem', fontSize: '1.2rem' }}
+                            color='success'
+                          />
+                        </IconButton>
+                      </TableCell>
+                      <TableCell align='center' sx={{ width: 15 }}>
+                        <IconButton
+                          size='small'
                           component={Link}
                           href={`${currentURL}/${row._id}`}
                         >
-                          <EditIcon color='primary' />
+                          <EditIcon
+                            sx={{ width: '1.2rem', fontSize: '1.2rem' }}
+                            color='primary'
+                          />
                         </IconButton>
                       </TableCell>
-                      <TableCell align='center'>
-                        <IconButton onClick={() => deleteHanler(row._id)}>
-                          <DeleteForeverIcon color='error' />
+                      <TableCell align='center' sx={{ width: 15 }}>
+                        <IconButton
+                          size='small'
+                          onClick={() => deleteHanler(row._id)}
+                        >
+                          <DeleteForeverIcon
+                            sx={{ width: '1.2rem', fontSize: '1.2rem' }}
+                            color='error'
+                          />
                         </IconButton>
                       </TableCell>
                     </TableRow>

@@ -103,22 +103,52 @@ export const GET = async (request: NextRequest) => {
   const url = new URL(request.url);
   const page = parseInt(url.searchParams.get('page') ?? '0');
   const pageSize = parseInt(url.searchParams.get('limit') ?? '0');
-  const filterSTR = url.searchParams.get('filter') ?? '';
   const skip = (page - 1) * pageSize;
+
+  const filterSTR = url.searchParams.get('filter') ?? '';
+
+  const contract = url.searchParams.get('contract') ?? '';
+  const aktDateStart = url.searchParams.get('aktDateStart') ?? '';
+  const aktDateEnd = url.searchParams.get('aktDateEnd') ?? '';
+
   let filterObject = {};
+  const andArr = [];
+
+  if (filterSTR) {
+    const myRegex = { $regex: filterSTR, $options: 'i' };
+
+    const orObject = {
+      $or: [
+        {
+          aktOfWorkNumber: myRegex,
+        },
+      ],
+    };
+
+    andArr.push(orObject);
+  }
+
+  if (contract) {
+    andArr.push({ contract: contract });
+  }
+
+  if (aktDateStart && aktDateEnd) {
+    andArr.push({
+      aktOfWorkDate: {
+        $gte: new Date(aktDateStart),
+        $lte: new Date(aktDateEnd),
+      },
+    });
+  }
+
+  if (andArr.length > 0) {
+    filterObject = {
+      $and: andArr,
+    };
+  }
 
   try {
     await connectToDB();
-
-    const myRegex = { $regex: filterSTR ?? '', $options: 'i' };
-
-    filterObject = {
-      $or: [
-        { aktOfWorkNumber: myRegex },
-        { 'contract.ourFirm.clientShortName': myRegex },
-        { 'contract.client.clientShortName': myRegex },
-      ],
-    };
 
     const total: number = await Model__DocumentAkt.countDocuments({});
     const totalPages: number =
