@@ -104,22 +104,52 @@ export const GET = async (request: NextRequest) => {
   const url = new URL(request.url);
   const page = parseInt(url.searchParams.get('page') ?? '0');
   const pageSize = parseInt(url.searchParams.get('limit') ?? '0');
-  const filterSTR = url.searchParams.get('filter') ?? '';
   const skip = (page - 1) * pageSize;
+
+  const filterSTR = url.searchParams.get('filter') ?? '';
+
+  const contract = url.searchParams.get('contract') ?? '';
+  const naklDateStart = url.searchParams.get('naklDateStart') ?? '';
+  const naklDateEnd = url.searchParams.get('naklDateEnd') ?? '';
+
   let filterObject = {};
+  const andArr = [];
+
+  if (filterSTR) {
+    const myRegex = { $regex: filterSTR, $options: 'i' };
+
+    const orObject = {
+      $or: [
+        {
+          nakladnayaNumber: myRegex,
+        },
+      ],
+    };
+
+    andArr.push(orObject);
+  }
+
+  if (contract) {
+    andArr.push({ contract: contract });
+  }
+
+  if (naklDateStart && naklDateEnd) {
+    andArr.push({
+      nakladnayaDate: {
+        $gte: new Date(naklDateStart),
+        $lte: new Date(naklDateEnd),
+      },
+    });
+  }
+
+  if (andArr.length > 0) {
+    filterObject = {
+      $and: andArr,
+    };
+  }
 
   try {
     await connectToDB();
-
-    const myRegex = { $regex: filterSTR ?? '', $options: 'i' };
-
-    filterObject = {
-      $or: [
-        { nakladnayaNumber: myRegex },
-        { 'contract.ourFirm.clientShortName': myRegex },
-        { 'contract.client.clientShortName': myRegex },
-      ],
-    };
 
     const total: number = await DocumentNakladnaya.countDocuments({});
     const totalPages: number =
