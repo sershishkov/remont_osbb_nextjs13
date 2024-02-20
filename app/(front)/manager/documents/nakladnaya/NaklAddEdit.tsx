@@ -24,6 +24,7 @@ import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
+import PrintIcon from '@mui/icons-material/Print';
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
@@ -399,6 +400,7 @@ function NaklAddEdit({
           </Grid>
           <Grid item sx={{ display: mode === 'edit' ? 'block' : 'none' }}>
             <Button
+              startIcon={<PrintIcon />}
               component={Link}
               href={`${currentURL}/print/nakladnaya/${id}`}
               fullWidth
@@ -414,11 +416,12 @@ function NaklAddEdit({
               }
               variant='contained'
             >
-              Печать накладная
+              накладная
             </Button>
           </Grid>
           <Grid item sx={{ display: mode === 'edit' ? 'block' : 'none' }}>
             <Button
+              startIcon={<PrintIcon />}
               component={Link}
               href={`${currentURL}/print/invoice/${id}`}
               fullWidth
@@ -434,7 +437,7 @@ function NaklAddEdit({
               }
               variant='contained'
             >
-              Печать Счет
+              Счет
             </Button>
           </Grid>
         </Grid>

@@ -1,7 +1,9 @@
 'use client';
 import React, { useState, useEffect } from 'react';
+import { useSession } from 'next-auth/react';
 
 import { get__all, delete__one } from '@/lib/actions/refdata.actions';
+import { accountant_role } from '@/constants/constants';
 
 import Link from '@mui/material/Link';
 
@@ -72,6 +74,7 @@ const arrToShow = (enteredArr: any) => {
       ourFirm: currentItem.contract.ourFirm.clientShortName,
       client: currentItem.contract.client.clientShortName,
       contractDescription: currentItem.contract.contractDescription,
+      creator: currentItem.creator,
     };
   });
   return transformedArr;
@@ -84,6 +87,9 @@ export default function NaklShow({
   readonly currentURL: string;
   readonly tableHeader: string;
 }) {
+  const session = useSession();
+  const user = session?.data?.user;
+
   const [formData, setFormData] = useState(initState);
   const [countTotalItems, setCountTotalItems] = useState(0);
 
@@ -301,13 +307,13 @@ export default function NaklShow({
                     sx={{ width: '0.8rem', fontSize: '0.8rem' }}
                     align='center'
                   >
-                    print nakl
+                    nakl
                   </TableCell>
                   <TableCell
                     sx={{ width: '0.8rem', fontSize: '0.8rem' }}
                     align='center'
                   >
-                    print inv
+                    inv
                   </TableCell>
                   <TableCell
                     sx={{ width: '0.8rem', fontSize: '0.8rem' }}
@@ -360,6 +366,10 @@ export default function NaklShow({
                       </TableCell>
                       <TableCell align='center' sx={{ width: 15 }}>
                         <IconButton
+                          disabled={
+                            user?._id !== row.creator ||
+                            !accountant_role.includes(user?.role!)
+                          }
                           size='small'
                           component={Link}
                           href={`${currentURL}/${row._id}`}
@@ -372,6 +382,10 @@ export default function NaklShow({
                       </TableCell>
                       <TableCell align='center' sx={{ width: 15 }}>
                         <IconButton
+                          disabled={
+                            user?._id !== row.creator ||
+                            !accountant_role.includes(user?.role!)
+                          }
                           size='small'
                           onClick={() => deleteHanler(row._id)}
                         >
