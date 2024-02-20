@@ -21,6 +21,7 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
+import PrintIcon from '@mui/icons-material/Print';
 
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
@@ -28,6 +29,7 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
 import Switch from '@mui/material/Switch';
+import Link from '@mui/material/Link';
 
 import MySelectAutoCompl from '@/components/common/MySelectAutoCompl';
 import { accountant_role } from '@/constants/constants';
@@ -53,6 +55,8 @@ const initState = {
   paymentSource: '',
   responsibleManager: '',
   responsibleWorker: '',
+  guaranteePeriod: '12',
+  prepaymentPercentage: '70',
 };
 
 export interface ILocalParticipant {
@@ -118,6 +122,8 @@ function ContractAddEdit({
     paymentSource,
     responsibleManager,
     responsibleWorker,
+    guaranteePeriod,
+    prepaymentPercentage,
   } = formData;
 
   const {
@@ -219,6 +225,8 @@ function ContractAddEdit({
 
             contractDescription: item.contractDescription!,
             workAddress: item.workAddress!,
+            guaranteePeriod: item.guaranteePeriod,
+            prepaymentPercentage: item.prepaymentPercentage.toFixed(2),
             //@ts-ignore
             contractType: item.contractType!._id.toString(),
             //@ts-ignore
@@ -317,6 +325,9 @@ function ContractAddEdit({
       responsibleManager,
       responsibleWorker,
       participantsOfContract: [mainParticipant, ...actualOtherParticipants],
+
+      guaranteePeriod,
+      prepaymentPercentage: Number(prepaymentPercentage),
 
       isMeasured,
       isEstimateCalculated,
@@ -438,19 +449,76 @@ function ContractAddEdit({
       autoComplete='off'
     >
       <Grid item className='item item-heading'>
-        <Typography variant='h3' align='center'>
-          {title}
-        </Typography>
+        <Grid
+          container
+          direction={`row`}
+          justifyContent={`space-between`}
+          alignItems={`center`}
+        >
+          <Grid item>
+            <Typography variant='body2' align='center'>
+              {title}
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Button
+              type='submit'
+              fullWidth
+              disabled={
+                !contractNumber ||
+                !ourFirm ||
+                !client ||
+                !contractDate ||
+                !contractDescription ||
+                !workAddress ||
+                !contractType ||
+                !paymentSource ||
+                !responsibleManager ||
+                !responsibleWorker ||
+                mainParticipantSum < 0
+              }
+              variant='contained'
+            >
+              Сохранить
+            </Button>
+          </Grid>
+          <Grid item sx={{ display: mode === 'edit' ? 'block' : 'none' }}>
+            <Button
+              startIcon={<PrintIcon />}
+              component={Link}
+              href={`${currentURL}/print/contract/${id}`}
+              fullWidth
+              size='small'
+              color='success'
+              variant='contained'
+            >
+              Договор
+            </Button>
+          </Grid>
+          <Grid item sx={{ display: mode === 'edit' ? 'block' : 'none' }}>
+            <Button
+              startIcon={<PrintIcon />}
+              component={Link}
+              href={`${currentURL}/print/koshtoris/${id}`}
+              fullWidth
+              size='small'
+              color='success'
+              variant='contained'
+            >
+              Кошторис
+            </Button>
+          </Grid>
+        </Grid>
       </Grid>
       <Grid item>
         <Grid
           container
           direction={`row`}
-          justifyContent={`flex-start`}
+          justifyContent={`space-between`}
           alignItems={`center`}
-          spacing={2}
+          spacing={1}
         >
-          <Grid item>
+          <Grid item sx={{ width: 150 }}>
             <TextField
               margin='normal'
               required
@@ -463,7 +531,8 @@ function ContractAddEdit({
               onChange={onChange}
             />
           </Grid>
-          <Grid item>
+
+          <Grid item sx={{ width: 150 }}>
             <TextField
               margin='normal'
               required
@@ -477,10 +546,36 @@ function ContractAddEdit({
               InputLabelProps={{ shrink: true }}
             />
           </Grid>
-          <Grid item sx={{ minWidth: 230 }}>
+          <Grid item sx={{ width: 100 }}>
+            <TextField
+              margin='normal'
+              required
+              fullWidth
+              name='guaranteePeriod'
+              label='Гаранития (мес)'
+              type='number'
+              id='guaranteePeriod'
+              value={guaranteePeriod ?? ''}
+              onChange={onChange}
+            />
+          </Grid>
+          <Grid item sx={{ width: 100 }}>
+            <TextField
+              margin='normal'
+              required
+              fullWidth
+              name='prepaymentPercentage'
+              label='Предопл(%)'
+              type='number'
+              id='prepaymentPercentage'
+              value={prepaymentPercentage ?? ''}
+              onChange={onChange}
+            />
+          </Grid>
+          <Grid item sx={{ width: 200 }}>
             <Stack
               direction='row'
-              spacing={2}
+              spacing={1}
               alignItems={`center`}
               // direction={{ xs: 'column', sm: 'row' }}
             >
@@ -503,10 +598,10 @@ function ContractAddEdit({
               </IconButton>
             </Stack>
           </Grid>
-          <Grid item sx={{ minWidth: 230 }}>
+          <Grid item sx={{ width: 200 }}>
             <Stack
               direction='row'
-              spacing={2}
+              spacing={1}
               // direction={{ xs: 'column', sm: 'row' }}
             >
               <MySelectAutoCompl
@@ -529,10 +624,10 @@ function ContractAddEdit({
             </Stack>
           </Grid>
 
-          <Grid item sx={{ minWidth: 300 }}>
+          <Grid item sx={{ width: 200 }}>
             <Stack
               direction='row'
-              spacing={2}
+              spacing={1}
               alignItems={`center`}
               // direction={{ xs: 'column', sm: 'row' }}
             >
@@ -555,10 +650,10 @@ function ContractAddEdit({
               </Typography>
             </Stack>
           </Grid>
-          <Grid item sx={{ minWidth: 300 }}>
+          <Grid item sx={{ width: 200 }}>
             <Stack
               direction='row'
-              spacing={2}
+              spacing={1}
               // direction={{ xs: 'column', sm: 'row' }}
             >
               <MySelectAutoCompl
@@ -591,7 +686,7 @@ function ContractAddEdit({
           alignItems={`center`}
           spacing={2}
         >
-          <Grid item sx={{ flex: 1 }}>
+          <Grid item xs={6}>
             <MySelectAutoCompl
               selectName={`ourFirm`}
               selectLabel={`Наша фирма`}
@@ -603,7 +698,7 @@ function ContractAddEdit({
             />
           </Grid>
 
-          <Grid item sx={{ flex: 1 }}>
+          <Grid item xs={6}>
             <Stack
               direction='row'
               spacing={2}
@@ -637,7 +732,7 @@ function ContractAddEdit({
           alignItems={`center`}
           spacing={2}
         >
-          <Grid item sx={{ flex: 1 }}>
+          <Grid item xs={6}>
             <TextField
               margin='normal'
               multiline
@@ -652,7 +747,7 @@ function ContractAddEdit({
             />
           </Grid>
 
-          <Grid item sx={{ flex: 1 }}>
+          <Grid item xs={6}>
             <TextField
               margin='normal'
               multiline
@@ -683,10 +778,14 @@ function ContractAddEdit({
               alignItems='center'
               spacing={2}
             >
-              <Typography variant='h3' align='center'>
+              <Typography variant='h6' align='center'>
                 Другие участники сделки
               </Typography>
-              <Button onClick={addParticipant} variant='contained'>
+              <Button
+                onClick={addParticipant}
+                variant='contained'
+                color='success'
+              >
                 Добавить участника
               </Button>
               <Typography
@@ -888,29 +987,7 @@ function ContractAddEdit({
         </FormControl>
       </Grid>
 
-      <Grid item>
-        <Button
-          type='submit'
-          fullWidth
-          disabled={
-            !contractNumber ||
-            !ourFirm ||
-            !client ||
-            !contractDate ||
-            !contractDescription ||
-            !workAddress ||
-            !contractType ||
-            !paymentSource ||
-            !responsibleManager ||
-            !responsibleWorker ||
-            mainParticipantSum < 0
-          }
-          variant='contained'
-          sx={{ mt: 3, mb: 2 }}
-        >
-          Сохранить
-        </Button>
-      </Grid>
+      <Grid item sx={{ width: '100%' }}></Grid>
     </Grid>
   );
 }

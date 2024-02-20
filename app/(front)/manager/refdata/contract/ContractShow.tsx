@@ -21,6 +21,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
 import SearchIcon from '@mui/icons-material/Search';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import PrintIcon from '@mui/icons-material/Print';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -444,7 +445,7 @@ export default function ContractShow({
                   >
                     {`${tableHeader} `}
                   </TableCell>
-                  <TableCell colSpan={2}>{` Всего ${
+                  <TableCell colSpan={4}>{` Всего ${
                     countTotalItems ?? 0
                   }`}</TableCell>
                 </TableRow>
@@ -456,11 +457,29 @@ export default function ContractShow({
                       </TableCell>
                     ))}
 
-                  <TableCell style={{ width: 25 }} align='center'>
+                  <TableCell
+                    sx={{ width: '0.8rem', fontSize: '0.8rem' }}
+                    align='center'
+                  >
+                    Дог
+                  </TableCell>
+                  <TableCell
+                    sx={{ width: '0.8rem', fontSize: '0.8rem' }}
+                    align='center'
+                  >
+                    кошт
+                  </TableCell>
+                  <TableCell
+                    sx={{ width: '0.8rem', fontSize: '0.8rem' }}
+                    align='center'
+                  >
                     edit
                   </TableCell>
-                  <TableCell style={{ width: 25 }} align='center'>
-                    delete
+                  <TableCell
+                    sx={{ width: '0.8rem', fontSize: '0.8rem' }}
+                    align='center'
+                  >
+                    del
                   </TableCell>
                 </TableRow>
               </TableHead>
@@ -475,17 +494,51 @@ export default function ContractShow({
                           </TableCell>
                         ))}
 
-                      <TableCell align='center'>
+                      <TableCell align='center' sx={{ width: 15 }}>
                         <IconButton
+                          size='small'
+                          component={Link}
+                          href={`${currentURL}/print/contract/${row._id}`}
+                        >
+                          <PrintIcon
+                            sx={{ width: '1.2rem', fontSize: '1.2rem' }}
+                            color='success'
+                          />
+                        </IconButton>
+                      </TableCell>
+                      <TableCell align='center' sx={{ width: 15 }}>
+                        <IconButton
+                          size='small'
+                          component={Link}
+                          href={`${currentURL}/print/koshtoris/${row._id}`}
+                        >
+                          <PrintIcon
+                            sx={{ width: '1.2rem', fontSize: '1.2rem' }}
+                            color='success'
+                          />
+                        </IconButton>
+                      </TableCell>
+                      <TableCell align='center' sx={{ width: 15 }}>
+                        <IconButton
+                          size='small'
                           component={Link}
                           href={`${currentURL}/${row._id}`}
                         >
-                          <EditIcon color='primary' />
+                          <EditIcon
+                            sx={{ width: '1.2rem', fontSize: '1.2rem' }}
+                            color='primary'
+                          />
                         </IconButton>
                       </TableCell>
-                      <TableCell align='center'>
-                        <IconButton onClick={() => deleteHanler(row._id)}>
-                          <DeleteForeverIcon color='error' />
+                      <TableCell align='center' sx={{ width: 15 }}>
+                        <IconButton
+                          size='small'
+                          onClick={() => deleteHanler(row._id)}
+                        >
+                          <DeleteForeverIcon
+                            sx={{ width: '1.2rem', fontSize: '1.2rem' }}
+                            color='error'
+                          />
                         </IconButton>
                       </TableCell>
                     </TableRow>

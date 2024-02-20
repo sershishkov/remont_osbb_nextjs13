@@ -21,7 +21,7 @@ import Grid from '@mui/material/Grid';
 
 import Typography from '@mui/material/Typography';
 
-import classes from './styles.module.css';
+import classes from './styles.module.scss';
 
 function InvoiceToPrint({
   nakladnayaNumber,

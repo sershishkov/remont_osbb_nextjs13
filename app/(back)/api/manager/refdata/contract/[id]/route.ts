@@ -111,6 +111,9 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
     responsibleWorker,
     participantsOfContract,
 
+    guaranteePeriod,
+    prepaymentPercentage,
+
     isMeasured,
     isEstimateCalculated,
     isEstimateHasBeenSentToClient,
@@ -142,6 +145,9 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
       responsibleManager,
       responsibleWorker,
       participantsOfContract,
+
+      guaranteePeriod,
+      prepaymentPercentage,
 
       isMeasured,
       isEstimateCalculated,

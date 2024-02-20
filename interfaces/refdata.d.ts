@@ -210,6 +210,9 @@ export interface I_Contract {
     participantPercentage: Number;
   }[];
 
+  guaranteePeriod: string;
+  prepaymentPercentage: number;
+
   isMeasured: boolean;
   isEstimateCalculated: boolean;
   isEstimateHasBeenSentToClient: boolean;

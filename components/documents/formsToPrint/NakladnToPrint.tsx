@@ -16,7 +16,7 @@ import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-import classes from './styles.module.css';
+import classes from './styles.module.scss';
 
 function NakladnToPrint({
   nakladnayaNumber,

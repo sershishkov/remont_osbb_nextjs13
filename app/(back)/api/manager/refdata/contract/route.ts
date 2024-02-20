@@ -24,6 +24,9 @@ export const POST = async (request: NextRequest) => {
     responsibleWorker,
     participantsOfContract,
 
+    guaranteePeriod,
+    prepaymentPercentage,
+
     isMeasured,
     isEstimateCalculated,
     isEstimateHasBeenSentToClient,
@@ -89,6 +92,9 @@ export const POST = async (request: NextRequest) => {
       responsibleManager,
       responsibleWorker,
       participantsOfContract,
+
+      guaranteePeriod,
+      prepaymentPercentage,
 
       isMeasured,
       isEstimateCalculated,

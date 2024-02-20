@@ -63,6 +63,15 @@ const contract__Schema = new Schema<I_Contract>(
         },
       },
     ],
+
+    guaranteePeriod: {
+      type: String,
+      default: '12',
+    },
+    prepaymentPercentage: {
+      type: Number,
+      default: 70,
+    },
     isMeasured: {
       type: Boolean,
       default: false,

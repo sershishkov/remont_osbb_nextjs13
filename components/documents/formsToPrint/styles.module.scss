@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Gupter:wght@400;500;700&family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+.page {
+  width: 210mm;
+  min-height: 297mm;
+  padding: 5mm 10mm 5mm 20mm;
+  background: white;
+  color: black;
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  ul,
+  ol {
+    color: black;
+    font-family: 'Tinos', serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+}
+
+@page {
+  size: A4 portrait;
+}
+@page :first {
+  margin-top: 0;
+}
+
+@media print {
+  .page {
+    width: 210mm;
+    padding: 5mm 10mm 5mm 20mm;
+    min-height: initial;
+    background: initial;
+    p,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    ul,
+    ol {
+      color: black;
+      font-family: 'Tinos', serif;
+      font-weight: 400;
+      font-style: normal;
+    }
+  }
+}
