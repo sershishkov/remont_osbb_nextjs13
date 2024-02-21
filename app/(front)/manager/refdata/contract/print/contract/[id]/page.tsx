@@ -106,8 +106,8 @@ export default function ContractPrint({ params }: Readonly<paramsProps>) {
         currentContractType={currentContractType}
         currentOurFirm={currentOurFirm!}
         currentClient={currentClient!}
-        naklSum={naklSum}
-        aktSum={aktSum}
+        naklSum={naklSum ?? 0}
+        aktSum={aktSum ?? 0}
       />
     );
   }

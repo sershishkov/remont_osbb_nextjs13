@@ -1,9 +1,12 @@
 import React from 'react';
 import { I_Contract, I_Client } from '@/interfaces/refdata';
-import classes from './styles.module.scss';
+import { arr__TypeOfOSBB } from '@/constants/constants';
+import { FloatToSamplesInWordsUkr } from '@/lib/helpers/myPropisUkr';
 
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
+
+import classes from './styles.module.scss';
 
 export default function BaseContractPrint({
   currentContract,
@@ -20,10 +23,191 @@ export default function BaseContractPrint({
   naklSum: number;
   aktSum: number;
 }>) {
+  const contrNumber = currentContract?.contractNumber;
+  const contrDateStr = new Date(
+    currentContract?.contractDate ?? ''
+  ).toLocaleDateString('uk-UA', {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric',
+  });
+  //@ts-ignore
+  const clientType = currentClient?.firmType?.firmTypeShortName;
+  //@ts-ignore
+  const executorType = currentOurFirm?.firmType?.firmTypeShortName;
+
+  let clientPreambula = '';
+  let executorPreambula = '';
+  if (clientType === 'Фізична особа' || clientType === 'ФОП') {
+    //@ts-ignore
+    clientPreambula = ` ${currentClient?.firmType?.firmTypeLongName!} «${
+      currentClient.clientLongName
+    }», надалі іменується «ЗАМОВНИК», та`;
+  } else {
+    //@ts-ignore
+    clientPreambula = ` ${currentClient?.firmType?.firmTypeLongName!} «${
+      currentClient?.clientLongName
+    }», в особі ${currentClient?.jobTitle_rodit} ${
+      currentClient?.lastName_rodit
+    } ${currentClient?.firstName_rodit} ${
+      currentClient?.patronymic_rodit
+    }, що діє на підставі ${
+      currentClient?.whichActsOnTheBasis
+    }, надалі іменується «ЗАМОВНИК», та`;
+  }
+
+  const injectPhrase = arr__TypeOfOSBB.includes(clientType)
+    ? 'у житловому будинку за адресою: '
+    : ' за адресою:';
+  const workAddress = currentContract?.workAddress;
+  const contractDescription = `${currentContract?.contractDescription} ${injectPhrase} ${workAddress}`;
+  //@ts-ignore
+  const ourTaxationType = currentOurFirm?.taxationType?.taxationTypeName;
+
+  if (executorType === 'ФОП') {
+    //@ts-ignore
+    executorPreambula = ` ${currentOurFirm?.firmType?.firmTypeShortName!} «${
+      currentOurFirm?.clientLongName
+    }» , надалі іменується «ВИКОНАВЕЦЬ», що діє на підставі ${
+      currentOurFirm?.certificateNumber
+    } ${
+      currentOurFirm?.representedBy
+    }, ${ourTaxationType}, з іншого боку, кожна окремо - Сторона, а разом – Сторони уклали даний Договір про наступне:`;
+  } else if (executorType === 'Фізична особа') {
+    //@ts-ignore
+    executorPreambula = ` ${currentOurFirm?.firmType?.firmTypeLongName!} «${
+      currentOurFirm?.clientLongName
+    }», з іншого боку, кожна окремо - Сторона, а разом – Сторони уклали даний Договір про наступне:`;
+  } else {
+    //@ts-ignore
+    executorPreambula = ` ${currentOurFirm?.firmType?.firmTypeShortName!} «${
+      currentOurFirm?.clientLongName
+    }» , надалі іменується « ВИКОНАВЕЦЬ » в особі ${
+      currentOurFirm?.jobTitle_rodit
+    } ${currentOurFirm?.lastName_rodit} ${currentOurFirm?.firstName_rodit} ${
+      currentOurFirm?.patronymic_rodit
+    }, що діє на підставі ${
+      currentOurFirm?.whichActsOnTheBasis
+    }, ${ourTaxationType}, з іншого боку, кожна окремо - Сторона, а разом – Сторони уклали даний Договір про наступне: `;
+  }
+
+  const prepaymentPercentage = currentContract?.prepaymentPercentage;
+  const totalSum = naklSum + aktSum;
+  const prePayPercentSum =
+    Math.round(
+      ((totalSum * prepaymentPercentage) / 100 + Number.EPSILON) * 100
+    ) / 100;
+  const restPrePayPercentSum =
+    Math.round((totalSum - prePayPercentSum + Number.EPSILON) * 100) / 100;
+
+  const totalSumPropis = FloatToSamplesInWordsUkr(totalSum);
+
+  const prePayNaklSumPropis = FloatToSamplesInWordsUkr(naklSum);
+  const restPrePayNaklSumPropis = FloatToSamplesInWordsUkr(aktSum);
+
+  const prePayPercentSumPropis = FloatToSamplesInWordsUkr(
+    isNaN(prePayPercentSum) ? 0 : prePayPercentSum
+  );
+  const restPrePayPercentSumPropis = FloatToSamplesInWordsUkr(
+    isNaN(restPrePayPercentSum) ? 0 : restPrePayPercentSum
+  );
+
+  const arr__totalSum = totalSum.toFixed(2).split('.');
+  const arr__prePayPercentSum = prePayPercentSum.toFixed(2).split('.');
+  const arr__restPrePayPercentSum = restPrePayPercentSum.toFixed(2).split('.');
+  const arr__naklSum = naklSum.toFixed(2).split('.');
+  const arr__aktSum = aktSum.toFixed(2).split('.');
+
+  let p2_1 = '';
+  let p2_2 = '';
+  let p2_2_1 = '';
+  let p2_2_2 = '';
+
+  if (currentContractType === 'Общий') {
+    p2_1 = `2.1. Оплата за надані послуги та матерiали відбувається згідно актів виконаних робіт, видаткових накладных або наданих рахунків ВИКОНАВЦЯ. Вартість послуг визначається згідно обсягу наданих послуг.`;
+    p2_2 = `2.2. Оплата здійснюється ЗАМОВНИКОМ шляхом перерахування на розрахунковий рахунок ВИКОНАВЦЯ коштів протягом 3 банківських днів після дати підписання акту виконаних робіт.`;
+  } else {
+    p2_1 = `2.1. Вартість послуг складає  ${arr__totalSum[0]} грн ${arr__totalSum[1]} коп (${totalSumPropis}), без ПДВ.`;
+  }
+
+  if (currentContractType === 'Сумма') {
+    p2_2 = `2.2. Оплата здійснюється ЗАМОВНИКОМ шляхом перерахування на розрахунковий рахунок ВИКОНАВЦЯ коштів протягом 3 банківських днів після дати підписання акту виконаних робіт.`;
+  }
+  if (
+    currentContractType === 'Предоплата' ||
+    currentContractType === 'Частичная предоплата'
+  ) {
+    p2_2 = `2.2. Оплата здійснюється ЗАМОВНИКОМ шляхом перерахування на розрахунковий рахунок ВИКОНАВЦЯ коштів:`;
+    p2_2_1 = `2.2.1. Попередньої оплати, яка надається ВИКОНАВЕЦЮ , у розмірі (${prepaymentPercentage})% ${arr__prePayPercentSum[0]} грн ${arr__prePayPercentSum[1]} коп (${prePayPercentSumPropis} ), без ПДВ.`;
+    if (restPrePayPercentSum > 0) {
+      p2_2_2 = `2.2.2. Остаточна оплата по даному Договору, у розмірі (${
+        100 - prepaymentPercentage
+      })% ${arr__restPrePayPercentSum[0]} грн ${
+        arr__restPrePayPercentSum[1]
+      } коп (${restPrePayPercentSumPropis}), без ПДВ. здійснюється протягом 3 банківських днів після дати підписання акту виконаних робіт.`;
+    }
+  }
+
+  if (currentContractType === 'Частичная предоплата материал') {
+    p2_2 = `2.2. Оплата здійснюється ЗАМОВНИКОМ шляхом перерахування на розрахунковий рахунок ВИКОНАВЦЯ коштів:`;
+    p2_2_1 = `   2.2.1. Попередньої оплати, яка надається ВИКОНАВЕЦЮ , у розмірі ${arr__naklSum[0]} грн ${arr__naklSum[1]} коп ${prePayNaklSumPropis} ), без ПДВ.`;
+
+    p2_2_2 = `   2.2.2. Остаточна оплата по даному Договору, у розмірі  ${arr__aktSum[0]} грн ${arr__aktSum[1]} коп (${restPrePayNaklSumPropis}), без ПДВ. здійснюється протягом 3 банківських днів після дати підписання акту виконаних робіт.`;
+  }
+  const guaranteePeriod = currentContract?.guaranteePeriod;
+  //@ts-ignore
+  const clientFirm = `${currentClient?.firmType?.firmTypeShortName} ${currentClient?.clientShortName}`;
+  //@ts-ignore
+  const executorFirm = `${currentOurFirm?.firmType?.firmTypeShortName} ${currentOurFirm?.clientShortName}`;
+  const clientAddress = `${currentClient?.postIndex} ${currentClient?.address}`;
+  const executorAddress = `${currentOurFirm?.postIndex} ${currentOurFirm?.address}`;
+  const clientIBAN = `${currentClient?.iban}`;
+  const executorIBAN = `${currentOurFirm?.iban}`;
+
+  const clientTel = `${
+    currentClient?.telNumber ? `Тел:${currentClient?.telNumber}` : ''
+  }`;
+  const executorTel = `${
+    currentOurFirm?.telNumber ? `Тел:${currentOurFirm?.telNumber}` : ''
+  }`;
+  const clientEmail = `${
+    currentClient?.email ? `email:${currentClient?.email}` : ''
+  }`;
+  const executorEmail = `${
+    currentOurFirm?.email ? `email:${currentOurFirm?.email}` : ''
+  }`;
+  const clientJobTitle = `${currentClient?.jobTitle}`;
+  const executorJobTitle = `${currentOurFirm?.jobTitle}`;
+  const clientShortName = `${
+    currentClient?.firstName_imen
+  } ${currentClient?.lastName_imen?.toLocaleUpperCase()}`;
+  const executorShortName = `${
+    currentOurFirm?.firstName_imen
+  } ${currentOurFirm?.lastName_imen?.toLocaleUpperCase()}`;
+
+  let clientEDRPO;
+  let executorEDRPO;
+
+  if (executorType === 'Фізична особа') {
+    executorEDRPO = `ІПН: ${currentOurFirm?.inn}`;
+  } else if (executorType === 'ФОП') {
+    executorEDRPO = `ЄДРПОУ: ${currentOurFirm?.inn}`;
+  } else {
+    executorEDRPO = `ЄДРПОУ: ${currentOurFirm?.edrpou}`;
+  }
+
+  if (clientType === 'Фізична особа') {
+    clientEDRPO = `ІПН: ${currentClient?.inn}`;
+  } else if (clientType === 'ФОП') {
+    clientEDRPO = `ЄДРПОУ: ${currentClient?.inn}`;
+  } else {
+    clientEDRPO = `ЄДРПОУ: ${currentClient?.edrpou}`;
+  }
+
   return (
     <div className={classes.page} id='page'>
       <Typography variant='h6' align='center'>
-        Договір № 24.01.08.10.17
+        Договір № {contrNumber}
       </Typography>
       <Typography variant='body2' align='center'>
         на виконання ремонтних робіт
@@ -33,35 +217,25 @@ export default function BaseContractPrint({
         direction={`row`}
         justifyContent={`space-between`}
         alignItems={`center`}
+        mb={2}
       >
         <Grid item>
-          <Typography variant='body2'>« 08 » січня 2024 року</Typography>
+          <Typography variant='body2'>{contrDateStr}</Typography>
         </Grid>
         <Grid item>
           <Typography variant='body2'>м. Запоріжжя</Typography>
         </Grid>
       </Grid>
-      <Typography variant='body2'>
-        ОБ&apos;ЄДНАННЯ СПІВВЛАСНИКІВ БАГАТОКВАРТИРНОГО БУДИНКУ « Добробут 35 »
-        , в особі голови правління Троцко Олександра Олексійовича , що діє на
-        підставі Статуту, надалі іменується «ЗАМОВНИК», та
-      </Typography>
-      <Typography variant='body2'>
-        ТОВ «АЗОТЕЯ 2» , надалі іменується « ВИКОНАВЕЦЬ » в особі директора
-        Ткачова Віталія Вікторовича, що діє на підставі Статуту , є платником на
-        прибуток на загальних засадах (без ПДВ)., з іншого боку, кожна окремо -
-        Сторона, а разом – Сторони уклали даний Договір про наступне:{' '}
-      </Typography>
+      <Typography variant='body2'>{clientPreambula}</Typography>
+      <Typography variant='body2'>{executorPreambula}</Typography>
       <Typography variant='body1' align='center'>
         1. ПРЕДМЕТ ДОГОВОРУ
       </Typography>
       <Typography variant='body2'>
         1.1. Згідно цього договору ВИКОНАВЕЦЬ приймає на себе зобов`язання
-        виконувати «Поточний ремонт міжпанельних швів та панелей будинку у
-        житловому будинку за адресою: м.Запоріжжя,вул.Днiпровськi Пороги, 35 »,
-        а ЗАМОВНИК зобов`язується приймати роботу та оплатити її вартість у
-        строки та на умовах, що визначаються цим договором та додатками до
-        нього.{' '}
+        виконувати <strong>«{contractDescription}»</strong> , а ЗАМОВНИК
+        зобов`язується приймати роботу та оплатити її вартість у строки та на
+        умовах, що визначаються цим договором та додатками до нього.{' '}
       </Typography>
       <Typography variant='body2'>
         1.2. Перелік виконаних робот вказуються в Актах виконаних робіт. Акт
@@ -70,14 +244,19 @@ export default function BaseContractPrint({
       <Typography variant='body1' align='center'>
         2. ВАРТІСТЬ РОБІТ ТА ПОРЯДОК РОЗРАХУНКІВ
       </Typography>
-      <Typography variant='body2'>
-        2.1. Вартість послуг складає 16716 грн 82 коп (Шістнадцять тисяч сімсот
-        шістнадцять гривень 82 копійки.), без ПДВ.
+      <Typography variant='body2'>{p2_1}</Typography>
+      <Typography variant='body2'>{p2_2}</Typography>
+      <Typography
+        variant='body2'
+        sx={{ display: p2_2_1 !== '' ? 'block' : 'none' }}
+      >
+        {p2_2_1}
       </Typography>
-      <Typography variant='body2'>
-        2.2. Оплата здійснюється ЗАМОВНИКОМ шляхом перерахування на
-        розрахунковий рахунок ВИКОНАВЦЯ коштів протягом 3 банківських днів після
-        дати підписання акту виконаних робіт.
+      <Typography
+        variant='body2'
+        sx={{ display: p2_2_2 !== '' ? 'block' : 'none' }}
+      >
+        {p2_2_2}
       </Typography>
       <Typography variant='body2'>
         2.3. Датою здійснення платежу є дата списання коштів з поточного рахунку
@@ -179,8 +358,8 @@ export default function BaseContractPrint({
         4.2.6. ВИКОНАВЕЦЬ зобов&apos;язується в продовж гарантійного терміну
         безкоштовно з використанням власних матеріалів і засобів ліквідовувати
         будь-які недоліки, які виникли з вини ВИКОНАВЦЯ. Гарантійний термін
-        складає 12 мiсяцiв, якій починається з дати підписання Акту виконаних
-        робіт.
+        складає {guaranteePeriod} мiсяцiв, якій починається з дати підписання
+        Акту виконаних робіт.
       </Typography>
       <Typography variant='body1' align='center'>
         5.ВІДПОВІДАЛЬНІСТЬ
@@ -261,8 +440,7 @@ export default function BaseContractPrint({
         сторони.
       </Typography>
       <Typography variant='body2'>
-        8.4. Виконавець є резидентом України та є платником на прибуток на
-        загальних засадах (без ПДВ).
+        8.4. Виконавець є резидентом України та {ourTaxationType}
       </Typography>
       <Typography variant='body2'>
         8.5. Всі повідомлення, які відносяться до виконання умов договору
@@ -281,7 +459,7 @@ export default function BaseContractPrint({
         9. РЕКВІЗИТИ ТА ПІДПИСИ СТОРІН
       </Typography>
       <Grid container direction={`column`}>
-        <Grid item>
+        <Grid item sx={{ width: '100%' }}>
           <Grid container direction={`row`} spacing={1}>
             <Grid item xs={6}>
               <Typography variant='body2' align='center'>
@@ -295,88 +473,118 @@ export default function BaseContractPrint({
             </Grid>
           </Grid>
         </Grid>
-        <Grid item>
+        <Grid
+          item
+          sx={{
+            width: '100%',
+          }}
+        >
           <Grid container direction={`row`} spacing={1}>
             <Grid item xs={6}>
-              <Typography variant='body2'>ТОВ «АЗОТЕЯ 2» </Typography>
+              <Typography variant='body2'>{executorFirm}</Typography>
             </Grid>
             <Grid item xs={6}>
-              <Typography variant='body2'>ОСББ « Добробут 35 » </Typography>
+              <Typography variant='body2'>{clientFirm} </Typography>
             </Grid>
           </Grid>
         </Grid>
-        <Grid item>
+        <Grid
+          item
+          sx={{
+            display: !(executorAddress && clientAddress) ? 'none' : 'block',
+            width: '100%',
+          }}
+        >
           <Grid container direction={`row`} spacing={1}>
             <Grid item xs={6}>
-              <Typography variant='body2'>
-                Адреса: 69104 м. Запоріжжя, вул. Чумаченка, буд.23В, кв. 123
-              </Typography>
+              <Typography variant='body2'>{executorAddress}</Typography>
             </Grid>
             <Grid item xs={6}>
-              <Typography variant='body2'>
-                Адреса: 69121,м.Запоріжжя,вул.Днiпровськi Пороги, 35{' '}
-              </Typography>
+              <Typography variant='body2'>{clientAddress}</Typography>
             </Grid>
           </Grid>
         </Grid>
-        <Grid item>
+        <Grid
+          item
+          sx={{
+            display: !(executorEDRPO && clientEDRPO) ? 'none' : 'block',
+            width: '100%',
+          }}
+        >
           <Grid container direction={`row`} spacing={1}>
             <Grid item xs={6}>
-              <Typography variant='body2'>ЄДРПОУ : 44438025</Typography>
+              <Typography variant='body2'>{executorEDRPO}</Typography>
             </Grid>
             <Grid item xs={6}>
-              <Typography variant='body2'>ЄДРПОУ : 40282339</Typography>
+              <Typography variant='body2'>{clientEDRPO}</Typography>
             </Grid>
           </Grid>
         </Grid>
-        <Grid item>
+        <Grid
+          item
+          sx={{
+            display: !(executorIBAN && clientIBAN) ? 'none' : 'block',
+            width: '100%',
+          }}
+        >
           <Grid container direction={`row`} spacing={1}>
             <Grid item xs={6}>
-              <Typography variant='body2'>
-                IBAN: UA 59 307770 00000 26004211129297 ПАТ Акцент-БАНК, МФО
-                307770
-              </Typography>
+              <Typography variant='body2'>{executorIBAN}</Typography>
             </Grid>
             <Grid item xs={6}>
-              <Typography variant='body2'>
-                IBAN : UA 203204780000026009924440846, АБ УКРГАЗБАНК, МФО 320478
-              </Typography>
+              <Typography variant='body2'>{clientIBAN}</Typography>
             </Grid>
           </Grid>
         </Grid>
-        <Grid item>
+        <Grid
+          item
+          sx={{
+            display: !(executorTel && clientTel) ? 'none' : 'block',
+            width: '100%',
+          }}
+        >
           <Grid container direction={`row`} spacing={1}>
             <Grid item xs={6}>
-              <Typography variant='body2'>Тел: +38(095)168-77-48</Typography>
+              <Typography variant='body2'>{executorTel}</Typography>
             </Grid>
             <Grid item xs={6}>
-              <Typography variant='body2'></Typography>
+              <Typography variant='body2'>{clientTel}</Typography>
             </Grid>
           </Grid>
         </Grid>
-        <Grid item>
+        <Grid
+          item
+          sx={{
+            display: !(executorEmail && clientEmail) ? 'none' : 'block',
+            width: '100%',
+          }}
+        >
           <Grid container direction={`row`} spacing={1}>
             <Grid item xs={6}>
-              <Typography variant='body2'>email: docums2@gmail.com</Typography>
+              <Typography variant='body2'>{executorEmail}</Typography>
             </Grid>
             <Grid item xs={6}>
-              <Typography variant='body2'>
-                email: trotsko35@gmail.com
-              </Typography>
+              <Typography variant='body2'>{clientEmail}</Typography>
             </Grid>
           </Grid>
         </Grid>
-        <Grid item>
+        <Grid
+          item
+          sx={{
+            display: !(executorJobTitle && clientJobTitle) ? 'none' : 'block',
+            width: '100%',
+          }}
+        >
           <Grid container direction={`row`} spacing={1}>
             <Grid item xs={6}>
-              <Typography variant='body2'>Директор</Typography>
+              <Typography variant='body2'>{executorJobTitle}</Typography>
             </Grid>
             <Grid item xs={6}>
-              <Typography variant='body2'>Голова правління</Typography>
+              <Typography variant='body2'>{clientJobTitle}</Typography>
             </Grid>
           </Grid>
         </Grid>
-        <Grid item>
+        <Grid item sx={{ width: '100%' }}>
           <Grid container direction={`row`} spacing={1}>
             <Grid item xs={6}>
               <Grid container direction={`row`}>
@@ -385,7 +593,7 @@ export default function BaseContractPrint({
                   sx={{ flex: 1, borderBottom: '1px solid black' }}
                 ></Grid>
                 <Grid item>
-                  <Typography variant='body2'>Віталій ТКАЧОВ</Typography>
+                  <Typography variant='body2'>{executorShortName}</Typography>
                 </Grid>
               </Grid>
             </Grid>
@@ -396,13 +604,13 @@ export default function BaseContractPrint({
                   sx={{ flex: 1, borderBottom: '1px solid black' }}
                 ></Grid>
                 <Grid item>
-                  <Typography variant='body2'>Олександр ТРОЦКО</Typography>
+                  <Typography variant='body2'>{clientShortName}</Typography>
                 </Grid>
               </Grid>
             </Grid>
           </Grid>
         </Grid>
-        <Grid item>
+        <Grid item sx={{ width: '100%' }}>
           <Grid container direction={`row`} spacing={1}>
             <Grid item xs={6}>
               <Typography variant='body2' align='left'>
