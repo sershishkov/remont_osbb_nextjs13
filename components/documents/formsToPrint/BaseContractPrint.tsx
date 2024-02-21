@@ -117,6 +117,14 @@ export default function BaseContractPrint({
   const arr__restPrePayPercentSum = restPrePayPercentSum.toFixed(2).split('.');
   const arr__naklSum = naklSum.toFixed(2).split('.');
   const arr__aktSum = aktSum.toFixed(2).split('.');
+  let p1_2 = '';
+  let p4_2_7 = '';
+  if (currentContractType === 'Сумма Кошторис') {
+    p1_2 = `1.2. ЗАМОВНИК доручає, а ВИКОНАВЕЦЬ, згідно Кошторису розрахунків виконання робіт , який є невід'ємною частиною договору, виконує з належною якістю поточний ремонт, з вимогами національних стандартів, будівельних норм і правил, вимог техніки безпеки і охорони праці.`;
+    p4_2_7 = `4.2.7. ВИКОНАВЕЦЬ виконує  роботи з власних будівельних матеріалів`;
+  } else {
+    p1_2 = `1.2. Перелік виконаних робот вказуються в Актах виконаних робіт. Акт виконаних робіт є невід’ємною частиною цього Договору`;
+  }
 
   let p2_1 = '';
   let p2_2 = '';
@@ -130,7 +138,10 @@ export default function BaseContractPrint({
     p2_1 = `2.1. Вартість послуг складає  ${arr__totalSum[0]} грн ${arr__totalSum[1]} коп (${totalSumPropis}), без ПДВ.`;
   }
 
-  if (currentContractType === 'Сумма') {
+  if (
+    currentContractType === 'Сумма' ||
+    currentContractType === 'Сумма Кошторис'
+  ) {
     p2_2 = `2.2. Оплата здійснюється ЗАМОВНИКОМ шляхом перерахування на розрахунковий рахунок ВИКОНАВЦЯ коштів протягом 3 банківських днів після дати підписання акту виконаних робіт.`;
   }
   if (
@@ -237,10 +248,7 @@ export default function BaseContractPrint({
         зобов`язується приймати роботу та оплатити її вартість у строки та на
         умовах, що визначаються цим договором та додатками до нього.{' '}
       </Typography>
-      <Typography variant='body2'>
-        1.2. Перелік виконаних робот вказуються в Актах виконаних робіт. Акт
-        виконаних робіт є невід’ємною частиною цього Договору
-      </Typography>
+      <Typography variant='body2'>{p1_2}</Typography>
       <Typography variant='body1' align='center'>
         2. ВАРТІСТЬ РОБІТ ТА ПОРЯДОК РОЗРАХУНКІВ
       </Typography>
@@ -360,6 +368,12 @@ export default function BaseContractPrint({
         будь-які недоліки, які виникли з вини ВИКОНАВЦЯ. Гарантійний термін
         складає {guaranteePeriod} мiсяцiв, якій починається з дати підписання
         Акту виконаних робіт.
+      </Typography>
+      <Typography
+        variant='body2'
+        sx={{ display: p4_2_7 !== '' ? 'block' : 'none' }}
+      >
+        {p4_2_7}
       </Typography>
       <Typography variant='body1' align='center'>
         5.ВІДПОВІДАЛЬНІСТЬ

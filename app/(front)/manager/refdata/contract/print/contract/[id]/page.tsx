@@ -9,7 +9,6 @@ import { I_Contract, I_Client } from '@/interfaces/refdata';
 import AgroContractPrint from '@/components/documents/formsToPrint/AgroContractPrint';
 import BaseContractPrint from '@/components/documents/formsToPrint/BaseContractPrint';
 import BudjetJkhContractPrint from '@/components/documents/formsToPrint/BudjetJkhContractPrint';
-import KoshtContractPrint from '@/components/documents/formsToPrint/KoshtContractPrint';
 import RemsContractBudjetPrint from '@/components/documents/formsToPrint/RemsContractBudjetPrint';
 import RemsContractPotochnPrint from '@/components/documents/formsToPrint/RemsContractPotochnPrint';
 import RemsContractTenderPrint from '@/components/documents/formsToPrint/RemsContractTenderPrint';
@@ -97,8 +96,6 @@ export default function ContractPrint({ params }: Readonly<paramsProps>) {
     return <BudjetJkhContractPrint />;
   } else if (currentContractType === 'Дог. Агросервис') {
     return <AgroContractPrint />;
-  } else if (currentContractType === 'Сумма Кошторис') {
-    return <KoshtContractPrint />;
   } else {
     return (
       <BaseContractPrint
