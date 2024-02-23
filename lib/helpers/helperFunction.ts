@@ -1,22 +1,65 @@
-export const generateDocNumber = (): string => {
-  const newDate = new Date();
-  const fullYear = newDate.getFullYear();
+const genNumberByDate = (enteredDate: Date) => {
+  const fullYear = enteredDate.getFullYear();
   const month =
-    newDate.getMonth() < 10
-      ? `0${newDate.getMonth() + 1}`
-      : newDate.getMonth() + 1;
+    enteredDate.getMonth() < 10
+      ? `0${enteredDate.getMonth() + 1}`
+      : enteredDate.getMonth() + 1;
   const day =
-    newDate.getDate() < 10 ? `0${newDate.getDate()}` : newDate.getDate();
+    enteredDate.getDate() < 10
+      ? `0${enteredDate.getDate()}`
+      : enteredDate.getDate();
   const hours =
-    newDate.getHours() < 10 ? `0${newDate.getHours()}` : newDate.getHours();
+    enteredDate.getHours() < 10
+      ? `0${enteredDate.getHours()}`
+      : enteredDate.getHours();
   const minutes =
-    newDate.getMinutes() < 10
-      ? `0${newDate.getMinutes()}`
-      : newDate.getMinutes();
+    enteredDate.getMinutes() < 10
+      ? `0${enteredDate.getMinutes()}`
+      : enteredDate.getMinutes();
 
   const doc__Number = `${fullYear - 2000}.${month}.${day}.${hours}.${minutes}`;
 
   return doc__Number;
+};
+
+export const generateDocNumber = (): string => {
+  const newDate = new Date();
+  const doc__Number = genNumberByDate(newDate);
+
+  return doc__Number;
+};
+
+export const generateMultipleDocNumbers = () => {
+  const oneMinute = 60 * 1000;
+  const ms = new Date().getMilliseconds();
+  const invoiceBaseDate = new Date(ms);
+  const invoiceNaklDate = new Date(ms + oneMinute);
+  const invoiceAktDate = new Date(ms + oneMinute * 2);
+  const aktDate = new Date(ms + oneMinute * 3);
+  const naklDate = new Date(ms + oneMinute * 4);
+  const koshtorisDate = new Date(ms + oneMinute * 5);
+  const contrProectAvtorskDate = new Date(ms + oneMinute * 6);
+  const aktProectAvtorskDate = new Date(ms + oneMinute * 7);
+
+  const invoiceNumberBase = genNumberByDate(invoiceBaseDate);
+  const invoiceNumberNakl = genNumberByDate(invoiceNaklDate);
+  const invoiceNumberAkt = genNumberByDate(invoiceAktDate);
+  const aktNumber = genNumberByDate(aktDate);
+  const naklNumber = genNumberByDate(naklDate);
+  const koshtorisNumber = genNumberByDate(koshtorisDate);
+  const contrProectAvtorskNumber = genNumberByDate(contrProectAvtorskDate);
+  const aktProectAvtorskNumber = genNumberByDate(aktProectAvtorskDate);
+
+  return {
+    invoiceNumberBase,
+    invoiceNumberNakl,
+    invoiceNumberAkt,
+    aktNumber,
+    naklNumber,
+    koshtorisNumber,
+    contrProectAvtorskNumber,
+    aktProectAvtorskNumber,
+  };
 };
 
 export function Export22Doc(element: string, filename = '') {

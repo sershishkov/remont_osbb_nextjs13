@@ -213,6 +213,31 @@ export interface I_Contract {
   guaranteePeriod: string;
   prepaymentPercentage: number;
 
+  invoiceNumberBase: string;
+  invoiceNumberNakl: string;
+  invoiceNumberAkt: string;
+
+  aktNumber: string;
+  naklNumber: string;
+  koshtorisNumber: string;
+
+  contrProectAvtorskNumber: string;
+  aktProectAvtorskNumber: string;
+
+  proectnSumBudjet: number;
+  avtorskSumBudjet: number;
+  expertizaSumBudjet: number;
+  tehnadzorSumBudjet: number;
+
+  zvedeniySumBudjet: number;
+  dogovornayaSumBudjet: number;
+
+  paymentProectnAvt: string; //собств, бюджет
+  startWorkBudjet: string; //["січень","лютий","березень","квітень","травень","червень","липень","серпень","вересень","жовтень","листопад","грудень"]
+  endWorkBudjet: string;
+
+  endWorkRemservis: Date;
+
   isMeasured: boolean;
   isEstimateCalculated: boolean;
   isEstimateHasBeenSentToClient: boolean;
