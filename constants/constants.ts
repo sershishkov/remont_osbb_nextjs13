@@ -205,3 +205,23 @@ export const arr__typeInvoice = [
 ];
 
 export const arr__TypeOfOSBB = ['ЖБК', 'ЖСК', 'ОСББ'];
+
+export const monthsWorkBudjet = [
+  { _id: 'січень', caption: 'січень' },
+  { _id: 'лютий', caption: 'лютий' },
+  { _id: 'березень', caption: 'березень' },
+  { _id: 'квітень', caption: 'квітень' },
+  { _id: 'травень', caption: 'травень' },
+  { _id: 'червень', caption: 'червень' },
+  { _id: 'липень', caption: 'липень' },
+  { _id: 'серпень', caption: 'серпень' },
+  { _id: 'вересень', caption: 'вересень' },
+  { _id: 'жовтень', caption: 'жовтень' },
+  { _id: 'листопад', caption: 'листопад' },
+  { _id: 'грудень', caption: 'грудень' },
+];
+
+export const arr_paymentProectnAvt = [
+  { _id: 'собств', caption: 'собств' },
+  { _id: 'бюджет', caption: 'бюджет' },
+];

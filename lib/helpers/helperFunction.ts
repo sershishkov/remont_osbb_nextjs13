@@ -31,7 +31,8 @@ export const generateDocNumber = (): string => {
 
 export const generateMultipleDocNumbers = () => {
   const oneMinute = 60 * 1000;
-  const ms = new Date().getMilliseconds();
+  const ms = +new Date();
+
   const invoiceBaseDate = new Date(ms);
   const invoiceNaklDate = new Date(ms + oneMinute);
   const invoiceAktDate = new Date(ms + oneMinute * 2);

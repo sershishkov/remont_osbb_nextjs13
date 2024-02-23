@@ -72,6 +72,96 @@ const contract__Schema = new Schema<I_Contract>(
       type: Number,
       default: 70,
     },
+
+    invoiceNumberBase: {
+      type: String,
+    },
+    invoiceNumberNakl: {
+      type: String,
+    },
+    invoiceNumberAkt: {
+      type: String,
+    },
+    aktNumber: {
+      type: String,
+    },
+    naklNumber: {
+      type: String,
+    },
+    koshtorisNumber: {
+      type: String,
+    },
+
+    contrProectAvtorskNumber: {
+      type: String,
+    },
+    aktProectAvtorskNumber: {
+      type: String,
+    },
+
+    proectnSumBudjet: {
+      type: Number,
+    },
+    avtorskSumBudjet: {
+      type: Number,
+    },
+    expertizaSumBudjet: {
+      type: Number,
+    },
+    tehnadzorSumBudjet: {
+      type: Number,
+    },
+
+    zvedeniySumBudjet: {
+      type: Number,
+    },
+    dogovornayaSumBudjet: {
+      type: Number,
+    },
+
+    paymentSourceProectnAvt: {
+      type: String,
+      enum: ['собств', 'бюджет'],
+    },
+    startMonthWorkBudjet: {
+      type: String,
+      enum: [
+        'січень',
+        'лютий',
+        'березень',
+        'квітень',
+        'травень',
+        'червень',
+        'липень',
+        'серпень',
+        'вересень',
+        'жовтень',
+        'листопад',
+        'грудень',
+      ],
+    },
+    endMonthWorkBudjet: {
+      type: String,
+      enum: [
+        'січень',
+        'лютий',
+        'березень',
+        'квітень',
+        'травень',
+        'червень',
+        'липень',
+        'серпень',
+        'вересень',
+        'жовтень',
+        'листопад',
+        'грудень',
+      ],
+    },
+
+    endWorkRemservis: {
+      type: Date,
+    },
+
     isMeasured: {
       type: Boolean,
       default: false,

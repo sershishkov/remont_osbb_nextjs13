@@ -11,7 +11,10 @@ import {
   get__all,
   item__add,
 } from '@/lib/actions/refdata.actions';
-import { generateDocNumber } from '@/lib/helpers/helperFunction';
+import {
+  generateDocNumber,
+  generateMultipleDocNumbers,
+} from '@/lib/helpers/helperFunction';
 
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
@@ -32,7 +35,11 @@ import Switch from '@mui/material/Switch';
 import Link from '@mui/material/Link';
 
 import MySelectAutoCompl from '@/components/common/MySelectAutoCompl';
-import { accountant_role } from '@/constants/constants';
+import {
+  accountant_role,
+  arr_paymentProectnAvt,
+  monthsWorkBudjet,
+} from '@/constants/constants';
 import {
   I_Client,
   I_ContractType,
@@ -57,6 +64,31 @@ const initState = {
   responsibleWorker: '',
   guaranteePeriod: '12',
   prepaymentPercentage: '70',
+
+  invoiceNumberBase: '',
+  invoiceNumberNakl: '',
+  invoiceNumberAkt: '',
+
+  aktNumber: '',
+  naklNumber: '',
+  koshtorisNumber: '',
+
+  contrProectAvtorskNumber: '',
+  aktProectAvtorskNumber: '',
+
+  proectnSumBudjet: '',
+  avtorskSumBudjet: '',
+  expertizaSumBudjet: '',
+  tehnadzorSumBudjet: '',
+
+  zvedeniySumBudjet: '',
+  dogovornayaSumBudjet: '',
+
+  paymentSourceProectnAvt: '',
+  startMonthWorkBudjet: '',
+  endMonthWorkBudjet: '',
+
+  endWorkRemservis: '',
 };
 
 export interface ILocalParticipant {
@@ -124,6 +156,31 @@ function ContractAddEdit({
     responsibleWorker,
     guaranteePeriod,
     prepaymentPercentage,
+
+    invoiceNumberBase,
+    invoiceNumberNakl,
+    invoiceNumberAkt,
+
+    aktNumber,
+    naklNumber,
+    koshtorisNumber,
+
+    contrProectAvtorskNumber,
+    aktProectAvtorskNumber,
+
+    proectnSumBudjet,
+    avtorskSumBudjet,
+    expertizaSumBudjet,
+    tehnadzorSumBudjet,
+
+    zvedeniySumBudjet,
+    dogovornayaSumBudjet,
+
+    paymentSourceProectnAvt,
+    startMonthWorkBudjet,
+    endMonthWorkBudjet,
+
+    endWorkRemservis,
   } = formData;
 
   const {
@@ -195,11 +252,20 @@ function ContractAddEdit({
       setArr__PaymentSources(all__PaymentSources.items);
       setArr__Workers(all__Workers.items);
     };
+    const docNums = generateMultipleDocNumbers();
 
     setFormData((prevState) => ({
       ...prevState,
       contractNumber: generateDocNumber(),
       contractDate: new Date().toISOString().split('T')[0],
+      invoiceNumberBase: docNums.invoiceNumberBase,
+      invoiceNumberNakl: docNums.invoiceNumberNakl,
+      invoiceNumberAkt: docNums.invoiceNumberAkt,
+      aktNumber: docNums.aktNumber,
+      naklNumber: docNums.naklNumber,
+      koshtorisNumber: docNums.koshtorisNumber,
+      contrProectAvtorskNumber: docNums.contrProectAvtorskNumber,
+      aktProectAvtorskNumber: docNums.aktProectAvtorskNumber,
     }));
 
     myGetAll();
@@ -224,8 +290,36 @@ function ContractAddEdit({
               .split('T')[0],
 
             contractDescription: item.contractDescription!,
+
             workAddress: item.workAddress!,
             guaranteePeriod: item.guaranteePeriod,
+
+            invoiceNumberBase: item.invoiceNumberBase,
+            invoiceNumberNakl: item.invoiceNumberNakl,
+            invoiceNumberAkt: item.invoiceNumberAkt,
+
+            aktNumber: item.aktNumber,
+            naklNumber: item.naklNumber,
+            koshtorisNumber: item.koshtorisNumber,
+
+            contrProectAvtorskNumber: item.contrProectAvtorskNumber,
+            aktProectAvtorskNumber: item.aktProectAvtorskNumber,
+
+            proectnSumBudjet: item.proectnSumBudjet.toFixed(2),
+            avtorskSumBudjet: item.avtorskSumBudjet.toFixed(2),
+            expertizaSumBudjet: item.expertizaSumBudjet.toFixed(2),
+            tehnadzorSumBudjet: item.tehnadzorSumBudjet.toFixed(2),
+
+            zvedeniySumBudjet: item.zvedeniySumBudjet.toFixed(2),
+            dogovornayaSumBudjet: item.dogovornayaSumBudjet.toFixed(2),
+
+            paymentSourceProectnAvt: item.paymentSourceProectnAvt,
+            startMonthWorkBudjet: item.startMonthWorkBudjet,
+            endMonthWorkBudjet: item.endMonthWorkBudjet,
+            endWorkRemservis: new Date(item.endWorkRemservis)
+              .toISOString()
+              .split('T')[0],
+
             prepaymentPercentage: item.prepaymentPercentage.toFixed(2),
             //@ts-ignore
             contractType: item.contractType!._id.toString(),
@@ -328,6 +422,31 @@ function ContractAddEdit({
 
       guaranteePeriod,
       prepaymentPercentage: Number(prepaymentPercentage),
+
+      invoiceNumberBase,
+      invoiceNumberNakl,
+      invoiceNumberAkt,
+
+      aktNumber,
+      naklNumber,
+      koshtorisNumber,
+
+      contrProectAvtorskNumber,
+      aktProectAvtorskNumber,
+
+      proectnSumBudjet: Number(proectnSumBudjet),
+      avtorskSumBudjet: Number(avtorskSumBudjet),
+      expertizaSumBudjet: Number(expertizaSumBudjet),
+      tehnadzorSumBudjet: Number(tehnadzorSumBudjet),
+
+      zvedeniySumBudjet: Number(zvedeniySumBudjet),
+      dogovornayaSumBudjet: Number(dogovornayaSumBudjet),
+
+      paymentSourceProectnAvt,
+      startMonthWorkBudjet,
+      endMonthWorkBudjet,
+
+      endWorkRemservis,
 
       isMeasured,
       isEstimateCalculated,
@@ -849,142 +968,413 @@ function ContractAddEdit({
         </Grid>
       </Grid>
 
-      <Grid item>
-        <FormControl component='fieldset' variant='standard'>
-          <FormLabel component='legend'>Стадии выполнения</FormLabel>
-          <FormGroup>
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={contractStages.isMeasured}
-                  onChange={handleChangeContractStages}
-                  name='isMeasured'
+      <Grid item sx={{ width: '100%' }}>
+        <Grid container direction={`row`}>
+          <Grid item xs={3}>
+            <Grid
+              container
+              direction={`column`}
+              justifyContent={`flex-start`}
+              alignItems={`center`}
+            >
+              <Grid item>
+                <Typography variant='body2'>Собств</Typography>
+              </Grid>
+              <Grid item>
+                <TextField
+                  margin='normal'
+                  required
+                  fullWidth
+                  name='invoiceNumberBase'
+                  label='№ Счет осн'
+                  type='text'
+                  id='invoiceNumberBase'
+                  value={invoiceNumberBase ?? ''}
+                  onChange={onChange}
                 />
-              }
-              label='Замер сделан'
-            />
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={contractStages.isEstimateCalculated}
-                  onChange={handleChangeContractStages}
-                  name='isEstimateCalculated'
+              </Grid>
+              <Grid item>
+                <TextField
+                  margin='normal'
+                  required
+                  fullWidth
+                  name='invoiceNumberNakl'
+                  label='№ Счет накл'
+                  type='text'
+                  id='invoiceNumberNakl'
+                  value={invoiceNumberNakl ?? ''}
+                  onChange={onChange}
                 />
-              }
-              label='Смета рассчитана'
-            />
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={contractStages.isEstimateHasBeenSentToClient}
-                  onChange={handleChangeContractStages}
-                  name='isEstimateHasBeenSentToClient'
+              </Grid>
+              <Grid item>
+                <TextField
+                  margin='normal'
+                  required
+                  fullWidth
+                  name='invoiceNumberAkt'
+                  label='№ Счет акт'
+                  type='text'
+                  id='invoiceNumberAkt'
+                  value={invoiceNumberAkt ?? ''}
+                  onChange={onChange}
                 />
-              }
-              label='Смета отправлена клиенту'
-            />
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={contractStages.isEstimateApprovedByClient}
-                  onChange={handleChangeContractStages}
-                  name='isEstimateApprovedByClient'
+              </Grid>
+              <Grid item>
+                <TextField
+                  margin='normal'
+                  required
+                  fullWidth
+                  name='aktNumber'
+                  label='№ Акта'
+                  type='text'
+                  id='aktNumber'
+                  value={aktNumber ?? ''}
+                  onChange={onChange}
                 />
-              }
-              label='Смета одобрена клиентом'
-            />
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={contractStages.isMaterialsHaveBeenOrdered}
-                  onChange={handleChangeContractStages}
-                  name='isMaterialsHaveBeenOrdered'
+              </Grid>
+              <Grid item>
+                <TextField
+                  margin='normal'
+                  required
+                  fullWidth
+                  name='naklNumber'
+                  label='№ Накладной'
+                  type='text'
+                  id='naklNumber'
+                  value={naklNumber ?? ''}
+                  onChange={onChange}
                 />
-              }
-              label='Материал заказан'
-            />
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={contractStages.isMaterialsDelivered}
-                  onChange={handleChangeContractStages}
-                  name='isMaterialsDelivered'
+              </Grid>
+              <Grid item>
+                <TextField
+                  margin='normal'
+                  required
+                  fullWidth
+                  name='koshtorisNumber'
+                  label='№ Кошториса'
+                  type='text'
+                  id='koshtorisNumber'
+                  value={koshtorisNumber ?? ''}
+                  onChange={onChange}
                 />
-              }
-              label='Материал доставлен'
-            />
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={contractStages.isMaterialsPaid}
-                  onChange={handleChangeContractStages}
-                  name='isMaterialsPaid'
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item xs={3}>
+            <Grid
+              container
+              direction={`column`}
+              justifyContent={`flex-start`}
+              alignItems={`center`}
+            >
+              <Grid item>
+                <Typography variant='body2'>Бюджет</Typography>
+              </Grid>
+              <Grid item>
+                <TextField
+                  margin='normal'
+                  required
+                  fullWidth
+                  name='contrProectAvtorskNumber'
+                  label='№ Дог ПрАвт'
+                  type='text'
+                  id='contrProectAvtorskNumber'
+                  value={contrProectAvtorskNumber ?? ''}
+                  onChange={onChange}
                 />
-              }
-              label='Закупка материалов оплачена'
-            />
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={contractStages.isWorkCompleted}
-                  onChange={handleChangeContractStages}
-                  name='isWorkCompleted'
+              </Grid>
+              <Grid item>
+                <TextField
+                  margin='normal'
+                  required
+                  fullWidth
+                  name='aktProectAvtorskNumber'
+                  label='№ Акт ПрАвт'
+                  type='text'
+                  id='aktProectAvtorskNumber'
+                  value={aktProectAvtorskNumber ?? ''}
+                  onChange={onChange}
                 />
-              }
-              label='Работы выполнены'
-            />
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={contractStages.isWorksPaid}
-                  onChange={handleChangeContractStages}
-                  name='isWorksPaid'
+              </Grid>
+              <Grid item>
+                <TextField
+                  margin='normal'
+                  required
+                  fullWidth
+                  name='proectnSumBudjet'
+                  label='Сум Проект'
+                  type='number'
+                  id='proectnSumBudjet'
+                  value={proectnSumBudjet ?? ''}
+                  onChange={onChange}
                 />
-              }
-              label='Работы оплачены'
-            />
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={contractStages.isDocumentsHaveBeenIssued}
-                  onChange={handleChangeContractStages}
-                  name='isDocumentsHaveBeenIssued'
+              </Grid>
+              <Grid item>
+                <TextField
+                  margin='normal'
+                  required
+                  fullWidth
+                  name='avtorskSumBudjet'
+                  label='Сум Авт'
+                  type='number'
+                  id='avtorskSumBudjet'
+                  value={avtorskSumBudjet ?? ''}
+                  onChange={onChange}
                 />
-              }
-              label='Документы выписаны'
-            />
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={contractStages.isDocumentsHaveBeenGivenToClient}
-                  onChange={handleChangeContractStages}
-                  name='isDocumentsHaveBeenGivenToClient'
+              </Grid>
+
+              <Grid item>
+                <TextField
+                  margin='normal'
+                  required
+                  fullWidth
+                  name='tehnadzorSumBudjet'
+                  label='Сум техНадз'
+                  type='number'
+                  id='tehnadzorSumBudjet'
+                  value={tehnadzorSumBudjet ?? ''}
+                  onChange={onChange}
                 />
-              }
-              label='Документы переданы клиенту на подпись'
-            />
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={contractStages.isClientReturnedSignedDocuments}
-                  onChange={handleChangeContractStages}
-                  name='isClientReturnedSignedDocuments'
+              </Grid>
+              <Grid item>
+                <TextField
+                  margin='normal'
+                  required
+                  fullWidth
+                  name='zvedeniySumBudjet'
+                  label='Сум Зведеный'
+                  type='number'
+                  id='zvedeniySumBudjet'
+                  value={zvedeniySumBudjet ?? ''}
+                  onChange={onChange}
                 />
-              }
-              label='Клиент вернул подписанные документы'
-            />
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={contractStages.isContractPaid}
-                  onChange={handleChangeContractStages}
-                  name='isContractPaid'
+              </Grid>
+              <Grid item>
+                <TextField
+                  margin='normal'
+                  required
+                  fullWidth
+                  name='dogovornayaSumBudjet'
+                  label='Сум Договорн'
+                  type='number'
+                  id='dogovornayaSumBudjet'
+                  value={dogovornayaSumBudjet ?? ''}
+                  onChange={onChange}
                 />
-              }
-              label='Контракт оплачен клиентом'
-            />
-          </FormGroup>
-        </FormControl>
+              </Grid>
+              <Grid item sx={{ width: 250 }}>
+                <MySelectAutoCompl
+                  selectName={`paymentSourceProectnAvt`}
+                  selectLabel={`ИстСредствПрАвт`}
+                  fieldToShow={`caption`}
+                  handleChangeSelects={handleChangeSelects}
+                  selectedOption={paymentSourceProectnAvt ?? ''}
+                  // @ts-ignore
+                  arrToSelect={arr_paymentProectnAvt ?? []}
+                />
+              </Grid>
+
+              <Grid item sx={{ width: 250 }}>
+                <MySelectAutoCompl
+                  selectName={`startMonthWorkBudjet`}
+                  selectLabel={`месяц Старт`}
+                  fieldToShow={`caption`}
+                  handleChangeSelects={handleChangeSelects}
+                  selectedOption={startMonthWorkBudjet ?? ''}
+                  // @ts-ignore
+                  arrToSelect={monthsWorkBudjet ?? []}
+                />
+              </Grid>
+              <Grid item sx={{ width: 250 }}>
+                <MySelectAutoCompl
+                  selectName={`endMonthWorkBudjet`}
+                  selectLabel={`месяц Финиш`}
+                  fieldToShow={`caption`}
+                  handleChangeSelects={handleChangeSelects}
+                  selectedOption={endMonthWorkBudjet ?? ''}
+                  // @ts-ignore
+                  arrToSelect={monthsWorkBudjet ?? []}
+                />
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item xs={3}>
+            <Grid
+              container
+              direction={`column`}
+              justifyContent={`flex-start`}
+              alignItems={`center`}
+            >
+              <Grid item>
+                <Typography variant='body2'>Ремсервис</Typography>
+              </Grid>
+              <Grid item sx={{ width: 150 }}>
+                <TextField
+                  margin='normal'
+                  required
+                  fullWidth
+                  name='endWorkRemservis'
+                  label='КонецРабот'
+                  type='date'
+                  id='endWorkRemservis'
+                  value={endWorkRemservis ?? ''}
+                  onChange={onChange}
+                  InputLabelProps={{ shrink: true }}
+                />
+              </Grid>
+              <Grid item>
+                <TextField
+                  margin='normal'
+                  required
+                  fullWidth
+                  name='expertizaSumBudjet'
+                  label='Сум експертиза'
+                  type='number'
+                  id='expertizaSumBudjet'
+                  value={expertizaSumBudjet ?? ''}
+                  onChange={onChange}
+                />
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item xs={3}>
+            <FormControl component='fieldset' variant='standard'>
+              <FormLabel component='legend'>Стадии выполнения</FormLabel>
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={contractStages.isMeasured}
+                      onChange={handleChangeContractStages}
+                      name='isMeasured'
+                    />
+                  }
+                  label='Замер сделан'
+                />
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={contractStages.isEstimateCalculated}
+                      onChange={handleChangeContractStages}
+                      name='isEstimateCalculated'
+                    />
+                  }
+                  label='Смета рассчитана'
+                />
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={contractStages.isEstimateHasBeenSentToClient}
+                      onChange={handleChangeContractStages}
+                      name='isEstimateHasBeenSentToClient'
+                    />
+                  }
+                  label='Смета отправлена клиенту'
+                />
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={contractStages.isEstimateApprovedByClient}
+                      onChange={handleChangeContractStages}
+                      name='isEstimateApprovedByClient'
+                    />
+                  }
+                  label='Смета одобрена клиентом'
+                />
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={contractStages.isMaterialsHaveBeenOrdered}
+                      onChange={handleChangeContractStages}
+                      name='isMaterialsHaveBeenOrdered'
+                    />
+                  }
+                  label='Материал заказан'
+                />
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={contractStages.isMaterialsDelivered}
+                      onChange={handleChangeContractStages}
+                      name='isMaterialsDelivered'
+                    />
+                  }
+                  label='Материал доставлен'
+                />
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={contractStages.isMaterialsPaid}
+                      onChange={handleChangeContractStages}
+                      name='isMaterialsPaid'
+                    />
+                  }
+                  label='Закупка материалов оплачена'
+                />
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={contractStages.isWorkCompleted}
+                      onChange={handleChangeContractStages}
+                      name='isWorkCompleted'
+                    />
+                  }
+                  label='Работы выполнены'
+                />
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={contractStages.isWorksPaid}
+                      onChange={handleChangeContractStages}
+                      name='isWorksPaid'
+                    />
+                  }
+                  label='Работы оплачены'
+                />
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={contractStages.isDocumentsHaveBeenIssued}
+                      onChange={handleChangeContractStages}
+                      name='isDocumentsHaveBeenIssued'
+                    />
+                  }
+                  label='Документы выписаны'
+                />
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={contractStages.isDocumentsHaveBeenGivenToClient}
+                      onChange={handleChangeContractStages}
+                      name='isDocumentsHaveBeenGivenToClient'
+                    />
+                  }
+                  label='Документы переданы клиенту на подпись'
+                />
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={contractStages.isClientReturnedSignedDocuments}
+                      onChange={handleChangeContractStages}
+                      name='isClientReturnedSignedDocuments'
+                    />
+                  }
+                  label='Клиент вернул подписанные документы'
+                />
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={contractStages.isContractPaid}
+                      onChange={handleChangeContractStages}
+                      name='isContractPaid'
+                    />
+                  }
+                  label='Контракт оплачен клиентом'
+                />
+              </FormGroup>
+            </FormControl>
+          </Grid>
+        </Grid>
       </Grid>
 
       <Grid item sx={{ width: '100%' }}></Grid>

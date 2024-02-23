@@ -27,6 +27,31 @@ export const POST = async (request: NextRequest) => {
     guaranteePeriod,
     prepaymentPercentage,
 
+    invoiceNumberBase,
+    invoiceNumberNakl,
+    invoiceNumberAkt,
+
+    aktNumber,
+    naklNumber,
+    koshtorisNumber,
+
+    contrProectAvtorskNumber,
+    aktProectAvtorskNumber,
+
+    proectnSumBudjet,
+    avtorskSumBudjet,
+    expertizaSumBudjet,
+    tehnadzorSumBudjet,
+
+    zvedeniySumBudjet,
+    dogovornayaSumBudjet,
+
+    paymentSourceProectnAvt,
+    startMonthWorkBudjet,
+    endMonthWorkBudjet,
+
+    endWorkRemservis,
+
     isMeasured,
     isEstimateCalculated,
     isEstimateHasBeenSentToClient,
@@ -95,6 +120,31 @@ export const POST = async (request: NextRequest) => {
 
       guaranteePeriod,
       prepaymentPercentage,
+
+      invoiceNumberBase,
+      invoiceNumberNakl,
+      invoiceNumberAkt,
+
+      aktNumber,
+      naklNumber,
+      koshtorisNumber,
+
+      contrProectAvtorskNumber,
+      aktProectAvtorskNumber,
+
+      proectnSumBudjet,
+      avtorskSumBudjet,
+      expertizaSumBudjet,
+      tehnadzorSumBudjet,
+
+      zvedeniySumBudjet,
+      dogovornayaSumBudjet,
+
+      paymentSourceProectnAvt,
+      startMonthWorkBudjet,
+      endMonthWorkBudjet,
+
+      endWorkRemservis,
 
       isMeasured,
       isEstimateCalculated,

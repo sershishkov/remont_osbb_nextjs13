@@ -114,6 +114,31 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
     guaranteePeriod,
     prepaymentPercentage,
 
+    invoiceNumberBase,
+    invoiceNumberNakl,
+    invoiceNumberAkt,
+
+    aktNumber,
+    naklNumber,
+    koshtorisNumber,
+
+    contrProectAvtorskNumber,
+    aktProectAvtorskNumber,
+
+    proectnSumBudjet,
+    avtorskSumBudjet,
+    expertizaSumBudjet,
+    tehnadzorSumBudjet,
+
+    zvedeniySumBudjet,
+    dogovornayaSumBudjet,
+
+    paymentSourceProectnAvt,
+    startMonthWorkBudjet,
+    endMonthWorkBudjet,
+
+    endWorkRemservis,
+
     isMeasured,
     isEstimateCalculated,
     isEstimateHasBeenSentToClient,
@@ -148,6 +173,31 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
 
       guaranteePeriod,
       prepaymentPercentage,
+
+      invoiceNumberBase,
+      invoiceNumberNakl,
+      invoiceNumberAkt,
+
+      aktNumber,
+      naklNumber,
+      koshtorisNumber,
+
+      contrProectAvtorskNumber,
+      aktProectAvtorskNumber,
+
+      proectnSumBudjet,
+      avtorskSumBudjet,
+      expertizaSumBudjet,
+      tehnadzorSumBudjet,
+
+      zvedeniySumBudjet,
+      dogovornayaSumBudjet,
+
+      paymentSourceProectnAvt,
+      startMonthWorkBudjet,
+      endMonthWorkBudjet,
+
+      endWorkRemservis,
 
       isMeasured,
       isEstimateCalculated,
