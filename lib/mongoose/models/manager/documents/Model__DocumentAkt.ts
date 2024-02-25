@@ -17,6 +17,17 @@ const dokument_akt__Schema = new Schema<I_DocumentAktOfWork>(
       ref: 'contract',
       required: [true, 'Please add a contract id'],
     },
+    aktOurFirm: {
+      type: Schema.Types.ObjectId,
+      ref: 'client',
+      required: [true, 'Please add a aktOurFirm id'],
+    },
+    aktClient: {
+      type: Schema.Types.ObjectId,
+      ref: 'client',
+      required: [true, 'Please add a aktClient id'],
+    },
+
     thirdPartyServices: [
       {
         thirdPartyService: {

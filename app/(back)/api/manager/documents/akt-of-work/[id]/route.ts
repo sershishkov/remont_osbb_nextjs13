@@ -112,6 +112,9 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
     isActive,
 
     typeAkt,
+
+    aktOurFirm,
+    aktClient,
   } = myData;
 
   try {
@@ -128,6 +131,9 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
       isActive,
 
       typeAkt,
+
+      aktOurFirm,
+      aktClient,
     };
 
     const updated__ITEM = await Model__DocumentAkt.findByIdAndUpdate(

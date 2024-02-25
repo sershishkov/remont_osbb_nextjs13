@@ -58,6 +58,9 @@ const initState = {
   aktSum: 0,
   thirdSum: 0,
   servSum: 0,
+
+  aktOurFirm: '',
+  aktClient: '',
 };
 
 function AktAddEdit({
@@ -103,6 +106,9 @@ function AktAddEdit({
     aktSum,
     thirdSum,
     servSum,
+
+    aktOurFirm,
+    aktClient,
   } = formData;
 
   useEffect(() => {
@@ -152,6 +158,28 @@ function AktAddEdit({
       setArr__ClientContracts(belongingContracts);
     }
   }, [client, arr__Contracts]);
+
+  useEffect(() => {
+    if (contract) {
+      const currentContract = arr__Contracts.find(
+        //@ts-ignore
+        (item) => item._id.toString() === contract
+      );
+      //@ts-ignore
+      const currentOurFirmId = currentContract?.ourFirm._id;
+      //@ts-ignore
+      const currentClientId = currentContract?.client._id;
+
+      const aktNum = currentContract?.aktNumber;
+
+      setFormData((prevState) => ({
+        ...prevState,
+        aktOfWorkNumber: aktNum ?? aktOfWorkNumber,
+        aktOurFirm: currentOurFirmId,
+        aktClient: currentClientId,
+      }));
+    }
+  }, [contract, arr__Contracts, aktOfWorkNumber]);
 
   useLayoutEffect(() => {
     if (id) {
@@ -257,6 +285,9 @@ function AktAddEdit({
 
       isActive: naklStages.isActive,
       typeAkt,
+
+      aktOurFirm,
+      aktClient,
     };
 
     if (mode === 'add') {

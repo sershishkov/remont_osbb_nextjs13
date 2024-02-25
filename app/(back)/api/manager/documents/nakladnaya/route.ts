@@ -25,6 +25,9 @@ export const POST = async (request: NextRequest) => {
     isActive,
 
     typeNakl,
+
+    naklOurFirm,
+    naklClient,
   } = await request.json();
   if (
     !nakladnayaNumber ||
@@ -72,6 +75,9 @@ export const POST = async (request: NextRequest) => {
       isActive,
       creator: session?.user._id,
       typeNakl,
+
+      naklOurFirm,
+      naklClient,
     });
 
     if (!new__ITEM) {
@@ -109,6 +115,9 @@ export const GET = async (request: NextRequest) => {
   const filterSTR = url.searchParams.get('filter') ?? '';
 
   const contract = url.searchParams.get('contract') ?? '';
+  const naklOurFirm = url.searchParams.get('naklOurFirm') ?? '';
+  const naklClient = url.searchParams.get('naklClient') ?? '';
+
   const naklDateStart = url.searchParams.get('naklDateStart') ?? '';
   const naklDateEnd = url.searchParams.get('naklDateEnd') ?? '';
 
@@ -131,6 +140,12 @@ export const GET = async (request: NextRequest) => {
 
   if (contract) {
     andArr.push({ contract: contract });
+  }
+  if (naklOurFirm) {
+    andArr.push({ naklOurFirm: naklOurFirm });
+  }
+  if (naklClient) {
+    andArr.push({ naklClient: naklClient });
   }
 
   if (naklDateStart && naklDateEnd) {

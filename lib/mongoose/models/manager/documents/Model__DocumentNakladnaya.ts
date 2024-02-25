@@ -17,6 +17,16 @@ const dokument_nakladnaya__Schema = new Schema<I_DocumentNakladnaya>(
       ref: 'contract',
       required: [true, 'Please add a contract id'],
     },
+    naklOurFirm: {
+      type: Schema.Types.ObjectId,
+      ref: 'client',
+      required: [true, 'Please add a aktOurFirm id'],
+    },
+    naklClient: {
+      type: Schema.Types.ObjectId,
+      ref: 'client',
+      required: [true, 'Please add a aktClient id'],
+    },
     products: [
       {
         product: {

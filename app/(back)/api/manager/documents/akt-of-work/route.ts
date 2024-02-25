@@ -25,6 +25,9 @@ export const POST = async (request: NextRequest) => {
     isActive,
 
     typeAkt,
+
+    aktOurFirm,
+    aktClient,
   } = await request.json();
 
   if (
@@ -75,6 +78,9 @@ export const POST = async (request: NextRequest) => {
 
       typeAkt,
       creator: session?.user._id,
+
+      aktOurFirm,
+      aktClient,
     });
 
     if (!new__ITEM) {
@@ -108,6 +114,8 @@ export const GET = async (request: NextRequest) => {
   const filterSTR = url.searchParams.get('filter') ?? '';
 
   const contract = url.searchParams.get('contract') ?? '';
+  const aktOurFirm = url.searchParams.get('aktOurFirm') ?? '';
+  const aktClient = url.searchParams.get('aktClient') ?? '';
   const aktDateStart = url.searchParams.get('aktDateStart') ?? '';
   const aktDateEnd = url.searchParams.get('aktDateEnd') ?? '';
 
@@ -130,6 +138,12 @@ export const GET = async (request: NextRequest) => {
 
   if (contract) {
     andArr.push({ contract: contract });
+  }
+  if (aktOurFirm) {
+    andArr.push({ aktOurFirm: aktOurFirm });
+  }
+  if (aktClient) {
+    andArr.push({ aktClient: aktClient });
   }
 
   if (aktDateStart && aktDateEnd) {

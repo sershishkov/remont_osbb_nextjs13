@@ -101,6 +101,8 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
     storeHouse,
     isActive,
     typeNakl,
+    naklOurFirm,
+    naklClient,
   } = myData;
 
   try {
@@ -114,6 +116,8 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
       storeHouse,
       isActive,
       typeNakl,
+      naklOurFirm,
+      naklClient,
     };
 
     const updated__ITEM = await DocumentNakladnaya.findByIdAndUpdate(

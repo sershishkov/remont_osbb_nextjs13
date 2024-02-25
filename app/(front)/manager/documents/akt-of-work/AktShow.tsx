@@ -4,6 +4,7 @@ import { useSession } from 'next-auth/react';
 
 import { get__all, delete__one } from '@/lib/actions/refdata.actions';
 import { accountant_role } from '@/constants/constants';
+import { I_Client, I_ClientType } from '@/interfaces/refdata';
 
 import Link from '@mui/material/Link';
 
@@ -31,6 +32,8 @@ import MySpinner from '@/components/common/MySpinner';
 
 const initState = {
   contract: '',
+  aktOurFirm: '',
+  aktClient: '',
 
   aktDateStart: '',
   aktDateEnd: '',
@@ -95,6 +98,8 @@ export default function AktShow({
   const [countTotalItems, setCountTotalItems] = useState(0);
 
   const [arr__Contracts, setArr__Contracts] = useState([]);
+  const [arr__OurFirms, setArr__OurFirms] = useState<I_Client[]>([]);
+  const [arr__Clients, setArr__Clients] = useState<I_Client[]>([]);
 
   const [searchText, setSearchText] = useState('');
   const [totalResults, setTotalResults] = useState([]);
@@ -102,6 +107,8 @@ export default function AktShow({
 
   const {
     contract,
+    aktOurFirm,
+    aktClient,
 
     aktDateStart,
     aktDateEnd,
@@ -113,13 +120,42 @@ export default function AktShow({
         { page: '0', limit: '0', filter: '' },
         currentURL
       );
+      const allFirms = await get__all(
+        { page: '0', limit: '0', filter: '' },
+        '/manager/refdata/client'
+      );
 
       const contracts = await get__all(
         { page: '0', limit: '0', filter: '' },
         '/manager/refdata/contract'
       );
 
+      const all__ClientTypes = await get__all(
+        { page: '0', limit: '0', filter: '' },
+        '/accountant/refdata/client-type'
+      );
+
+      const ourFirmObj = all__ClientTypes.items.find(
+        (item: I_ClientType) => item.clientTypeName === 'наша фирма'
+      );
+      const arr__ourFirms: I_Client[] = [];
+      const arr__Clients: I_Client[] = [];
+
+      allFirms.items.forEach((item: I_Client) => {
+        const hasOurFirm = item.clientType?.some(
+          (oneType) => oneType._id === ourFirmObj?._id
+        );
+
+        if (hasOurFirm) {
+          arr__ourFirms.push(item);
+        } else {
+          arr__Clients.push(item);
+        }
+      });
+
       setArr__Contracts(contracts.items);
+      setArr__OurFirms(arr__ourFirms);
+      setArr__Clients(arr__Clients);
 
       setCountTotalItems(getTotalItems.total);
       setTotalResults(arrToShow(getTotalItems.items));
@@ -164,6 +200,8 @@ export default function AktShow({
         aktDateStart: aktDateStart,
         aktDateEnd: aktDateEnd,
         contract: contract,
+        aktOurFirm: aktOurFirm,
+        aktClient: aktClient,
       },
       currentURL
     );
@@ -245,7 +283,7 @@ export default function AktShow({
               InputLabelProps={{ shrink: true }}
             />
           </Grid>
-          <Grid item sx={{ width: 300 }}>
+          <Grid item sx={{ width: 200 }}>
             <MySelectAutoCompl
               selectName={`contract`}
               selectLabel={`Контракты`}
@@ -254,6 +292,28 @@ export default function AktShow({
               selectedOption={contract ?? ''}
               // @ts-ignore
               arrToSelect={arr__Contracts}
+            />
+          </Grid>
+          <Grid item sx={{ width: 150 }}>
+            <MySelectAutoCompl
+              selectName={`aktOurFirm`}
+              selectLabel={`Наша`}
+              fieldToShow={`clientShortName`}
+              handleChangeSelects={handleChangeSelects}
+              selectedOption={aktOurFirm ?? ''}
+              // @ts-ignore
+              arrToSelect={arr__OurFirms}
+            />
+          </Grid>
+          <Grid item sx={{ width: 200 }}>
+            <MySelectAutoCompl
+              selectName={`aktClient`}
+              selectLabel={`Клиент`}
+              fieldToShow={`clientShortName`}
+              handleChangeSelects={handleChangeSelects}
+              selectedOption={aktClient ?? ''}
+              // @ts-ignore
+              arrToSelect={arr__Clients}
             />
           </Grid>
 

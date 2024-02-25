@@ -56,6 +56,9 @@ const initState = {
 
   typeNakl: 'outgoing',
   naklSum: 0,
+
+  naklOurFirm: '',
+  naklClient: '',
 };
 
 function NaklAddEdit({
@@ -92,6 +95,9 @@ function NaklAddEdit({
 
     typeNakl,
     naklSum,
+
+    naklOurFirm,
+    naklClient,
   } = formData;
 
   useEffect(() => {
@@ -136,6 +142,7 @@ function NaklAddEdit({
     };
     myGetAll();
   }, []);
+
   useEffect(() => {
     if (client) {
       const belongingContracts = arr__Contracts.filter(
@@ -145,6 +152,28 @@ function NaklAddEdit({
       setArr__ClientContracts(belongingContracts);
     }
   }, [client, arr__Contracts]);
+
+  useEffect(() => {
+    if (contract) {
+      const currentContract = arr__Contracts.find(
+        //@ts-ignore
+        (item) => item._id.toString() === contract
+      );
+      //@ts-ignore
+      const currentOurFirmId = currentContract?.ourFirm._id;
+      //@ts-ignore
+      const currentClientId = currentContract?.client._id;
+
+      const naklNum = currentContract?.naklNumber;
+
+      setFormData((prevState) => ({
+        ...prevState,
+        nakladnayaNumber: naklNum ?? nakladnayaNumber,
+        naklOurFirm: currentOurFirmId,
+        naklClient: currentClientId,
+      }));
+    }
+  }, [contract, arr__Contracts, nakladnayaNumber]);
 
   useLayoutEffect(() => {
     if (id) {
@@ -220,7 +249,12 @@ function NaklAddEdit({
       storeHouse,
       isActive: naklStages.isActive,
       typeNakl,
+
+      naklOurFirm,
+      naklClient,
     };
+
+    console.log(created__Data);
 
     if (mode === 'add') {
       await item__add(created__Data, currentURL, route);

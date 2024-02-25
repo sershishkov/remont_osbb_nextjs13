@@ -298,6 +298,8 @@ export interface I_DocumentNakladnaya {
   nakladnayaNumber: string;
   nakladnayaDate: Date;
   contract: Types.ObjectId;
+  naklOurFirm?: Types.ObjectId | I_Client | string;
+  naklClient?: Types.ObjectId | I_Client | string;
 
   products: I_ProductInNakl[];
 
@@ -366,6 +368,8 @@ export interface I_DocumentAktOfWork {
   aktOfWorkNumber: string;
   aktOfWorkDate: Date;
   contract: Types.ObjectId;
+  aktOurFirm?: Types.ObjectId | I_Client | string;
+  aktClient?: Types.ObjectId | I_Client | string;
   thirdPartyServices: I_ThirdPartyServiceInAkt[];
   serviceWorks: I_ServiceWorkInAkt[];
   product?: string;
