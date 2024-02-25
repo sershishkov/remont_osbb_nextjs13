@@ -1,3 +1,5 @@
+import { monthsWorkBudjet } from '@/constants/constants';
+
 const genNumberByDate = (enteredDate: Date) => {
   const fullYear = enteredDate.getFullYear();
   const month =
@@ -33,14 +35,14 @@ export const generateMultipleDocNumbers = () => {
   const oneMinute = 60 * 1000;
   const ms = +new Date();
 
-  const invoiceBaseDate = new Date(ms);
-  const invoiceNaklDate = new Date(ms + oneMinute);
-  const invoiceAktDate = new Date(ms + oneMinute * 2);
-  const aktDate = new Date(ms + oneMinute * 3);
-  const naklDate = new Date(ms + oneMinute * 4);
-  const koshtorisDate = new Date(ms + oneMinute * 5);
-  const contrProectAvtorskDate = new Date(ms + oneMinute * 6);
-  const aktProectAvtorskDate = new Date(ms + oneMinute * 7);
+  const invoiceBaseDate = new Date(ms + oneMinute);
+  const invoiceNaklDate = new Date(ms + oneMinute * 2);
+  const invoiceAktDate = new Date(ms + oneMinute * 3);
+  const aktDate = new Date(ms + oneMinute * 4);
+  const naklDate = new Date(ms + oneMinute * 5);
+  const koshtorisDate = new Date(ms + oneMinute * 6);
+  const contrProectAvtorskDate = new Date(ms + oneMinute * 7);
+  const aktProectAvtorskDate = new Date(ms + oneMinute * 8);
 
   const invoiceNumberBase = genNumberByDate(invoiceBaseDate);
   const invoiceNumberNakl = genNumberByDate(invoiceNaklDate);
@@ -94,3 +96,29 @@ export function Export22Doc(element: string, filename = '') {
 
   document.body.removeChild(downloadLink);
 }
+
+export const setDefaultMonths = () => {
+  const newDate = new Date();
+  const currentDate = newDate.getDate();
+  const currentMonth = newDate.getMonth();
+
+  console.log('currentDate', currentDate);
+  console.log('currentMonth', currentMonth);
+  let startMonth = '';
+  let endMonth = '';
+
+  if ((currentMonth === 10 && currentDate > 20) || currentMonth === 11) {
+    startMonth = monthsWorkBudjet[11]._id;
+    endMonth = monthsWorkBudjet[11]._id;
+  } else if (currentDate > 20) {
+    startMonth = monthsWorkBudjet[currentMonth + 1]._id;
+    endMonth = monthsWorkBudjet[currentMonth + 2]._id;
+  } else {
+    startMonth = monthsWorkBudjet[currentMonth]._id;
+    endMonth = monthsWorkBudjet[currentMonth + 1]._id;
+  }
+  return {
+    startMonth,
+    endMonth,
+  };
+};

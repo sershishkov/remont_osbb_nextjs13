@@ -75,6 +75,7 @@ const arrToShow = (enteredArr: any) => {
       client: currentItem.contract.client.clientShortName,
       contractDescription: currentItem.contract.contractDescription,
       creator: currentItem.creator,
+      isActive: currentItem.isActive,
     };
   });
   return transformedArr;
@@ -177,9 +178,11 @@ export default function NaklShow({
 
   const deleteHanler = async (_id: string) => {
     await delete__one(_id, currentURL);
-    setResultFetch(
-      await get__all({ page: '0', limit: '0', filter: '' }, currentURL)
+    const all_items = await get__all(
+      { page: '0', limit: '0', filter: '' },
+      currentURL
     );
+    setResultFetch(arrToShow(all_items.items));
     setFormData(initState);
     setSearchText('');
   };
@@ -335,7 +338,17 @@ export default function NaklShow({
                     <TableRow key={row._id}>
                       {tableFields.length > 0 &&
                         tableFields.map((item) => (
-                          <TableCell align='center' key={item}>
+                          <TableCell
+                            align='center'
+                            key={item}
+                            sx={{
+                              color:
+                                row.hasOwnProperty('isActive') &&
+                                row.isActive === false
+                                  ? 'red'
+                                  : undefined,
+                            }}
+                          >
                             {row[item]}
                           </TableCell>
                         ))}

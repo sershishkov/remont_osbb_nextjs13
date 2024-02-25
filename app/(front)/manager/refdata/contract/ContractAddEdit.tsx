@@ -14,6 +14,7 @@ import {
 import {
   generateDocNumber,
   generateMultipleDocNumbers,
+  setDefaultMonths,
 } from '@/lib/helpers/helperFunction';
 
 import Grid from '@mui/material/Grid';
@@ -76,15 +77,15 @@ const initState = {
   contrProectAvtorskNumber: '',
   aktProectAvtorskNumber: '',
 
-  proectnSumBudjet: '',
-  avtorskSumBudjet: '',
-  expertizaSumBudjet: '',
-  tehnadzorSumBudjet: '',
+  proectnSumBudjet: '890',
+  avtorskSumBudjet: '890',
+  expertizaSumBudjet: '4200',
+  tehnadzorSumBudjet: '0',
 
-  zvedeniySumBudjet: '',
-  dogovornayaSumBudjet: '',
+  zvedeniySumBudjet: '0',
+  dogovornayaSumBudjet: '0',
 
-  paymentSourceProectnAvt: '',
+  paymentSourceProectnAvt: 'собств',
   startMonthWorkBudjet: '',
   endMonthWorkBudjet: '',
 
@@ -253,6 +254,7 @@ function ContractAddEdit({
       setArr__Workers(all__Workers.items);
     };
     const docNums = generateMultipleDocNumbers();
+    const defMonth = setDefaultMonths();
 
     setFormData((prevState) => ({
       ...prevState,
@@ -266,6 +268,11 @@ function ContractAddEdit({
       koshtorisNumber: docNums.koshtorisNumber,
       contrProectAvtorskNumber: docNums.contrProectAvtorskNumber,
       aktProectAvtorskNumber: docNums.aktProectAvtorskNumber,
+      endWorkRemservis: new Date().toISOString().split('T')[0],
+      //@ts-ignore
+      startMonthWorkBudjet: defMonth?.startMonth ?? '',
+      //@ts-ignore
+      endMonthWorkBudjet: defMonth?.endMonth ?? '',
     }));
 
     myGetAll();
@@ -277,6 +284,8 @@ function ContractAddEdit({
         const item: I_Contract = await item__get_one({ _id: id }, currentURL);
 
         if (item) {
+          const docNums = generateMultipleDocNumbers();
+          const defMonth = setDefaultMonths();
           setFormData((prevState) => ({
             ...prevState,
             contractNumber: item.contractNumber!,
@@ -294,33 +303,38 @@ function ContractAddEdit({
             workAddress: item.workAddress!,
             guaranteePeriod: item.guaranteePeriod,
 
-            invoiceNumberBase: item.invoiceNumberBase,
-            invoiceNumberNakl: item.invoiceNumberNakl,
-            invoiceNumberAkt: item.invoiceNumberAkt,
+            invoiceNumberBase:
+              item.invoiceNumberBase ?? docNums.invoiceNumberBase,
+            invoiceNumberNakl:
+              item.invoiceNumberNakl ?? docNums.invoiceNumberNakl,
+            invoiceNumberAkt: item.invoiceNumberAkt ?? docNums.invoiceNumberAkt,
 
-            aktNumber: item.aktNumber,
-            naklNumber: item.naklNumber,
-            koshtorisNumber: item.koshtorisNumber,
+            aktNumber: item.aktNumber ?? docNums.aktNumber,
+            naklNumber: item.naklNumber ?? docNums.naklNumber,
+            koshtorisNumber: item.koshtorisNumber ?? docNums.koshtorisNumber,
 
-            contrProectAvtorskNumber: item.contrProectAvtorskNumber,
-            aktProectAvtorskNumber: item.aktProectAvtorskNumber,
+            contrProectAvtorskNumber:
+              item.contrProectAvtorskNumber ?? docNums.contrProectAvtorskNumber,
+            aktProectAvtorskNumber:
+              item.aktProectAvtorskNumber ?? docNums.aktProectAvtorskNumber,
 
-            proectnSumBudjet: item.proectnSumBudjet.toFixed(2),
-            avtorskSumBudjet: item.avtorskSumBudjet.toFixed(2),
-            expertizaSumBudjet: item.expertizaSumBudjet.toFixed(2),
-            tehnadzorSumBudjet: item.tehnadzorSumBudjet.toFixed(2),
+            proectnSumBudjet: item.proectnSumBudjet?.toFixed(2) ?? '890',
+            avtorskSumBudjet: item.avtorskSumBudjet?.toFixed(2) ?? '890',
+            expertizaSumBudjet: item.expertizaSumBudjet?.toFixed(2) ?? '4200',
+            tehnadzorSumBudjet: item.tehnadzorSumBudjet?.toFixed(2) ?? '0',
 
-            zvedeniySumBudjet: item.zvedeniySumBudjet.toFixed(2),
-            dogovornayaSumBudjet: item.dogovornayaSumBudjet.toFixed(2),
+            zvedeniySumBudjet: item.zvedeniySumBudjet?.toFixed(2) ?? '0',
+            dogovornayaSumBudjet: item.dogovornayaSumBudjet?.toFixed(2) ?? '0',
 
-            paymentSourceProectnAvt: item.paymentSourceProectnAvt,
-            startMonthWorkBudjet: item.startMonthWorkBudjet,
-            endMonthWorkBudjet: item.endMonthWorkBudjet,
-            endWorkRemservis: new Date(item.endWorkRemservis)
-              .toISOString()
-              .split('T')[0],
+            paymentSourceProectnAvt: item.paymentSourceProectnAvt ?? '',
+            startMonthWorkBudjet:
+              item.startMonthWorkBudjet ?? defMonth.startMonth,
+            endMonthWorkBudjet: item.endMonthWorkBudjet ?? defMonth.endMonth,
+            endWorkRemservis: item.endWorkRemservis
+              ? new Date(item.endWorkRemservis).toISOString().split('T')[0]
+              : new Date().toISOString().split('T')[0],
 
-            prepaymentPercentage: item.prepaymentPercentage.toFixed(2),
+            prepaymentPercentage: item.prepaymentPercentage.toFixed(2) ?? '70',
             //@ts-ignore
             contractType: item.contractType!._id.toString(),
             //@ts-ignore

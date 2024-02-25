@@ -241,9 +241,11 @@ export default function ServiceWorkShow({
 
   const deleteHanler = async (_id: string) => {
     await delete__one(_id, currentURL);
-    setResultFetch(
-      await get__all({ page: '0', limit: '0', filter: '' }, currentURL)
+    const all_items = await get__all(
+      { page: '0', limit: '0', filter: '' },
+      currentURL
     );
+    setResultFetch(arrToShow(all_items.items));
     setFormData(initState);
     setSearchText('');
   };
