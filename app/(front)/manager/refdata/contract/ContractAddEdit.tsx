@@ -326,7 +326,7 @@ function ContractAddEdit({
             zvedeniySumBudjet: item.zvedeniySumBudjet?.toFixed(2) ?? '0',
             dogovornayaSumBudjet: item.dogovornayaSumBudjet?.toFixed(2) ?? '0',
 
-            paymentSourceProectnAvt: item.paymentSourceProectnAvt ?? '',
+            paymentSourceProectnAvt: item.paymentSourceProectnAvt ?? 'собств',
             startMonthWorkBudjet:
               item.startMonthWorkBudjet ?? defMonth.startMonth,
             endMonthWorkBudjet: item.endMonthWorkBudjet ?? defMonth.endMonth,

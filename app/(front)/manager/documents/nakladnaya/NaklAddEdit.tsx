@@ -6,7 +6,6 @@ import { useSession } from 'next-auth/react';
 import { v4 as uuidv4 } from 'uuid';
 
 import TableNakladnayaOrAkt from '@/components/documents/TableNakladnayaOrAkt';
-import { generateDocNumber } from '@/lib/helpers/helperFunction';
 
 import {
   item__get_one,

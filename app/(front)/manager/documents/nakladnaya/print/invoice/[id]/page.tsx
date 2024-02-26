@@ -1,15 +1,15 @@
 'use client';
-import React, { useState, useEffect, useLayoutEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
-import { item__get_one, get__all } from '@/lib/actions/refdata.actions';
+import { item__get_one } from '@/lib/actions/refdata.actions';
 import InvoiceToPrint from '@/components/documents/formsToPrint/InvoiceToPrint';
 import { paramsProps } from '@/interfaces/CommonInterfaces';
 import { I_Contract, I_Client, I_ProductInNakl } from '@/interfaces/refdata';
 
 const currentURL = '/manager/documents/nakladnaya';
 const initState = {
-  nakladnayaNumber: '',
-  nakladnayaDate: new Date(),
+  invoiceNumber: '',
+  invoiceDate: new Date(),
   typeNakl: '',
   naklSum: 0,
   tableRows: [],
@@ -20,40 +20,21 @@ export default function InvoiceNakladnayaPrint({
 }: Readonly<paramsProps>) {
   const { id } = params;
   const [formData, setFormData] = useState(initState);
-  const [arr__Clients, setArr__Clients] = useState<I_Client[]>([]);
-  const [arr__Contracts, setArr__Contracts] = useState<I_Contract[]>([]);
 
   const [localOurFirmObj, setLocalOurFirmObj] = useState<I_Client>();
   const [localClientObj, setLocalClientObj] = useState<I_Client>();
   const [localContractObj, setLocalContractObj] = useState<I_Contract>();
 
-  useEffect(() => {
-    const myGetAll = async () => {
-      const clients = await get__all(
-        { page: '0', limit: '0', filter: '' },
-        '/manager/refdata/client'
-      );
-      const contracts = await get__all(
-        { page: '0', limit: '0', filter: '' },
-        '/manager/refdata/contract'
-      );
-
-      setArr__Clients(clients.items);
-      setArr__Contracts(contracts.items);
-    };
-    myGetAll();
-  }, []);
-
   const {
-    nakladnayaNumber,
-    nakladnayaDate,
+    invoiceNumber,
+    invoiceDate,
 
     typeNakl,
     naklSum,
     tableRows,
   } = formData;
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (id) {
       const myGetOne = async () => {
         const item = await item__get_one({ _id: id }, currentURL);
@@ -75,36 +56,42 @@ export default function InvoiceNakladnayaPrint({
               };
             }
           );
-          const localOurFirm = arr__Clients.find(
-            (client) => client._id === item.contract.ourFirm._id
+          const currentContract = await item__get_one(
+            { _id: item.contract._id },
+            '/manager/refdata/contract'
           );
-          const localClient = arr__Clients.find(
-            (client) => client._id === item.contract.client._id
+
+          const currentOurFirm = await item__get_one(
+            { _id: item.naklOurFirm },
+            '/manager/refdata/client'
           );
-          const localContract = arr__Contracts.find(
-            (contract) => contract._id === item.contract._id
+
+          const currentClient = await item__get_one(
+            { _id: item.naklClient },
+            '/manager/refdata/client'
           );
+
           setFormData((prevState) => ({
             ...prevState,
-            nakladnayaNumber: item.nakladnayaNumber,
-            nakladnayaDate: new Date(item.nakladnayaDate!),
+            invoiceNumber: currentContract.invoiceNumberNakl,
+            invoiceDate: new Date(currentContract.contractDate),
             naklSum: Number(item.totalNaklSum),
             typeNakl: item.typeNakl,
             tableRows: arrToSetRows,
           }));
-          setLocalOurFirmObj(localOurFirm);
-          setLocalClientObj(localClient);
-          setLocalContractObj(localContract);
+          setLocalOurFirmObj(currentOurFirm);
+          setLocalClientObj(currentClient);
+          setLocalContractObj(currentContract);
         }
       };
       myGetOne();
     }
-  }, [arr__Clients, arr__Contracts, id]);
+  }, [id]);
 
   return (
     <InvoiceToPrint
-      nakladnayaNumber={nakladnayaNumber}
-      nakladnayaDate={nakladnayaDate}
+      nakladnayaNumber={invoiceNumber}
+      nakladnayaDate={invoiceDate}
       ourFirmObj={localOurFirmObj!}
       clientObj={localClientObj!}
       contractObj={localContractObj!}

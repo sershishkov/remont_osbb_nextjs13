@@ -431,7 +431,7 @@ export default function ContractShow({
         <MySpinner />
       ) : (
         <Grid item sx={{ width: '100%' }}>
-          <TableContainer component={Paper} sx={{ maxHeight: 600 }}>
+          <TableContainer component={Paper} sx={{ maxHeight: 750 }}>
             <Table
               stickyHeader
               sx={{

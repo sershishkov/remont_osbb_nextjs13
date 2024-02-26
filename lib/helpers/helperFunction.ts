@@ -102,8 +102,6 @@ export const setDefaultMonths = () => {
   const currentDate = newDate.getDate();
   const currentMonth = newDate.getMonth();
 
-  console.log('currentDate', currentDate);
-  console.log('currentMonth', currentMonth);
   let startMonth = '';
   let endMonth = '';
 

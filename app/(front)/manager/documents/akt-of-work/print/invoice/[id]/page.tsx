@@ -17,102 +17,117 @@ import { arr__TypeOfOSBB } from '@/constants/constants';
 
 const currentURL = '/manager/documents/akt-of-work';
 const initState = {
-  aktOfWorkNumber: '',
-  aktOfWorkDate: new Date(),
+  invoiceNumber: '',
+  invoiceDate: new Date(),
   typeAkt: '',
   aktSum: 0,
-  relatedNaklSum: 0,
 };
 
 export default function InvoiceAktPrint({ params }: Readonly<paramsProps>) {
   const { id } = params;
   const [formData, setFormData] = useState(initState);
   const [tableRows, setTableRows] = useState<I_WorkRows[] | I_LProduct[]>([]);
-  const [arr__Clients, setArr__Clients] = useState<I_Client[]>([]);
-  const [arr__Contracts, setArr__Contracts] = useState<I_Contract[]>([]);
-  const [arr__RelatedNakls, setArr__RelatedNakls] = useState<
-    I_DocumentNakladnaya[]
-  >([]);
+  // const [arr__Clients, setArr__Clients] = useState<I_Client[]>([]);
+  // const [arr__Contracts, setArr__Contracts] = useState<I_Contract[]>([]);
+  // const [arr__RelatedNakls, setArr__RelatedNakls] = useState<
+  //   I_DocumentNakladnaya[]
+  // >([]);
 
   const [localOurFirmObj, setLocalOurFirmObj] = useState<I_Client>();
   const [localClientObj, setLocalClientObj] = useState<I_Client>();
   const [localContractObj, setLocalContractObj] = useState<I_Contract>();
 
-  useEffect(() => {
-    const myGetAll = async () => {
-      const clients = await get__all(
-        { page: '0', limit: '0', filter: '' },
-        '/manager/refdata/client'
-      );
-      const contracts = await get__all(
-        { page: '0', limit: '0', filter: '' },
-        '/manager/refdata/contract'
-      );
-      const localArrOfRelNakl = await get__all(
-        { page: '0', limit: '0', filter: '' },
-        '/manager/documents/nakladnaya'
-      );
+  // useEffect(() => {
+  //   const myGetAll = async () => {
+  //     const clients = await get__all(
+  //       { page: '0', limit: '0', filter: '' },
+  //       '/manager/refdata/client'
+  //     );
+  //     const contracts = await get__all(
+  //       { page: '0', limit: '0', filter: '' },
+  //       '/manager/refdata/contract'
+  //     );
+  //     const localArrOfRelNakl = await get__all(
+  //       { page: '0', limit: '0', filter: '' },
+  //       '/manager/documents/nakladnaya'
+  //     );
 
-      setArr__Clients(clients.items);
-      setArr__Contracts(contracts.items);
-      setArr__RelatedNakls(localArrOfRelNakl.items);
-    };
+  //     setArr__Clients(clients.items);
+  //     setArr__Contracts(contracts.items);
+  //     setArr__RelatedNakls(localArrOfRelNakl.items);
+  //   };
 
-    myGetAll();
-  }, []);
+  //   myGetAll();
+  // }, []);
 
-  const { aktOfWorkNumber, aktOfWorkDate, typeAkt, aktSum, relatedNaklSum } =
-    formData;
+  const { invoiceNumber, invoiceDate, typeAkt, aktSum } = formData;
 
   useLayoutEffect(() => {
     if (id) {
       const myGetOne = async () => {
         const item = await item__get_one({ _id: id }, currentURL);
         if (item) {
-          const localOurFirm = arr__Clients.find(
-            (client) => client._id === item.contract.ourFirm._id
-          );
-          const localClient = arr__Clients.find(
-            (client) => client._id === item.contract.client._id
-          );
-          const localContract = arr__Contracts.find(
-            (contract) => contract._id === item.contract._id
+          const currentContract = await item__get_one(
+            { _id: item.contract._id },
+            '/manager/refdata/contract'
           );
 
-          const arrNakl = arr__RelatedNakls.filter(
-            (nakl) => nakl.contract._id === item.contract._id
+          const currentOurFirm = await item__get_one(
+            { _id: item.aktOurFirm },
+            '/manager/refdata/client'
           );
-          const totalNakl = arrNakl.reduce(
-            (accumulator, currentValue) =>
-              accumulator + Number(currentValue.totalNaklSum),
-            0
+
+          const currentClient = await item__get_one(
+            { _id: item.aktClient },
+            '/manager/refdata/client'
           );
 
           const localContactType =
             //@ts-ignore
-            localContract?.contractType?.contractTypeName;
+            currentContract?.contractType?.contractTypeName;
           //@ts-ignore
-          const firmType = localContract?.client?.firmType?.firmTypeShortName;
+          const firmType = currentContract?.client?.firmType?.firmTypeShortName;
 
           const injectPhrase = arr__TypeOfOSBB.includes(firmType)
             ? 'у житловому будинку за адресою: '
             : ' за адресою:';
-          const workAddress = localContract?.workAddress;
-          const contractDescription = `${localContract?.contractDescription} ${injectPhrase} ${workAddress}`;
+          const workAddress = currentContract?.workAddress;
+          const contractDescription = `${currentContract?.contractDescription} ${injectPhrase} ${workAddress}`;
 
           setFormData((prevState) => ({
             ...prevState,
-            aktOfWorkNumber: item.aktOfWorkNumber,
-            aktOfWorkDate: new Date(item.aktOfWorkDate!),
+            invoiceNumber: currentContract.invoiceNumberAkt,
+            invoiceDate: new Date(currentContract.contractDate),
             typeAkt: item.typeAkt,
             aktSum: Number(item.totalSums.totalAktSum),
-            relatedNaklSum: totalNakl,
           }));
-          setLocalOurFirmObj(localOurFirm);
-          setLocalClientObj(localClient);
-          setLocalContractObj(localContract);
+          setLocalOurFirmObj(currentOurFirm);
+          setLocalClientObj(currentClient);
+          setLocalContractObj(currentContract);
 
-          if (localContactType === 'Сумма Кошторис') {
+          if (
+            localContactType === 'Кошторис Сумма' ||
+            localContactType === 'Кошторис Частичная Предоплата' ||
+            localContactType === 'Кошторис Предоплата Материал' ||
+            localContactType === 'Кошторис Предоплата 100%'
+          ) {
+            const localArrOfRelNakl = await get__all(
+              {
+                page: '0',
+                limit: '0',
+                filter: '',
+                contract: currentContract._id,
+              },
+              `/manager/documents/nakladnaya`
+            );
+
+            const totalNakl = localArrOfRelNakl?.items?.reduce(
+              //@ts-ignore
+              (accumulator, currentValue) =>
+                accumulator + Number(currentValue.totalNaklSum),
+              0
+            );
+
             let allThirdString = '';
             let allServString = '';
             item.thirdPartyServices?.forEach(
@@ -129,11 +144,10 @@ export default function InvoiceAktPrint({ params }: Readonly<paramsProps>) {
                 inner_item?.serviceWork?.serviceWorkName!
               } ${inner_item?.extraInformation!}, `;
             });
-            const sumToShow =
-              Number(item.totalSums.totalAktSum) + relatedNaklSum;
+            const sumToShow = Number(item.totalSums.totalAktSum) + totalNakl;
 
             const newRow = {
-              row_id: ' row_id',
+              row_id: 'row_id',
               //@ts-ignore
               product: `${contractDescription} (${allThirdString} ${allServString})`,
               extraInformation: '',
@@ -189,12 +203,12 @@ export default function InvoiceAktPrint({ params }: Readonly<paramsProps>) {
       };
       myGetOne();
     }
-  }, [arr__Clients, arr__Contracts, id]);
+  }, [id]);
 
   return (
     <InvoiceToPrint
-      nakladnayaNumber={aktOfWorkNumber}
-      nakladnayaDate={aktOfWorkDate}
+      nakladnayaNumber={invoiceNumber}
+      nakladnayaDate={invoiceDate}
       ourFirmObj={localOurFirmObj!}
       clientObj={localClientObj!}
       contractObj={localContractObj!}
