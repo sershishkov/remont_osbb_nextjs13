@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect, useLayoutEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { item__get_one, get__all } from '@/lib/actions/refdata.actions';
 import InvoiceToPrint from '@/components/documents/formsToPrint/InvoiceToPrint';
@@ -27,42 +27,14 @@ export default function InvoiceAktPrint({ params }: Readonly<paramsProps>) {
   const { id } = params;
   const [formData, setFormData] = useState(initState);
   const [tableRows, setTableRows] = useState<I_WorkRows[] | I_LProduct[]>([]);
-  // const [arr__Clients, setArr__Clients] = useState<I_Client[]>([]);
-  // const [arr__Contracts, setArr__Contracts] = useState<I_Contract[]>([]);
-  // const [arr__RelatedNakls, setArr__RelatedNakls] = useState<
-  //   I_DocumentNakladnaya[]
-  // >([]);
 
   const [localOurFirmObj, setLocalOurFirmObj] = useState<I_Client>();
   const [localClientObj, setLocalClientObj] = useState<I_Client>();
   const [localContractObj, setLocalContractObj] = useState<I_Contract>();
 
-  // useEffect(() => {
-  //   const myGetAll = async () => {
-  //     const clients = await get__all(
-  //       { page: '0', limit: '0', filter: '' },
-  //       '/manager/refdata/client'
-  //     );
-  //     const contracts = await get__all(
-  //       { page: '0', limit: '0', filter: '' },
-  //       '/manager/refdata/contract'
-  //     );
-  //     const localArrOfRelNakl = await get__all(
-  //       { page: '0', limit: '0', filter: '' },
-  //       '/manager/documents/nakladnaya'
-  //     );
-
-  //     setArr__Clients(clients.items);
-  //     setArr__Contracts(contracts.items);
-  //     setArr__RelatedNakls(localArrOfRelNakl.items);
-  //   };
-
-  //   myGetAll();
-  // }, []);
-
   const { invoiceNumber, invoiceDate, typeAkt, aktSum } = formData;
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (id) {
       const myGetOne = async () => {
         const item = await item__get_one({ _id: id }, currentURL);
@@ -121,13 +93,12 @@ export default function InvoiceAktPrint({ params }: Readonly<paramsProps>) {
               `/manager/documents/nakladnaya`
             );
 
-            const totalNakl = localArrOfRelNakl?.items?.reduce(
-              //@ts-ignore
-              (accumulator, currentValue) =>
-                accumulator + Number(currentValue.totalNaklSum),
-              0
-            );
+            const currentNakl: I_DocumentNakladnaya =
+              localArrOfRelNakl?.items[0];
 
+            const totalNakl = currentNakl.totalNaklSum
+              ? Number(currentNakl.totalNaklSum)
+              : 0;
             let allThirdString = '';
             let allServString = '';
             item.thirdPartyServices?.forEach(
