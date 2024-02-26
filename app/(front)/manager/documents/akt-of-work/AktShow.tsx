@@ -337,7 +337,7 @@ export default function AktShow({
         <MySpinner />
       ) : (
         <Grid item sx={{ width: '100%' }}>
-          <TableContainer component={Paper} sx={{ maxHeight: 600 }}>
+          <TableContainer component={Paper} sx={{ maxHeight: 800 }}>
             <Table
               stickyHeader
               sx={{

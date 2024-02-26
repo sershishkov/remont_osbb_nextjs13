@@ -10,6 +10,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import theme_dark from '../mui_theme/theme_dark';
 import Navbar from '@/components/navbar/Navbar';
 import Footer from '@/components/footer/Footer';
+import Main from './Main';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -31,9 +32,7 @@ export default function RootLayout({
           <body className={inter.className} suppressHydrationWarning={true}>
             <ToastProvider>
               <Navbar />
-              <main id='main' className={styles.main}>
-                {children}
-              </main>
+              <Main>{children}</Main>
               <Footer />
             </ToastProvider>
           </body>

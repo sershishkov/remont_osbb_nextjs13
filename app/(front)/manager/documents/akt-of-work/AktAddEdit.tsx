@@ -142,7 +142,7 @@ function AktAddEdit({
 
       setFormData((prevState) => ({
         ...prevState,
-        aktOfWorkNumber: generateDocNumber(),
+        // aktOfWorkNumber: generateDocNumber(),
         aktOfWorkDate: new Date().toISOString().split('T')[0],
       }));
     };
@@ -174,12 +174,12 @@ function AktAddEdit({
 
       setFormData((prevState) => ({
         ...prevState,
-        aktOfWorkNumber: aktNum ?? aktOfWorkNumber,
+        aktOfWorkNumber: aktNum ?? '',
         aktOurFirm: currentOurFirmId,
         aktClient: currentClientId,
       }));
     }
-  }, [contract, arr__Contracts, aktOfWorkNumber]);
+  }, [contract, arr__Contracts]);
 
   useLayoutEffect(() => {
     if (id) {

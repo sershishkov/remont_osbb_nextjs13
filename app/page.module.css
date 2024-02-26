@@ -8,6 +8,16 @@
   min-height: 100vh;
 }
 
+.mainWork {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0 6rem;
+  align-items: center;
+  min-height: 100vh;
+}
+
 .description {
   display: inherit;
   justify-content: inherit;

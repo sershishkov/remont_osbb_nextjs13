@@ -136,7 +136,7 @@ function NaklAddEdit({
       setFormData((prevState) => ({
         ...prevState,
         storeHouse: defaultStoreHouse._id,
-        nakladnayaNumber: generateDocNumber(),
+        // nakladnayaNumber: generateDocNumber(),
         nakladnayaDate: new Date().toISOString().split('T')[0],
       }));
     };
@@ -168,12 +168,12 @@ function NaklAddEdit({
 
       setFormData((prevState) => ({
         ...prevState,
-        nakladnayaNumber: naklNum ?? nakladnayaNumber,
+        nakladnayaNumber: naklNum ?? '',
         naklOurFirm: currentOurFirmId,
         naklClient: currentClientId,
       }));
     }
-  }, [contract, arr__Contracts, nakladnayaNumber]);
+  }, [contract, arr__Contracts]);
 
   useLayoutEffect(() => {
     if (id) {
