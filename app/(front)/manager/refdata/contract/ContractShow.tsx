@@ -448,7 +448,7 @@ export default function ContractShow({
                   >
                     {`${tableHeader} `}
                   </TableCell>
-                  <TableCell colSpan={4}>{` Всего ${
+                  <TableCell colSpan={5}>{` Всего ${
                     countTotalItems ?? 0
                   }`}</TableCell>
                 </TableRow>
@@ -465,6 +465,12 @@ export default function ContractShow({
                     align='center'
                   >
                     Дог
+                  </TableCell>
+                  <TableCell
+                    sx={{ width: '0.8rem', fontSize: '0.8rem' }}
+                    align='center'
+                  >
+                    счет
                   </TableCell>
                   <TableCell
                     sx={{ width: '0.8rem', fontSize: '0.8rem' }}
@@ -502,6 +508,18 @@ export default function ContractShow({
                           size='small'
                           component={Link}
                           href={`${currentURL}/print/contract/${row._id}`}
+                        >
+                          <PrintIcon
+                            sx={{ width: '1.2rem', fontSize: '1.2rem' }}
+                            color='success'
+                          />
+                        </IconButton>
+                      </TableCell>
+                      <TableCell align='center' sx={{ width: 15 }}>
+                        <IconButton
+                          size='small'
+                          component={Link}
+                          href={`${currentURL}/print/invoicemix/${row._id}`}
                         >
                           <PrintIcon
                             sx={{ width: '1.2rem', fontSize: '1.2rem' }}
