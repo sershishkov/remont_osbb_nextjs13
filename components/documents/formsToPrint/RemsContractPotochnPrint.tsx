@@ -20,7 +20,9 @@ export default function RemsContractPotochnPrint({
 }>) {
   const totalSumPropis = FloatToSamplesInWordsUkr(aktSum);
   const aktSumString = aktSum.toFixed(2).split('.');
-  const contrDateStr = new Date().toLocaleDateString('uk-UA', {
+  const contrDateStr = new Date(
+    currentContract?.contractDate!
+  ).toLocaleDateString('uk-UA', {
     year: 'numeric',
   });
   const endWorkRemservis = new Date(
