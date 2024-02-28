@@ -91,7 +91,14 @@ export default function ContractPrint({ params }: Readonly<paramsProps>) {
   } else if (currentContractType === 'Ремсервис (бюджет)') {
     return <RemsContractBudjetPrint />;
   } else if (currentContractType === 'Ремсервис (поточный)') {
-    return <RemsContractPotochnPrint />;
+    return (
+      <RemsContractPotochnPrint
+        currentContract={currentContract!}
+        currentOurFirm={currentOurFirm!}
+        currentClient={currentClient!}
+        aktSum={aktSum ?? 0}
+      />
+    );
   } else if (currentContractType === 'Бюджет ЖКХ') {
     return <BudjetJkhContractPrint />;
   } else if (currentContractType === 'Дог. Агросервис') {

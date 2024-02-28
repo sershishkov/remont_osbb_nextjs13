@@ -20,10 +20,30 @@
     font-weight: 400;
     font-style: normal;
   }
+  .rems-potochn-chapter {
+    font-weight: 900;
+    font-size: 0.8rem;
+    margin-top: 1rem;
+  }
+  .rems-potochn-paragraph {
+    text-indent: 2rem;
+    font-size: 0.77rem;
+  }
+  .rems-potochn-italic {
+    text-indent: 2rem;
+    font-style: italic;
+    text-decoration: underline;
+    font-size: 0.77rem;
+  }
 }
 
 @page {
   size: A4 portrait;
+  // @bottom-center {
+  //   counter-increment: page;
+  //   // counter-reset: page 1;
+  //   content: 'page ' counter(page);
+  // }
 }
 @page :first {
   margin-top: 0;
@@ -49,5 +69,20 @@
       font-weight: 400;
       font-style: normal;
     }
+  }
+  .rems-potochn-chapter {
+    font-weight: 900;
+    font-size: 0.8rem;
+    margin-top: 1rem;
+  }
+  .rems-potochn-paragraph {
+    text-indent: 2rem;
+    font-size: 0.77rem;
+  }
+  .rems-potochn-italic {
+    text-indent: 2rem;
+    font-style: italic;
+    text-decoration: underline;
+    font-size: 0.77rem;
   }
 }
