@@ -88,6 +88,7 @@ const initState = {
   paymentSourceProectnAvt: 'собств',
   startMonthWorkBudjet: '',
   endMonthWorkBudjet: '',
+  kodDkBudjet: 'код ДК 021:2015 - 45453000-7 Капітальний ремонт і реставрація',
 
   endWorkRemservis: '',
 };
@@ -180,6 +181,7 @@ function ContractAddEdit({
     paymentSourceProectnAvt,
     startMonthWorkBudjet,
     endMonthWorkBudjet,
+    kodDkBudjet,
 
     endWorkRemservis,
   } = formData;
@@ -330,6 +332,9 @@ function ContractAddEdit({
             startMonthWorkBudjet:
               item.startMonthWorkBudjet ?? defMonth.startMonth,
             endMonthWorkBudjet: item.endMonthWorkBudjet ?? defMonth.endMonth,
+            kodDkBudjet:
+              item.kodDkBudjet ??
+              'код ДК 021:2015 - 45453000-7 Капітальний ремонт і реставрація',
             endWorkRemservis: item.endWorkRemservis
               ? new Date(item.endWorkRemservis).toISOString().split('T')[0]
               : new Date().toISOString().split('T')[0],
@@ -459,6 +464,7 @@ function ContractAddEdit({
       paymentSourceProectnAvt,
       startMonthWorkBudjet,
       endMonthWorkBudjet,
+      kodDkBudjet,
 
       endWorkRemservis,
 
@@ -1208,6 +1214,20 @@ function ContractAddEdit({
                   selectedOption={endMonthWorkBudjet ?? ''}
                   // @ts-ignore
                   arrToSelect={monthsWorkBudjet ?? []}
+                />
+              </Grid>
+              <Grid item sx={{ width: 250 }}>
+                <TextField
+                  margin='normal'
+                  multiline
+                  required
+                  fullWidth
+                  name='kodDkBudjet'
+                  label='Код ДК'
+                  type='text'
+                  id='kodDkBudjet'
+                  value={kodDkBudjet ?? ''}
+                  onChange={onChange}
                 />
               </Grid>
             </Grid>

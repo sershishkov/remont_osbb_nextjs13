@@ -235,6 +235,7 @@ export interface I_Contract {
   paymentSourceProectnAvt: string; //собств, бюджет
   startMonthWorkBudjet: string; //["січень","лютий","березень","квітень","травень","червень","липень","серпень","вересень","жовтень","листопад","грудень"]
   endMonthWorkBudjet: string;
+  kodDkBudjet: string;
 
   endWorkRemservis: Date;
 

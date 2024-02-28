@@ -49,6 +49,7 @@ export const POST = async (request: NextRequest) => {
     paymentSourceProectnAvt,
     startMonthWorkBudjet,
     endMonthWorkBudjet,
+    kodDkBudjet,
 
     endWorkRemservis,
 
@@ -143,6 +144,7 @@ export const POST = async (request: NextRequest) => {
       paymentSourceProectnAvt,
       startMonthWorkBudjet,
       endMonthWorkBudjet,
+      kodDkBudjet,
 
       endWorkRemservis,
 

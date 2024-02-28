@@ -157,6 +157,10 @@ const contract__Schema = new Schema<I_Contract>(
         'грудень',
       ],
     },
+    kodDkBudjet: {
+      type: String,
+      default: 'код ДК 021:2015 - 45453000-7 Капітальний ремонт і реставрація',
+    },
 
     endWorkRemservis: {
       type: Date,

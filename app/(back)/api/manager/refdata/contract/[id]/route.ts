@@ -136,6 +136,7 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
     paymentSourceProectnAvt,
     startMonthWorkBudjet,
     endMonthWorkBudjet,
+    kodDkBudjet,
 
     endWorkRemservis,
 
@@ -196,6 +197,7 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
       paymentSourceProectnAvt,
       startMonthWorkBudjet,
       endMonthWorkBudjet,
+      kodDkBudjet,
 
       endWorkRemservis,
 

@@ -100,7 +100,13 @@ export default function ContractPrint({ params }: Readonly<paramsProps>) {
       />
     );
   } else if (currentContractType === 'Бюджет ЖКХ') {
-    return <BudjetJkhContractPrint />;
+    return (
+      <BudjetJkhContractPrint
+        currentContract={currentContract!}
+        currentOurFirm={currentOurFirm!}
+        currentClient={currentClient!}
+      />
+    );
   } else if (currentContractType === 'Дог. Агросервис') {
     return <AgroContractPrint />;
   } else {
