@@ -152,11 +152,7 @@ function NakladnToPrint({
               <TableCell align='center' sx={{ width: '7mm' }}></TableCell>
               <TableCell align='center' sx={{ width: '7mm' }}></TableCell>
               <TableCell align='center' sx={{ width: '12mm' }}></TableCell>
-              <TableCell align='center'></TableCell>
-              <TableCell align='center'></TableCell>
-              <TableCell align='center'></TableCell>
-              <TableCell align='center'></TableCell>
-              <TableCell align='center'></TableCell>
+              <TableCell align='center' colSpan={5}></TableCell>
               <TableCell align='center' sx={{ width: '16mm' }}></TableCell>
               <TableCell align='center' sx={{ width: '18mm' }}></TableCell>
               <TableCell align='center' sx={{ width: '20mm' }}></TableCell>
@@ -216,7 +212,7 @@ function NakladnToPrint({
               <TableCell align='center' sx={{ width: '7mm' }}></TableCell>
               <TableCell align='center' sx={{ width: '7mm' }}></TableCell>
               <TableCell align='center' sx={{ width: '12mm' }}></TableCell>
-              <TableCell align='center' colSpan={4}></TableCell>
+              <TableCell align='center' colSpan={5}></TableCell>
 
               <TableCell align='center' sx={{ width: '12mm' }}></TableCell>
               <TableCell align='center' sx={{ width: '16mm' }}></TableCell>
@@ -229,7 +225,7 @@ function NakladnToPrint({
               <TableCell align='center' sx={{ width: '7mm' }}>
                 <Typography variant='body2'>№ п/п</Typography>
               </TableCell>
-              <TableCell align='center' colSpan={7}>
+              <TableCell align='center' colSpan={8}>
                 <Typography variant='body2'>Найменування</Typography>
               </TableCell>
               <TableCell align='center' sx={{ width: '16mm' }}>
@@ -252,7 +248,7 @@ function NakladnToPrint({
                   <TableCell align='center'>
                     <Typography variant='body2'>{rowIndex + 1}</Typography>
                   </TableCell>
-                  <TableCell colSpan={7} align='left' sx={{ paddingLeft: 1 }}>
+                  <TableCell colSpan={8} align='left' sx={{ paddingLeft: 1 }}>
                     <Typography variant='body2'>
                       {item.product} {item.extraInformation ?? ''}
                     </Typography>
@@ -282,7 +278,7 @@ function NakladnToPrint({
             {' '}
             <TableRow>
               <TableCell></TableCell>
-              <TableCell colSpan={10}>
+              <TableCell colSpan={11}>
                 <Typography
                   variant='body2'
                   sx={{ color: 'black', paddingLeft: 5 }}
@@ -302,7 +298,7 @@ function NakladnToPrint({
             </TableRow>
             <TableRow>
               <TableCell></TableCell>
-              <TableCell colSpan={10}>
+              <TableCell colSpan={11}>
                 <Typography
                   variant='body2'
                   sx={{ color: 'black', paddingLeft: 5 }}
@@ -322,7 +318,7 @@ function NakladnToPrint({
             </TableRow>
             <TableRow>
               <TableCell></TableCell>
-              <TableCell colSpan={10}>
+              <TableCell colSpan={11}>
                 <Typography
                   variant='body2'
                   sx={{ color: 'black', paddingLeft: 5 }}
