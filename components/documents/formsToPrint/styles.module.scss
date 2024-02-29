@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Gupter:wght@400;500;700&family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 .page {
-  // display: table;
-  // page-break-after: left;
   width: 210mm;
   min-height: 297mm;
   padding: 5mm 10mm 5mm 20mm;
@@ -49,11 +47,6 @@
 
 @page {
   size: A4 portrait;
-  // @bottom-center {
-  //   counter-increment: page;
-  //   // counter-reset: page 1;
-  //   content: 'page ' counter(page);
-  // }
 }
 @page :first {
   margin-top: 0;
@@ -61,8 +54,6 @@
 
 @media print {
   .page {
-    // display: table;
-    // page-break-after: left;
     width: 210mm;
     padding: 5mm 10mm 5mm 20mm;
     min-height: initial;
@@ -97,13 +88,12 @@
     text-decoration: underline;
     font-size: 0.77rem;
   }
-  // #pageFooter {
-  //   display: table-footer-group;
-  // }
-
-  // #pageFooter:after {
-  //   color: black;
-  //   counter-increment: page;
-  //   content: counter(page);
-  // }
+  .jkh-budjet-chapter {
+    font-weight: 900;
+    font-size: 1rem;
+    margin-top: 1rem;
+  }
+  .jkh-budjet-paragraph {
+    font-size: 1rem;
+  }
 }
