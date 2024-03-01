@@ -6,6 +6,12 @@ import { FloatToSamplesInWordsUkr } from '@/lib/helpers/myPropisUkr';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 
+import TableContainer from '@mui/material/TableContainer';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableRow from '@mui/material/TableRow';
+
 import classes from './styles.module.scss';
 
 export default function BaseContractPrint({
@@ -227,152 +233,230 @@ export default function BaseContractPrint({
 
   return (
     <div className={classes.page} id='page'>
-      <Typography variant='h6' align='center'>
-        Договір № {contrNumber}
-      </Typography>
-      <Typography variant='body2' align='center'>
-        на виконання ремонтних робіт
-      </Typography>
-      <Grid
-        container
-        direction={`row`}
-        justifyContent={`space-between`}
-        alignItems={`center`}
-        mb={2}
+      <TableContainer id='table-base-contract-header'>
+        <Table
+          padding='none'
+          sx={{
+            width: '100%',
+            margin: 0,
+            backgroundColor: 'white',
+          }}
+        >
+          <TableBody
+            sx={{
+              '& td,th': {
+                border: '1px solid transparent',
+              },
+            }}
+          >
+            <TableRow>
+              <TableCell colSpan={2}>
+                <Typography
+                  variant='body1'
+                  className={classes['base-contr-chapter']}
+                  align='center'
+                >
+                  Договір № {contrNumber}
+                </Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell colSpan={2}>
+                <Typography
+                  variant='body2'
+                  className={classes['base-contr-paragraph']}
+                  align='center'
+                >
+                  на виконання ремонтних робіт
+                </Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['base-contr-paragraph']}
+                  align='left'
+                >
+                  {contrDateStr}
+                </Typography>
+              </TableCell>
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['base-contr-paragraph']}
+                  align='right'
+                >
+                  м. Запоріжжя
+                </Typography>
+              </TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </TableContainer>
+
+      <Typography
+        variant='body2'
+        className={classes['base-contr-paragraph']}
+        mt={2}
       >
-        <Grid item>
-          <Typography variant='body2'>{contrDateStr}</Typography>
-        </Grid>
-        <Grid item>
-          <Typography variant='body2'>м. Запоріжжя</Typography>
-        </Grid>
-      </Grid>
-      <Typography variant='body2'>{clientPreambula}</Typography>
-      <Typography variant='body2'>{executorPreambula}</Typography>
-      <Typography variant='body1' align='center'>
+        {clientPreambula}
+      </Typography>
+      <Typography variant='body2' className={classes['base-contr-paragraph']}>
+        {executorPreambula}
+      </Typography>
+      <Typography
+        variant='body1'
+        className={classes['base-contr-chapter']}
+        align='center'
+      >
         1. ПРЕДМЕТ ДОГОВОРУ
       </Typography>
-      <Typography variant='body2'>
+      <Typography variant='body2' className={classes['base-contr-paragraph']}>
         1.1. Згідно цього договору ВИКОНАВЕЦЬ приймає на себе зобов`язання
         виконувати <strong>«{contractDescription}»</strong> , а ЗАМОВНИК
         зобов`язується приймати роботу та оплатити її вартість у строки та на
         умовах, що визначаються цим договором та додатками до нього.{' '}
       </Typography>
-      <Typography variant='body2'>{p1_2}</Typography>
-      <Typography variant='body1' align='center'>
+      <Typography variant='body2' className={classes['base-contr-paragraph']}>
+        {p1_2}
+      </Typography>
+      <Typography
+        variant='body1'
+        className={classes['base-contr-chapter']}
+        align='center'
+      >
         2. ВАРТІСТЬ РОБІТ ТА ПОРЯДОК РОЗРАХУНКІВ
       </Typography>
-      <Typography variant='body2'>{p2_1}</Typography>
-      <Typography variant='body2'>{p2_2}</Typography>
+      <Typography variant='body2' className={classes['base-contr-paragraph']}>
+        {p2_1}
+      </Typography>
+      <Typography variant='body2' className={classes['base-contr-paragraph']}>
+        {p2_2}
+      </Typography>
       <Typography
         variant='body2'
+        className={classes['base-contr-paragraph']}
         sx={{ display: p2_2_1 !== '' ? 'block' : 'none' }}
       >
         {p2_2_1}
       </Typography>
       <Typography
         variant='body2'
+        className={classes['base-contr-paragraph']}
         sx={{ display: p2_2_2 !== '' ? 'block' : 'none' }}
       >
         {p2_2_2}
       </Typography>
-      <Typography variant='body2'>
+      <Typography variant='body2' className={classes['base-contr-paragraph']}>
         2.3. Датою здійснення платежу є дата списання коштів з поточного рахунку
         ЗАМОВНИКА.
       </Typography>
-      <Typography variant='body2'>
+      <Typography variant='body2' className={classes['base-contr-paragraph']}>
         2.4 Факт виконання договірних зобов’язань ВИКОНАВЦЯ підтверджується
         Актом виконаних робіт. Даний Акт складається і підписується сторонами
         договору.
       </Typography>
-      <Typography variant='body2'>
+      <Typography variant='body2' className={classes['base-contr-paragraph']}>
         2.5. Вартість за виконання інших додаткових послуг погоджується
         сторонами окремо, і сплачується на підставі виставленого рахунку і
         відповідного Акту виконаних робіт.
       </Typography>
-      <Typography variant='body2'>
+      <Typography variant='body2' className={classes['base-contr-paragraph']}>
         2.6.ЗАМОВНИК протягом двох робочих днів з моменту отримання Актів
         виконаних робіт підписує їх або направляє ЗАМОВНИКУ мотивовану відмову в
         прийманні робіт, в іншому випадку, Акти виконаних робіт вважаються
         підписаними.
       </Typography>
 
-      <Typography variant='body1' align='center'>
+      <Typography
+        variant='body1'
+        className={classes['base-contr-chapter']}
+        align='center'
+      >
         3.СТРОК ДІЇ ТА УМОВИ РОЗІРВАННЯ ДОГОВОРУ
       </Typography>
-      <Typography variant='body2'>
+      <Typography variant='body2' className={classes['base-contr-paragraph']}>
         3.1. Даний договір починає діяти з моменту його підписання Сторонами і
         діє до повного виконання робіт по цьому договору.
       </Typography>
-      <Typography variant='body2'>
+      <Typography variant='body2' className={classes['base-contr-paragraph']}>
         3.2. В випадку продовження строку дії даного Договору Сторони мають
         право переглянути ціни на передбачені Договором роботи.
       </Typography>
-      <Typography variant='body2'>
+      <Typography variant='body2' className={classes['base-contr-paragraph']}>
         3.3. Будь-яка із сторін може розірвати цей Договір в односторонньому
         порядку або призупинити його виконання, якщо інша сторона:
       </Typography>
-      <Typography variant='body2'>
+      <Typography variant='body2' className={classes['base-contr-paragraph']}>
         3.3.1.Не виконує свої зобов’язання за Договором або не виконує положення
         Договору, з письмовим повідомленням про цей факт іншій стороні за 10
         робочих днів.
       </Typography>
-      <Typography variant='body2'>
+      <Typography variant='body2' className={classes['base-contr-paragraph']}>
         3.4.ЗАМОВНИК має право розірвати Договір у будь-який час, якщо
         ВИКОНАВЕЦЬ не буде виконувати свої обов’язки на рівні, що задовольняє
         ЗАМОВНИКА.
       </Typography>
-      <Typography variant='body2'>
+      <Typography variant='body2' className={classes['base-contr-paragraph']}>
         3.5.У випадку розірвання Договору платежі по договору проводяться на
         дату розірвання Договору з врахуванням об’єму виконаних робіт.
       </Typography>
-      <Typography variant='body1' align='center'>
+      <Typography
+        variant='body1'
+        className={classes['base-contr-chapter']}
+        align='center'
+      >
         4.ОБОВ’ЯЗКИ СТОРІН
       </Typography>
-      <Typography variant='body2'>4.1. Замовник зобов’язується:</Typography>
-      <Typography variant='body2'>
+      <Typography variant='body2' className={classes['base-contr-paragraph']}>
+        4.1. Замовник зобов’язується:
+      </Typography>
+      <Typography variant='body2' className={classes['base-contr-paragraph']}>
         4.1.1.Своєчасно здійснювати оплату в строки, зазначені в даному
         Договорі.
       </Typography>
-      <Typography variant='body2'>
+      <Typography variant='body2' className={classes['base-contr-paragraph']}>
         4.1.2.Прийняти результати робіт протягом двох робочих днів з дня
         отримання Актів виконаних робіт або направити Виконавцю мотивовану
         відмову в прийомі робіт, в іншому випадку, Акти виконаних робіт
         вважаються підписаними.
       </Typography>
-      <Typography variant='body2'>
+      <Typography variant='body2' className={classes['base-contr-paragraph']}>
         4.1.3.Забезпечити доступ до об’єктів, а саме: в визначені приміщення в
         яких мають проводитись монтажні роботи.
       </Typography>
-      <Typography variant='body2'>
+      <Typography variant='body2' className={classes['base-contr-paragraph']}>
         4.1.4.Відповідно до цього договору ЗАМОВНИК має право здійснювати
         контроль і технічний нагляд за відповідністю обсягу і якості виконуваних
         робіт.
       </Typography>
-      <Typography variant='body2'>4.2. Виконавець зобов’язується:</Typography>
-      <Typography variant='body2'>
+      <Typography variant='body2' className={classes['base-contr-paragraph']}>
+        4.2. Виконавець зобов’язується:
+      </Typography>
+      <Typography variant='body2' className={classes['base-contr-paragraph']}>
         4.2.1.Своєчасно та якісно виконувати роботи, які є предметом цього
         договору.
       </Typography>
-      <Typography variant='body2'>
+      <Typography variant='body2' className={classes['base-contr-paragraph']}>
         4.2.2.Своєчасно надати Акти виконаних робіт і рахунки, які підлягають
         оплаті.
       </Typography>
-      <Typography variant='body2'>
+      <Typography variant='body2' className={classes['base-contr-paragraph']}>
         4.2.3.Усунути за свій рахунок брак та недоробки, виявлені ЗАМОВНИКОМ у
         процесі контролювання якості виконаних ВИКОНАВЦЕМ робіт згідно даного
         Договору.
       </Typography>
-      <Typography variant='body2'>
+      <Typography variant='body2' className={classes['base-contr-paragraph']}>
         4.2.4.Відповідальність за виконання техніки безпеки при виконанні робіт
         за цим договором покладається на ВИКОНАВЦЯ.
       </Typography>
-      <Typography variant='body2'>
+      <Typography variant='body2' className={classes['base-contr-paragraph']}>
         4.2.5.ВИКОНАВЕЦЬ несе повну відповідальність за шкоду нанесену
         обладнанню ЗАМОВНИКА, які виникли з вини ВИКОНАВЦЯ при виконані робіт за
         цим Договором.
       </Typography>
-      <Typography variant='body2'>
+      <Typography variant='body2' className={classes['base-contr-paragraph']}>
         4.2.6. ВИКОНАВЕЦЬ зобов&apos;язується в продовж гарантійного терміну
         безкоштовно з використанням власних матеріалів і засобів ліквідовувати
         будь-які недоліки, які виникли з вини ВИКОНАВЦЯ. Гарантійний термін
@@ -381,51 +465,64 @@ export default function BaseContractPrint({
       </Typography>
       <Typography
         variant='body2'
+        className={classes['base-contr-paragraph']}
         sx={{ display: p4_2_7 !== '' ? 'block' : 'none' }}
       >
         {p4_2_7}
       </Typography>
-      <Typography variant='body1' align='center'>
+      <Typography
+        variant='body1'
+        className={classes['base-contr-chapter']}
+        align='center'
+      >
         5.ВІДПОВІДАЛЬНІСТЬ
       </Typography>
-      <Typography variant='body2'>
+      <Typography variant='body2' className={classes['base-contr-paragraph']}>
         5.1. В випадку порушення умов даного Договору, винна Сторона несе
         відповідальність визначену цим Договором або чинним законодавством
         України.
       </Typography>
-      <Typography variant='body2'>
+      <Typography variant='body2' className={classes['base-contr-paragraph']}>
         5.2. За цим договором, сплата винуватою Стороною визначених даним
         договором та/або чинним законодавством України штрафних санкцій
         (неустойка, пеня, штраф) не звільняє останню від обов’язку від виконання
         обов’язків за Договором в натурі та в повному обсязі.
       </Typography>
-      <Typography variant='body2'>
+      <Typography variant='body2' className={classes['base-contr-paragraph']}>
         5.3. В випадку безпідставної відмови будь-якої із сторін від підписання
         Акту виконаних робіт, Сторона, яка безпідставно відмовилася або
         ухиляється від підписання Акту, сплачує іншій стороні штраф в розмірі
         0,2% від суми, яка підлягає сплаті.
       </Typography>
-      <Typography variant='body2'>
+      <Typography variant='body2' className={classes['base-contr-paragraph']}>
         5.4. За несвоєчасне перерахування коштів ЗАМОВНИК сплачує пеню в розмірі
         0,2 % від суми за кожен день несплати.
       </Typography>
 
-      <Typography variant='body1' align='center'>
+      <Typography
+        variant='body1'
+        className={classes['base-contr-chapter']}
+        align='center'
+      >
         6.ВИРІШЕННЯ СПОРІВ
       </Typography>
-      <Typography variant='body2'>
+      <Typography variant='body2' className={classes['base-contr-paragraph']}>
         6.1. Усі спори, що виникають між Сторонами в процесі здійснення умов
         Договору, вирішуються шляхом переговорів між Сторонами.
       </Typography>
-      <Typography variant='body2'>
+      <Typography variant='body2' className={classes['base-contr-paragraph']}>
         6.2. Якщо спір неможливо вирішити шляхом переговорів, він вирішується в
         судовому порядку, відповідно до чинного законодавства України.
       </Typography>
 
-      <Typography variant='body1' align='center'>
+      <Typography
+        variant='body1'
+        className={classes['base-contr-chapter']}
+        align='center'
+      >
         7.ФОРС-МАЖОР
       </Typography>
-      <Typography variant='body2'>
+      <Typography variant='body2' className={classes['base-contr-paragraph']}>
         7.1. Сторони погодились, що у разі виникнення форс-мажорних обставин
         (дії непереборної сили, які не залежать від волі сторін), а саме:
         військові дії, блокада, ембарго, пожежі, повені, епідемії, землетруси,
@@ -433,12 +530,12 @@ export default function BaseContractPrint({
         переноситься на період, протягом якого будуть діяти такі обставини і
         жодна із сторін не несе відповідальності за невиконання умов Договору.
       </Typography>
-      <Typography variant='body2'>
+      <Typography variant='body2' className={classes['base-contr-paragraph']}>
         7.2.Сторона, що не виконує свого зобов’язання внаслідок дії непереборної
         сили, повинна негайно повідомити іншу сторону про перешкоду і її вплив
         на виконання зобов’язань за даним Договором.
       </Typography>
-      <Typography variant='body2'>
+      <Typography variant='body2' className={classes['base-contr-paragraph']}>
         7.3.Якщо форс-мажорні обставини діють більше ніж 30 календарних днів, то
         Сторона, за своїм бажанням, має розірвати Договір. В даному випадку ні
         одна із сторін не має права вимагати від іншої сторони компенсації за
@@ -446,209 +543,303 @@ export default function BaseContractPrint({
         обставин
       </Typography>
 
-      <Typography variant='body1' align='center'>
+      <Typography
+        variant='body1'
+        className={classes['base-contr-chapter']}
+        align='center'
+      >
         8.ІНШІ ПОЛОЖЕННЯ
       </Typography>
-      <Typography variant='body2'>
+      <Typography variant='body2' className={classes['base-contr-paragraph']}>
         8.1. Цей Договір являє собою повне взаємопорозуміння Сторін відносно
         предмету договору, ціни договору, строку дії договору та інших умов.
       </Typography>
-      <Typography variant='body2'>
+      <Typography variant='body2' className={classes['base-contr-paragraph']}>
         8.2. Доповнення, додатки та відмови до даного договору вважаються
         дійсними тільки в тому випадку, якщо вони надані в письмовій формі і
         підписанні Сторонами.
       </Typography>
-      <Typography variant='body2'>
+      <Typography variant='body2' className={classes['base-contr-paragraph']}>
         8.3. Жодна із сторін не має права передавати свої права та обов’язки за
         Договором третій стороні без попередньої письмової згоди на це іншої
         сторони.
       </Typography>
-      <Typography variant='body2'>
+      <Typography variant='body2' className={classes['base-contr-paragraph']}>
         8.4. Виконавець є резидентом України та {ourTaxationType}
       </Typography>
-      <Typography variant='body2'>
+      <Typography variant='body2' className={classes['base-contr-paragraph']}>
         8.5. Всі повідомлення, які відносяться до виконання умов договору
         здійснюється в письмовій формі і підписуються уповноваженою особою
         сторони.
       </Typography>
-      <Typography variant='body2'>
+      <Typography variant='body2' className={classes['base-contr-paragraph']}>
         8.6.Будь-яке повідомлення вважається отриманим якщо воно вручено
         адресату під розписку, при цьому адресат підписує копію повідомлення про
         вручення, яка повертається відправнику.
       </Typography>
-      <Typography variant='body2'>
+      <Typography variant='body2' className={classes['base-contr-paragraph']}>
         8.7.Всі доповнення і додатки є невід’ємною частиною Договору.
       </Typography>
-      <Typography variant='body1' align='center'>
+      <Typography
+        variant='body1'
+        className={classes['base-contr-chapter']}
+        align='center'
+      >
         9. РЕКВІЗИТИ ТА ПІДПИСИ СТОРІН
       </Typography>
-      <Grid container direction={`column`}>
-        <Grid item sx={{ width: '100%' }}>
-          <Grid container direction={`row`} spacing={1}>
-            <Grid item xs={6}>
-              <Typography variant='body2' align='center'>
-                ВИКОНАВЕЦЬ
-              </Typography>
-            </Grid>
-            <Grid item xs={6}>
-              <Typography variant='body2' align='center'>
-                ЗАМОВНИК
-              </Typography>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid
-          item
+
+      <TableContainer id='table-base-contr-sign'>
+        <Table
+          padding='none'
           sx={{
             width: '100%',
+            margin: 0,
+            backgroundColor: 'white',
           }}
         >
-          <Grid container direction={`row`} spacing={1}>
-            <Grid item xs={6}>
-              <Typography variant='body2'>{executorFirm}</Typography>
-            </Grid>
-            <Grid item xs={6}>
-              <Typography variant='body2'>{clientFirm} </Typography>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid
-          item
-          sx={{
-            display: !(executorAddress && clientAddress) ? 'none' : 'block',
-            width: '100%',
-          }}
-        >
-          <Grid container direction={`row`} spacing={1}>
-            <Grid item xs={6}>
-              <Typography variant='body2'>{executorAddress}</Typography>
-            </Grid>
-            <Grid item xs={6}>
-              <Typography variant='body2'>{clientAddress}</Typography>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid
-          item
-          sx={{
-            display: !(executorEDRPO && clientEDRPO) ? 'none' : 'block',
-            width: '100%',
-          }}
-        >
-          <Grid container direction={`row`} spacing={1}>
-            <Grid item xs={6}>
-              <Typography variant='body2'>{executorEDRPO}</Typography>
-            </Grid>
-            <Grid item xs={6}>
-              <Typography variant='body2'>{clientEDRPO}</Typography>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid
-          item
-          sx={{
-            display: !(executorIBAN && clientIBAN) ? 'none' : 'block',
-            width: '100%',
-          }}
-        >
-          <Grid container direction={`row`} spacing={1}>
-            <Grid item xs={6}>
-              <Typography variant='body2'>{executorIBAN}</Typography>
-            </Grid>
-            <Grid item xs={6}>
-              <Typography variant='body2'>{clientIBAN}</Typography>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid
-          item
-          sx={{
-            display: !(executorTel && clientTel) ? 'none' : 'block',
-            width: '100%',
-          }}
-        >
-          <Grid container direction={`row`} spacing={1}>
-            <Grid item xs={6}>
-              <Typography variant='body2'>{executorTel}</Typography>
-            </Grid>
-            <Grid item xs={6}>
-              <Typography variant='body2'>{clientTel}</Typography>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid
-          item
-          sx={{
-            display: !(executorEmail && clientEmail) ? 'none' : 'block',
-            width: '100%',
-          }}
-        >
-          <Grid container direction={`row`} spacing={1}>
-            <Grid item xs={6}>
-              <Typography variant='body2'>{executorEmail}</Typography>
-            </Grid>
-            <Grid item xs={6}>
-              <Typography variant='body2'>{clientEmail}</Typography>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid
-          item
-          sx={{
-            display: !(executorJobTitle && clientJobTitle) ? 'none' : 'block',
-            width: '100%',
-          }}
-        >
-          <Grid container direction={`row`} spacing={1}>
-            <Grid item xs={6}>
-              <Typography variant='body2'>{executorJobTitle}</Typography>
-            </Grid>
-            <Grid item xs={6}>
-              <Typography variant='body2'>{clientJobTitle}</Typography>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item sx={{ width: '100%' }}>
-          <Grid container direction={`row`} spacing={1}>
-            <Grid item xs={6}>
-              <Grid container direction={`row`}>
-                <Grid
-                  item
-                  sx={{ flex: 1, borderBottom: '1px solid black' }}
-                ></Grid>
-                <Grid item>
-                  <Typography variant='body2'>{executorShortName}</Typography>
+          <TableBody
+            sx={{
+              '& td,th': {
+                border: '1px solid transparent',
+                paddingRight: '2px',
+              },
+            }}
+          >
+            <TableRow>
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['base-contr-text']}
+                  align='center'
+                >
+                  ВИКОНАВЕЦЬ
+                </Typography>
+              </TableCell>
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['base-contr-text']}
+                  align='center'
+                >
+                  ЗАМОВНИК
+                </Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['base-contr-text']}
+                >
+                  {executorFirm}
+                </Typography>
+              </TableCell>
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['base-contr-text']}
+                >
+                  {clientFirm}{' '}
+                </Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow
+              sx={{
+                display: !(executorAddress && clientAddress)
+                  ? 'none'
+                  : 'table-row',
+              }}
+            >
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['base-contr-text']}
+                >
+                  {executorAddress}
+                </Typography>
+              </TableCell>
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['base-contr-text']}
+                >
+                  {clientAddress}
+                </Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow
+              sx={{
+                display: !(executorEDRPO && clientEDRPO) ? 'none' : 'table-row',
+              }}
+            >
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['base-contr-text']}
+                >
+                  {executorEDRPO}
+                </Typography>
+              </TableCell>
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['base-contr-text']}
+                >
+                  {clientEDRPO}
+                </Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow
+              sx={{
+                display: !(executorIBAN && clientIBAN) ? 'none' : 'table-row',
+              }}
+            >
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['base-contr-text']}
+                >
+                  {executorIBAN}
+                </Typography>
+              </TableCell>
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['base-contr-text']}
+                >
+                  {clientIBAN}
+                </Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow
+              sx={{
+                display: !(executorTel && clientTel) ? 'none' : 'table-row',
+              }}
+            >
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['base-contr-text']}
+                >
+                  {executorTel}
+                </Typography>
+              </TableCell>
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['base-contr-text']}
+                >
+                  {clientTel}
+                </Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow
+              sx={{
+                display: !(executorTel && clientTel) ? 'none' : 'table-row',
+              }}
+            >
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['base-contr-text']}
+                >
+                  {executorEmail}
+                </Typography>
+              </TableCell>
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['base-contr-text']}
+                >
+                  {clientEmail}
+                </Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow
+              sx={{
+                display: !(executorJobTitle && clientJobTitle)
+                  ? 'none'
+                  : 'table-row',
+              }}
+            >
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['base-contr-text']}
+                  mb={2}
+                >
+                  {executorJobTitle}
+                </Typography>
+              </TableCell>
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['base-contr-text']}
+                  mb={2}
+                >
+                  {clientJobTitle}
+                </Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>
+                <Grid container direction={`row`}>
+                  <Grid
+                    item
+                    sx={{ flex: 1, borderBottom: '1px solid black' }}
+                  ></Grid>
+                  <Grid item>
+                    <Typography
+                      variant='body2'
+                      className={classes['base-contr-text']}
+                      sx={{ paddingRight: '4px' }}
+                    >
+                      {executorShortName}
+                    </Typography>
+                  </Grid>
                 </Grid>
-              </Grid>
-            </Grid>
-            <Grid item xs={6}>
-              <Grid container direction={`row`}>
-                <Grid
-                  item
-                  sx={{ flex: 1, borderBottom: '1px solid black' }}
-                ></Grid>
-                <Grid item>
-                  <Typography variant='body2'>{clientShortName}</Typography>
+              </TableCell>
+              <TableCell>
+                <Grid container direction={`row`}>
+                  <Grid
+                    item
+                    sx={{ flex: 1, borderBottom: '1px solid black' }}
+                  ></Grid>
+                  <Grid item>
+                    <Typography
+                      variant='body2'
+                      className={classes['base-contr-text']}
+                      sx={{ paddingRight: '4px' }}
+                    >
+                      {clientShortName}
+                    </Typography>
+                  </Grid>
                 </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item sx={{ width: '100%' }}>
-          <Grid container direction={`row`} spacing={1}>
-            <Grid item xs={6}>
-              <Typography variant='body2' align='left'>
-                м.п.
-              </Typography>
-            </Grid>
-            <Grid item xs={6}>
-              <Typography variant='body2' align='left'>
-                м.п.
-              </Typography>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['base-contr-text']}
+                  align='left'
+                >
+                  м.п.
+                </Typography>
+              </TableCell>
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['base-contr-text']}
+                  align='left'
+                >
+                  м.п.
+                </Typography>
+              </TableCell>
+            </TableRow>
+          </TableBody>{' '}
+        </Table>
+      </TableContainer>
     </div>
   );
 }
