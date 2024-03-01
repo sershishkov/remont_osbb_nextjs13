@@ -4,6 +4,11 @@ import { FloatToSamplesInWordsUkr } from '@/lib/helpers/myPropisUkr';
 
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
+import TableContainer from '@mui/material/TableContainer';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableRow from '@mui/material/TableRow';
 
 import classes from './styles.module.scss';
 
@@ -84,11 +89,58 @@ export default function BudjetJkhContractPrint({
   return (
     <div className={classes.page} id='page'>
       <div id='pageFooter'> </div>
+      <TableContainer id='table-jkh-budjet-header' sx={{ marginBottom: 2 }}>
+        <Table
+          padding='none'
+          sx={{
+            width: '100%',
+            margin: 0,
+            backgroundColor: 'white',
+          }}
+        >
+          <TableBody
+            sx={{
+              '& td,th': {
+                border: '1px solid transparent',
+              },
+            }}
+          >
+            <TableRow>
+              <TableCell colSpan={2}>
+                <Typography
+                  variant='body1'
+                  className={classes['base-contr-chapter']}
+                  align='center'
+                >
+                  Договір підряду № Б.{contrNumber}
+                </Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['base-contr-paragraph']}
+                  align='left'
+                >
+                  м. Запоріжжя
+                </Typography>
+              </TableCell>
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['base-contr-paragraph']}
+                  align='right'
+                >
+                  «___»_______________{contrDateStr} року.
+                </Typography>
+              </TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </TableContainer>
 
-      <Typography variant='body1' align='center'></Typography>
-      <Typography variant='body2'></Typography>
-
-      <Typography variant='h6' align='center'>
+      {/* <Typography variant='h6' align='center'>
         Договір підряду № Б.{contrNumber}
       </Typography>
       <Grid
@@ -106,7 +158,7 @@ export default function BudjetJkhContractPrint({
             «___»_______________{contrDateStr} року.
           </Typography>
         </Grid>
-      </Grid>
+      </Grid> */}
       <Typography variant='body2' className={classes['jkh-budjet-paragraph']}>
         &nbsp;&nbsp;{clientTypeLong} « {clientName} » , в особі{' '}
         {clientJobTitleRod} {clientFIORodit} , що діє на підставі {clientActsOn}
@@ -655,7 +707,260 @@ export default function BudjetJkhContractPrint({
       >
         11. Адреси та банківські реквізити Сторін
       </Typography>
-      <Grid container direction={`column`}>
+      <TableContainer id='table-jkh-budjet-sign'>
+        <Table
+          padding='none'
+          sx={{
+            width: '100%',
+            margin: 0,
+            backgroundColor: 'white',
+          }}
+        >
+          <TableBody
+            sx={{
+              '& td,th': {
+                border: '1px solid transparent',
+                paddingRight: '2px',
+              },
+            }}
+          >
+            <TableRow>
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['base-contr-text']}
+                  align='center'
+                >
+                  ВИКОНАВЕЦЬ
+                </Typography>
+              </TableCell>
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['base-contr-text']}
+                  align='center'
+                >
+                  ЗАМОВНИК
+                </Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['base-contr-text']}
+                >
+                  {executorTypeShort} «{executorName}»{' '}
+                </Typography>
+              </TableCell>
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['base-contr-text']}
+                >
+                  {clientTypeShort} «{clientName}»{' '}
+                </Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow
+              sx={{
+                display: !(executorAddress && clientAddress)
+                  ? 'none'
+                  : 'table-row',
+              }}
+            >
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['base-contr-text']}
+                >
+                  {executorAddress}
+                </Typography>
+              </TableCell>
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['base-contr-text']}
+                >
+                  {clientAddress}
+                </Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow
+              sx={{
+                display: !(executorEDRPO && clientEDRPO) ? 'none' : 'table-row',
+              }}
+            >
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['base-contr-text']}
+                >
+                  {executorEDRPO}
+                </Typography>
+              </TableCell>
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['base-contr-text']}
+                >
+                  {clientEDRPO}
+                </Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow
+              sx={{
+                display: !(executorIBAN && clientIBAN) ? 'none' : 'table-row',
+              }}
+            >
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['base-contr-text']}
+                >
+                  {executorIBAN}
+                </Typography>
+              </TableCell>
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['base-contr-text']}
+                >
+                  {clientIBAN}
+                </Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow
+              sx={{
+                display: !(executorTel && clientTel) ? 'none' : 'table-row',
+              }}
+            >
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['base-contr-text']}
+                >
+                  {executorTel}
+                </Typography>
+              </TableCell>
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['base-contr-text']}
+                >
+                  {clientTel}
+                </Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow
+              sx={{
+                display: !(executorTel && clientTel) ? 'none' : 'table-row',
+              }}
+            >
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['base-contr-text']}
+                >
+                  {executorEmail}
+                </Typography>
+              </TableCell>
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['base-contr-text']}
+                >
+                  {clientEmail}
+                </Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow
+              sx={{
+                display: !(executorJobTitleimen && clientJobTitleimen)
+                  ? 'none'
+                  : 'table-row',
+              }}
+            >
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['base-contr-text']}
+                  mb={2}
+                >
+                  {executorJobTitleimen}
+                </Typography>
+              </TableCell>
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['base-contr-text']}
+                  mb={2}
+                >
+                  {clientJobTitleimen}
+                </Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>
+                <Grid container direction={`row`}>
+                  <Grid
+                    item
+                    sx={{ flex: 1, borderBottom: '1px solid black' }}
+                  ></Grid>
+                  <Grid item>
+                    <Typography
+                      variant='body2'
+                      className={classes['base-contr-text']}
+                      sx={{ paddingRight: '4px' }}
+                    >
+                      {executorFIOImen}
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </TableCell>
+              <TableCell>
+                <Grid container direction={`row`}>
+                  <Grid
+                    item
+                    sx={{ flex: 1, borderBottom: '1px solid black' }}
+                  ></Grid>
+                  <Grid item>
+                    <Typography
+                      variant='body2'
+                      className={classes['base-contr-text']}
+                      sx={{ paddingRight: '4px' }}
+                    >
+                      {clientFIOImen}
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['base-contr-text']}
+                  align='left'
+                >
+                  м.п.
+                </Typography>
+              </TableCell>
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['base-contr-text']}
+                  align='left'
+                >
+                  м.п.
+                </Typography>
+              </TableCell>
+            </TableRow>
+          </TableBody>{' '}
+        </Table>
+      </TableContainer>
+
+      {/* <Grid container direction={`column`}>
         <Grid item sx={{ width: '100%' }}>
           <Grid container direction={`row`} spacing={1}>
             <Grid item xs={6}>
@@ -920,7 +1225,7 @@ export default function BudjetJkhContractPrint({
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
+      </Grid> */}
     </div>
   );
 }
