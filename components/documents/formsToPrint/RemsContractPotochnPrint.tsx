@@ -4,6 +4,11 @@ import { FloatToSamplesInWordsUkr } from '@/lib/helpers/myPropisUkr';
 
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
+import TableContainer from '@mui/material/TableContainer';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableRow from '@mui/material/TableRow';
 
 import classes from './styles.module.scss';
 
@@ -66,16 +71,75 @@ export default function RemsContractPotochnPrint({
   return (
     <div className={classes.page} id='page'>
       <div id='pageFooter'> </div>
-      {/* <Typography variant='body1' align='center'></Typography>
-      <Typography variant='body2'></Typography> */}
+      <TableContainer id='table-rems-contract-potochn-header'>
+        <Table
+          padding='none'
+          sx={{
+            width: '100%',
+            margin: 0,
+            backgroundColor: 'white',
+          }}
+        >
+          <TableBody
+            sx={{
+              '& td,th': {
+                border: '1px solid transparent',
+              },
+            }}
+          >
+            <TableRow>
+              <TableCell colSpan={2}>
+                <Typography
+                  variant='body1'
+                  className={classes['base-contr-chapter']}
+                  align='center'
+                >
+                  ДОГОВІР № ________________
+                </Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell colSpan={2}>
+                <Typography
+                  variant='body2'
+                  className={classes['base-contr-paragraph']}
+                  align='center'
+                >
+                  на надання послуг поточного ремонту
+                </Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['base-contr-paragraph']}
+                  align='left'
+                >
+                  м. Запоріжжя
+                </Typography>
+              </TableCell>
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['base-contr-paragraph']}
+                  align='right'
+                >
+                  _______________{contrDateStr} року.
+                </Typography>
+              </TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </TableContainer>
 
-      <Typography variant='h6' align='center'>
+      {/* <Typography variant='h6' align='center'>
         ДОГОВІР № ________________
       </Typography>
       <Typography variant='body2' align='center'>
         на надання послуг поточного ремонту
-      </Typography>
-      <Grid
+      </Typography> */}
+      {/* <Grid
         container
         direction={`row`}
         justifyContent={`space-between`}
@@ -90,7 +154,7 @@ export default function RemsContractPotochnPrint({
             _______________{contrDateStr} року.
           </Typography>
         </Grid>
-      </Grid>
+      </Grid> */}
       <Typography variant='body2' className={classes['rems-potochn-paragraph']}>
         <strong>
           Комунальне підприємство «Запоріжремсервіс» Запорізької міської ради,
@@ -117,7 +181,7 @@ export default function RemsContractPotochnPrint({
         1.1. Замовник доручає, а Підрядник приймає на себе зобов’язання на свій
         ризик надати в порядку і на умовах цього Договору власними та залученими
         силами і засобами (в тому числі, але не виключно, з використанням
-        наданих Замовником матеріалів), послуги
+        наданих Замовником матеріалів), послуги{` `}
         <strong>код ДК 021:2015 45450000-6 інші завершальні</strong>
         {` `}
         <strong>будівельні роботи (Послуги на виконання)</strong>
@@ -858,8 +922,255 @@ export default function RemsContractPotochnPrint({
       >
         15. ЮРИДИЧНІ АДРЕСИ ТА БАНКІВСЬКІ РЕКВІЗИТИ СТОРІН.
       </Typography>
+      <TableContainer id='table-rems-contract-potochn-sign'>
+        <Table
+          padding='none'
+          sx={{
+            width: '100%',
+            margin: 0,
+            backgroundColor: 'white',
+          }}
+        >
+          <TableBody
+            sx={{
+              '& td,th': {
+                border: '1px solid transparent',
+                // paddingRight: '2px',
+              },
+            }}
+          >
+            <TableRow>
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['rems-potochn-text']}
+                  pb={2}
+                  sx={{
+                    borderTop: '1px solid black',
+                    borderRight: '1px solid black',
+                    borderBottom: '1px solid black',
+                    borderLeft: '1px solid black',
+                  }}
+                >
+                  15.1. Замовник:
+                </Typography>
+              </TableCell>
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['rems-potochn-text']}
+                  pb={2}
+                  sx={{
+                    borderTop: '1px solid black',
+                    borderRight: '1px solid black',
+                    borderBottom: '1px solid black',
+                    borderLeft: '1px solid transparent',
+                  }}
+                >
+                  15.2. Підрядник
+                </Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['rems-potochn-text']}
+                  sx={{
+                    // borderTop: '1px solid black',
+                    borderRight: '1px solid black',
+                    // borderBottom: '1px solid black',
+                    borderLeft: '1px solid black',
+                  }}
+                >
+                  <strong>КП «Запоріжремсервіс» ЗМР</strong>{' '}
+                </Typography>
+              </TableCell>
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['rems-potochn-text']}
+                  sx={{
+                    // borderTop: '1px solid black',
+                    borderRight: '1px solid black',
+                    // borderBottom: '1px solid black',
+                    // borderLeft: '1px solid black',
+                  }}
+                >
+                  <strong>
+                    {executorTypeShort} «{executorName}»
+                  </strong>
+                </Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['rems-potochn-text']}
+                  sx={{
+                    // borderTop: '1px solid black',
+                    borderRight: '1px solid black',
+                    // borderBottom: '1px solid black',
+                    borderLeft: '1px solid black',
+                  }}
+                >
+                  {clientAddres}
+                </Typography>
+              </TableCell>
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['rems-potochn-text']}
+                  sx={{
+                    // borderTop: '1px solid black',
+                    borderRight: '1px solid black',
+                    // borderBottom: '1px solid black',
+                    // borderLeft: '1px solid black',
+                  }}
+                >
+                  {executorAddres}
+                </Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['rems-potochn-text']}
+                  sx={{
+                    // borderTop: '1px solid black',
+                    borderRight: '1px solid black',
+                    // borderBottom: '1px solid black',
+                    borderLeft: '1px solid black',
+                  }}
+                >
+                  {' '}
+                  {clientIBAN}
+                </Typography>
+              </TableCell>
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['rems-potochn-text']}
+                  sx={{
+                    // borderTop: '1px solid black',
+                    borderRight: '1px solid black',
+                    // borderBottom: '1px solid black',
+                    // borderLeft: '1px solid black',
+                  }}
+                >
+                  {executorIBAN}
+                </Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['rems-potochn-text']}
+                  sx={{
+                    // borderTop: '1px solid black',
+                    borderRight: '1px solid black',
+                    // borderBottom: '1px solid black',
+                    borderLeft: '1px solid black',
+                  }}
+                >
+                  {clientEDRPO}
+                </Typography>
+              </TableCell>
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['rems-potochn-text']}
+                  sx={{
+                    // borderTop: '1px solid black',
+                    borderRight: '1px solid black',
+                    // borderBottom: '1px solid black',
+                    // borderLeft: '1px solid black',
+                  }}
+                >
+                  {executorEDRPO}
+                </Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell sx={{ width: '50%' }}>
+                <Grid
+                  container
+                  direction={`row`}
+                  sx={{
+                    // borderTop: '1px solid black',
+                    borderRight: '1px solid black',
+                    borderBottom: '1px solid black',
+                    borderLeft: '1px solid black',
+                  }}
+                >
+                  <Grid item>
+                    <Typography
+                      variant='body2'
+                      className={classes['rems-potochn-text']}
+                    >
+                      {clientJobTitleimen}
+                    </Typography>
+                  </Grid>
+                  <Grid
+                    item
+                    sx={{ flex: 1, borderBottom: '1px solid black' }}
+                  ></Grid>
+                  <Grid item>
+                    <Typography
+                      variant='body2'
+                      pr={1}
+                      className={classes['rems-potochn-text']}
+                    >
+                      {clientFIOImen}
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </TableCell>
+              <TableCell sx={{ width: '50%' }}>
+                <Grid
+                  container
+                  direction={`row`}
+                  sx={{
+                    // borderTop: '1px solid black',
+                    borderRight: '1px solid black',
+                    borderBottom: '1px solid black',
+                    // borderLeft: '1px solid black',
+                  }}
+                >
+                  <Grid item>
+                    <Typography
+                      variant='body2'
+                      className={classes['rems-potochn-text']}
+                    >
+                      {executorJobTitleimen}
+                    </Typography>
+                  </Grid>
+                  <Grid
+                    item
+                    sx={{ flex: 1, borderBottom: '1px solid black' }}
+                  ></Grid>
+                  <Grid item>
+                    <Typography
+                      variant='body2'
+                      pr={1}
+                      className={classes['rems-potochn-text']}
+                    >
+                      {executorFIOImen}{' '}
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </TableContainer>
+
       {/* //////////////////////////////// */}
-      <Grid
+
+      {/* <Grid
         container
         direction={`row`}
         spacing={1}
@@ -889,9 +1200,9 @@ export default function RemsContractPotochnPrint({
             15.2. Підрядник
           </Typography>
         </Grid>
-      </Grid>
+      </Grid> */}
       {/* //////////////////////////////// */}
-      <Grid
+      {/* <Grid
         container
         direction={`row`}
         spacing={1}
@@ -1003,7 +1314,7 @@ export default function RemsContractPotochnPrint({
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
+      </Grid> */}
 
       {/* //////////////////////////////// */}
     </div>
