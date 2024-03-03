@@ -108,7 +108,15 @@ export default function ContractPrint({ params }: Readonly<paramsProps>) {
       />
     );
   } else if (currentContractType === 'Дог. Агросервис') {
-    return <AgroContractPrint />;
+    return (
+      <AgroContractPrint
+        currentContract={currentContract!}
+        currentOurFirm={currentOurFirm!}
+        currentClient={currentClient!}
+        naklSum={naklSum ?? 0}
+        aktSum={aktSum ?? 0}
+      />
+    );
   } else {
     return (
       <BaseContractPrint

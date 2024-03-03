@@ -706,7 +706,7 @@ export default function BudjetJkhContractPrint({
             }}
           >
             <TableRow>
-              <TableCell>
+              <TableCell sx={{ width: '50%' }}>
                 <Typography
                   variant='body2'
                   className={classes['base-contr-text']}
@@ -769,28 +769,6 @@ export default function BudjetJkhContractPrint({
             </TableRow>
             <TableRow
               sx={{
-                display: !(executorEDRPO && clientEDRPO) ? 'none' : 'table-row',
-              }}
-            >
-              <TableCell>
-                <Typography
-                  variant='body2'
-                  className={classes['base-contr-text']}
-                >
-                  {executorEDRPO}
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography
-                  variant='body2'
-                  className={classes['base-contr-text']}
-                >
-                  {clientEDRPO}
-                </Typography>
-              </TableCell>
-            </TableRow>
-            <TableRow
-              sx={{
                 display: !(executorIBAN && clientIBAN) ? 'none' : 'table-row',
               }}
             >
@@ -813,7 +791,8 @@ export default function BudjetJkhContractPrint({
             </TableRow>
             <TableRow
               sx={{
-                display: !(executorTel && clientTel) ? 'none' : 'table-row',
+                display:
+                  executorTel === '' && clientTel === '' ? 'none' : 'table-row',
               }}
             >
               <TableCell>
@@ -835,7 +814,8 @@ export default function BudjetJkhContractPrint({
             </TableRow>
             <TableRow
               sx={{
-                display: !(executorTel && clientTel) ? 'none' : 'table-row',
+                display:
+                  executorTel === '' && clientTel === '' ? 'none' : 'table-row',
               }}
             >
               <TableCell>
@@ -857,9 +837,10 @@ export default function BudjetJkhContractPrint({
             </TableRow>
             <TableRow
               sx={{
-                display: !(executorJobTitleimen && clientJobTitleimen)
-                  ? 'none'
-                  : 'table-row',
+                display:
+                  executorJobTitleimen === '' && clientJobTitleimen === ''
+                    ? 'none'
+                    : 'table-row',
               }}
             >
               <TableCell>
@@ -937,7 +918,7 @@ export default function BudjetJkhContractPrint({
                 </Typography>
               </TableCell>
             </TableRow>
-          </TableBody>{' '}
+          </TableBody>
         </Table>
       </TableContainer>
     </div>
