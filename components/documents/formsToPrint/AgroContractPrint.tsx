@@ -933,7 +933,7 @@ export default function AgroContractPrint({
               <TableCell sx={{ width: '50%' }}>
                 <Typography
                   variant='body2'
-                  className={classes['base-contr-text']}
+                  className={classes['agro-contract-text']}
                   align='center'
                 >
                   ВИКОНАВЕЦЬ
@@ -942,7 +942,7 @@ export default function AgroContractPrint({
               <TableCell>
                 <Typography
                   variant='body2'
-                  className={classes['base-contr-text']}
+                  className={classes['agro-contract-text']}
                   align='center'
                 >
                   ЗАМОВНИК
@@ -953,7 +953,7 @@ export default function AgroContractPrint({
               <TableCell>
                 <Typography
                   variant='body2'
-                  className={classes['base-contr-text']}
+                  className={classes['agro-contract-text']}
                 >
                   {executorTypeShort} «{executorName}»{' '}
                 </Typography>
@@ -961,7 +961,7 @@ export default function AgroContractPrint({
               <TableCell>
                 <Typography
                   variant='body2'
-                  className={classes['base-contr-text']}
+                  className={classes['agro-contract-text']}
                 >
                   {clientTypeShort} «{clientName}»{' '}
                 </Typography>
@@ -969,15 +969,16 @@ export default function AgroContractPrint({
             </TableRow>
             <TableRow
               sx={{
-                display: !(executorAddress && clientAddress)
-                  ? 'none'
-                  : 'table-row',
+                display:
+                  executorAddress === '' && clientAddress === ''
+                    ? 'none'
+                    : 'table-row',
               }}
             >
               <TableCell>
                 <Typography
                   variant='body2'
-                  className={classes['base-contr-text']}
+                  className={classes['agro-contract-text']}
                 >
                   {executorAddress}
                 </Typography>
@@ -985,7 +986,7 @@ export default function AgroContractPrint({
               <TableCell>
                 <Typography
                   variant='body2'
-                  className={classes['base-contr-text']}
+                  className={classes['agro-contract-text']}
                 >
                   {clientAddress}
                 </Typography>
@@ -993,13 +994,41 @@ export default function AgroContractPrint({
             </TableRow>
             <TableRow
               sx={{
-                display: !(executorIBAN && clientIBAN) ? 'none' : 'table-row',
+                display:
+                  executorEDRPO === '' && clientEDRPO === ''
+                    ? 'none'
+                    : 'table-row',
               }}
             >
               <TableCell>
                 <Typography
                   variant='body2'
-                  className={classes['base-contr-text']}
+                  className={classes['agro-contract-text']}
+                >
+                  {executorEDRPO}
+                </Typography>
+              </TableCell>
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['agro-contract-text']}
+                >
+                  {clientEDRPO}
+                </Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow
+              sx={{
+                display:
+                  executorIBAN === '' && clientIBAN === ''
+                    ? 'none'
+                    : 'table-row',
+              }}
+            >
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['agro-contract-text']}
                 >
                   {executorIBAN}
                 </Typography>
@@ -1007,7 +1036,7 @@ export default function AgroContractPrint({
               <TableCell>
                 <Typography
                   variant='body2'
-                  className={classes['base-contr-text']}
+                  className={classes['agro-contract-text']}
                 >
                   {clientIBAN}
                 </Typography>
@@ -1022,7 +1051,7 @@ export default function AgroContractPrint({
               <TableCell>
                 <Typography
                   variant='body2'
-                  className={classes['base-contr-text']}
+                  className={classes['agro-contract-text']}
                 >
                   {executorTel}
                 </Typography>
@@ -1030,7 +1059,7 @@ export default function AgroContractPrint({
               <TableCell>
                 <Typography
                   variant='body2'
-                  className={classes['base-contr-text']}
+                  className={classes['agro-contract-text']}
                 >
                   {clientTel}
                 </Typography>
@@ -1045,7 +1074,7 @@ export default function AgroContractPrint({
               <TableCell>
                 <Typography
                   variant='body2'
-                  className={classes['base-contr-text']}
+                  className={classes['agro-contract-text']}
                 >
                   {executorEmail}
                 </Typography>
@@ -1053,7 +1082,7 @@ export default function AgroContractPrint({
               <TableCell>
                 <Typography
                   variant='body2'
-                  className={classes['base-contr-text']}
+                  className={classes['agro-contract-text']}
                 >
                   {clientEmail}
                 </Typography>
@@ -1070,7 +1099,7 @@ export default function AgroContractPrint({
               <TableCell>
                 <Typography
                   variant='body2'
-                  className={classes['base-contr-text']}
+                  className={classes['agro-contract-text']}
                   mb={2}
                 >
                   {executorJobTitleimen}
@@ -1079,7 +1108,7 @@ export default function AgroContractPrint({
               <TableCell>
                 <Typography
                   variant='body2'
-                  className={classes['base-contr-text']}
+                  className={classes['agro-contract-text']}
                   mb={2}
                 >
                   {clientJobTitleimen}
@@ -1096,7 +1125,7 @@ export default function AgroContractPrint({
                   <Grid item>
                     <Typography
                       variant='body2'
-                      className={classes['base-contr-text']}
+                      className={classes['agro-contract-text']}
                       sx={{ paddingRight: '4px' }}
                     >
                       {executorFIOImen}
@@ -1113,7 +1142,7 @@ export default function AgroContractPrint({
                   <Grid item>
                     <Typography
                       variant='body2'
-                      className={classes['base-contr-text']}
+                      className={classes['agro-contract-text']}
                       sx={{ paddingRight: '4px' }}
                     >
                       {clientFIOImen}
@@ -1126,7 +1155,7 @@ export default function AgroContractPrint({
               <TableCell>
                 <Typography
                   variant='body2'
-                  className={classes['base-contr-text']}
+                  className={classes['agro-contract-text']}
                   align='left'
                 >
                   м.п.
@@ -1135,7 +1164,7 @@ export default function AgroContractPrint({
               <TableCell>
                 <Typography
                   variant='body2'
-                  className={classes['base-contr-text']}
+                  className={classes['agro-contract-text']}
                   align='left'
                 >
                   м.п.

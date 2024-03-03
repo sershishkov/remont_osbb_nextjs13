@@ -109,7 +109,7 @@ export default function BudjetJkhContractPrint({
               <TableCell colSpan={2}>
                 <Typography
                   variant='body1'
-                  className={classes['base-contr-chapter']}
+                  className={classes['jkh-budjet-chapter']}
                   align='center'
                 >
                   Договір підряду № Б.{contrNumber}
@@ -120,7 +120,7 @@ export default function BudjetJkhContractPrint({
               <TableCell>
                 <Typography
                   variant='body2'
-                  className={classes['base-contr-paragraph']}
+                  className={classes['jkh-budjet-paragraph']}
                   align='left'
                 >
                   м. Запоріжжя
@@ -129,7 +129,7 @@ export default function BudjetJkhContractPrint({
               <TableCell>
                 <Typography
                   variant='body2'
-                  className={classes['base-contr-paragraph']}
+                  className={classes['jkh-budjet-paragraph']}
                   align='right'
                 >
                   «___»_______________{contrDateStr} року.
@@ -709,7 +709,7 @@ export default function BudjetJkhContractPrint({
               <TableCell sx={{ width: '50%' }}>
                 <Typography
                   variant='body2'
-                  className={classes['base-contr-text']}
+                  className={classes['jkh-budjet-text']}
                   align='center'
                 >
                   ВИКОНАВЕЦЬ
@@ -718,7 +718,7 @@ export default function BudjetJkhContractPrint({
               <TableCell>
                 <Typography
                   variant='body2'
-                  className={classes['base-contr-text']}
+                  className={classes['jkh-budjet-text']}
                   align='center'
                 >
                   ЗАМОВНИК
@@ -729,7 +729,7 @@ export default function BudjetJkhContractPrint({
               <TableCell>
                 <Typography
                   variant='body2'
-                  className={classes['base-contr-text']}
+                  className={classes['jkh-budjet-text']}
                 >
                   {executorTypeShort} «{executorName}»{' '}
                 </Typography>
@@ -737,23 +737,25 @@ export default function BudjetJkhContractPrint({
               <TableCell>
                 <Typography
                   variant='body2'
-                  className={classes['base-contr-text']}
+                  className={classes['jkh-budjet-text']}
                 >
                   {clientTypeShort} «{clientName}»{' '}
                 </Typography>
               </TableCell>
             </TableRow>
+
             <TableRow
               sx={{
-                display: !(executorAddress && clientAddress)
-                  ? 'none'
-                  : 'table-row',
+                display:
+                  executorAddress === '' && clientAddress === ''
+                    ? 'none'
+                    : 'table-row',
               }}
             >
               <TableCell>
                 <Typography
                   variant='body2'
-                  className={classes['base-contr-text']}
+                  className={classes['jkh-budjet-text']}
                 >
                   {executorAddress}
                 </Typography>
@@ -761,7 +763,7 @@ export default function BudjetJkhContractPrint({
               <TableCell>
                 <Typography
                   variant='body2'
-                  className={classes['base-contr-text']}
+                  className={classes['jkh-budjet-text']}
                 >
                   {clientAddress}
                 </Typography>
@@ -769,13 +771,41 @@ export default function BudjetJkhContractPrint({
             </TableRow>
             <TableRow
               sx={{
-                display: !(executorIBAN && clientIBAN) ? 'none' : 'table-row',
+                display:
+                  executorEDRPO === '' && clientEDRPO === ''
+                    ? 'none'
+                    : 'table-row',
               }}
             >
               <TableCell>
                 <Typography
                   variant='body2'
-                  className={classes['base-contr-text']}
+                  className={classes['jkh-budjet-text']}
+                >
+                  {executorEDRPO}
+                </Typography>
+              </TableCell>
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['jkh-budjet-text']}
+                >
+                  {clientEDRPO}
+                </Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow
+              sx={{
+                display:
+                  executorIBAN === '' && clientIBAN === ''
+                    ? 'none'
+                    : 'table-row',
+              }}
+            >
+              <TableCell>
+                <Typography
+                  variant='body2'
+                  className={classes['jkh-budjet-text']}
                 >
                   {executorIBAN}
                 </Typography>
@@ -783,7 +813,7 @@ export default function BudjetJkhContractPrint({
               <TableCell>
                 <Typography
                   variant='body2'
-                  className={classes['base-contr-text']}
+                  className={classes['jkh-budjet-text']}
                 >
                   {clientIBAN}
                 </Typography>
@@ -798,7 +828,7 @@ export default function BudjetJkhContractPrint({
               <TableCell>
                 <Typography
                   variant='body2'
-                  className={classes['base-contr-text']}
+                  className={classes['jkh-budjet-text']}
                 >
                   {executorTel}
                 </Typography>
@@ -806,7 +836,7 @@ export default function BudjetJkhContractPrint({
               <TableCell>
                 <Typography
                   variant='body2'
-                  className={classes['base-contr-text']}
+                  className={classes['jkh-budjet-text']}
                 >
                   {clientTel}
                 </Typography>
@@ -821,7 +851,7 @@ export default function BudjetJkhContractPrint({
               <TableCell>
                 <Typography
                   variant='body2'
-                  className={classes['base-contr-text']}
+                  className={classes['jkh-budjet-text']}
                 >
                   {executorEmail}
                 </Typography>
@@ -829,7 +859,7 @@ export default function BudjetJkhContractPrint({
               <TableCell>
                 <Typography
                   variant='body2'
-                  className={classes['base-contr-text']}
+                  className={classes['jkh-budjet-text']}
                 >
                   {clientEmail}
                 </Typography>
@@ -846,7 +876,7 @@ export default function BudjetJkhContractPrint({
               <TableCell>
                 <Typography
                   variant='body2'
-                  className={classes['base-contr-text']}
+                  className={classes['jkh-budjet-text']}
                   mb={2}
                 >
                   {executorJobTitleimen}
@@ -855,7 +885,7 @@ export default function BudjetJkhContractPrint({
               <TableCell>
                 <Typography
                   variant='body2'
-                  className={classes['base-contr-text']}
+                  className={classes['jkh-budjet-text']}
                   mb={2}
                 >
                   {clientJobTitleimen}
@@ -872,7 +902,7 @@ export default function BudjetJkhContractPrint({
                   <Grid item>
                     <Typography
                       variant='body2'
-                      className={classes['base-contr-text']}
+                      className={classes['jkh-budjet-text']}
                       sx={{ paddingRight: '4px' }}
                     >
                       {executorFIOImen}
@@ -889,7 +919,7 @@ export default function BudjetJkhContractPrint({
                   <Grid item>
                     <Typography
                       variant='body2'
-                      className={classes['base-contr-text']}
+                      className={classes['jkh-budjet-text']}
                       sx={{ paddingRight: '4px' }}
                     >
                       {clientFIOImen}
@@ -902,7 +932,7 @@ export default function BudjetJkhContractPrint({
               <TableCell>
                 <Typography
                   variant='body2'
-                  className={classes['base-contr-text']}
+                  className={classes['jkh-budjet-text']}
                   align='left'
                 >
                   м.п.
@@ -911,7 +941,7 @@ export default function BudjetJkhContractPrint({
               <TableCell>
                 <Typography
                   variant='body2'
-                  className={classes['base-contr-text']}
+                  className={classes['jkh-budjet-text']}
                   align='left'
                 >
                   м.п.
