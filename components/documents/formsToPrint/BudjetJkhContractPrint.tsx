@@ -95,7 +95,7 @@ export default function BudjetJkhContractPrint({
           sx={{
             width: '100%',
             margin: 0,
-            backgroundColor: 'white',
+            // backgroundColor: 'white',
           }}
         >
           <TableBody
@@ -158,9 +158,9 @@ export default function BudjetJkhContractPrint({
       </Typography>
       <Typography variant='body2' className={classes['jkh-budjet-paragraph']}>
         1.1 Замовник доручає, а Підрядник приймає на себе зобов&apos;язання
-        виконати (надалі «роботи») « {contractDescription} » ({kodDkBudjet}), а
-        Замовник зобов&apos;язується прийняти й оплатити виконані роботи на
-        умовах даного Договору.{' '}
+        виконати (надалі «роботи») <strong>« {contractDescription} » </strong>(
+        {kodDkBudjet}), а Замовник зобов&apos;язується прийняти й оплатити
+        виконані роботи на умовах даного Договору.{' '}
       </Typography>
       <Typography variant='body2' className={classes['jkh-budjet-paragraph']}>
         1.2. Підрядник виконує роботи з використанням своїх матеріалів та
@@ -185,10 +185,13 @@ export default function BudjetJkhContractPrint({
         2. Вартість робіт та порядок розрахунків
       </Typography>
       <Typography variant='body2' className={classes['jkh-budjet-paragraph']}>
-        2.1. Договірна ціна робіт за цим Договором складає {contrSumString[0]}{' '}
-        грн.
-        {contrSumString[1]} коп. ({totalSumPropis}), без ПДВ. Договірна ціна
-        додається до Договору та є його невід’ємною частиною.
+        2.1. Договірна ціна робіт за цим Договором складає{' '}
+        <strong>
+          {' '}
+          {contrSumString[0]} грн. {contrSumString[1]} коп.
+        </strong>{' '}
+        ({totalSumPropis}), без ПДВ. Договірна ціна додається до Договору та є
+        його невід’ємною частиною.
       </Typography>
       <Typography variant='body2' className={classes['jkh-budjet-paragraph']}>
         2.2. Вартість робіт в договірній ціні визначається як динамічна
@@ -694,7 +697,7 @@ export default function BudjetJkhContractPrint({
           sx={{
             width: '100%',
             margin: 0,
-            backgroundColor: 'white',
+            // backgroundColor: 'white',
           }}
         >
           <TableBody
@@ -743,155 +746,129 @@ export default function BudjetJkhContractPrint({
                 </Typography>
               </TableCell>
             </TableRow>
+            {(executorAddress !== '' || clientAddress !== '') && (
+              <TableRow>
+                <TableCell>
+                  <Typography
+                    variant='body2'
+                    className={classes['jkh-budjet-text']}
+                  >
+                    {executorAddress}
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography
+                    variant='body2'
+                    className={classes['jkh-budjet-text']}
+                  >
+                    {clientAddress}
+                  </Typography>
+                </TableCell>
+              </TableRow>
+            )}
+            {(executorEDRPO !== '' || clientEDRPO !== '') && (
+              <TableRow>
+                <TableCell>
+                  <Typography
+                    variant='body2'
+                    className={classes['jkh-budjet-text']}
+                  >
+                    {executorEDRPO}
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography
+                    variant='body2'
+                    className={classes['jkh-budjet-text']}
+                  >
+                    {clientEDRPO}
+                  </Typography>
+                </TableCell>
+              </TableRow>
+            )}
+            {(executorIBAN !== '' || clientIBAN !== '') && (
+              <TableRow>
+                <TableCell>
+                  <Typography
+                    variant='body2'
+                    className={classes['jkh-budjet-text']}
+                  >
+                    {executorIBAN}
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography
+                    variant='body2'
+                    className={classes['jkh-budjet-text']}
+                  >
+                    {clientIBAN}
+                  </Typography>
+                </TableCell>
+              </TableRow>
+            )}
+            {(executorTel !== '' || clientTel !== '') && (
+              <TableRow>
+                <TableCell>
+                  <Typography
+                    variant='body2'
+                    className={classes['jkh-budjet-text']}
+                  >
+                    {executorTel}
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography
+                    variant='body2'
+                    className={classes['jkh-budjet-text']}
+                  >
+                    {clientTel}
+                  </Typography>
+                </TableCell>
+              </TableRow>
+            )}
+            {(executorEmail !== '' || clientEmail !== '') && (
+              <TableRow>
+                <TableCell>
+                  <Typography
+                    variant='body2'
+                    className={classes['jkh-budjet-text']}
+                  >
+                    {executorEmail}
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography
+                    variant='body2'
+                    className={classes['jkh-budjet-text']}
+                  >
+                    {clientEmail}
+                  </Typography>
+                </TableCell>
+              </TableRow>
+            )}
+            {(executorJobTitleimen !== '' || clientJobTitleimen !== '') && (
+              <TableRow>
+                <TableCell>
+                  <Typography
+                    variant='body2'
+                    className={classes['jkh-budjet-text']}
+                    mb={2}
+                  >
+                    {executorJobTitleimen}
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography
+                    variant='body2'
+                    className={classes['jkh-budjet-text']}
+                    mb={2}
+                  >
+                    {clientJobTitleimen}
+                  </Typography>
+                </TableCell>
+              </TableRow>
+            )}
 
-            <TableRow
-              sx={{
-                display:
-                  executorAddress === '' && clientAddress === ''
-                    ? 'none'
-                    : 'table-row',
-              }}
-            >
-              <TableCell>
-                <Typography
-                  variant='body2'
-                  className={classes['jkh-budjet-text']}
-                >
-                  {executorAddress}
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography
-                  variant='body2'
-                  className={classes['jkh-budjet-text']}
-                >
-                  {clientAddress}
-                </Typography>
-              </TableCell>
-            </TableRow>
-            <TableRow
-              sx={{
-                display:
-                  executorEDRPO === '' && clientEDRPO === ''
-                    ? 'none'
-                    : 'table-row',
-              }}
-            >
-              <TableCell>
-                <Typography
-                  variant='body2'
-                  className={classes['jkh-budjet-text']}
-                >
-                  {executorEDRPO}
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography
-                  variant='body2'
-                  className={classes['jkh-budjet-text']}
-                >
-                  {clientEDRPO}
-                </Typography>
-              </TableCell>
-            </TableRow>
-            <TableRow
-              sx={{
-                display:
-                  executorIBAN === '' && clientIBAN === ''
-                    ? 'none'
-                    : 'table-row',
-              }}
-            >
-              <TableCell>
-                <Typography
-                  variant='body2'
-                  className={classes['jkh-budjet-text']}
-                >
-                  {executorIBAN}
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography
-                  variant='body2'
-                  className={classes['jkh-budjet-text']}
-                >
-                  {clientIBAN}
-                </Typography>
-              </TableCell>
-            </TableRow>
-            <TableRow
-              sx={{
-                display:
-                  executorTel === '' && clientTel === '' ? 'none' : 'table-row',
-              }}
-            >
-              <TableCell>
-                <Typography
-                  variant='body2'
-                  className={classes['jkh-budjet-text']}
-                >
-                  {executorTel}
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography
-                  variant='body2'
-                  className={classes['jkh-budjet-text']}
-                >
-                  {clientTel}
-                </Typography>
-              </TableCell>
-            </TableRow>
-            <TableRow
-              sx={{
-                display:
-                  executorTel === '' && clientTel === '' ? 'none' : 'table-row',
-              }}
-            >
-              <TableCell>
-                <Typography
-                  variant='body2'
-                  className={classes['jkh-budjet-text']}
-                >
-                  {executorEmail}
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography
-                  variant='body2'
-                  className={classes['jkh-budjet-text']}
-                >
-                  {clientEmail}
-                </Typography>
-              </TableCell>
-            </TableRow>
-            <TableRow
-              sx={{
-                display:
-                  executorJobTitleimen === '' && clientJobTitleimen === ''
-                    ? 'none'
-                    : 'table-row',
-              }}
-            >
-              <TableCell>
-                <Typography
-                  variant='body2'
-                  className={classes['jkh-budjet-text']}
-                  mb={2}
-                >
-                  {executorJobTitleimen}
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography
-                  variant='body2'
-                  className={classes['jkh-budjet-text']}
-                  mb={2}
-                >
-                  {clientJobTitleimen}
-                </Typography>
-              </TableCell>
-            </TableRow>
             <TableRow>
               <TableCell>
                 <Grid container direction={`row`}>

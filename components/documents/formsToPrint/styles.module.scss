@@ -4,8 +4,11 @@
   width: 210mm;
   min-height: 297mm;
   padding: 5mm 10mm 5mm 20mm;
-  background: white;
-  color: black;
+  color: red;
+  font-family: 'Tinos', serif;
+  font-weight: 400;
+  font-style: normal;
+
   p,
   h1,
   h2,
@@ -15,10 +18,12 @@
   h6,
   ul,
   ol {
-    color: black;
     font-family: 'Tinos', serif;
     font-weight: 400;
     font-style: normal;
+  }
+  strong {
+    color: red;
   }
   .base-contr-chapter {
     font-weight: 900;
@@ -90,8 +95,8 @@
   .page {
     width: 210mm;
     padding: 5mm 10mm 5mm 20mm;
-    min-height: initial;
-    background: initial;
+    min-height: 297mm;
+    background: white;
     p,
     h1,
     h2,
@@ -106,62 +111,65 @@
       font-weight: 400;
       font-style: normal;
     }
-  }
-  .base-contr-chapter {
-    font-weight: 900;
-    font-size: 0.95rem;
-    margin-top: 0.75rem;
-  }
-  .base-contr-paragraph {
-    text-indent: 2rem;
-    font-size: 0.95rem;
-  }
-  .base-contr-text {
-    font-size: 0.95rem;
-  }
+    strong {
+      color: black;
+    }
+    .base-contr-chapter {
+      font-weight: 900;
+      font-size: 0.95rem;
+      margin-top: 0.75rem;
+    }
+    .base-contr-paragraph {
+      text-indent: 2rem;
+      font-size: 0.95rem;
+    }
+    .base-contr-text {
+      font-size: 0.95rem;
+    }
 
-  .rems-potochn-chapter {
-    font-weight: 900;
-    font-size: 0.8rem;
-    margin-top: 1rem;
-  }
-  .rems-potochn-paragraph {
-    text-indent: 2rem;
-    font-size: 0.77rem;
-  }
-  .rems-potochn-text {
-    font-size: 0.77rem;
-  }
-  .rems-potochn-italic {
-    text-indent: 2rem;
-    font-style: italic;
-    text-decoration: underline;
-    font-size: 0.77rem;
-  }
+    .rems-potochn-chapter {
+      font-weight: 900;
+      font-size: 0.8rem;
+      margin-top: 1rem;
+    }
+    .rems-potochn-paragraph {
+      text-indent: 2rem;
+      font-size: 0.77rem;
+    }
+    .rems-potochn-text {
+      font-size: 0.77rem;
+    }
+    .rems-potochn-italic {
+      text-indent: 2rem;
+      font-style: italic;
+      text-decoration: underline;
+      font-size: 0.77rem;
+    }
 
-  .jkh-budjet-chapter {
-    font-weight: 900;
-    font-size: 1rem;
-    margin-top: 1rem;
-  }
-  .jkh-budjet-paragraph {
-    text-indent: 2rem;
-    font-size: 1rem;
-  }
-  .jkh-budjet-text {
-    font-size: 1rem;
-  }
+    .jkh-budjet-chapter {
+      font-weight: 900;
+      font-size: 1rem;
+      margin-top: 1rem;
+    }
+    .jkh-budjet-paragraph {
+      text-indent: 2rem;
+      font-size: 1rem;
+    }
+    .jkh-budjet-text {
+      font-size: 1rem;
+    }
 
-  .agro-contract-chapter {
-    font-weight: 900;
-    font-size: 1rem;
-    margin-top: 1rem;
-  }
-  .agro-contract-paragraph {
-    text-indent: 2rem;
-    font-size: 1rem;
-  }
-  .agro-contract-text {
-    font-size: 1rem;
+    .agro-contract-chapter {
+      font-weight: 900;
+      font-size: 1rem;
+      margin-top: 1rem;
+    }
+    .agro-contract-paragraph {
+      text-indent: 2rem;
+      font-size: 1rem;
+    }
+    .agro-contract-text {
+      font-size: 1rem;
+    }
   }
 }

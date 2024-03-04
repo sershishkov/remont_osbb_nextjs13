@@ -118,7 +118,7 @@ export default function AgroContractPrint({
           sx={{
             width: '100%',
             margin: 0,
-            backgroundColor: 'white',
+            // backgroundColor: 'white',
           }}
         >
           <TableBody
@@ -918,7 +918,7 @@ export default function AgroContractPrint({
           sx={{
             width: '100%',
             margin: 0,
-            backgroundColor: 'white',
+            // backgroundColor: 'white',
           }}
         >
           <TableBody
@@ -967,154 +967,129 @@ export default function AgroContractPrint({
                 </Typography>
               </TableCell>
             </TableRow>
-            <TableRow
-              sx={{
-                display:
-                  executorAddress === '' && clientAddress === ''
-                    ? 'none'
-                    : 'table-row',
-              }}
-            >
-              <TableCell>
-                <Typography
-                  variant='body2'
-                  className={classes['agro-contract-text']}
-                >
-                  {executorAddress}
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography
-                  variant='body2'
-                  className={classes['agro-contract-text']}
-                >
-                  {clientAddress}
-                </Typography>
-              </TableCell>
-            </TableRow>
-            <TableRow
-              sx={{
-                display:
-                  executorEDRPO === '' && clientEDRPO === ''
-                    ? 'none'
-                    : 'table-row',
-              }}
-            >
-              <TableCell>
-                <Typography
-                  variant='body2'
-                  className={classes['agro-contract-text']}
-                >
-                  {executorEDRPO}
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography
-                  variant='body2'
-                  className={classes['agro-contract-text']}
-                >
-                  {clientEDRPO}
-                </Typography>
-              </TableCell>
-            </TableRow>
-            <TableRow
-              sx={{
-                display:
-                  executorIBAN === '' && clientIBAN === ''
-                    ? 'none'
-                    : 'table-row',
-              }}
-            >
-              <TableCell>
-                <Typography
-                  variant='body2'
-                  className={classes['agro-contract-text']}
-                >
-                  {executorIBAN}
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography
-                  variant='body2'
-                  className={classes['agro-contract-text']}
-                >
-                  {clientIBAN}
-                </Typography>
-              </TableCell>
-            </TableRow>
-            <TableRow
-              sx={{
-                display:
-                  executorTel === '' && clientTel === '' ? 'none' : 'table-row',
-              }}
-            >
-              <TableCell>
-                <Typography
-                  variant='body2'
-                  className={classes['agro-contract-text']}
-                >
-                  {executorTel}
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography
-                  variant='body2'
-                  className={classes['agro-contract-text']}
-                >
-                  {clientTel}
-                </Typography>
-              </TableCell>
-            </TableRow>
-            <TableRow
-              sx={{
-                display:
-                  executorTel === '' && clientTel === '' ? 'none' : 'table-row',
-              }}
-            >
-              <TableCell>
-                <Typography
-                  variant='body2'
-                  className={classes['agro-contract-text']}
-                >
-                  {executorEmail}
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography
-                  variant='body2'
-                  className={classes['agro-contract-text']}
-                >
-                  {clientEmail}
-                </Typography>
-              </TableCell>
-            </TableRow>
-            <TableRow
-              sx={{
-                display:
-                  executorJobTitleimen === '' && clientJobTitleimen === ''
-                    ? 'none'
-                    : 'table-row',
-              }}
-            >
-              <TableCell>
-                <Typography
-                  variant='body2'
-                  className={classes['agro-contract-text']}
-                  mb={2}
-                >
-                  {executorJobTitleimen}
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography
-                  variant='body2'
-                  className={classes['agro-contract-text']}
-                  mb={2}
-                >
-                  {clientJobTitleimen}
-                </Typography>
-              </TableCell>
-            </TableRow>
+            {(executorAddress !== '' || clientAddress !== '') && (
+              <TableRow>
+                <TableCell>
+                  <Typography
+                    variant='body2'
+                    className={classes['agro-contract-text']}
+                  >
+                    {executorAddress}
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography
+                    variant='body2'
+                    className={classes['agro-contract-text']}
+                  >
+                    {clientAddress}
+                  </Typography>
+                </TableCell>
+              </TableRow>
+            )}
+            {(executorEDRPO !== '' || clientEDRPO !== '') && (
+              <TableRow>
+                <TableCell>
+                  <Typography
+                    variant='body2'
+                    className={classes['agro-contract-text']}
+                  >
+                    {executorEDRPO}
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography
+                    variant='body2'
+                    className={classes['agro-contract-text']}
+                  >
+                    {clientEDRPO}
+                  </Typography>
+                </TableCell>
+              </TableRow>
+            )}
+            {(executorEDRPO !== '' || clientEDRPO !== '') && (
+              <TableRow>
+                <TableCell>
+                  <Typography
+                    variant='body2'
+                    className={classes['agro-contract-text']}
+                  >
+                    {executorIBAN}
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography
+                    variant='body2'
+                    className={classes['agro-contract-text']}
+                  >
+                    {clientIBAN}
+                  </Typography>
+                </TableCell>
+              </TableRow>
+            )}
+            {(executorTel !== '' || clientTel !== '') && (
+              <TableRow>
+                <TableCell>
+                  <Typography
+                    variant='body2'
+                    className={classes['agro-contract-text']}
+                  >
+                    {executorTel}
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography
+                    variant='body2'
+                    className={classes['agro-contract-text']}
+                  >
+                    {clientTel}
+                  </Typography>
+                </TableCell>
+              </TableRow>
+            )}
+            {(executorEmail !== '' || clientEmail !== '') && (
+              <TableRow>
+                <TableCell>
+                  <Typography
+                    variant='body2'
+                    className={classes['agro-contract-text']}
+                  >
+                    {executorEmail}
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography
+                    variant='body2'
+                    className={classes['agro-contract-text']}
+                  >
+                    {clientEmail}
+                  </Typography>
+                </TableCell>
+              </TableRow>
+            )}
+            {(executorJobTitleimen !== '' || clientJobTitleimen !== '') && (
+              <TableRow>
+                <TableCell>
+                  <Typography
+                    variant='body2'
+                    className={classes['agro-contract-text']}
+                    mb={2}
+                  >
+                    {executorJobTitleimen}
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography
+                    variant='body2'
+                    className={classes['agro-contract-text']}
+                    mb={2}
+                  >
+                    {clientJobTitleimen}
+                  </Typography>
+                </TableCell>
+              </TableRow>
+            )}
+
             <TableRow>
               <TableCell>
                 <Grid container direction={`row`}>

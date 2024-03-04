@@ -77,7 +77,7 @@ export default function RemsContractPotochnPrint({
           sx={{
             width: '100%',
             margin: 0,
-            backgroundColor: 'white',
+            // backgroundColor: 'white',
           }}
         >
           <TableBody
@@ -133,28 +133,6 @@ export default function RemsContractPotochnPrint({
         </Table>
       </TableContainer>
 
-      {/* <Typography variant='h6' align='center'>
-        ДОГОВІР № ________________
-      </Typography>
-      <Typography variant='body2' align='center'>
-        на надання послуг поточного ремонту
-      </Typography> */}
-      {/* <Grid
-        container
-        direction={`row`}
-        justifyContent={`space-between`}
-        alignItems={`center`}
-        mb={2}
-      >
-        <Grid item>
-          <Typography variant='body2'>м. Запоріжжя</Typography>
-        </Grid>
-        <Grid item>
-          <Typography variant='body2'>
-            _______________{contrDateStr} року.
-          </Typography>
-        </Grid>
-      </Grid> */}
       <Typography variant='body2' className={classes['rems-potochn-paragraph']}>
         <strong>
           Комунальне підприємство «Запоріжремсервіс» Запорізької міської ради,
@@ -928,7 +906,7 @@ export default function RemsContractPotochnPrint({
           sx={{
             width: '100%',
             margin: 0,
-            backgroundColor: 'white',
+            // backgroundColor: 'white',
           }}
         >
           <TableBody
@@ -1167,156 +1145,6 @@ export default function RemsContractPotochnPrint({
           </TableBody>
         </Table>
       </TableContainer>
-
-      {/* //////////////////////////////// */}
-
-      {/* <Grid
-        container
-        direction={`row`}
-        spacing={1}
-        sx={{
-          borderLeft: '1px solid black',
-          borderTop: '1px solid black',
-          borderRight: '1px solid black',
-          // borderBottom: '1px solid black',
-        }}
-      >
-        <Grid
-          item
-          xs={6}
-          sx={{
-            // borderLeft: '1px solid black',
-            // borderTop: '1px solid black',
-            borderRight: '1px solid black',
-            // borderBottom: '1px solid black',
-          }}
-        >
-          <Typography variant='body2' pb={2}>
-            15.1. Замовник:
-          </Typography>
-        </Grid>
-        <Grid item xs={6}>
-          <Typography variant='body2' pb={2}>
-            15.2. Підрядник
-          </Typography>
-        </Grid>
-      </Grid> */}
-      {/* //////////////////////////////// */}
-      {/* <Grid
-        container
-        direction={`row`}
-        spacing={1}
-        sx={{
-          borderLeft: '1px solid black',
-          borderTop: '1px solid black',
-          borderRight: '1px solid black',
-          // borderBottom: '1px solid black',
-        }}
-      >
-        <Grid
-          item
-          xs={6}
-          sx={{
-            // borderLeft: '1px solid black',
-            // borderTop: '1px solid black',
-            borderRight: '1px solid black',
-            // borderBottom: '1px solid black',
-          }}
-        >
-          <Grid container direction={`column`}>
-            <Grid item xs={12}>
-              <Typography variant='body2'>
-                <strong>КП «Запоріжремсервіс» ЗМР</strong>{' '}
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography variant='body2'>{clientAddres}</Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography variant='body2'> {clientIBAN}</Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography variant='body2'>{clientEDRPO}</Typography>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item xs={6}>
-          <Grid item xs={12}>
-            <Typography variant='body2'>
-              <strong>
-                {executorTypeShort} «{executorName}»
-              </strong>
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant='body2'>{executorAddres}</Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant='body2'>{executorIBAN}</Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant='body2'>{executorEDRPO}</Typography>
-          </Grid>
-        </Grid>
-      </Grid>
-      <Grid
-        container
-        direction={`row`}
-        spacing={1}
-        pt={1}
-        sx={{
-          borderLeft: '1px solid black',
-          // borderTop: '1px solid black',
-          borderRight: '1px solid black',
-          borderBottom: '1px solid black',
-        }}
-      >
-        <Grid
-          item
-          xs={6}
-          pr={1}
-          pb={1}
-          sx={{
-            // borderLeft: '1px solid black',
-            // borderTop: '1px solid black',
-            borderRight: '1px solid black',
-            // borderBottom: '1px solid black',
-          }}
-        >
-          <Grid item xs={12}>
-            <Grid container direction={`row`}>
-              <Grid item>
-                <Typography variant='body2'>{clientJobTitleimen}</Typography>
-              </Grid>
-              <Grid
-                item
-                sx={{ flex: 1, borderBottom: '1px solid black' }}
-              ></Grid>
-              <Grid item>
-                <Typography variant='body2'>{clientFIOImen}</Typography>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item xs={6} pr={1} pb={1}>
-          <Grid item xs={12}>
-            <Grid container direction={`row`}>
-              <Grid item>
-                <Typography variant='body2'>{executorJobTitleimen}</Typography>
-              </Grid>
-              <Grid
-                item
-                sx={{ flex: 1, borderBottom: '1px solid black' }}
-              ></Grid>
-              <Grid item>
-                <Typography variant='body2'>{executorFIOImen} </Typography>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid> */}
-
-      {/* //////////////////////////////// */}
     </div>
   );
 }

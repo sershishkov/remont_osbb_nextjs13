@@ -78,7 +78,6 @@ export const get__all = async (
   dataObject: any,
   currentURL: string
 ) => {
-  // console.log(dataObject);
   try {
     let queryString = '';
     const sizeObject = Object.keys(dataObject).length;

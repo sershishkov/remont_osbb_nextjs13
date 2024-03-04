@@ -239,7 +239,6 @@ export default function BaseContractPrint({
           sx={{
             width: '100%',
             margin: 0,
-            backgroundColor: 'white',
           }}
         >
           <TableBody
@@ -594,7 +593,7 @@ export default function BaseContractPrint({
           sx={{
             width: '100%',
             margin: 0,
-            backgroundColor: 'white',
+            // backgroundColor: 'white',
           }}
         >
           <TableBody
@@ -643,144 +642,135 @@ export default function BaseContractPrint({
                 </Typography>
               </TableCell>
             </TableRow>
-            <TableRow
-              sx={{
-                display: !(executorAddress && clientAddress)
-                  ? 'none'
-                  : 'table-row',
-              }}
-            >
-              <TableCell>
-                <Typography
-                  variant='body2'
-                  className={classes['base-contr-text']}
-                >
-                  {executorAddress}
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography
-                  variant='body2'
-                  className={classes['base-contr-text']}
-                >
-                  {clientAddress}
-                </Typography>
-              </TableCell>
-            </TableRow>
-            <TableRow
-              sx={{
-                display: !(executorEDRPO && clientEDRPO) ? 'none' : 'table-row',
-              }}
-            >
-              <TableCell>
-                <Typography
-                  variant='body2'
-                  className={classes['base-contr-text']}
-                >
-                  {executorEDRPO}
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography
-                  variant='body2'
-                  className={classes['base-contr-text']}
-                >
-                  {clientEDRPO}
-                </Typography>
-              </TableCell>
-            </TableRow>
-            <TableRow
-              sx={{
-                display: !(executorIBAN && clientIBAN) ? 'none' : 'table-row',
-              }}
-            >
-              <TableCell>
-                <Typography
-                  variant='body2'
-                  className={classes['base-contr-text']}
-                >
-                  {executorIBAN}
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography
-                  variant='body2'
-                  className={classes['base-contr-text']}
-                >
-                  {clientIBAN}
-                </Typography>
-              </TableCell>
-            </TableRow>
-            <TableRow
-              sx={{
-                display: !(executorTel && clientTel) ? 'none' : 'table-row',
-              }}
-            >
-              <TableCell>
-                <Typography
-                  variant='body2'
-                  className={classes['base-contr-text']}
-                >
-                  {executorTel}
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography
-                  variant='body2'
-                  className={classes['base-contr-text']}
-                >
-                  {clientTel}
-                </Typography>
-              </TableCell>
-            </TableRow>
-            <TableRow
-              sx={{
-                display: !(executorTel && clientTel) ? 'none' : 'table-row',
-              }}
-            >
-              <TableCell>
-                <Typography
-                  variant='body2'
-                  className={classes['base-contr-text']}
-                >
-                  {executorEmail}
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography
-                  variant='body2'
-                  className={classes['base-contr-text']}
-                >
-                  {clientEmail}
-                </Typography>
-              </TableCell>
-            </TableRow>
-            <TableRow
-              sx={{
-                display: !(executorJobTitle && clientJobTitle)
-                  ? 'none'
-                  : 'table-row',
-              }}
-            >
-              <TableCell>
-                <Typography
-                  variant='body2'
-                  className={classes['base-contr-text']}
-                  mb={2}
-                >
-                  {executorJobTitle}
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography
-                  variant='body2'
-                  className={classes['base-contr-text']}
-                  mb={2}
-                >
-                  {clientJobTitle}
-                </Typography>
-              </TableCell>
-            </TableRow>
+
+            {(executorAddress !== '' || clientAddress !== '') && (
+              <TableRow>
+                <TableCell>
+                  <Typography
+                    variant='body2'
+                    className={classes['base-contr-text']}
+                  >
+                    {executorAddress}
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography
+                    variant='body2'
+                    className={classes['base-contr-text']}
+                  >
+                    {clientAddress}
+                  </Typography>
+                </TableCell>
+              </TableRow>
+            )}
+
+            {(executorEDRPO !== '' || clientEDRPO !== '') && (
+              <TableRow>
+                <TableCell>
+                  <Typography
+                    variant='body2'
+                    className={classes['base-contr-text']}
+                  >
+                    {executorEDRPO}
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography
+                    variant='body2'
+                    className={classes['base-contr-text']}
+                  >
+                    {clientEDRPO}
+                  </Typography>
+                </TableCell>
+              </TableRow>
+            )}
+
+            {(executorEDRPO !== '' || clientEDRPO !== '') && (
+              <TableRow>
+                <TableCell>
+                  <Typography
+                    variant='body2'
+                    className={classes['base-contr-text']}
+                  >
+                    {executorIBAN}
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography
+                    variant='body2'
+                    className={classes['base-contr-text']}
+                  >
+                    {clientIBAN}
+                  </Typography>
+                </TableCell>
+              </TableRow>
+            )}
+
+            {(executorTel !== '' || clientTel !== '') && (
+              <TableRow>
+                <TableCell>
+                  <Typography
+                    variant='body2'
+                    className={classes['base-contr-text']}
+                  >
+                    {executorTel}
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography
+                    variant='body2'
+                    className={classes['base-contr-text']}
+                  >
+                    {clientTel}
+                  </Typography>
+                </TableCell>
+              </TableRow>
+            )}
+
+            {(executorEmail !== '' || clientEmail !== '') && (
+              <TableRow>
+                <TableCell>
+                  <Typography
+                    variant='body2'
+                    className={classes['base-contr-text']}
+                  >
+                    {executorEmail}
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography
+                    variant='body2'
+                    className={classes['base-contr-text']}
+                  >
+                    {clientEmail}
+                  </Typography>
+                </TableCell>
+              </TableRow>
+            )}
+
+            {(executorJobTitle !== '' || clientJobTitle !== '') && (
+              <TableRow>
+                <TableCell>
+                  <Typography
+                    variant='body2'
+                    className={classes['base-contr-text']}
+                    mb={2}
+                  >
+                    {executorJobTitle}
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography
+                    variant='body2'
+                    className={classes['base-contr-text']}
+                    mb={2}
+                  >
+                    {clientJobTitle}
+                  </Typography>
+                </TableCell>
+              </TableRow>
+            )}
+
             <TableRow>
               <TableCell>
                 <Grid container direction={`row`}>
@@ -837,7 +827,7 @@ export default function BaseContractPrint({
                 </Typography>
               </TableCell>
             </TableRow>
-          </TableBody>{' '}
+          </TableBody>
         </Table>
       </TableContainer>
     </div>
