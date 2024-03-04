@@ -92,12 +92,28 @@ function InvoiceToPrint({
   const contractNumber = contractObj?.contractNumber;
   //@ts-ignore
   const firmType = contractObj?.client?.firmType?.firmTypeShortName;
-
-  const injectPhrase = arr__TypeOfOSBB.includes(firmType)
-    ? 'у житловому будинку за адресою: '
-    : ' за адресою:';
-  const workAddress = contractObj?.workAddress;
-  const contractDescription = `${contractObj?.contractDescription} ${injectPhrase} ${workAddress}`;
+  //@ts-ignore
+  const contractType = contractObj.contractType.contractTypeName;
+  let contractDescription;
+  if (
+    contractType === 'Общий' ||
+    contractType === 'Общий Сумма' ||
+    contractType === 'Предоплата Частичная' ||
+    contractType === 'Предоплата Материал' ||
+    contractType === 'Предоплата 100%' ||
+    contractType === 'Кошторис Сумма' ||
+    contractType === 'Кошторис Частичная Предоплата' ||
+    contractType === 'Кошторис Предоплата Материал' ||
+    contractType === 'Кошторис Предоплата 100%'
+  ) {
+    const injectPhrase = arr__TypeOfOSBB.includes(firmType)
+      ? 'у житловому будинку за адресою: '
+      : ' за адресою:';
+    const workAddress = contractObj?.workAddress;
+    contractDescription = `${contractObj?.contractDescription} ${injectPhrase} ${workAddress}`;
+  } else {
+    contractDescription = contractObj?.contractDescription!;
+  }
 
   return (
     <div className={classes.page} id='page'>

@@ -4,7 +4,8 @@
   width: 210mm;
   min-height: 297mm;
   padding: 5mm 10mm 5mm 20mm;
-  color: red;
+  background: white;
+  color: black;
   font-family: 'Tinos', serif;
   font-weight: 400;
   font-style: normal;
@@ -17,7 +18,9 @@
   h5,
   h6,
   ul,
-  ol {
+  ol,
+  button {
+    color: black;
     font-family: 'Tinos', serif;
     font-weight: 400;
     font-style: normal;
@@ -25,6 +28,12 @@
   strong {
     color: red;
   }
+
+  td,
+  th {
+    border: '1px solid white' !important;
+  }
+
   .base-contr-chapter {
     font-weight: 900;
     font-size: 0.95rem;
@@ -105,7 +114,8 @@
     h5,
     h6,
     ul,
-    ol {
+    ol,
+    button {
       color: black;
       font-family: 'Tinos', serif;
       font-weight: 400;

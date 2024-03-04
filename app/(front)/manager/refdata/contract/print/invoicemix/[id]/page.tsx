@@ -86,12 +86,29 @@ export default function InvoiceMix({ params }: Readonly<paramsProps>) {
           currentContract?.contractType?.contractTypeName;
         //@ts-ignore
         const firmType = currentContract?.client?.firmType?.firmTypeShortName;
+        //@ts-ignore
+        const contractType = currentContract.contractType.contractTypeName;
+        let contractDescription = '';
 
-        const injectPhrase = arr__TypeOfOSBB.includes(firmType)
-          ? 'у житловому будинку за адресою: '
-          : ' за адресою:';
-        const workAddress = currentContract?.workAddress;
-        const contractDescription = `${currentContract?.contractDescription} ${injectPhrase} ${workAddress}`;
+        if (
+          contractType === 'Общий' ||
+          contractType === 'Общий Сумма' ||
+          contractType === 'Предоплата Частичная' ||
+          contractType === 'Предоплата Материал' ||
+          contractType === 'Предоплата 100%' ||
+          contractType === 'Кошторис Сумма' ||
+          contractType === 'Кошторис Частичная Предоплата' ||
+          contractType === 'Кошторис Предоплата Материал' ||
+          contractType === 'Кошторис Предоплата 100%'
+        ) {
+          const injectPhrase = arr__TypeOfOSBB.includes(firmType)
+            ? 'у житловому будинку за адресою: '
+            : ' за адресою:';
+          const workAddress = currentContract?.workAddress;
+          contractDescription = `${currentContract?.contractDescription} ${injectPhrase} ${workAddress}`;
+        } else {
+          contractDescription = currentContract?.contractDescription!;
+        }
 
         const currentNakl: I_DocumentNakladnaya = localArrOfRelNakl?.items[0];
         const currentAkt: I_DocumentAktOfWork = localArrOfRelAkt?.items[0];
