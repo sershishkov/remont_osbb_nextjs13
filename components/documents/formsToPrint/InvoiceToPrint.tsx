@@ -93,7 +93,7 @@ function InvoiceToPrint({
   //@ts-ignore
   const firmType = contractObj?.client?.firmType?.firmTypeShortName;
   //@ts-ignore
-  const contractType = contractObj.contractType.contractTypeName;
+  const contractType = contractObj?.contractType?.contractTypeName;
   let contractDescription;
   if (
     contractType === 'Общий' ||

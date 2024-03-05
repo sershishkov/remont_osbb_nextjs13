@@ -133,6 +133,27 @@ export default function InvoiceAktPrint({ params }: Readonly<paramsProps>) {
               aktSum: sumToShow,
             }));
             setTableRows([newRow]);
+          } else if (localContactType === 'Ремсервис (поточный)') {
+            const sumToShow = Number(item.totalSums.totalAktSum);
+
+            const newRow = {
+              row_id: 'row_id',
+              //@ts-ignore
+              product: contractDescription,
+              extraInformation: '',
+              //@ts-ignore
+              unit: 'послуга',
+              amount: '1',
+              price: sumToShow.toFixed(2),
+              rowSum: sumToShow.toFixed(2),
+            };
+
+            setFormData((prevState) => ({
+              ...prevState,
+              aktSum: sumToShow,
+            }));
+
+            setTableRows([newRow]);
           } else {
             const arrToSetRowsThird = item.thirdPartyServices?.map(
               (inner_item: I_ThirdPartyServiceInAkt) => {

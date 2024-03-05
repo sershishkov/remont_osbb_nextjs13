@@ -175,7 +175,28 @@ export default function InvoiceMix({ params }: Readonly<paramsProps>) {
 
           setFormData((prevState) => ({
             ...prevState,
+            aktSum: tempTotalInvoiceSum,
+          }));
 
+          setTableAktRows([newRow]);
+          setTableNaklRows([]);
+        } else if (localContactType === 'Ремсервис (поточный)') {
+          const sumToShow = tempNaklSum + tempAktSum;
+
+          const newRow = {
+            row_id: 'row_id',
+            //@ts-ignore
+            workName: contractDescription,
+            extraInformation: '',
+            //@ts-ignore
+            unit: 'послуга',
+            amount: '1',
+            price: sumToShow.toFixed(2),
+            rowSum: sumToShow.toFixed(2),
+          };
+
+          setFormData((prevState) => ({
+            ...prevState,
             aktSum: tempTotalInvoiceSum,
           }));
 
