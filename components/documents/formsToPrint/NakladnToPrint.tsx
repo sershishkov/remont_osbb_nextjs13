@@ -99,7 +99,7 @@ function NakladnToPrint({
           sx={{
             width: '100%',
             margin: 0,
-            backgroundColor: 'white',
+            // backgroundColor: 'white',
           }}
         >
           <TableBody
@@ -198,15 +198,16 @@ function NakladnToPrint({
           sx={{
             width: '100%',
             margin: 0,
-            backgroundColor: 'white',
+            // backgroundColor: 'white',
           }}
         >
           <TableBody
-            sx={{
-              '& td,th': {
-                border: '1px solid black',
-              },
-            }}
+            className={classes['table-main']}
+            // sx={{
+            //   '& td,th': {
+            //     border: '1px solid black',
+            //   },
+            // }}
           >
             <TableRow sx={{ height: 0 }}>
               <TableCell align='center' sx={{ width: '7mm' }}></TableCell>
@@ -279,19 +280,12 @@ function NakladnToPrint({
             <TableRow>
               <TableCell></TableCell>
               <TableCell colSpan={11}>
-                <Typography
-                  variant='body2'
-                  sx={{ color: 'black', paddingLeft: 5 }}
-                >
+                <Typography variant='body2' sx={{ paddingLeft: 5 }}>
                   Всього без ПДВ
                 </Typography>
               </TableCell>
               <TableCell>
-                <Typography
-                  variant='body2'
-                  align='center'
-                  sx={{ color: 'black' }}
-                >
+                <Typography variant='body2' align='center'>
                   {naklSum.toFixed(2)}
                 </Typography>
               </TableCell>
@@ -299,19 +293,12 @@ function NakladnToPrint({
             <TableRow>
               <TableCell></TableCell>
               <TableCell colSpan={11}>
-                <Typography
-                  variant='body2'
-                  sx={{ color: 'black', paddingLeft: 5 }}
-                >
+                <Typography variant='body2' sx={{ paddingLeft: 5 }}>
                   ПДВ
                 </Typography>
               </TableCell>
               <TableCell>
-                <Typography
-                  variant='body2'
-                  align='center'
-                  sx={{ color: 'black' }}
-                >
+                <Typography variant='body2' align='center'>
                   0,00
                 </Typography>
               </TableCell>
@@ -319,30 +306,19 @@ function NakladnToPrint({
             <TableRow>
               <TableCell></TableCell>
               <TableCell colSpan={11}>
-                <Typography
-                  variant='body2'
-                  sx={{ color: 'black', paddingLeft: 5 }}
-                >
+                <Typography variant='body2' sx={{ paddingLeft: 5 }}>
                   Загальна сума без ПДВ
                 </Typography>
               </TableCell>
               <TableCell>
-                <Typography
-                  variant='body2'
-                  align='center'
-                  sx={{ color: 'black' }}
-                >
+                <Typography variant='body2' align='center'>
                   {naklSum.toFixed(2)}
                 </Typography>
               </TableCell>
             </TableRow>
             <TableRow>
               <TableCell colSpan={12}>
-                <Typography
-                  variant='body1'
-                  align='left'
-                  sx={{ color: 'black' }}
-                >
+                <Typography variant='body1' align='left'>
                   Всього до сплати: <strong>{sumPropis}</strong>
                 </Typography>
               </TableCell>
@@ -356,7 +332,7 @@ function NakladnToPrint({
           sx={{
             width: '100%',
             margin: 0,
-            backgroundColor: 'white',
+            // backgroundColor: 'white',
           }}
         >
           <TableBody
@@ -369,14 +345,12 @@ function NakladnToPrint({
             {' '}
             <TableRow>
               <TableCell>
-                <Typography mb={2} variant='button' sx={{ color: 'black' }}>
-                  Відпустив
+                <Typography mb={2} variant='body2'>
+                  ВІДПУСТИВ
                 </Typography>
               </TableCell>
               <TableCell>
-                <Typography variant='button' sx={{ color: 'black' }}>
-                  Отримал
-                </Typography>
+                <Typography variant='body2'>ОТРИМАЛ</Typography>
               </TableCell>
             </TableRow>
             <TableRow>
@@ -408,11 +382,7 @@ function NakladnToPrint({
                     sx={{ borderBottom: '1px solid black', flex: 1 }}
                   ></Grid>
                   <Grid item>
-                    <Typography
-                      variant='body1'
-                      align='right'
-                      sx={{ color: 'black' }}
-                    >
+                    <Typography variant='body1' align='right'>
                       {clientBoss}
                     </Typography>
                   </Grid>

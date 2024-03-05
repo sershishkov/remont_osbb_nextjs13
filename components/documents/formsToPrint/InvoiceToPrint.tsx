@@ -123,7 +123,7 @@ function InvoiceToPrint({
           sx={{
             width: '100%',
             margin: 0,
-            backgroundColor: 'white',
+            // backgroundColor: 'white',
           }}
         >
           <TableBody
@@ -222,15 +222,16 @@ function InvoiceToPrint({
           sx={{
             width: '100%',
             margin: 0,
-            backgroundColor: 'white',
+            // backgroundColor: 'white',
           }}
         >
           <TableBody
-            sx={{
-              '& td,th': {
-                border: '1px solid black',
-              },
-            }}
+            className={classes['table-main']}
+            // sx={{
+            //   '& td,th': {
+            //     border: '1px solid black',
+            //   },
+            // }}
           >
             <TableRow sx={{ height: 0 }}>
               <TableCell align='center' sx={{ width: '7mm' }}></TableCell>

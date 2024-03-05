@@ -4,8 +4,7 @@
   width: 210mm;
   min-height: 297mm;
   padding: 5mm 10mm 5mm 20mm;
-  background: white;
-  color: black;
+
   font-family: 'Tinos', serif;
   font-weight: 400;
   font-style: normal;
@@ -20,7 +19,7 @@
   ul,
   ol,
   button {
-    color: black;
+    color: white;
     font-family: 'Tinos', serif;
     font-weight: 400;
     font-style: normal;
@@ -85,6 +84,12 @@
   }
   .agro-contract-text {
     font-size: 1rem;
+  }
+  tbody.table-main {
+    td,
+    th {
+      border: 1px solid gray;
+    }
   }
 }
 
@@ -167,7 +172,6 @@
     .agro-contract-chapter {
       font-weight: 900;
       font-size: 1rem;
-      margin-top: 1rem;
     }
     .agro-contract-paragraph {
       text-indent: 2rem;
@@ -175,6 +179,12 @@
     }
     .agro-contract-text {
       font-size: 1rem;
+    }
+    table.table-main {
+      td,
+      th {
+        border: 1px solid black;
+      }
     }
   }
 }

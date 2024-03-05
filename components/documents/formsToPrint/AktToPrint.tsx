@@ -96,7 +96,7 @@ function AktToPrint({
           sx={{
             width: '100%',
             margin: 0,
-            backgroundColor: 'white',
+            // backgroundColor: 'white',
             // '& td,th': {
             //   color: 'black',
             // },
@@ -111,26 +111,18 @@ function AktToPrint({
           >
             <TableRow>
               <TableCell align='center' sx={{ width: '50%' }}>
-                <Typography variant='button' sx={{ color: 'black' }}>
-                  Виконавець
-                </Typography>
+                <Typography variant='body2'>ВИКОНАВЕЦЬ</Typography>
               </TableCell>
               <TableCell align='center' sx={{ width: '50%' }}>
-                <Typography variant='button' sx={{ color: 'black' }}>
-                  ЗАМОВНИК
-                </Typography>
+                <Typography variant='body2'>ЗАМОВНИК</Typography>
               </TableCell>
             </TableRow>
             <TableRow>
               <TableCell sx={{ width: '50%' }}>
-                <Typography variant='body2' sx={{ color: 'black' }}>
-                  {ourFirm}
-                </Typography>
+                <Typography variant='body2'>{ourFirm}</Typography>
               </TableCell>
               <TableCell sx={{ width: '50%' }}>
-                <Typography variant='body2' sx={{ color: 'black' }}>
-                  {payerFirm}
-                </Typography>
+                <Typography variant='body2'>{payerFirm}</Typography>
               </TableCell>
             </TableRow>
             <TableRow>
@@ -176,7 +168,7 @@ function AktToPrint({
           sx={{
             width: '100%',
             margin: 0,
-            backgroundColor: 'white',
+            // backgroundColor: 'white',
             // '& td,th': {
             //   color: 'black',
             // },
@@ -234,13 +226,14 @@ function AktToPrint({
           sx={{
             width: '100%',
             margin: 0,
-            backgroundColor: 'white',
-            '& td,th': {
-              color: 'black',
-            },
+            // backgroundColor: 'white',
+            // '& td,th': {
+            //   color: 'black',
+            // },
           }}
         >
           <TableBody
+            className={classes['table-main']}
             sx={{
               '& td,th': {
                 border: '1px solid black',
@@ -304,19 +297,12 @@ function AktToPrint({
             <TableRow>
               <TableCell></TableCell>
               <TableCell colSpan={4}>
-                <Typography
-                  variant='body2'
-                  sx={{ color: 'black', paddingLeft: 5 }}
-                >
+                <Typography variant='body2' sx={{ paddingLeft: 5 }}>
                   Всього без ПДВ
                 </Typography>
               </TableCell>
               <TableCell>
-                <Typography
-                  variant='body2'
-                  align='center'
-                  sx={{ color: 'black' }}
-                >
+                <Typography variant='body2' align='center'>
                   {aktSum.toFixed(2)}
                 </Typography>
               </TableCell>
@@ -324,19 +310,12 @@ function AktToPrint({
             <TableRow>
               <TableCell></TableCell>
               <TableCell colSpan={4}>
-                <Typography
-                  variant='body2'
-                  sx={{ color: 'black', paddingLeft: 5 }}
-                >
+                <Typography variant='body2' sx={{ paddingLeft: 5 }}>
                   ПДВ
                 </Typography>
               </TableCell>
               <TableCell>
-                <Typography
-                  variant='body2'
-                  align='center'
-                  sx={{ color: 'black' }}
-                >
+                <Typography variant='body2' align='center'>
                   0,00
                 </Typography>
               </TableCell>
@@ -344,30 +323,19 @@ function AktToPrint({
             <TableRow>
               <TableCell></TableCell>
               <TableCell colSpan={4}>
-                <Typography
-                  variant='body2'
-                  sx={{ color: 'black', paddingLeft: 5 }}
-                >
+                <Typography variant='body2' sx={{ paddingLeft: 5 }}>
                   Загальна сума без ПДВ
                 </Typography>
               </TableCell>
               <TableCell>
-                <Typography
-                  variant='body2'
-                  align='center'
-                  sx={{ color: 'black' }}
-                >
+                <Typography variant='body2' align='center'>
                   {aktSum.toFixed(2)}
                 </Typography>
               </TableCell>
             </TableRow>
             <TableRow>
               <TableCell colSpan={7}>
-                <Typography
-                  variant='body1'
-                  align='left'
-                  sx={{ color: 'black' }}
-                >
+                <Typography variant='body1' align='left'>
                   Загальна вартість виконаних робіт (послуг):{' '}
                   <strong>{`(${sumPropis}), без ПДВ.`}</strong>
                 </Typography>
@@ -375,11 +343,7 @@ function AktToPrint({
             </TableRow>
             <TableRow>
               <TableCell colSpan={7}>
-                <Typography
-                  variant='body1'
-                  align='left'
-                  sx={{ color: 'black' }}
-                >
+                <Typography variant='body1' align='left'>
                   Сторони одна до одної претензій не мають.
                 </Typography>
               </TableCell>
@@ -393,7 +357,7 @@ function AktToPrint({
           sx={{
             width: '100%',
             margin: 0,
-            backgroundColor: 'white',
+            // backgroundColor: 'white',
           }}
         >
           <TableBody
@@ -405,14 +369,12 @@ function AktToPrint({
           >
             <TableRow>
               <TableCell sx={{ width: '50%' }}>
-                <Typography mb={2} variant='button' sx={{ color: 'black' }}>
-                  ВИКОНАВЕЦ
+                <Typography mb={2} variant='body2'>
+                  ВИКОНАВЕЦЬ
                 </Typography>
               </TableCell>
               <TableCell sx={{ width: '50%' }}>
-                <Typography variant='button' sx={{ color: 'black' }}>
-                  ЗАМОВНИК
-                </Typography>
+                <Typography variant='body2'>ЗАМОВНИК</Typography>
               </TableCell>
             </TableRow>
             <TableRow>
@@ -420,18 +382,14 @@ function AktToPrint({
                 <Grid
                   container
                   direction={`row`}
-                  sx={{ paddingRight: 2, paddingTop: 3 }}
+                  sx={{ paddingRight: 2, paddingTop: 2 }}
                 >
                   <Grid
                     item
                     sx={{ borderBottom: '1px solid black', flex: 1 }}
                   ></Grid>
                   <Grid item>
-                    <Typography
-                      variant='body1'
-                      align='right'
-                      sx={{ color: 'black' }}
-                    >
+                    <Typography variant='body1' align='right'>
                       {ourBoss}
                     </Typography>
                   </Grid>
@@ -441,18 +399,14 @@ function AktToPrint({
                 <Grid
                   container
                   direction={`row`}
-                  sx={{ paddingRight: 2, paddingTop: 3 }}
+                  sx={{ paddingRight: 2, paddingTop: 2 }}
                 >
                   <Grid
                     item
                     sx={{ borderBottom: '1px solid black', flex: 1 }}
                   ></Grid>
                   <Grid item>
-                    <Typography
-                      variant='body1'
-                      align='right'
-                      sx={{ color: 'black' }}
-                    >
+                    <Typography variant='body1' align='right'>
                       {clientBoss}
                     </Typography>
                   </Grid>
@@ -461,14 +415,10 @@ function AktToPrint({
             </TableRow>
             <TableRow>
               <TableCell sx={{ width: '50%' }}>
-                <Typography variant='body2' sx={{ color: 'black' }}>
-                  МП
-                </Typography>
+                <Typography variant='body2'>МП</Typography>
               </TableCell>
               <TableCell sx={{ width: '50%' }}>
-                <Typography variant='body2' sx={{ color: 'black' }}>
-                  МП
-                </Typography>
+                <Typography variant='body2'>МП</Typography>
               </TableCell>
             </TableRow>
           </TableBody>
