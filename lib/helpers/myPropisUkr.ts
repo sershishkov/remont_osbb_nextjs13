@@ -95,7 +95,8 @@ function From0To999(fValue: any, oObjDesc: any, fnAddNum: any, fnAddDesc: any) {
   fnAddDesc(oObjDesc._arrStates[nCurrState]);
 }
 
-export function FloatToSamplesInWordsUkr(fAmount: number): string {
+export function FloatToSamplesInWordsUkr(enteredNumber: number): string {
+  const fAmount = isNaN(enteredNumber) ? 0 : enteredNumber;
   let fInt = Math.floor(fAmount + 0.005);
   let fDec = Math.floor((fAmount - fInt) * 100 + 0.5);
 

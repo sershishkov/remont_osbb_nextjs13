@@ -60,6 +60,19 @@
     font-size: 0.77rem;
   }
 
+  .rems-budjet-chapter {
+    font-weight: 900;
+    font-size: 1rem;
+    margin-top: 1rem;
+  }
+  .rems-budjet-paragraph {
+    text-indent: 2rem;
+    font-size: 1rem;
+  }
+  .rems-budjet-text {
+    font-size: 1rem;
+  }
+
   .jkh-budjet-chapter {
     font-weight: 900;
     font-size: 1rem;
@@ -153,6 +166,18 @@
       text-indent: 2rem;
       font-style: italic;
       text-decoration: underline;
+      font-size: 0.77rem;
+    }
+    .rems-budjet-chapter {
+      font-weight: 900;
+      font-size: 0.8rem;
+      margin-top: 1rem;
+    }
+    .rems-budjet-paragraph {
+      text-indent: 2rem;
+      font-size: 0.77rem;
+    }
+    .rems-budjet-text {
       font-size: 0.77rem;
     }
 
