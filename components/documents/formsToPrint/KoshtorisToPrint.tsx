@@ -43,7 +43,7 @@ export default function KoshtorisToPrint({
   const proectnSumBudjet = currentContract?.proectnSumBudjet;
   const avtorskSumBudjet = currentContract?.avtorskSumBudjet;
   const totalKoshtSum = naklSum + aktSum;
-  const tehnadzSum = totalKoshtSum * 0.015;
+  const tehnadzSum = totalKoshtSum > 45000 ? totalKoshtSum * 0.015 : 675;
   const totalWithDocsSum =
     totalKoshtSum + proectnSumBudjet + avtorskSumBudjet + tehnadzSum;
 
