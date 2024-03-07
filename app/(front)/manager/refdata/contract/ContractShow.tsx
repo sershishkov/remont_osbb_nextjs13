@@ -270,7 +270,7 @@ export default function ContractShow({
       alignItems='center'
       direction='column'
       sx={{
-        maxWidth: 1200,
+        // maxWidth: 1200,
         minWidth: 600,
       }}
     >
@@ -448,7 +448,7 @@ export default function ContractShow({
                   >
                     {`${tableHeader} `}
                   </TableCell>
-                  <TableCell colSpan={5}>{` Всего ${
+                  <TableCell colSpan={6}>{` Всего ${
                     countTotalItems ?? 0
                   }`}</TableCell>
                 </TableRow>
@@ -476,7 +476,13 @@ export default function ContractShow({
                     sx={{ width: '0.8rem', fontSize: '0.8rem' }}
                     align='center'
                   >
-                    кошт
+                    кошт пр
+                  </TableCell>
+                  <TableCell
+                    sx={{ width: '0.8rem', fontSize: '0.8rem' }}
+                    align='center'
+                  >
+                    кошт дог
                   </TableCell>
                   <TableCell
                     sx={{ width: '0.8rem', fontSize: '0.8rem' }}
@@ -531,7 +537,19 @@ export default function ContractShow({
                         <IconButton
                           size='small'
                           component={Link}
-                          href={`${currentURL}/print/koshtoris/${row._id}`}
+                          href={`${currentURL}/print/koshtoris/${row._id}?mode=предварительный`}
+                        >
+                          <PrintIcon
+                            sx={{ width: '1.2rem', fontSize: '1.2rem' }}
+                            color='success'
+                          />
+                        </IconButton>
+                      </TableCell>
+                      <TableCell align='center' sx={{ width: 15 }}>
+                        <IconButton
+                          size='small'
+                          component={Link}
+                          href={`${currentURL}/print/koshtoris/${row._id}?mode=договор`}
                         >
                           <PrintIcon
                             sx={{ width: '1.2rem', fontSize: '1.2rem' }}

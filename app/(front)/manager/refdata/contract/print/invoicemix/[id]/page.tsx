@@ -87,7 +87,7 @@ export default function InvoiceMix({ params }: Readonly<paramsProps>) {
         //@ts-ignore
         const firmType = currentContract?.client?.firmType?.firmTypeShortName;
         //@ts-ignore
-        const contractType = currentContract.contractType.contractTypeName;
+        const contractType = currentContract?.contractType?.contractTypeName;
         let contractDescription = '';
 
         if (

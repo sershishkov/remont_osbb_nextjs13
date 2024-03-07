@@ -175,7 +175,7 @@ export default function WorkersShow({
       alignItems='center'
       direction='column'
       sx={{
-        maxWidth: 1200,
+        // maxWidth: 1200,
         minWidth: 600,
       }}
     >

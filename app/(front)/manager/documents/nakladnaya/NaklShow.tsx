@@ -230,7 +230,7 @@ export default function NaklShow({
       alignItems='center'
       direction='column'
       sx={{
-        maxWidth: 1200,
+        // maxWidth: 1200,
         minWidth: 600,
       }}
     >

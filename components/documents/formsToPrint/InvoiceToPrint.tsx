@@ -304,19 +304,12 @@ function InvoiceToPrint({
             <TableRow>
               <TableCell></TableCell>
               <TableCell colSpan={11}>
-                <Typography
-                  variant='body2'
-                  sx={{ color: 'black', paddingLeft: 5 }}
-                >
+                <Typography variant='body2' sx={{ paddingLeft: 5 }}>
                   Всього без ПДВ
                 </Typography>
               </TableCell>
               <TableCell>
-                <Typography
-                  variant='body2'
-                  align='center'
-                  sx={{ color: 'black' }}
-                >
+                <Typography variant='body2' align='center'>
                   {naklSum.toFixed(2)}
                 </Typography>
               </TableCell>
@@ -324,19 +317,12 @@ function InvoiceToPrint({
             <TableRow>
               <TableCell></TableCell>
               <TableCell colSpan={11}>
-                <Typography
-                  variant='body2'
-                  sx={{ color: 'black', paddingLeft: 5 }}
-                >
+                <Typography variant='body2' sx={{ paddingLeft: 5 }}>
                   ПДВ
                 </Typography>
               </TableCell>
               <TableCell>
-                <Typography
-                  variant='body2'
-                  align='center'
-                  sx={{ color: 'black' }}
-                >
+                <Typography variant='body2' align='center'>
                   0,00
                 </Typography>
               </TableCell>
@@ -344,40 +330,33 @@ function InvoiceToPrint({
             <TableRow>
               <TableCell></TableCell>
               <TableCell colSpan={11}>
-                <Typography
-                  variant='body2'
-                  sx={{ color: 'black', paddingLeft: 5 }}
-                >
+                <Typography variant='body2' sx={{ paddingLeft: 5 }}>
                   Загальна сума без ПДВ
                 </Typography>
               </TableCell>
               <TableCell>
-                <Typography
-                  variant='body2'
-                  align='center'
-                  sx={{ color: 'black' }}
-                >
+                <Typography variant='body2' align='center'>
                   {naklSum.toFixed(2)}
                 </Typography>
               </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell colSpan={12}>
+              <TableCell colSpan={13}>
                 <Typography variant='body1' align='left'>
                   Всього до сплати: <strong>{sumPropis}</strong>
                 </Typography>
               </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell colSpan={12}>
-                <Typography variant='body1' align='left'>
+              <TableCell colSpan={13}>
+                <Typography variant='body1'>
                   Призначення платежу: <strong>{contractDescription}</strong>
                 </Typography>
               </TableCell>
             </TableRow>
             <TableRow>
               <TableCell colSpan={3}></TableCell>
-              <TableCell colSpan={9}>
+              <TableCell colSpan={10}>
                 <Typography variant='body1' align='left'>
                   Керівник ____________________
                 </Typography>
@@ -385,7 +364,7 @@ function InvoiceToPrint({
             </TableRow>
             <TableRow>
               <TableCell colSpan={3}></TableCell>
-              <TableCell colSpan={9}>
+              <TableCell colSpan={10}>
                 <Typography variant='body1' align='left'>
                   <strong>М.П.</strong>
                 </Typography>
