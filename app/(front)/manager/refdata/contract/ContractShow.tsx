@@ -21,7 +21,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
 import SearchIcon from '@mui/icons-material/Search';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
-import PrintIcon from '@mui/icons-material/Print';
+
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -448,7 +448,7 @@ export default function ContractShow({
                   >
                     {`${tableHeader} `}
                   </TableCell>
-                  <TableCell colSpan={6}>{` Всего ${
+                  <TableCell colSpan={2}>{` Всего ${
                     countTotalItems ?? 0
                   }`}</TableCell>
                 </TableRow>
@@ -460,30 +460,6 @@ export default function ContractShow({
                       </TableCell>
                     ))}
 
-                  <TableCell
-                    sx={{ width: '0.8rem', fontSize: '0.8rem' }}
-                    align='center'
-                  >
-                    Дог
-                  </TableCell>
-                  <TableCell
-                    sx={{ width: '0.8rem', fontSize: '0.8rem' }}
-                    align='center'
-                  >
-                    счет
-                  </TableCell>
-                  <TableCell
-                    sx={{ width: '0.8rem', fontSize: '0.8rem' }}
-                    align='center'
-                  >
-                    кошт пр
-                  </TableCell>
-                  <TableCell
-                    sx={{ width: '0.8rem', fontSize: '0.8rem' }}
-                    align='center'
-                  >
-                    кошт дог
-                  </TableCell>
                   <TableCell
                     sx={{ width: '0.8rem', fontSize: '0.8rem' }}
                     align='center'
@@ -509,54 +485,6 @@ export default function ContractShow({
                           </TableCell>
                         ))}
 
-                      <TableCell align='center' sx={{ width: 15 }}>
-                        <IconButton
-                          size='small'
-                          component={Link}
-                          href={`${currentURL}/print/contract/${row._id}`}
-                        >
-                          <PrintIcon
-                            sx={{ width: '1.2rem', fontSize: '1.2rem' }}
-                            color='success'
-                          />
-                        </IconButton>
-                      </TableCell>
-                      <TableCell align='center' sx={{ width: 15 }}>
-                        <IconButton
-                          size='small'
-                          component={Link}
-                          href={`${currentURL}/print/invoicemix/${row._id}`}
-                        >
-                          <PrintIcon
-                            sx={{ width: '1.2rem', fontSize: '1.2rem' }}
-                            color='success'
-                          />
-                        </IconButton>
-                      </TableCell>
-                      <TableCell align='center' sx={{ width: 15 }}>
-                        <IconButton
-                          size='small'
-                          component={Link}
-                          href={`${currentURL}/print/koshtoris/${row._id}?mode=предварительный`}
-                        >
-                          <PrintIcon
-                            sx={{ width: '1.2rem', fontSize: '1.2rem' }}
-                            color='success'
-                          />
-                        </IconButton>
-                      </TableCell>
-                      <TableCell align='center' sx={{ width: 15 }}>
-                        <IconButton
-                          size='small'
-                          component={Link}
-                          href={`${currentURL}/print/koshtoris/${row._id}?mode=договор`}
-                        >
-                          <PrintIcon
-                            sx={{ width: '1.2rem', fontSize: '1.2rem' }}
-                            color='success'
-                          />
-                        </IconButton>
-                      </TableCell>
                       <TableCell align='center' sx={{ width: 15 }}>
                         <IconButton
                           size='small'

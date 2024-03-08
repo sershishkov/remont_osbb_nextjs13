@@ -127,6 +127,10 @@ function ContractAddEdit({
     I_PaymentSource[]
   >([]);
   const [arr__Workers, setArr__Workers] = useState<I_Worker[]>([]);
+  const [relAktId, setRelAktId] = useState('');
+  const [relNaklId, setRelNaklId] = useState('');
+  const [relNaklSum, setRelNaklSum] = useState(0);
+  const [relAktSum, setRelAktSum] = useState(0);
 
   const [contractStages, setContractStages] = useState({
     isMeasured: false,
@@ -386,8 +390,37 @@ function ContractAddEdit({
           //@ts-ignore
           setMainParticipantSum(mainSum);
           setOtherParticipantsSum(otherSum);
-
           setOtherParticipants(newParticipants ?? []);
+
+          const localArrOfRelNakl = await get__all(
+            {
+              page: '0',
+              limit: '0',
+              filter: '',
+              contract: id,
+            },
+            `/manager/documents/nakladnaya`
+          );
+          const localArrOfRelAkt = await get__all(
+            {
+              page: '0',
+              limit: '0',
+              filter: '',
+              contract: id,
+            },
+            `/manager/documents/akt-of-work`
+          );
+
+          if (localArrOfRelNakl?.items?.length > 0) {
+            const relNakl = localArrOfRelNakl?.items[0];
+            setRelNaklId(relNakl._id);
+            setRelNaklSum(Number(relNakl.totalNaklSum));
+          }
+          if (localArrOfRelAkt?.items?.length > 0) {
+            const relAkt = localArrOfRelAkt?.items[0];
+            setRelAktId(relAkt._id);
+            setRelAktSum(Number(relAkt.totalSums.totalAktSum));
+          }
         }
       };
       myGetOne();
@@ -621,32 +654,6 @@ function ContractAddEdit({
               Сохранить
             </Button>
           </Grid>
-          <Grid item sx={{ display: mode === 'edit' ? 'block' : 'none' }}>
-            <Button
-              startIcon={<PrintIcon />}
-              component={Link}
-              href={`${currentURL}/print/contract/${id}`}
-              fullWidth
-              size='small'
-              color='success'
-              variant='contained'
-            >
-              Договор
-            </Button>
-          </Grid>
-          <Grid item sx={{ display: mode === 'edit' ? 'block' : 'none' }}>
-            <Button
-              startIcon={<PrintIcon />}
-              component={Link}
-              href={`${currentURL}/print/koshtoris/${id}`}
-              fullWidth
-              size='small'
-              color='success'
-              variant='contained'
-            >
-              Кошторис
-            </Button>
-          </Grid>
         </Grid>
       </Grid>
       <Grid item>
@@ -657,59 +664,39 @@ function ContractAddEdit({
           alignItems={`center`}
           spacing={1}
         >
-          <Grid item sx={{ width: 150 }}>
-            <TextField
-              margin='normal'
-              required
-              fullWidth
-              name='contractNumber'
-              label='Номер контракта'
-              type='text'
-              id='contractNumber'
-              value={contractNumber ?? ''}
-              onChange={onChange}
+          <Grid item sx={{ width: 200 }}>
+            <MySelectAutoCompl
+              selectName={`ourFirm`}
+              selectLabel={`Наша фирма`}
+              fieldToShow={`clientShortName`}
+              handleChangeSelects={handleChangeSelects}
+              selectedOption={ourFirm ?? ''}
+              // @ts-ignore
+              arrToSelect={arr__ourFirms ?? []}
             />
           </Grid>
+          <Grid item sx={{ width: 300 }}>
+            <Stack
+              direction='row'
+              spacing={2}
+              // direction={{ xs: 'column', sm: 'row' }}
+            >
+              <MySelectAutoCompl
+                selectName={`client`}
+                selectLabel={`Клиент`}
+                fieldToShow={`clientShortName`}
+                handleChangeSelects={handleChangeSelects}
+                selectedOption={client ?? ''}
+                // @ts-ignore
+                arrToSelect={arr__Clients ?? []}
+              />
 
-          <Grid item sx={{ width: 150 }}>
-            <TextField
-              margin='normal'
-              required
-              fullWidth
-              name='contractDate'
-              label='Дата Контракта'
-              type='date'
-              id='contractDate'
-              value={contractDate ?? ''}
-              onChange={onChange}
-              InputLabelProps={{ shrink: true }}
-            />
-          </Grid>
-          <Grid item sx={{ width: 100 }}>
-            <TextField
-              margin='normal'
-              required
-              fullWidth
-              name='guaranteePeriod'
-              label='Гаранития (мес)'
-              type='number'
-              id='guaranteePeriod'
-              value={guaranteePeriod ?? ''}
-              onChange={onChange}
-            />
-          </Grid>
-          <Grid item sx={{ width: 100 }}>
-            <TextField
-              margin='normal'
-              required
-              fullWidth
-              name='prepaymentPercentage'
-              label='Предопл(%)'
-              type='number'
-              id='prepaymentPercentage'
-              value={prepaymentPercentage ?? ''}
-              onChange={onChange}
-            />
+              <IconButton
+                onClick={() => onClickAddItem('/manager/refdata/client/add')}
+              >
+                <AddIcon color='success' sx={{ fontSize: 30 }} />
+              </IconButton>
+            </Stack>
           </Grid>
           <Grid item sx={{ width: 200 }}>
             <Stack
@@ -821,52 +808,6 @@ function ContractAddEdit({
         <Grid
           container
           direction={`row`}
-          justifyContent={`flex-start`}
-          alignItems={`center`}
-          spacing={2}
-        >
-          <Grid item xs={6}>
-            <MySelectAutoCompl
-              selectName={`ourFirm`}
-              selectLabel={`Наша фирма`}
-              fieldToShow={`clientShortName`}
-              handleChangeSelects={handleChangeSelects}
-              selectedOption={ourFirm ?? ''}
-              // @ts-ignore
-              arrToSelect={arr__ourFirms ?? []}
-            />
-          </Grid>
-
-          <Grid item xs={6}>
-            <Stack
-              direction='row'
-              spacing={2}
-              // direction={{ xs: 'column', sm: 'row' }}
-            >
-              <MySelectAutoCompl
-                selectName={`client`}
-                selectLabel={`Клиент`}
-                fieldToShow={`clientShortName`}
-                handleChangeSelects={handleChangeSelects}
-                selectedOption={client ?? ''}
-                // @ts-ignore
-                arrToSelect={arr__Clients ?? []}
-              />
-
-              <IconButton
-                onClick={() => onClickAddItem('/manager/refdata/client/add')}
-              >
-                <AddIcon color='success' sx={{ fontSize: 30 }} />
-              </IconButton>
-            </Stack>
-          </Grid>
-        </Grid>
-      </Grid>
-
-      <Grid item>
-        <Grid
-          container
-          direction={`row`}
           justifyContent={`space-between`}
           alignItems={`center`}
           spacing={2}
@@ -903,91 +844,6 @@ function ContractAddEdit({
         </Grid>
       </Grid>
 
-      <Grid
-        item
-        sx={{
-          display: accountant_role.includes(user?.role!) ? 'block' : 'none',
-        }}
-      >
-        <Grid container direction='column'>
-          <Grid item>
-            <Stack
-              direction='row'
-              justifyContent='center'
-              alignItems='center'
-              spacing={2}
-            >
-              <Typography variant='h6' align='center'>
-                Другие участники сделки
-              </Typography>
-              <Button
-                onClick={addParticipant}
-                variant='contained'
-                color='success'
-              >
-                Добавить участника
-              </Button>
-              <Typography
-                variant='h6'
-                sx={{ color: otherParticipantsSum > 100 ? 'red' : 'green' }}
-              >
-                Сумма {otherParticipantsSum}%
-              </Typography>
-            </Stack>
-          </Grid>
-          <Grid item>
-            {otherParticipants.length > 0 &&
-              otherParticipants.map((item, rowIndex) => (
-                <Grid
-                  container
-                  key={item.id}
-                  direction='row'
-                  justifyContent='center'
-                  alignItems='center'
-                  spacing={5}
-                >
-                  <Grid item sx={{ width: 300 }}>
-                    <MySelectAutoCompl
-                      selectName={`participant_${item.id}`}
-                      selectLabel={`Участник`}
-                      fieldToShow={`lastName`}
-                      handleChangeSelects={handleChangeSelectsParticipant}
-                      selectedOption={
-                        otherParticipants[rowIndex]['participant']
-                      }
-                      // @ts-ignore
-                      arrToSelect={arr__Workers ?? []}
-                    />
-                  </Grid>
-                  <Grid item>
-                    <TextField
-                      margin='normal'
-                      required
-                      // fullWidth
-                      name={`participantPercentage-${item.id}`}
-                      label='%%%'
-                      type='number'
-                      id={`participantPercentage-${item.id}`}
-                      value={item.participantPercentage ?? ''}
-                      onChange={(e) => onChangePercentage(e, item.id)}
-                      onBlur={reculcParticipantsSum}
-                    />
-                  </Grid>
-                  <Grid item>
-                    <Button
-                      onClick={() => deleteParticipant(item.id)}
-                      variant='contained'
-                      color='error'
-                    >
-                      Удалить участника
-                    </Button>
-                  </Grid>
-                </Grid>
-              ))}
-          </Grid>
-        </Grid>
-      </Grid>
-
       <Grid item sx={{ width: '100%' }}>
         <Grid container direction={`row`}>
           <Grid item xs={3}>
@@ -997,86 +853,358 @@ function ContractAddEdit({
               justifyContent={`flex-start`}
               alignItems={`center`}
             >
-              <Grid item>
-                <Typography variant='body2'>Собств</Typography>
+              <Grid item sx={{ width: '100%' }}>
+                <Typography variant='body2' align='center'>
+                  Основное
+                </Typography>
               </Grid>
-              <Grid item>
-                <TextField
-                  margin='normal'
-                  required
-                  fullWidth
-                  name='invoiceNumberBase'
-                  label='№ Счет осн'
-                  type='text'
-                  id='invoiceNumberBase'
-                  value={invoiceNumberBase ?? ''}
-                  onChange={onChange}
-                />
+              <Grid item sx={{ width: '100%' }}>
+                <Grid
+                  container
+                  direction='row'
+                  spacing={1}
+                  justifyContent={`space-between`}
+                  alignItems={`center`}
+                >
+                  <Grid item sx={{ width: 150 }}>
+                    <TextField
+                      margin='normal'
+                      required
+                      fullWidth
+                      name='contractNumber'
+                      label='Номер контракта'
+                      type='text'
+                      id='contractNumber'
+                      value={contractNumber ?? ''}
+                      onChange={onChange}
+                    />
+                  </Grid>
+                  <Grid
+                    item
+                    sx={{ display: mode === 'edit' ? 'block' : 'none' }}
+                  >
+                    <Button
+                      disabled={!id}
+                      startIcon={<PrintIcon />}
+                      component={Link}
+                      href={`${currentURL}/print/contract/${id}`}
+                      fullWidth
+                      size='small'
+                      color='success'
+                      variant='contained'
+                    >
+                      Договор
+                    </Button>
+                  </Grid>
+                </Grid>
               </Grid>
-              <Grid item>
-                <TextField
-                  margin='normal'
-                  required
-                  fullWidth
-                  name='invoiceNumberNakl'
-                  label='№ Счет накл'
-                  type='text'
-                  id='invoiceNumberNakl'
-                  value={invoiceNumberNakl ?? ''}
-                  onChange={onChange}
-                />
+              <Grid item sx={{ width: '100%' }}>
+                <Grid
+                  container
+                  direction='row'
+                  spacing={1}
+                  justifyContent={`space-between`}
+                  alignItems={`center`}
+                >
+                  <Grid item sx={{ width: 150 }}>
+                    <TextField
+                      margin='normal'
+                      required
+                      fullWidth
+                      name='contractDate'
+                      label='Дата Контракта'
+                      type='date'
+                      id='contractDate'
+                      value={contractDate ?? ''}
+                      onChange={onChange}
+                      InputLabelProps={{ shrink: true }}
+                    />
+                  </Grid>
+                  <Grid item sx={{ width: 120 }}>
+                    <TextField
+                      margin='normal'
+                      required
+                      fullWidth
+                      name='guaranteePeriod'
+                      label='Гарант (мес)'
+                      type='number'
+                      id='guaranteePeriod'
+                      value={guaranteePeriod ?? ''}
+                      onChange={onChange}
+                    />
+                  </Grid>
+                  <Grid item sx={{ width: 120 }}>
+                    <TextField
+                      margin='normal'
+                      required
+                      fullWidth
+                      name='prepaymentPercentage'
+                      label='Предопл(%)'
+                      type='number'
+                      id='prepaymentPercentage'
+                      value={prepaymentPercentage ?? ''}
+                      onChange={onChange}
+                    />
+                  </Grid>
+                </Grid>
               </Grid>
-              <Grid item>
-                <TextField
-                  margin='normal'
-                  required
-                  fullWidth
-                  name='invoiceNumberAkt'
-                  label='№ Счет акт'
-                  type='text'
-                  id='invoiceNumberAkt'
-                  value={invoiceNumberAkt ?? ''}
-                  onChange={onChange}
-                />
+
+              <Grid item sx={{ width: '100%' }}>
+                <Grid
+                  container
+                  direction='row'
+                  spacing={1}
+                  justifyContent={`space-between`}
+                  alignItems={`center`}
+                >
+                  <Grid item sx={{ width: 150 }}>
+                    <TextField
+                      margin='normal'
+                      required
+                      fullWidth
+                      name='invoiceNumberBase'
+                      label='№ Счет осн'
+                      type='text'
+                      id='invoiceNumberBase'
+                      value={invoiceNumberBase ?? ''}
+                      onChange={onChange}
+                    />
+                  </Grid>
+                  <Grid
+                    item
+                    sx={{ display: mode === 'edit' ? 'block' : 'none' }}
+                  >
+                    <Button
+                      disabled={!id}
+                      startIcon={<PrintIcon />}
+                      component={Link}
+                      href={`${currentURL}/print/invoicemix/${id}`}
+                      fullWidth
+                      size='small'
+                      color='success'
+                      variant='contained'
+                    >
+                      Счет ({(relAktSum + relNaklSum).toFixed(2)})
+                    </Button>
+                  </Grid>
+                </Grid>
               </Grid>
-              <Grid item>
-                <TextField
-                  margin='normal'
-                  required
-                  fullWidth
-                  name='aktNumber'
-                  label='№ Акта'
-                  type='text'
-                  id='aktNumber'
-                  value={aktNumber ?? ''}
-                  onChange={onChange}
-                />
+              <Grid item sx={{ width: '100%' }}>
+                <Grid
+                  container
+                  direction='row'
+                  spacing={1}
+                  justifyContent={`space-between`}
+                  alignItems={`center`}
+                >
+                  <Grid item sx={{ width: 150 }}>
+                    <TextField
+                      margin='normal'
+                      required
+                      fullWidth
+                      name='invoiceNumberNakl'
+                      label='№ Счет накл'
+                      type='text'
+                      id='invoiceNumberNakl'
+                      value={invoiceNumberNakl ?? ''}
+                      onChange={onChange}
+                    />
+                  </Grid>
+                  <Grid
+                    item
+                    sx={{ display: mode === 'edit' ? 'block' : 'none' }}
+                  >
+                    <Button
+                      disabled={!relNaklId}
+                      startIcon={<PrintIcon />}
+                      component={Link}
+                      href={`/manager/documents/nakladnaya/print/invoice/${relNaklId}`}
+                      fullWidth
+                      size='small'
+                      color='success'
+                      variant='contained'
+                    >
+                      Счет
+                    </Button>
+                  </Grid>
+                </Grid>
               </Grid>
-              <Grid item>
-                <TextField
-                  margin='normal'
-                  required
-                  fullWidth
-                  name='naklNumber'
-                  label='№ Накладной'
-                  type='text'
-                  id='naklNumber'
-                  value={naklNumber ?? ''}
-                  onChange={onChange}
-                />
+              <Grid item sx={{ width: '100%' }}>
+                <Grid
+                  container
+                  direction='row'
+                  spacing={1}
+                  justifyContent={`space-between`}
+                  alignItems={`center`}
+                >
+                  <Grid item sx={{ width: 150 }}>
+                    <TextField
+                      margin='normal'
+                      required
+                      fullWidth
+                      name='invoiceNumberAkt'
+                      label='№ Счет акт'
+                      type='text'
+                      id='invoiceNumberAkt'
+                      value={invoiceNumberAkt ?? ''}
+                      onChange={onChange}
+                    />
+                  </Grid>
+                  <Grid
+                    item
+                    sx={{ display: mode === 'edit' ? 'block' : 'none' }}
+                  >
+                    <Button
+                      disabled={!relAktId}
+                      startIcon={<PrintIcon />}
+                      component={Link}
+                      href={`/manager/documents/akt-of-work/print/invoice/${relAktId}`}
+                      fullWidth
+                      size='small'
+                      color='success'
+                      variant='contained'
+                    >
+                      Счет
+                    </Button>
+                  </Grid>
+                </Grid>
               </Grid>
-              <Grid item>
-                <TextField
-                  margin='normal'
-                  required
-                  fullWidth
-                  name='koshtorisNumber'
-                  label='№ Кошториса'
-                  type='text'
-                  id='koshtorisNumber'
-                  value={koshtorisNumber ?? ''}
-                  onChange={onChange}
-                />
+              <Grid item sx={{ width: '100%' }}>
+                <Grid
+                  container
+                  direction='row'
+                  spacing={1}
+                  justifyContent={`space-between`}
+                  alignItems={`center`}
+                >
+                  <Grid item sx={{ width: 150 }}>
+                    <TextField
+                      margin='normal'
+                      required
+                      fullWidth
+                      name='aktNumber'
+                      label='№ Акта'
+                      type='text'
+                      id='aktNumber'
+                      value={aktNumber ?? ''}
+                      onChange={onChange}
+                    />
+                  </Grid>
+                  <Grid
+                    item
+                    sx={{ display: mode === 'edit' ? 'block' : 'none' }}
+                  >
+                    <Button
+                      disabled={!relAktId}
+                      startIcon={<PrintIcon />}
+                      component={Link}
+                      href={`/manager/documents/akt-of-work/print/akt/${relAktId}`}
+                      fullWidth
+                      size='small'
+                      color='success'
+                      variant='contained'
+                    >
+                      Акт ({relAktSum.toFixed(2)})
+                    </Button>
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid item sx={{ width: '100%' }}>
+                <Grid
+                  container
+                  direction='row'
+                  spacing={1}
+                  justifyContent={`space-between`}
+                  alignItems={`center`}
+                >
+                  <Grid item sx={{ width: 150 }}>
+                    <TextField
+                      margin='normal'
+                      required
+                      fullWidth
+                      name='naklNumber'
+                      label='№ Накладной'
+                      type='text'
+                      id='naklNumber'
+                      value={naklNumber ?? ''}
+                      onChange={onChange}
+                    />
+                  </Grid>
+                  <Grid
+                    item
+                    sx={{ display: mode === 'edit' ? 'block' : 'none' }}
+                  >
+                    <Button
+                      disabled={!relNaklId}
+                      startIcon={<PrintIcon />}
+                      component={Link}
+                      href={`/manager/documents/nakladnaya/print/nakladnaya/${relNaklId}`}
+                      fullWidth
+                      size='small'
+                      color='success'
+                      variant='contained'
+                    >
+                      Накл ({relNaklSum.toFixed(2)})
+                    </Button>
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid item sx={{ width: '100%' }}>
+                <Grid
+                  container
+                  direction='row'
+                  spacing={1}
+                  justifyContent={`space-between`}
+                  alignItems={`center`}
+                >
+                  <Grid item sx={{ width: 150 }}>
+                    <TextField
+                      margin='normal'
+                      required
+                      fullWidth
+                      name='koshtorisNumber'
+                      label='№ Кошториса'
+                      type='text'
+                      id='koshtorisNumber'
+                      value={koshtorisNumber ?? ''}
+                      onChange={onChange}
+                    />
+                  </Grid>
+                  <Grid
+                    item
+                    sx={{ display: mode === 'edit' ? 'block' : 'none' }}
+                  >
+                    <Button
+                      disabled={!id}
+                      startIcon={<PrintIcon />}
+                      component={Link}
+                      href={`${currentURL}/print/koshtoris/${id}?mode=предварительный`}
+                      fullWidth
+                      size='small'
+                      color='success'
+                      variant='contained'
+                    >
+                      Предв
+                    </Button>
+                  </Grid>
+                  <Grid
+                    item
+                    sx={{ display: mode === 'edit' ? 'block' : 'none' }}
+                  >
+                    <Button
+                      disabled={!id}
+                      startIcon={<PrintIcon />}
+                      component={Link}
+                      href={`${currentURL}/print/koshtoris/${id}?mode=договор`}
+                      fullWidth
+                      size='small'
+                      color='success'
+                      variant='contained'
+                    >
+                      дог
+                    </Button>
+                  </Grid>
+                </Grid>
               </Grid>
             </Grid>
           </Grid>
@@ -1407,6 +1535,91 @@ function ContractAddEdit({
                 />
               </FormGroup>
             </FormControl>
+          </Grid>
+        </Grid>
+      </Grid>
+
+      <Grid
+        item
+        sx={{
+          display: accountant_role.includes(user?.role!) ? 'block' : 'none',
+        }}
+      >
+        <Grid container direction='column'>
+          <Grid item>
+            <Stack
+              direction='row'
+              justifyContent='center'
+              alignItems='center'
+              spacing={2}
+            >
+              <Typography variant='h6' align='center'>
+                Другие участники сделки
+              </Typography>
+              <Button
+                onClick={addParticipant}
+                variant='contained'
+                color='success'
+              >
+                Добавить участника
+              </Button>
+              <Typography
+                variant='h6'
+                sx={{ color: otherParticipantsSum > 100 ? 'red' : 'green' }}
+              >
+                Сумма {otherParticipantsSum}%
+              </Typography>
+            </Stack>
+          </Grid>
+          <Grid item>
+            {otherParticipants.length > 0 &&
+              otherParticipants.map((item, rowIndex) => (
+                <Grid
+                  container
+                  key={item.id}
+                  direction='row'
+                  justifyContent='center'
+                  alignItems='center'
+                  spacing={5}
+                >
+                  <Grid item sx={{ width: 300 }}>
+                    <MySelectAutoCompl
+                      selectName={`participant_${item.id}`}
+                      selectLabel={`Участник`}
+                      fieldToShow={`lastName`}
+                      handleChangeSelects={handleChangeSelectsParticipant}
+                      selectedOption={
+                        otherParticipants[rowIndex]['participant']
+                      }
+                      // @ts-ignore
+                      arrToSelect={arr__Workers ?? []}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <TextField
+                      margin='normal'
+                      required
+                      // fullWidth
+                      name={`participantPercentage-${item.id}`}
+                      label='%%%'
+                      type='number'
+                      id={`participantPercentage-${item.id}`}
+                      value={item.participantPercentage ?? ''}
+                      onChange={(e) => onChangePercentage(e, item.id)}
+                      onBlur={reculcParticipantsSum}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <Button
+                      onClick={() => deleteParticipant(item.id)}
+                      variant='contained'
+                      color='error'
+                    >
+                      Удалить участника
+                    </Button>
+                  </Grid>
+                </Grid>
+              ))}
           </Grid>
         </Grid>
       </Grid>

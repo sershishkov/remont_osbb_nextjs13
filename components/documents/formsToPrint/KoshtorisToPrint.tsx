@@ -549,6 +549,26 @@ export default function KoshtorisToPrint({
                   </TableCell>
                 </TableRow>
               )}
+              <TableRow>
+                <TableCell></TableCell>
+                <TableCell colSpan={4}>
+                  <Typography variant='body2' align='left' mt={2}>
+                    {executorJobTitleimen}
+                  </Typography>
+                </TableCell>
+                <TableCell colSpan={4}>
+                  <Typography
+                    variant='body2'
+                    mt={2}
+                    sx={{ borderBottom: '1px solid black' }}
+                  ></Typography>
+                </TableCell>
+                <TableCell colSpan={4}>
+                  <Typography variant='body2' align='right' mt={2}>
+                    {executorFIOImen}
+                  </Typography>
+                </TableCell>
+              </TableRow>
             </TableBody>
           )}
         </Table>
