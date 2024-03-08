@@ -79,7 +79,7 @@ const initState = {
 
   proectnSumBudjet: '890',
   avtorskSumBudjet: '890',
-  expertizaSumBudjet: '4200',
+  expertizaSumBudjet: '0',
   tehnadzorSumBudjet: '0',
 
   zvedeniySumBudjet: '0',
@@ -326,7 +326,7 @@ function ContractAddEdit({
 
             proectnSumBudjet: item.proectnSumBudjet?.toFixed(2) ?? '890',
             avtorskSumBudjet: item.avtorskSumBudjet?.toFixed(2) ?? '890',
-            expertizaSumBudjet: item.expertizaSumBudjet?.toFixed(2) ?? '4200',
+            expertizaSumBudjet: item.expertizaSumBudjet?.toFixed(2) ?? '0',
             tehnadzorSumBudjet: item.tehnadzorSumBudjet?.toFixed(2) ?? '0',
 
             zvedeniySumBudjet: item.zvedeniySumBudjet?.toFixed(2) ?? '0',
