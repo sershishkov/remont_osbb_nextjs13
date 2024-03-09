@@ -387,3 +387,16 @@ export interface I_DocumentAktOfWork {
 }
 //////////////////////////////////////////
 //////////////////////////////////////////
+export interface I_ServiceWorkInCalendarnGrafik {
+  row_id?: string;
+  serviceWork: string;
+  unit: string;
+  amount: number;
+}
+
+export interface I_CalendarnGrafik {
+  _id?: string;
+  contract: Types.ObjectId | I_Contract | string;
+  serviceWorks: I_ServiceWorkInCalendarnGrafik[];
+  creator: Types.ObjectId;
+}
