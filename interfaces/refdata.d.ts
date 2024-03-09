@@ -391,7 +391,7 @@ export interface I_ServiceWorkInCalendarnGrafik {
   row_id?: string;
   serviceWork: string;
   unit: string;
-  amount: number;
+  amount: string;
 }
 
 export interface I_CalendarnGrafik {

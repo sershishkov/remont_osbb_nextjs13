@@ -19,7 +19,7 @@ const calendarn_grafik__Schema = new Schema<I_CalendarnGrafik>({
         required: [true, 'Please add a unit'],
       },
       amount: {
-        type: Number,
+        type: String,
         required: [true, 'Please add a amount'],
       },
     },

@@ -114,6 +114,10 @@ export const manager_Docums_links = [
     link: `${manager_Docums}/akt-of-work`,
     caption: `Акты`,
   },
+  {
+    link: `${manager_Docums}/calendarn-grafik`,
+    caption: `Календ График`,
+  },
 ];
 ///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////
