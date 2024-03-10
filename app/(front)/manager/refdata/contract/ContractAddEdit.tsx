@@ -27,6 +27,8 @@ import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
 import PrintIcon from '@mui/icons-material/Print';
 import EditIcon from '@mui/icons-material/Edit';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import { red } from '@mui/material/colors';
 
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
@@ -90,7 +92,13 @@ const initState = {
   startMonthWorkBudjet: '',
   endMonthWorkBudjet: '',
   kodDkBudjet: 'код ДК 021:2015 - 45453000-7 Капітальний ремонт і реставрація',
+
   dopUgodaSum: '0',
+
+  salaryMin: '6700',
+  salaryLevel_3_8: '14627',
+  lifeTime: '100',
+  whereWirkIsPerfomed: `в під'їзді`,
 
   endWorkRemservis: '',
 };
@@ -135,6 +143,7 @@ function ContractAddEdit({
   const [relAktSum, setRelAktSum] = useState(0);
 
   const [calendGrafikId, setCalendGrafikId] = useState('');
+  const [remsNaklId, setRemsNaklId] = useState('');
 
   const [contractStages, setContractStages] = useState({
     isMeasured: false,
@@ -191,6 +200,11 @@ function ContractAddEdit({
     endMonthWorkBudjet,
     kodDkBudjet,
     dopUgodaSum,
+
+    salaryMin,
+    salaryLevel_3_8,
+    lifeTime,
+    whereWirkIsPerfomed,
 
     endWorkRemservis,
   } = formData;
@@ -337,6 +351,11 @@ function ContractAddEdit({
             zvedeniySumBudjet: item.zvedeniySumBudjet?.toFixed(2) ?? '0',
             dogovornayaSumBudjet: item.dogovornayaSumBudjet?.toFixed(2) ?? '0',
             dopUgodaSum: item.dopUgodaSum?.toFixed(2) ?? '0',
+
+            salaryMin: item.salaryMin?.toFixed(2) ?? '6700',
+            salaryLevel_3_8: item.salaryLevel_3_8?.toFixed(2) ?? '14627',
+            lifeTime: item.lifeTime?.toFixed(2) ?? '100',
+            whereWirkIsPerfomed: item.whereWirkIsPerfomed ?? `в під'їзді`,
 
             paymentSourceProectnAvt: item.paymentSourceProectnAvt ?? 'собств',
             startMonthWorkBudjet:
@@ -513,6 +532,11 @@ function ContractAddEdit({
       zvedeniySumBudjet: Number(zvedeniySumBudjet),
       dogovornayaSumBudjet: Number(dogovornayaSumBudjet),
       dopUgodaSum: Number(dopUgodaSum),
+
+      salaryMin: Number(salaryMin),
+      salaryLevel_3_8: Number(salaryLevel_3_8),
+      lifeTime: Number(lifeTime),
+      whereWirkIsPerfomed: whereWirkIsPerfomed,
 
       paymentSourceProectnAvt,
       startMonthWorkBudjet,
@@ -1115,6 +1139,18 @@ function ContractAddEdit({
                       onChange={onChange}
                     />
                   </Grid>
+                  {!relAktId && (
+                    <Grid item sx={{ width: 25 }}>
+                      <IconButton
+                        component={Link}
+                        sx={{ color: red[500], padding: 0, marginLeft: -1 }}
+                        href={`/manager/documents/akt-of-work/add`}
+                      >
+                        <AddCircleOutlineIcon />
+                      </IconButton>
+                    </Grid>
+                  )}
+
                   <Grid
                     item
                     sx={{ display: mode === 'edit' ? 'block' : 'none' }}
@@ -1129,7 +1165,7 @@ function ContractAddEdit({
                       color='primary'
                       variant='contained'
                     >
-                      Акт
+                      {/* Акт */}
                     </Button>
                   </Grid>
                   <Grid
@@ -1146,7 +1182,7 @@ function ContractAddEdit({
                       color='success'
                       variant='contained'
                     >
-                      Акт ({relAktSum.toFixed(2)})
+                      {/* Акт */}({relAktSum.toFixed(2)})
                     </Button>
                   </Grid>
                 </Grid>
@@ -1172,6 +1208,17 @@ function ContractAddEdit({
                       onChange={onChange}
                     />
                   </Grid>
+                  {!relNaklId && (
+                    <Grid item sx={{ width: 25 }}>
+                      <IconButton
+                        component={Link}
+                        sx={{ color: red[500], padding: 0, marginLeft: -1 }}
+                        href={`/manager/documents/nakladnaya/add`}
+                      >
+                        <AddCircleOutlineIcon />
+                      </IconButton>
+                    </Grid>
+                  )}
                   <Grid
                     item
                     sx={{ display: mode === 'edit' ? 'block' : 'none' }}
@@ -1185,9 +1232,7 @@ function ContractAddEdit({
                       size='small'
                       color='primary'
                       variant='contained'
-                    >
-                      Накл
-                    </Button>
+                    ></Button>
                   </Grid>
                   <Grid
                     item
@@ -1203,7 +1248,7 @@ function ContractAddEdit({
                       color='success'
                       variant='contained'
                     >
-                      Накл ({relNaklSum.toFixed(2)})
+                      {/* Накл */}({relNaklSum.toFixed(2)})
                     </Button>
                   </Grid>
                 </Grid>
@@ -1587,7 +1632,9 @@ function ContractAddEdit({
                           </Grid>
                           <Grid item>
                             <Button
-                              disabled={!id}
+                              disabled={
+                                !id || paymentSourceProectnAvt === 'собств'
+                              }
                               startIcon={<PrintIcon />}
                               component={Link}
                               href={`/to-do`}
@@ -1612,12 +1659,27 @@ function ContractAddEdit({
                           justifyContent={`space-between`}
                           alignItems={`center`}
                         >
+                          {!calendGrafikId && (
+                            <Grid item sx={{ width: 25 }}>
+                              <IconButton
+                                component={Link}
+                                sx={{
+                                  color: red[500],
+                                  padding: 0,
+                                  marginLeft: -1,
+                                }}
+                                href={`/manager/documents/calendarn-grafik/add`}
+                              >
+                                <AddCircleOutlineIcon />
+                              </IconButton>
+                            </Grid>
+                          )}
                           <Grid item>
                             <Button
                               disabled={!calendGrafikId}
                               startIcon={<PrintIcon />}
                               component={Link}
-                              href={`/to-do/${calendGrafikId}`}
+                              href={`/manager/documents/calendarn-grafik/print/${calendGrafikId}`}
                               fullWidth
                               size='small'
                               color='success'
@@ -1940,6 +2002,21 @@ function ContractAddEdit({
                               Накладные
                             </Typography>
                           </Grid>
+                          {!remsNaklId && (
+                            <Grid item sx={{ width: 25 }}>
+                              <IconButton
+                                component={Link}
+                                sx={{
+                                  color: red[500],
+                                  padding: 0,
+                                  marginLeft: -1,
+                                }}
+                                href={`/manager/documents/rems-nakl/add`}
+                              >
+                                <AddCircleOutlineIcon />
+                              </IconButton>
+                            </Grid>
+                          )}
 
                           <Grid item>
                             <Button
@@ -1953,34 +2030,6 @@ function ContractAddEdit({
                               variant='contained'
                             >
                               1
-                            </Button>
-                          </Grid>
-                          <Grid item>
-                            <Button
-                              disabled={!id}
-                              startIcon={<PrintIcon />}
-                              component={Link}
-                              href={`/to-do`}
-                              fullWidth
-                              size='small'
-                              color='success'
-                              variant='contained'
-                            >
-                              2
-                            </Button>
-                          </Grid>
-                          <Grid item>
-                            <Button
-                              disabled={!id}
-                              startIcon={<PrintIcon />}
-                              component={Link}
-                              href={`/to-do`}
-                              fullWidth
-                              size='small'
-                              color='success'
-                              variant='contained'
-                            >
-                              3
                             </Button>
                           </Grid>
                         </Grid>
@@ -2080,6 +2129,85 @@ function ContractAddEdit({
                           </Grid>
                         </Grid>
                       </Grid>
+                      <Grid
+                        item
+                        mt={1}
+                        sx={{ width: '100%', border: '1px solid white' }}
+                      >
+                        <Grid
+                          container
+                          direction={`row`}
+                          justifyContent={`space-between`}
+                          alignItems={`center`}
+                        >
+                          <Grid item sx={{ width: 150 }}>
+                            <TextField
+                              margin='normal'
+                              required
+                              fullWidth
+                              name='salaryMin'
+                              label='МинЗарплата'
+                              type='number'
+                              id='salaryMin'
+                              value={salaryMin ?? ''}
+                              onChange={onChange}
+                            />
+                          </Grid>
+                          <Grid item sx={{ width: 150 }}>
+                            <TextField
+                              margin='normal'
+                              required
+                              fullWidth
+                              name='salaryLevel_3_8'
+                              label='ЗП Разряд 3,8'
+                              type='number'
+                              id='salaryLevel_3_8'
+                              value={salaryLevel_3_8 ?? ''}
+                              onChange={onChange}
+                            />
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                      <Grid
+                        item
+                        mt={1}
+                        sx={{ width: '100%', border: '1px solid white' }}
+                      >
+                        <Grid
+                          container
+                          direction={`row`}
+                          justifyContent={`space-between`}
+                          alignItems={`center`}
+                        >
+                          <Grid item sx={{ width: 150 }}>
+                            <TextField
+                              margin='normal'
+                              required
+                              fullWidth
+                              name='lifeTime'
+                              label='Срок экспл(лет)'
+                              type='number'
+                              id='lifeTime'
+                              value={lifeTime ?? ''}
+                              onChange={onChange}
+                            />
+                          </Grid>
+                          <Grid item sx={{ width: 150 }}>
+                            <TextField
+                              multiline
+                              margin='normal'
+                              required
+                              fullWidth
+                              name='whereWirkIsPerfomed'
+                              label='Работы Где?'
+                              type='text'
+                              id='whereWirkIsPerfomed'
+                              value={whereWirkIsPerfomed ?? ''}
+                              onChange={onChange}
+                            />
+                          </Grid>
+                        </Grid>
+                      </Grid>
                     </Grid>
                   </Grid>
                 </Grid>
@@ -2088,141 +2216,6 @@ function ContractAddEdit({
           </Grid>
 
           <Grid item xs={3} sx={{ border: '1px solid white', padding: 1 }}>
-            <FormControl component='fieldset' variant='standard'>
-              <FormLabel component='legend'>Стадии выполнения</FormLabel>
-              <FormGroup>
-                <FormControlLabel
-                  control={
-                    <Switch
-                      checked={contractStages.isMeasured}
-                      onChange={handleChangeContractStages}
-                      name='isMeasured'
-                    />
-                  }
-                  label='Замер сделан'
-                />
-                <FormControlLabel
-                  control={
-                    <Switch
-                      checked={contractStages.isEstimateCalculated}
-                      onChange={handleChangeContractStages}
-                      name='isEstimateCalculated'
-                    />
-                  }
-                  label='Смета рассчитана'
-                />
-                <FormControlLabel
-                  control={
-                    <Switch
-                      checked={contractStages.isEstimateHasBeenSentToClient}
-                      onChange={handleChangeContractStages}
-                      name='isEstimateHasBeenSentToClient'
-                    />
-                  }
-                  label='Смета отправлена клиенту'
-                />
-                <FormControlLabel
-                  control={
-                    <Switch
-                      checked={contractStages.isEstimateApprovedByClient}
-                      onChange={handleChangeContractStages}
-                      name='isEstimateApprovedByClient'
-                    />
-                  }
-                  label='Смета одобрена клиентом'
-                />
-                <FormControlLabel
-                  control={
-                    <Switch
-                      checked={contractStages.isMaterialsHaveBeenOrdered}
-                      onChange={handleChangeContractStages}
-                      name='isMaterialsHaveBeenOrdered'
-                    />
-                  }
-                  label='Материал заказан'
-                />
-                <FormControlLabel
-                  control={
-                    <Switch
-                      checked={contractStages.isMaterialsDelivered}
-                      onChange={handleChangeContractStages}
-                      name='isMaterialsDelivered'
-                    />
-                  }
-                  label='Материал доставлен'
-                />
-                <FormControlLabel
-                  control={
-                    <Switch
-                      checked={contractStages.isMaterialsPaid}
-                      onChange={handleChangeContractStages}
-                      name='isMaterialsPaid'
-                    />
-                  }
-                  label='Закупка материалов оплачена'
-                />
-                <FormControlLabel
-                  control={
-                    <Switch
-                      checked={contractStages.isWorkCompleted}
-                      onChange={handleChangeContractStages}
-                      name='isWorkCompleted'
-                    />
-                  }
-                  label='Работы выполнены'
-                />
-                <FormControlLabel
-                  control={
-                    <Switch
-                      checked={contractStages.isWorksPaid}
-                      onChange={handleChangeContractStages}
-                      name='isWorksPaid'
-                    />
-                  }
-                  label='Работы оплачены'
-                />
-                <FormControlLabel
-                  control={
-                    <Switch
-                      checked={contractStages.isDocumentsHaveBeenIssued}
-                      onChange={handleChangeContractStages}
-                      name='isDocumentsHaveBeenIssued'
-                    />
-                  }
-                  label='Документы выписаны'
-                />
-                <FormControlLabel
-                  control={
-                    <Switch
-                      checked={contractStages.isDocumentsHaveBeenGivenToClient}
-                      onChange={handleChangeContractStages}
-                      name='isDocumentsHaveBeenGivenToClient'
-                    />
-                  }
-                  label='Документы переданы клиенту на подпись'
-                />
-                <FormControlLabel
-                  control={
-                    <Switch
-                      checked={contractStages.isClientReturnedSignedDocuments}
-                      onChange={handleChangeContractStages}
-                      name='isClientReturnedSignedDocuments'
-                    />
-                  }
-                  label='Клиент вернул подписанные документы'
-                />
-                <FormControlLabel
-                  control={
-                    <Switch
-                      checked={contractStages.isContractPaid}
-                      onChange={handleChangeContractStages}
-                      name='isContractPaid'
-                    />
-                  }
-                  label='Контракт оплачен клиентом'
-                />
-              </FormGroup>
-            </FormControl>
             <Grid
               container
               direction={`column`}
@@ -2233,106 +2226,506 @@ function ContractAddEdit({
               <Grid item>
                 <Typography variant='body2'>Ремсервис</Typography>
               </Grid>
-              <Grid item sx={{ width: 150 }}>
-                <TextField
-                  margin='normal'
-                  required
-                  fullWidth
-                  name='endWorkRemservis'
-                  label='КонецРабот'
-                  type='date'
-                  id='endWorkRemservis'
-                  value={endWorkRemservis ?? ''}
-                  onChange={onChange}
-                  InputLabelProps={{ shrink: true }}
-                />
+              <Grid
+                item
+                mt={1}
+                sx={{ width: '100%', border: '1px solid white' }}
+              >
+                <Grid
+                  container
+                  direction={`row`}
+                  justifyContent={`space-between`}
+                  alignItems={`center`}
+                >
+                  <Grid item sx={{ width: 150 }}>
+                    <TextField
+                      margin='normal'
+                      required
+                      fullWidth
+                      name='endWorkRemservis'
+                      label='КонецРабот'
+                      type='date'
+                      id='endWorkRemservis'
+                      value={endWorkRemservis ?? ''}
+                      onChange={onChange}
+                      InputLabelProps={{ shrink: true }}
+                    />
+                  </Grid>
+
+                  <Grid item>
+                    <Button
+                      disabled={!id}
+                      startIcon={<PrintIcon />}
+                      component={Link}
+                      href={`/to-do`}
+                      fullWidth
+                      size='small'
+                      color='success'
+                      variant='contained'
+                    >
+                      Приказ Охр.Труда
+                    </Button>
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid
+                item
+                mt={1}
+                sx={{ width: '100%', border: '1px solid white' }}
+              >
+                <Grid
+                  container
+                  direction={`row`}
+                  justifyContent={`space-between`}
+                  alignItems={`center`}
+                >
+                  <Grid item sx={{ width: 50 }}>
+                    <Typography variant='body2' align='center'>
+                      Накладные
+                    </Typography>
+                  </Grid>
+
+                  {!remsNaklId && (
+                    <Grid item sx={{ width: 25 }}>
+                      <IconButton
+                        component={Link}
+                        sx={{
+                          color: red[500],
+                          padding: 0,
+                          marginLeft: -1,
+                        }}
+                        href={`/manager/documents/rems-nakl/add`}
+                      >
+                        <AddCircleOutlineIcon />
+                      </IconButton>
+                    </Grid>
+                  )}
+                  <Grid item>
+                    <Button
+                      disabled={!id}
+                      startIcon={<PrintIcon />}
+                      component={Link}
+                      href={`/to-do`}
+                      fullWidth
+                      size='small'
+                      color='success'
+                      variant='contained'
+                    >
+                      1
+                    </Button>
+                  </Grid>
+                  <Grid item>
+                    <Button
+                      disabled={!id}
+                      startIcon={<PrintIcon />}
+                      component={Link}
+                      href={`/to-do`}
+                      fullWidth
+                      size='small'
+                      color='success'
+                      variant='contained'
+                    >
+                      2
+                    </Button>
+                  </Grid>
+                  <Grid item>
+                    <Button
+                      disabled={!id}
+                      startIcon={<PrintIcon />}
+                      component={Link}
+                      href={`/to-do`}
+                      fullWidth
+                      size='small'
+                      color='success'
+                      variant='contained'
+                    >
+                      3
+                    </Button>
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid
+                item
+                mt={1}
+                sx={{ width: '100%', border: '1px solid white' }}
+              >
+                <Grid
+                  container
+                  direction={`row`}
+                  justifyContent={`space-between`}
+                  alignItems={`center`}
+                >
+                  <Grid item sx={{ width: 50 }}>
+                    <Typography variant='body2' align='center'>
+                      Допуски
+                    </Typography>
+                  </Grid>
+
+                  <Grid item>
+                    <Button
+                      disabled={!id}
+                      startIcon={<PrintIcon />}
+                      component={Link}
+                      href={`/to-do`}
+                      fullWidth
+                      size='small'
+                      color='success'
+                      variant='contained'
+                    >
+                      Возн
+                    </Button>
+                  </Grid>
+                  <Grid item>
+                    <Button
+                      disabled={!id}
+                      startIcon={<PrintIcon />}
+                      component={Link}
+                      href={`/to-do`}
+                      fullWidth
+                      size='small'
+                      color='success'
+                      variant='contained'
+                    >
+                      Заводс
+                    </Button>
+                  </Grid>
+                  <Grid item>
+                    <Button
+                      disabled={!id}
+                      startIcon={<PrintIcon />}
+                      component={Link}
+                      href={`/to-do`}
+                      fullWidth
+                      size='small'
+                      color='success'
+                      variant='contained'
+                    >
+                      Украинская
+                    </Button>
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid
+                item
+                mt={1}
+                sx={{ width: '100%', border: '1px solid white' }}
+              >
+                <Grid
+                  container
+                  direction={`row`}
+                  justifyContent={`space-between`}
+                  alignItems={`center`}
+                >
+                  <Grid item>
+                    <Button
+                      disabled={!id}
+                      startIcon={<PrintIcon />}
+                      component={Link}
+                      href={`/to-do`}
+                      fullWidth
+                      size='small'
+                      color='success'
+                      variant='contained'
+                    >
+                      Счет
+                    </Button>
+                  </Grid>
+                  <Grid item>
+                    <Button
+                      disabled={!id}
+                      startIcon={<PrintIcon />}
+                      component={Link}
+                      href={`/to-do`}
+                      fullWidth
+                      size='small'
+                      color='success'
+                      variant='contained'
+                    >
+                      Срытые
+                    </Button>
+                  </Grid>
+                  <Grid item>
+                    <Button
+                      disabled={!id}
+                      startIcon={<PrintIcon />}
+                      component={Link}
+                      href={`/to-do`}
+                      fullWidth
+                      size='small'
+                      color='success'
+                      variant='contained'
+                    >
+                      Акт.Мусор
+                    </Button>
+                  </Grid>
+                </Grid>
               </Grid>
             </Grid>
           </Grid>
         </Grid>
       </Grid>
-
-      <Grid
-        item
-        sx={{
-          display: accountant_role.includes(user?.role!) ? 'block' : 'none',
-        }}
-      >
-        <Grid container direction='column'>
-          <Grid item>
-            <Stack
-              direction='row'
-              justifyContent='center'
-              alignItems='center'
-              spacing={2}
+      <Grid item>
+        <Grid
+          container
+          direction={`row`}
+          justifyContent={`space-between`}
+          alignItems={`flex-start`}
+        >
+          <Grid item xs={6} sx={{ border: '1px solid white', padding: 1 }}>
+            <Grid
+              container
+              direction={`column`}
+              justifyContent={`flex-start`}
+              alignItems={`flex-start`}
             >
-              <Typography variant='h6' align='center'>
-                Другие участники сделки
-              </Typography>
-              <Button
-                onClick={addParticipant}
-                variant='contained'
-                color='success'
-              >
-                Добавить участника
-              </Button>
-              <Typography
-                variant='h6'
-                sx={{ color: otherParticipantsSum > 100 ? 'red' : 'green' }}
-              >
-                Сумма {otherParticipantsSum}%
-              </Typography>
-            </Stack>
+              <FormControl component='fieldset' variant='standard'>
+                <FormLabel component='legend'>Стадии выполнения</FormLabel>
+                <FormGroup>
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={contractStages.isMeasured}
+                        onChange={handleChangeContractStages}
+                        name='isMeasured'
+                      />
+                    }
+                    label='Замер сделан'
+                  />
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={contractStages.isEstimateCalculated}
+                        onChange={handleChangeContractStages}
+                        name='isEstimateCalculated'
+                      />
+                    }
+                    label='Смета рассчитана'
+                  />
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={contractStages.isEstimateHasBeenSentToClient}
+                        onChange={handleChangeContractStages}
+                        name='isEstimateHasBeenSentToClient'
+                      />
+                    }
+                    label='Смета отправлена клиенту'
+                  />
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={contractStages.isEstimateApprovedByClient}
+                        onChange={handleChangeContractStages}
+                        name='isEstimateApprovedByClient'
+                      />
+                    }
+                    label='Смета одобрена клиентом'
+                  />
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={contractStages.isMaterialsHaveBeenOrdered}
+                        onChange={handleChangeContractStages}
+                        name='isMaterialsHaveBeenOrdered'
+                      />
+                    }
+                    label='Материал заказан'
+                  />
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={contractStages.isMaterialsDelivered}
+                        onChange={handleChangeContractStages}
+                        name='isMaterialsDelivered'
+                      />
+                    }
+                    label='Материал доставлен'
+                  />
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={contractStages.isMaterialsPaid}
+                        onChange={handleChangeContractStages}
+                        name='isMaterialsPaid'
+                      />
+                    }
+                    label='Закупка материалов оплачена'
+                  />
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={contractStages.isWorkCompleted}
+                        onChange={handleChangeContractStages}
+                        name='isWorkCompleted'
+                      />
+                    }
+                    label='Работы выполнены'
+                  />
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={contractStages.isWorksPaid}
+                        onChange={handleChangeContractStages}
+                        name='isWorksPaid'
+                      />
+                    }
+                    label='Работы оплачены'
+                  />
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={contractStages.isDocumentsHaveBeenIssued}
+                        onChange={handleChangeContractStages}
+                        name='isDocumentsHaveBeenIssued'
+                      />
+                    }
+                    label='Документы выписаны'
+                  />
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={
+                          contractStages.isDocumentsHaveBeenGivenToClient
+                        }
+                        onChange={handleChangeContractStages}
+                        name='isDocumentsHaveBeenGivenToClient'
+                      />
+                    }
+                    label='Документы переданы клиенту на подпись'
+                  />
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={contractStages.isClientReturnedSignedDocuments}
+                        onChange={handleChangeContractStages}
+                        name='isClientReturnedSignedDocuments'
+                      />
+                    }
+                    label='Клиент вернул подписанные документы'
+                  />
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={contractStages.isContractPaid}
+                        onChange={handleChangeContractStages}
+                        name='isContractPaid'
+                      />
+                    }
+                    label='Контракт оплачен клиентом'
+                  />
+                </FormGroup>
+              </FormControl>
+            </Grid>
           </Grid>
-          <Grid item>
-            {otherParticipants.length > 0 &&
-              otherParticipants.map((item, rowIndex) => (
-                <Grid
-                  container
-                  key={item.id}
-                  direction='row'
-                  justifyContent='center'
-                  alignItems='center'
-                  spacing={5}
-                >
-                  <Grid item sx={{ width: 300 }}>
-                    <MySelectAutoCompl
-                      selectName={`participant_${item.id}`}
-                      selectLabel={`Участник`}
-                      fieldToShow={`lastName`}
-                      handleChangeSelects={handleChangeSelectsParticipant}
-                      selectedOption={
-                        otherParticipants[rowIndex]['participant']
-                      }
-                      // @ts-ignore
-                      arrToSelect={arr__Workers ?? []}
-                    />
-                  </Grid>
+          {/* <Grid
+            item
+            xs={3}
+            sx={{ border: '1px solid white', padding: 1 }}
+          ></Grid> */}
+          {/* <Grid
+            item
+            xs={3}
+            sx={{ border: '1px solid white', padding: 1 }}
+          ></Grid> */}
+          <Grid item xs={6} sx={{ border: '1px solid white', padding: 1 }}>
+            <Grid
+              container
+              direction={`column`}
+              justifyContent={`flex-start`}
+              alignItems={`center`}
+            >
+              <Grid
+                item
+                sx={{
+                  display: accountant_role.includes(user?.role!)
+                    ? 'block'
+                    : 'none',
+                  width: '100%',
+                }}
+              >
+                <Grid container direction='column'>
                   <Grid item>
-                    <TextField
-                      margin='normal'
-                      required
-                      // fullWidth
-                      name={`participantPercentage-${item.id}`}
-                      label='%%%'
-                      type='number'
-                      id={`participantPercentage-${item.id}`}
-                      value={item.participantPercentage ?? ''}
-                      onChange={(e) => onChangePercentage(e, item.id)}
-                      onBlur={reculcParticipantsSum}
-                    />
-                  </Grid>
-                  <Grid item>
-                    <Button
-                      onClick={() => deleteParticipant(item.id)}
-                      variant='contained'
-                      color='error'
+                    <Stack
+                      direction='row'
+                      justifyContent='center'
+                      alignItems='center'
+                      spacing={2}
                     >
-                      Удалить участника
-                    </Button>
+                      <Typography variant='h6' align='center'>
+                        Другие участники сделки
+                      </Typography>
+                      <Button
+                        onClick={addParticipant}
+                        variant='contained'
+                        color='success'
+                      >
+                        Добавить участника
+                      </Button>
+                      <Typography
+                        variant='h6'
+                        sx={{
+                          color: otherParticipantsSum > 100 ? 'red' : 'green',
+                        }}
+                      >
+                        Сумма {otherParticipantsSum}%
+                      </Typography>
+                    </Stack>
+                  </Grid>
+                  <Grid item>
+                    {otherParticipants.length > 0 &&
+                      otherParticipants.map((item, rowIndex) => (
+                        <Grid
+                          container
+                          key={item.id}
+                          direction='row'
+                          justifyContent='center'
+                          alignItems='center'
+                          spacing={5}
+                        >
+                          <Grid item sx={{ width: 300 }}>
+                            <MySelectAutoCompl
+                              selectName={`participant_${item.id}`}
+                              selectLabel={`Участник`}
+                              fieldToShow={`lastName`}
+                              handleChangeSelects={
+                                handleChangeSelectsParticipant
+                              }
+                              selectedOption={
+                                otherParticipants[rowIndex]['participant']
+                              }
+                              // @ts-ignore
+                              arrToSelect={arr__Workers ?? []}
+                            />
+                          </Grid>
+                          <Grid item>
+                            <TextField
+                              margin='normal'
+                              required
+                              // fullWidth
+                              name={`participantPercentage-${item.id}`}
+                              label='%%%'
+                              type='number'
+                              id={`participantPercentage-${item.id}`}
+                              value={item.participantPercentage ?? ''}
+                              onChange={(e) => onChangePercentage(e, item.id)}
+                              onBlur={reculcParticipantsSum}
+                            />
+                          </Grid>
+                          <Grid item>
+                            <Button
+                              onClick={() => deleteParticipant(item.id)}
+                              variant='contained'
+                              color='error'
+                            >
+                              Удалить участника
+                            </Button>
+                          </Grid>
+                        </Grid>
+                      ))}
                   </Grid>
                 </Grid>
-              ))}
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </Grid>

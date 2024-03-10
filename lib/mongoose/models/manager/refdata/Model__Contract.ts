@@ -121,6 +121,18 @@ const contract__Schema = new Schema<I_Contract>(
     dopUgodaSum: {
       type: Number,
     },
+    salaryMin: {
+      type: Number,
+    },
+    salaryLevel_3_8: {
+      type: Number,
+    },
+    lifeTime: {
+      type: Number,
+    },
+    whereWirkIsPerfomed: {
+      type: String,
+    },
 
     paymentSourceProectnAvt: {
       type: String,

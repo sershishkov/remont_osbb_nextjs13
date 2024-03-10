@@ -47,6 +47,11 @@ export const POST = async (request: NextRequest) => {
     dogovornayaSumBudjet,
     dopUgodaSum,
 
+    salaryMin,
+    salaryLevel_3_8,
+    lifeTime,
+    whereWirkIsPerfomed,
+
     paymentSourceProectnAvt,
     startMonthWorkBudjet,
     endMonthWorkBudjet,
@@ -142,6 +147,11 @@ export const POST = async (request: NextRequest) => {
       zvedeniySumBudjet,
       dogovornayaSumBudjet,
       dopUgodaSum,
+
+      salaryMin,
+      salaryLevel_3_8,
+      lifeTime,
+      whereWirkIsPerfomed,
 
       paymentSourceProectnAvt,
       startMonthWorkBudjet,

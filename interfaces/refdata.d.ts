@@ -233,6 +233,11 @@ export interface I_Contract {
   dogovornayaSumBudjet: number;
   dopUgodaSum: number;
 
+  salaryMin: number;
+  salaryLevel_3_8: number;
+  lifeTime: number;
+  whereWirkIsPerfomed: string; //Где производятся работы? Подъезд, подвал, крыша
+
   paymentSourceProectnAvt: string; //собств, бюджет
   startMonthWorkBudjet: string; //["січень","лютий","березень","квітень","травень","червень","липень","серпень","вересень","жовтень","листопад","грудень"]
   endMonthWorkBudjet: string;

@@ -134,6 +134,11 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
     dogovornayaSumBudjet,
     dopUgodaSum,
 
+    salaryMin,
+    salaryLevel_3_8,
+    lifeTime,
+    whereWirkIsPerfomed,
+
     paymentSourceProectnAvt,
     startMonthWorkBudjet,
     endMonthWorkBudjet,
@@ -195,6 +200,11 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
       zvedeniySumBudjet,
       dogovornayaSumBudjet,
       dopUgodaSum,
+
+      salaryMin,
+      salaryLevel_3_8,
+      lifeTime,
+      whereWirkIsPerfomed,
 
       paymentSourceProectnAvt,
       startMonthWorkBudjet,
