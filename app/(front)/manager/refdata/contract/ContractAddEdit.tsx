@@ -26,6 +26,7 @@ import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
 import PrintIcon from '@mui/icons-material/Print';
+import EditIcon from '@mui/icons-material/Edit';
 
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
@@ -89,6 +90,7 @@ const initState = {
   startMonthWorkBudjet: '',
   endMonthWorkBudjet: '',
   kodDkBudjet: 'код ДК 021:2015 - 45453000-7 Капітальний ремонт і реставрація',
+  dopUgodaSum: '0',
 
   endWorkRemservis: '',
 };
@@ -131,6 +133,8 @@ function ContractAddEdit({
   const [relNaklId, setRelNaklId] = useState('');
   const [relNaklSum, setRelNaklSum] = useState(0);
   const [relAktSum, setRelAktSum] = useState(0);
+
+  const [calendGrafikId, setCalendGrafikId] = useState('');
 
   const [contractStages, setContractStages] = useState({
     isMeasured: false,
@@ -186,6 +190,7 @@ function ContractAddEdit({
     startMonthWorkBudjet,
     endMonthWorkBudjet,
     kodDkBudjet,
+    dopUgodaSum,
 
     endWorkRemservis,
   } = formData;
@@ -331,6 +336,7 @@ function ContractAddEdit({
 
             zvedeniySumBudjet: item.zvedeniySumBudjet?.toFixed(2) ?? '0',
             dogovornayaSumBudjet: item.dogovornayaSumBudjet?.toFixed(2) ?? '0',
+            dopUgodaSum: item.dopUgodaSum?.toFixed(2) ?? '0',
 
             paymentSourceProectnAvt: item.paymentSourceProectnAvt ?? 'собств',
             startMonthWorkBudjet:
@@ -421,6 +427,19 @@ function ContractAddEdit({
             setRelAktId(relAkt._id);
             setRelAktSum(Number(relAkt.totalSums.totalAktSum));
           }
+          const localArrOfcalendarnGrafik = await get__all(
+            {
+              page: '0',
+              limit: '0',
+              filter: '',
+              contract: id,
+            },
+            `/manager/documents/calendarn-grafik`
+          );
+          if (localArrOfcalendarnGrafik?.items?.length > 0) {
+            const relGrafik = localArrOfcalendarnGrafik?.items[0];
+            setCalendGrafikId(relGrafik._id);
+          }
         }
       };
       myGetOne();
@@ -493,6 +512,7 @@ function ContractAddEdit({
 
       zvedeniySumBudjet: Number(zvedeniySumBudjet),
       dogovornayaSumBudjet: Number(dogovornayaSumBudjet),
+      dopUgodaSum: Number(dopUgodaSum),
 
       paymentSourceProectnAvt,
       startMonthWorkBudjet,
@@ -845,8 +865,13 @@ function ContractAddEdit({
       </Grid>
 
       <Grid item sx={{ width: '100%' }}>
-        <Grid container direction={`row`}>
-          <Grid item xs={3}>
+        <Grid
+          container
+          direction={`row`}
+          sx={{ border: '1px solid white' }}
+          // spacing={1}
+        >
+          <Grid item xs={3} sx={{ border: '1px solid white', padding: 1 }}>
             <Grid
               container
               direction={`column`}
@@ -1096,6 +1121,23 @@ function ContractAddEdit({
                   >
                     <Button
                       disabled={!relAktId}
+                      startIcon={<EditIcon />}
+                      component={Link}
+                      href={`/manager/documents/akt-of-work/${relAktId}`}
+                      fullWidth
+                      size='small'
+                      color='primary'
+                      variant='contained'
+                    >
+                      Акт
+                    </Button>
+                  </Grid>
+                  <Grid
+                    item
+                    sx={{ display: mode === 'edit' ? 'block' : 'none' }}
+                  >
+                    <Button
+                      disabled={!relAktId}
                       startIcon={<PrintIcon />}
                       component={Link}
                       href={`/manager/documents/akt-of-work/print/akt/${relAktId}`}
@@ -1129,6 +1171,23 @@ function ContractAddEdit({
                       value={naklNumber ?? ''}
                       onChange={onChange}
                     />
+                  </Grid>
+                  <Grid
+                    item
+                    sx={{ display: mode === 'edit' ? 'block' : 'none' }}
+                  >
+                    <Button
+                      disabled={!relNaklId}
+                      startIcon={<EditIcon />}
+                      component={Link}
+                      href={`/manager/documents/nakladnaya/${relNaklId}`}
+                      fullWidth
+                      size='small'
+                      color='primary'
+                      variant='contained'
+                    >
+                      Накл
+                    </Button>
                   </Grid>
                   <Grid
                     item
@@ -1208,198 +1267,827 @@ function ContractAddEdit({
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={3}>
+
+          <Grid item xs={6} sx={{ border: '1px solid white', padding: 1 }}>
             <Grid
               container
               direction={`column`}
               justifyContent={`flex-start`}
               alignItems={`center`}
             >
-              <Grid item>
-                <Typography variant='body2'>Бюджет</Typography>
+              <Grid item sx={{ width: '100%' }}>
+                <Typography variant='body1' align='center'>
+                  Бюджет
+                </Typography>
               </Grid>
-              <Grid item>
-                <TextField
-                  margin='normal'
-                  required
-                  fullWidth
-                  name='contrProectAvtorskNumber'
-                  label='№ Дог ПрАвт'
-                  type='text'
-                  id='contrProectAvtorskNumber'
-                  value={contrProectAvtorskNumber ?? ''}
-                  onChange={onChange}
-                />
+              <Grid item sx={{ width: '100%' }}>
+                <Grid
+                  container
+                  direction={`row`}
+                  justifyContent={`space-between`}
+                  alignItems={`center`}
+                  spacing={1}
+                >
+                  <Grid item sx={{ width: 300 }}>
+                    <TextField
+                      margin='normal'
+                      multiline
+                      required
+                      fullWidth
+                      name='kodDkBudjet'
+                      label='Код ДК'
+                      type='text'
+                      id='kodDkBudjet'
+                      value={kodDkBudjet ?? ''}
+                      onChange={onChange}
+                    />
+                  </Grid>
+                  <Grid item sx={{ flex: 1 }}>
+                    <MySelectAutoCompl
+                      selectName={`startMonthWorkBudjet`}
+                      selectLabel={`месяц Старт`}
+                      fieldToShow={`caption`}
+                      handleChangeSelects={handleChangeSelects}
+                      selectedOption={startMonthWorkBudjet ?? ''}
+                      // @ts-ignore
+                      arrToSelect={monthsWorkBudjet ?? []}
+                    />
+                  </Grid>
+                  <Grid item sx={{ flex: 1 }}>
+                    <MySelectAutoCompl
+                      selectName={`endMonthWorkBudjet`}
+                      selectLabel={`месяц Финиш`}
+                      fieldToShow={`caption`}
+                      handleChangeSelects={handleChangeSelects}
+                      selectedOption={endMonthWorkBudjet ?? ''}
+                      // @ts-ignore
+                      arrToSelect={monthsWorkBudjet ?? []}
+                    />
+                  </Grid>
+                  <Grid item sx={{ flex: 1 }}>
+                    <MySelectAutoCompl
+                      selectName={`paymentSourceProectnAvt`}
+                      selectLabel={`ИстСредствПрАвт`}
+                      fieldToShow={`caption`}
+                      handleChangeSelects={handleChangeSelects}
+                      selectedOption={paymentSourceProectnAvt ?? ''}
+                      // @ts-ignore
+                      arrToSelect={arr_paymentProectnAvt ?? []}
+                    />
+                  </Grid>
+                </Grid>
               </Grid>
-              <Grid item>
-                <TextField
-                  margin='normal'
-                  required
-                  fullWidth
-                  name='aktProectAvtorskNumber'
-                  label='№ Акт ПрАвт'
-                  type='text'
-                  id='aktProectAvtorskNumber'
-                  value={aktProectAvtorskNumber ?? ''}
-                  onChange={onChange}
-                />
+              <Grid item sx={{ width: '100%' }}>
+                <Grid
+                  container
+                  direction={`row`}
+                  justifyContent={`space-between`}
+                  alignItems={`center`}
+                  spacing={1}
+                >
+                  <Grid item sx={{ width: 120 }}>
+                    <TextField
+                      margin='normal'
+                      required
+                      fullWidth
+                      name='dogovornayaSumBudjet'
+                      label='Сум Договорн'
+                      type='number'
+                      id='dogovornayaSumBudjet'
+                      value={dogovornayaSumBudjet ?? ''}
+                      onChange={onChange}
+                    />
+                  </Grid>
+                  <Grid item sx={{ width: 120 }}>
+                    <TextField
+                      margin='normal'
+                      required
+                      fullWidth
+                      name='zvedeniySumBudjet'
+                      label='Сум Зведеный'
+                      type='number'
+                      id='zvedeniySumBudjet'
+                      value={zvedeniySumBudjet ?? ''}
+                      onChange={onChange}
+                    />
+                  </Grid>
+                  <Grid item sx={{ width: 120 }}>
+                    <TextField
+                      margin='normal'
+                      required
+                      fullWidth
+                      name='proectnSumBudjet'
+                      label='Сум Проект'
+                      type='number'
+                      id='proectnSumBudjet'
+                      value={proectnSumBudjet ?? ''}
+                      onChange={onChange}
+                    />
+                  </Grid>
+                  <Grid item sx={{ width: 120 }}>
+                    <TextField
+                      margin='normal'
+                      required
+                      fullWidth
+                      name='avtorskSumBudjet'
+                      label='Сум Авт'
+                      type='number'
+                      id='avtorskSumBudjet'
+                      value={avtorskSumBudjet ?? ''}
+                      onChange={onChange}
+                    />
+                  </Grid>
+                  <Grid item sx={{ width: 120 }}>
+                    <TextField
+                      margin='normal'
+                      required
+                      fullWidth
+                      name='tehnadzorSumBudjet'
+                      label='Сум техНадз'
+                      type='number'
+                      id='tehnadzorSumBudjet'
+                      value={tehnadzorSumBudjet ?? ''}
+                      onChange={onChange}
+                    />
+                  </Grid>
+                  <Grid item sx={{ width: 120 }}>
+                    <TextField
+                      margin='normal'
+                      required
+                      fullWidth
+                      name='expertizaSumBudjet'
+                      label='Сум експертиза'
+                      type='number'
+                      id='expertizaSumBudjet'
+                      value={expertizaSumBudjet ?? ''}
+                      onChange={onChange}
+                    />
+                  </Grid>
+                </Grid>
               </Grid>
-              <Grid item>
-                <TextField
-                  margin='normal'
-                  required
-                  fullWidth
-                  name='proectnSumBudjet'
-                  label='Сум Проект'
-                  type='number'
-                  id='proectnSumBudjet'
-                  value={proectnSumBudjet ?? ''}
-                  onChange={onChange}
-                />
-              </Grid>
-              <Grid item>
-                <TextField
-                  margin='normal'
-                  required
-                  fullWidth
-                  name='avtorskSumBudjet'
-                  label='Сум Авт'
-                  type='number'
-                  id='avtorskSumBudjet'
-                  value={avtorskSumBudjet ?? ''}
-                  onChange={onChange}
-                />
-              </Grid>
+              <Grid item sx={{ width: '100%' }}>
+                <Grid
+                  container
+                  direction={`row`}
+                  justifyContent={`flex-start`}
+                  alignItems={`flex-start`}
+                >
+                  <Grid item xs={6} sx={{ padding: 1 }}>
+                    <Grid
+                      container
+                      direction={`column`}
+                      justifyContent={`flex-start`}
+                      // spacing={2}
+                      alignItems={`center`}
+                    >
+                      <Grid
+                        item
+                        sx={{ width: '100%', border: '1px solid white' }}
+                      >
+                        <Typography variant='body1' align='center'>
+                          ЖКХ
+                        </Typography>
+                      </Grid>
+                      <Grid
+                        item
+                        mt={1}
+                        sx={{ width: '100%', border: '1px solid white' }}
+                      >
+                        <Grid
+                          container
+                          direction={`row`}
+                          justifyContent={`space-between`}
+                          alignItems={`center`}
+                        >
+                          <Grid item sx={{ width: 150 }}>
+                            <TextField
+                              margin='normal'
+                              required
+                              fullWidth
+                              name='contrProectAvtorskNumber'
+                              label='№ Дог ПрАвт'
+                              type='text'
+                              id='contrProectAvtorskNumber'
+                              value={contrProectAvtorskNumber ?? ''}
+                              onChange={onChange}
+                            />
+                          </Grid>
+                          <Grid item sx={{ width: 150 }}>
+                            <TextField
+                              margin='normal'
+                              required
+                              fullWidth
+                              name='aktProectAvtorskNumber'
+                              label='№ Акт ПрАвт'
+                              type='text'
+                              id='aktProectAvtorskNumber'
+                              value={aktProectAvtorskNumber ?? ''}
+                              onChange={onChange}
+                            />
+                          </Grid>
 
-              <Grid item>
-                <TextField
-                  margin='normal'
-                  required
-                  fullWidth
-                  name='tehnadzorSumBudjet'
-                  label='Сум техНадз'
-                  type='number'
-                  id='tehnadzorSumBudjet'
-                  value={tehnadzorSumBudjet ?? ''}
-                  onChange={onChange}
-                />
-              </Grid>
-              <Grid item>
-                <TextField
-                  margin='normal'
-                  required
-                  fullWidth
-                  name='zvedeniySumBudjet'
-                  label='Сум Зведеный'
-                  type='number'
-                  id='zvedeniySumBudjet'
-                  value={zvedeniySumBudjet ?? ''}
-                  onChange={onChange}
-                />
-              </Grid>
-              <Grid item>
-                <TextField
-                  margin='normal'
-                  required
-                  fullWidth
-                  name='dogovornayaSumBudjet'
-                  label='Сум Договорн'
-                  type='number'
-                  id='dogovornayaSumBudjet'
-                  value={dogovornayaSumBudjet ?? ''}
-                  onChange={onChange}
-                />
-              </Grid>
-              <Grid item sx={{ width: 250 }}>
-                <MySelectAutoCompl
-                  selectName={`paymentSourceProectnAvt`}
-                  selectLabel={`ИстСредствПрАвт`}
-                  fieldToShow={`caption`}
-                  handleChangeSelects={handleChangeSelects}
-                  selectedOption={paymentSourceProectnAvt ?? ''}
-                  // @ts-ignore
-                  arrToSelect={arr_paymentProectnAvt ?? []}
-                />
-              </Grid>
+                          <Grid item>
+                            <Grid
+                              container
+                              direction={`column`}
+                              spacing={1}
+                              // justifyContent={`space-between`}
+                              alignItems={`center`}
+                            >
+                              <Grid item>
+                                <Button
+                                  disabled={!id}
+                                  startIcon={<PrintIcon />}
+                                  component={Link}
+                                  href={`/to-do`}
+                                  fullWidth
+                                  size='small'
+                                  color='success'
+                                  variant='contained'
+                                >
+                                  Дог
+                                </Button>
+                              </Grid>
+                              <Grid item>
+                                <Button
+                                  disabled={!id}
+                                  startIcon={<PrintIcon />}
+                                  component={Link}
+                                  href={`/to-do`}
+                                  fullWidth
+                                  size='small'
+                                  color='success'
+                                  variant='contained'
+                                >
+                                  Акт
+                                </Button>
+                              </Grid>
+                              <Grid item>
+                                <Button
+                                  disabled={!id}
+                                  startIcon={<PrintIcon />}
+                                  component={Link}
+                                  href={`/to-do`}
+                                  fullWidth
+                                  size='small'
+                                  color='success'
+                                  variant='contained'
+                                >
+                                  кошт
+                                </Button>
+                              </Grid>
+                            </Grid>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                      <Grid
+                        item
+                        mt={1}
+                        sx={{ width: '100%', border: '1px solid white' }}
+                      >
+                        <Grid
+                          container
+                          direction={`row`}
+                          justifyContent={`space-between`}
+                          alignItems={`center`}
+                        >
+                          <Grid item sx={{ width: 150 }}>
+                            <Typography variant='body2' align='center'>
+                              Технадзор
+                            </Typography>
+                          </Grid>
 
-              <Grid item sx={{ width: 250 }}>
-                <MySelectAutoCompl
-                  selectName={`startMonthWorkBudjet`}
-                  selectLabel={`месяц Старт`}
-                  fieldToShow={`caption`}
-                  handleChangeSelects={handleChangeSelects}
-                  selectedOption={startMonthWorkBudjet ?? ''}
-                  // @ts-ignore
-                  arrToSelect={monthsWorkBudjet ?? []}
-                />
-              </Grid>
-              <Grid item sx={{ width: 250 }}>
-                <MySelectAutoCompl
-                  selectName={`endMonthWorkBudjet`}
-                  selectLabel={`месяц Финиш`}
-                  fieldToShow={`caption`}
-                  handleChangeSelects={handleChangeSelects}
-                  selectedOption={endMonthWorkBudjet ?? ''}
-                  // @ts-ignore
-                  arrToSelect={monthsWorkBudjet ?? []}
-                />
-              </Grid>
-              <Grid item sx={{ width: 250 }}>
-                <TextField
-                  margin='normal'
-                  multiline
-                  required
-                  fullWidth
-                  name='kodDkBudjet'
-                  label='Код ДК'
-                  type='text'
-                  id='kodDkBudjet'
-                  value={kodDkBudjet ?? ''}
-                  onChange={onChange}
-                />
+                          <Grid item>
+                            <Button
+                              disabled={!id}
+                              startIcon={<PrintIcon />}
+                              component={Link}
+                              href={`/to-do`}
+                              fullWidth
+                              size='small'
+                              color='success'
+                              variant='contained'
+                            >
+                              Дог
+                            </Button>
+                          </Grid>
+                          <Grid item>
+                            <Button
+                              disabled={!id}
+                              startIcon={<PrintIcon />}
+                              component={Link}
+                              href={`/to-do`}
+                              fullWidth
+                              size='small'
+                              color='success'
+                              variant='contained'
+                            >
+                              Акт
+                            </Button>
+                          </Grid>
+                          <Grid item>
+                            <Button
+                              disabled={!id}
+                              startIcon={<PrintIcon />}
+                              component={Link}
+                              href={`/to-do`}
+                              fullWidth
+                              size='small'
+                              color='success'
+                              variant='contained'
+                            >
+                              кошт
+                            </Button>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                      <Grid
+                        item
+                        mt={1}
+                        sx={{ width: '100%', border: '1px solid white' }}
+                      >
+                        <Grid
+                          container
+                          direction={`row`}
+                          justifyContent={`space-between`}
+                          alignItems={`center`}
+                        >
+                          <Grid item>
+                            <Button
+                              disabled={!calendGrafikId}
+                              startIcon={<PrintIcon />}
+                              component={Link}
+                              href={`/to-do/${calendGrafikId}`}
+                              fullWidth
+                              size='small'
+                              color='success'
+                              variant='contained'
+                            >
+                              КалендГр
+                            </Button>
+                          </Grid>
+                          <Grid item>
+                            <Button
+                              disabled={!id}
+                              startIcon={<PrintIcon />}
+                              component={Link}
+                              href={`/to-do`}
+                              fullWidth
+                              size='small'
+                              color='success'
+                              variant='contained'
+                            >
+                              ПланФинанс
+                            </Button>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                      <Grid
+                        item
+                        mt={1}
+                        sx={{ width: '100%', border: '1px solid white' }}
+                      >
+                        <Grid
+                          container
+                          direction={`row`}
+                          justifyContent={`space-between`}
+                          alignItems={`center`}
+                        >
+                          <Grid item>
+                            <Button
+                              disabled={!id}
+                              startIcon={<PrintIcon />}
+                              component={Link}
+                              href={`/to-do`}
+                              fullWidth
+                              size='small'
+                              color='success'
+                              variant='contained'
+                            >
+                              ПисьмоОт
+                            </Button>
+                          </Grid>
+                          <Grid item>
+                            <Button
+                              disabled={!id}
+                              startIcon={<PrintIcon />}
+                              component={Link}
+                              href={`/to-do`}
+                              fullWidth
+                              size='small'
+                              color='success'
+                              variant='contained'
+                            >
+                              наказ
+                            </Button>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                      <Grid
+                        item
+                        mt={1}
+                        sx={{ width: '100%', border: '1px solid white' }}
+                      >
+                        <Grid
+                          container
+                          direction={`row`}
+                          justifyContent={`space-between`}
+                          alignItems={`center`}
+                        >
+                          <Grid item>
+                            <Button
+                              disabled={!id}
+                              startIcon={<PrintIcon />}
+                              component={Link}
+                              href={`/to-do`}
+                              fullWidth
+                              size='small'
+                              color='success'
+                              variant='contained'
+                            >
+                              Требования для сметы
+                            </Button>
+                          </Grid>
+                          <Grid item>
+                            <Button
+                              disabled={!id}
+                              startIcon={<PrintIcon />}
+                              component={Link}
+                              href={`/to-do`}
+                              fullWidth
+                              size='small'
+                              color='success'
+                              variant='contained'
+                            >
+                              накл
+                            </Button>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                  <Grid item xs={6} sx={{ padding: 1 }}>
+                    <Grid
+                      container
+                      direction={`column`}
+                      justifyContent={`flex-start`}
+                      alignItems={`center`}
+                    >
+                      <Grid
+                        item
+                        sx={{ width: '100%', border: '1px solid white' }}
+                      >
+                        <Typography variant='body1' align='center'>
+                          Ремсервис
+                        </Typography>
+                      </Grid>
+                      <Grid
+                        item
+                        mt={1}
+                        sx={{ width: '100%', border: '1px solid white' }}
+                      >
+                        <Grid
+                          container
+                          direction={`row`}
+                          justifyContent={`space-between`}
+                          alignItems={`center`}
+                        >
+                          <Grid item sx={{ width: 50 }}>
+                            <Typography variant='body2' align='center'>
+                              ПрАвт
+                            </Typography>
+                          </Grid>
+
+                          <Grid item>
+                            <Button
+                              disabled={!id}
+                              startIcon={<PrintIcon />}
+                              component={Link}
+                              href={`/to-do`}
+                              fullWidth
+                              size='small'
+                              color='success'
+                              variant='contained'
+                            >
+                              Дог
+                            </Button>
+                          </Grid>
+                          <Grid item>
+                            <Button
+                              disabled={!id}
+                              startIcon={<PrintIcon />}
+                              component={Link}
+                              href={`/to-do`}
+                              fullWidth
+                              size='small'
+                              color='success'
+                              variant='contained'
+                            >
+                              Акт
+                            </Button>
+                          </Grid>
+                          <Grid item>
+                            <Button
+                              disabled={!id}
+                              startIcon={<PrintIcon />}
+                              component={Link}
+                              href={`/to-do`}
+                              fullWidth
+                              size='small'
+                              color='success'
+                              variant='contained'
+                            >
+                              к Пр
+                            </Button>
+                          </Grid>
+                          <Grid item>
+                            <Button
+                              disabled={!id}
+                              startIcon={<PrintIcon />}
+                              component={Link}
+                              href={`/to-do`}
+                              fullWidth
+                              size='small'
+                              color='success'
+                              variant='contained'
+                            >
+                              к авт
+                            </Button>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                      <Grid
+                        item
+                        mt={1}
+                        sx={{ width: '100%', border: '1px solid white' }}
+                      >
+                        <Grid
+                          container
+                          direction={`row`}
+                          justifyContent={`space-between`}
+                          alignItems={`center`}
+                        >
+                          <Grid item sx={{ width: 50 }}>
+                            <Typography variant='body2' align='center'>
+                              Журн
+                            </Typography>
+                          </Grid>
+
+                          <Grid item>
+                            <Button
+                              disabled={!id}
+                              startIcon={<PrintIcon />}
+                              component={Link}
+                              href={`/to-do`}
+                              fullWidth
+                              size='small'
+                              color='success'
+                              variant='contained'
+                            >
+                              Авт
+                            </Button>
+                          </Grid>
+                          <Grid item>
+                            <Button
+                              disabled={!id}
+                              startIcon={<PrintIcon />}
+                              component={Link}
+                              href={`/to-do`}
+                              fullWidth
+                              size='small'
+                              color='success'
+                              variant='contained'
+                            >
+                              Произв
+                            </Button>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                      <Grid
+                        item
+                        mt={1}
+                        sx={{ width: '100%', border: '1px solid white' }}
+                      >
+                        <Grid
+                          container
+                          direction={`row`}
+                          justifyContent={`space-between`}
+                          alignItems={`center`}
+                        >
+                          <Grid item sx={{ width: 50 }}>
+                            <Typography variant='body2' align='center'>
+                              Приказы
+                            </Typography>
+                          </Grid>
+
+                          <Grid item>
+                            <Button
+                              disabled={!id}
+                              startIcon={<PrintIcon />}
+                              component={Link}
+                              href={`/to-do`}
+                              fullWidth
+                              size='small'
+                              color='success'
+                              variant='contained'
+                            >
+                              ГИП
+                            </Button>
+                          </Grid>
+                          <Grid item>
+                            <Button
+                              disabled={!id}
+                              startIcon={<PrintIcon />}
+                              component={Link}
+                              href={`/to-do`}
+                              fullWidth
+                              size='small'
+                              color='success'
+                              variant='contained'
+                            >
+                              Инженер
+                            </Button>
+                          </Grid>
+                          <Grid item>
+                            <Button
+                              disabled={!id}
+                              startIcon={<PrintIcon />}
+                              component={Link}
+                              href={`/to-do`}
+                              fullWidth
+                              size='small'
+                              color='success'
+                              variant='contained'
+                            >
+                              Охр.Труда
+                            </Button>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                      <Grid
+                        item
+                        mt={1}
+                        sx={{ width: '100%', border: '1px solid white' }}
+                      >
+                        <Grid
+                          container
+                          direction={`row`}
+                          justifyContent={`space-between`}
+                          alignItems={`center`}
+                        >
+                          <Grid item sx={{ width: 50 }}>
+                            <Typography variant='body2' align='center'>
+                              Накладные
+                            </Typography>
+                          </Grid>
+
+                          <Grid item>
+                            <Button
+                              disabled={!id}
+                              startIcon={<PrintIcon />}
+                              component={Link}
+                              href={`/to-do`}
+                              fullWidth
+                              size='small'
+                              color='success'
+                              variant='contained'
+                            >
+                              1
+                            </Button>
+                          </Grid>
+                          <Grid item>
+                            <Button
+                              disabled={!id}
+                              startIcon={<PrintIcon />}
+                              component={Link}
+                              href={`/to-do`}
+                              fullWidth
+                              size='small'
+                              color='success'
+                              variant='contained'
+                            >
+                              2
+                            </Button>
+                          </Grid>
+                          <Grid item>
+                            <Button
+                              disabled={!id}
+                              startIcon={<PrintIcon />}
+                              component={Link}
+                              href={`/to-do`}
+                              fullWidth
+                              size='small'
+                              color='success'
+                              variant='contained'
+                            >
+                              3
+                            </Button>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                      <Grid
+                        item
+                        mt={1}
+                        sx={{ width: '100%', border: '1px solid white' }}
+                      >
+                        <Grid
+                          container
+                          direction={`row`}
+                          justifyContent={`space-between`}
+                          alignItems={`center`}
+                        >
+                          <Grid item>
+                            <Button
+                              disabled={!id}
+                              startIcon={<PrintIcon />}
+                              component={Link}
+                              href={`/to-do`}
+                              fullWidth
+                              size='small'
+                              color='success'
+                              variant='contained'
+                            >
+                              Завдання
+                            </Button>
+                          </Grid>
+                          <Grid item>
+                            <Button
+                              disabled={!id}
+                              startIcon={<PrintIcon />}
+                              component={Link}
+                              href={`/to-do`}
+                              fullWidth
+                              size='small'
+                              color='success'
+                              variant='contained'
+                            >
+                              Вихідні
+                            </Button>
+                          </Grid>
+                          <Grid item>
+                            <Button
+                              disabled={!id}
+                              startIcon={<PrintIcon />}
+                              component={Link}
+                              href={`/to-do`}
+                              fullWidth
+                              size='small'
+                              color='success'
+                              variant='contained'
+                            >
+                              СС1
+                            </Button>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                      <Grid
+                        item
+                        mt={1}
+                        sx={{ width: '100%', border: '1px solid white' }}
+                      >
+                        <Grid
+                          container
+                          direction={`row`}
+                          justifyContent={`space-between`}
+                          alignItems={`center`}
+                        >
+                          <Grid item sx={{ width: 150 }}>
+                            <TextField
+                              margin='normal'
+                              required
+                              fullWidth
+                              name='dopUgodaSum'
+                              label='Доп Соглаш Сум'
+                              type='number'
+                              id='dopUgodaSum'
+                              value={dopUgodaSum ?? ''}
+                              onChange={onChange}
+                            />
+                          </Grid>
+                          <Grid item>
+                            <Button
+                              disabled={!id}
+                              startIcon={<PrintIcon />}
+                              component={Link}
+                              href={`/to-do`}
+                              fullWidth
+                              size='small'
+                              color='success'
+                              variant='contained'
+                            >
+                              ДопУгода
+                            </Button>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={3}>
-            <Grid
-              container
-              direction={`column`}
-              justifyContent={`flex-start`}
-              alignItems={`center`}
-            >
-              <Grid item>
-                <Typography variant='body2'>Ремсервис</Typography>
-              </Grid>
-              <Grid item sx={{ width: 150 }}>
-                <TextField
-                  margin='normal'
-                  required
-                  fullWidth
-                  name='endWorkRemservis'
-                  label='КонецРабот'
-                  type='date'
-                  id='endWorkRemservis'
-                  value={endWorkRemservis ?? ''}
-                  onChange={onChange}
-                  InputLabelProps={{ shrink: true }}
-                />
-              </Grid>
-              <Grid item>
-                <TextField
-                  margin='normal'
-                  required
-                  fullWidth
-                  name='expertizaSumBudjet'
-                  label='Сум експертиза'
-                  type='number'
-                  id='expertizaSumBudjet'
-                  value={expertizaSumBudjet ?? ''}
-                  onChange={onChange}
-                />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item xs={3}>
+
+          <Grid item xs={3} sx={{ border: '1px solid white', padding: 1 }}>
             <FormControl component='fieldset' variant='standard'>
               <FormLabel component='legend'>Стадии выполнения</FormLabel>
               <FormGroup>
@@ -1535,6 +2223,31 @@ function ContractAddEdit({
                 />
               </FormGroup>
             </FormControl>
+            <Grid
+              container
+              direction={`column`}
+              // spacing={1}
+              // justifyContent={`space-between`}
+              alignItems={`center`}
+            >
+              <Grid item>
+                <Typography variant='body2'>Ремсервис</Typography>
+              </Grid>
+              <Grid item sx={{ width: 150 }}>
+                <TextField
+                  margin='normal'
+                  required
+                  fullWidth
+                  name='endWorkRemservis'
+                  label='КонецРабот'
+                  type='date'
+                  id='endWorkRemservis'
+                  value={endWorkRemservis ?? ''}
+                  onChange={onChange}
+                  InputLabelProps={{ shrink: true }}
+                />
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </Grid>

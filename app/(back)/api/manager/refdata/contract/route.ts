@@ -45,6 +45,7 @@ export const POST = async (request: NextRequest) => {
 
     zvedeniySumBudjet,
     dogovornayaSumBudjet,
+    dopUgodaSum,
 
     paymentSourceProectnAvt,
     startMonthWorkBudjet,
@@ -140,6 +141,7 @@ export const POST = async (request: NextRequest) => {
 
       zvedeniySumBudjet,
       dogovornayaSumBudjet,
+      dopUgodaSum,
 
       paymentSourceProectnAvt,
       startMonthWorkBudjet,

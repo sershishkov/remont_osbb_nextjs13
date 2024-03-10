@@ -118,6 +118,9 @@ const contract__Schema = new Schema<I_Contract>(
     dogovornayaSumBudjet: {
       type: Number,
     },
+    dopUgodaSum: {
+      type: Number,
+    },
 
     paymentSourceProectnAvt: {
       type: String,

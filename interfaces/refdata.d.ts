@@ -231,6 +231,7 @@ export interface I_Contract {
 
   zvedeniySumBudjet: number;
   dogovornayaSumBudjet: number;
+  dopUgodaSum: number;
 
   paymentSourceProectnAvt: string; //собств, бюджет
   startMonthWorkBudjet: string; //["січень","лютий","березень","квітень","травень","червень","липень","серпень","вересень","жовтень","листопад","грудень"]
