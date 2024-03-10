@@ -892,10 +892,10 @@ function ContractAddEdit({
         <Grid
           container
           direction={`row`}
-          sx={{ border: '1px solid white' }}
+          sx={{ border: '1px solid grey' }}
           // spacing={1}
         >
-          <Grid item xs={3} sx={{ border: '1px solid white', padding: 1 }}>
+          <Grid item xs={3} sx={{ border: '1px solid grey', padding: 1 }}>
             <Grid
               container
               direction={`column`}
@@ -1313,7 +1313,7 @@ function ContractAddEdit({
             </Grid>
           </Grid>
 
-          <Grid item xs={6} sx={{ border: '1px solid white', padding: 1 }}>
+          <Grid item xs={6} sx={{ border: '1px solid grey', padding: 1 }}>
             <Grid
               container
               direction={`column`}
@@ -1487,7 +1487,7 @@ function ContractAddEdit({
                     >
                       <Grid
                         item
-                        sx={{ width: '100%', border: '1px solid white' }}
+                        sx={{ width: '100%', border: '1px solid grey' }}
                       >
                         <Typography variant='body1' align='center'>
                           ЖКХ
@@ -1496,7 +1496,7 @@ function ContractAddEdit({
                       <Grid
                         item
                         mt={1}
-                        sx={{ width: '100%', border: '1px solid white' }}
+                        sx={{ width: '100%', border: '1px solid grey' }}
                       >
                         <Grid
                           container
@@ -1588,7 +1588,7 @@ function ContractAddEdit({
                       <Grid
                         item
                         mt={1}
-                        sx={{ width: '100%', border: '1px solid white' }}
+                        sx={{ width: '100%', border: '1px solid grey' }}
                       >
                         <Grid
                           container
@@ -1651,7 +1651,7 @@ function ContractAddEdit({
                       <Grid
                         item
                         mt={1}
-                        sx={{ width: '100%', border: '1px solid white' }}
+                        sx={{ width: '100%', border: '1px solid grey' }}
                       >
                         <Grid
                           container
@@ -1666,7 +1666,7 @@ function ContractAddEdit({
                                 sx={{
                                   color: red[500],
                                   padding: 0,
-                                  marginLeft: -1,
+                                  // marginLeft: -1,
                                 }}
                                 href={`/manager/documents/calendarn-grafik/add`}
                               >
@@ -1707,7 +1707,7 @@ function ContractAddEdit({
                       <Grid
                         item
                         mt={1}
-                        sx={{ width: '100%', border: '1px solid white' }}
+                        sx={{ width: '100%', border: '1px solid grey' }}
                       >
                         <Grid
                           container
@@ -1748,7 +1748,7 @@ function ContractAddEdit({
                       <Grid
                         item
                         mt={1}
-                        sx={{ width: '100%', border: '1px solid white' }}
+                        sx={{ width: '100%', border: '1px solid grey' }}
                       >
                         <Grid
                           container
@@ -1797,7 +1797,7 @@ function ContractAddEdit({
                     >
                       <Grid
                         item
-                        sx={{ width: '100%', border: '1px solid white' }}
+                        sx={{ width: '100%', border: '1px solid grey' }}
                       >
                         <Typography variant='body1' align='center'>
                           Ремсервис
@@ -1806,7 +1806,7 @@ function ContractAddEdit({
                       <Grid
                         item
                         mt={1}
-                        sx={{ width: '100%', border: '1px solid white' }}
+                        sx={{ width: '100%', border: '1px solid grey' }}
                       >
                         <Grid
                           container
@@ -1881,7 +1881,7 @@ function ContractAddEdit({
                       <Grid
                         item
                         mt={1}
-                        sx={{ width: '100%', border: '1px solid white' }}
+                        sx={{ width: '100%', border: '1px solid grey' }}
                       >
                         <Grid
                           container
@@ -1928,7 +1928,7 @@ function ContractAddEdit({
                       <Grid
                         item
                         mt={1}
-                        sx={{ width: '100%', border: '1px solid white' }}
+                        sx={{ width: '100%', border: '1px solid grey' }}
                       >
                         <Grid
                           container
@@ -1989,7 +1989,7 @@ function ContractAddEdit({
                       <Grid
                         item
                         mt={1}
-                        sx={{ width: '100%', border: '1px solid white' }}
+                        sx={{ width: '100%', border: '1px solid grey' }}
                       >
                         <Grid
                           container
@@ -2037,7 +2037,7 @@ function ContractAddEdit({
                       <Grid
                         item
                         mt={1}
-                        sx={{ width: '100%', border: '1px solid white' }}
+                        sx={{ width: '100%', border: '1px solid grey' }}
                       >
                         <Grid
                           container
@@ -2092,7 +2092,7 @@ function ContractAddEdit({
                       <Grid
                         item
                         mt={1}
-                        sx={{ width: '100%', border: '1px solid white' }}
+                        sx={{ width: '100%', border: '1px solid grey' }}
                       >
                         <Grid
                           container
@@ -2132,7 +2132,7 @@ function ContractAddEdit({
                       <Grid
                         item
                         mt={1}
-                        sx={{ width: '100%', border: '1px solid white' }}
+                        sx={{ width: '100%', border: '1px solid grey' }}
                       >
                         <Grid
                           container
@@ -2171,7 +2171,7 @@ function ContractAddEdit({
                       <Grid
                         item
                         mt={1}
-                        sx={{ width: '100%', border: '1px solid white' }}
+                        sx={{ width: '100%', border: '1px solid grey' }}
                       >
                         <Grid
                           container
@@ -2215,7 +2215,7 @@ function ContractAddEdit({
             </Grid>
           </Grid>
 
-          <Grid item xs={3} sx={{ border: '1px solid white', padding: 1 }}>
+          <Grid item xs={3} sx={{ border: '1px solid grey', padding: 1 }}>
             <Grid
               container
               direction={`column`}
@@ -2229,7 +2229,7 @@ function ContractAddEdit({
               <Grid
                 item
                 mt={1}
-                sx={{ width: '100%', border: '1px solid white' }}
+                sx={{ width: '100%', border: '1px solid grey' }}
               >
                 <Grid
                   container
@@ -2271,7 +2271,7 @@ function ContractAddEdit({
               <Grid
                 item
                 mt={1}
-                sx={{ width: '100%', border: '1px solid white' }}
+                sx={{ width: '100%', border: '1px solid grey' }}
               >
                 <Grid
                   container
@@ -2347,7 +2347,7 @@ function ContractAddEdit({
               <Grid
                 item
                 mt={1}
-                sx={{ width: '100%', border: '1px solid white' }}
+                sx={{ width: '100%', border: '1px solid grey' }}
               >
                 <Grid
                   container
@@ -2408,7 +2408,7 @@ function ContractAddEdit({
               <Grid
                 item
                 mt={1}
-                sx={{ width: '100%', border: '1px solid white' }}
+                sx={{ width: '100%', border: '1px solid grey' }}
               >
                 <Grid
                   container
@@ -2471,7 +2471,7 @@ function ContractAddEdit({
           justifyContent={`space-between`}
           alignItems={`flex-start`}
         >
-          <Grid item xs={6} sx={{ border: '1px solid white', padding: 1 }}>
+          <Grid item xs={6} sx={{ border: '1px solid grey', padding: 1 }}>
             <Grid
               container
               direction={`column`}
@@ -2620,14 +2620,14 @@ function ContractAddEdit({
           {/* <Grid
             item
             xs={3}
-            sx={{ border: '1px solid white', padding: 1 }}
+            sx={{ border: '1px solid grey', padding: 1 }}
           ></Grid> */}
           {/* <Grid
             item
             xs={3}
-            sx={{ border: '1px solid white', padding: 1 }}
+            sx={{ border: '1px solid grey', padding: 1 }}
           ></Grid> */}
-          <Grid item xs={6} sx={{ border: '1px solid white', padding: 1 }}>
+          <Grid item xs={6} sx={{ border: '1px solid grey', padding: 1 }}>
             <Grid
               container
               direction={`column`}
