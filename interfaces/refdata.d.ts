@@ -406,3 +406,45 @@ export interface I_CalendarnGrafik {
   serviceWorks: I_ServiceWorkInCalendarnGrafik[];
   creator: Types.ObjectId;
 }
+
+////////////////////////////////////////////
+////////////////////////////////////////////
+export interface I_RowInNakladnayaRems {
+  row_id: string;
+  product: string;
+  extraInformation?: string;
+  unit: string;
+  amount: string;
+  price: string;
+  rowSum: string;
+}
+export interface I_ProductInNakladnayaRems {
+  _id?: string;
+  product: Types.ObjectId | I_Product | string;
+  extraInformation?: string;
+  amount: number;
+  price: number;
+  rowSum: number;
+}
+
+export interface I_NakladnayaRems {
+  _id?: string;
+  nakladnayaRemsNumber1: string;
+  nakladnayaRemsNumber2: string;
+  nakladnayaRemsNumber3: string;
+
+  nakladnayaRemsDate: Date;
+  contract: Types.ObjectId | I_Contract | string;
+  //для удобного поиска
+  executorFirm1?: Types.ObjectId | I_Client | string;
+  executorFirm2?: Types.ObjectId | I_Client | string;
+  executorFirm3?: Types.ObjectId | I_Client | string;
+  clientFirm?: Types.ObjectId | I_Client | string;
+
+  percent2: number;
+  percent3: number;
+  products: I_ProductInNakladnayaRems[];
+  totalRemsNaklSum?: string;
+
+  creator: Types.ObjectId;
+}
