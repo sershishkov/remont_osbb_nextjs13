@@ -28,22 +28,27 @@ const nakladnaya_rems__Schema = new Schema<I_NakladnayaRems>(
     executorFirm1: {
       type: Schema.Types.ObjectId,
       ref: 'client',
-      required: [true, 'Please add a aktOurFirm id'],
+      required: [true, 'Please add a executorFirm1 id'],
     },
     executorFirm2: {
       type: Schema.Types.ObjectId,
       ref: 'client',
-      required: [true, 'Please add a aktOurFirm id'],
+      required: [true, 'Please add a executorFirm2 id'],
     },
     executorFirm3: {
       type: Schema.Types.ObjectId,
       ref: 'client',
-      required: [true, 'Please add a aktOurFirm id'],
+      required: [true, 'Please add a executorFirm3 id'],
     },
     clientFirm: {
       type: Schema.Types.ObjectId,
       ref: 'client',
-      required: [true, 'Please add a aktClient id'],
+      required: [true, 'Please add a clientFirm id'],
+    },
+    ourFirm: {
+      type: Schema.Types.ObjectId,
+      ref: 'client',
+      required: [true, 'Please add a clientFirm id'],
     },
     percent2: {
       type: Number,
@@ -52,6 +57,9 @@ const nakladnaya_rems__Schema = new Schema<I_NakladnayaRems>(
     percent3: {
       type: Number,
       default: 9.8,
+    },
+    totalRemsNaklSumToShow: {
+      type: Number,
     },
     products: [
       {

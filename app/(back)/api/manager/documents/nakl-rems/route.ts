@@ -24,9 +24,11 @@ export const POST = async (request: NextRequest) => {
     executorFirm2,
     executorFirm3,
     clientFirm,
+    ourFirm,
 
     percent2,
     percent3,
+    totalRemsNaklSumToShow,
 
     products,
   } = await request.json();
@@ -39,6 +41,8 @@ export const POST = async (request: NextRequest) => {
     !executorFirm2 ||
     !executorFirm3 ||
     !clientFirm ||
+    !ourFirm ||
+    !totalRemsNaklSumToShow ||
     !products ||
     (products && products.length === 0)
   ) {
@@ -55,7 +59,7 @@ export const POST = async (request: NextRequest) => {
 
     // Check if already exists
     const already__Exists = await Model__NakladnayaRems.findOne({
-      nakladnayaRemsNumber1,
+      contract,
     });
 
     if (already__Exists) {
@@ -82,9 +86,11 @@ export const POST = async (request: NextRequest) => {
       executorFirm2,
       executorFirm3,
       clientFirm,
+      ourFirm,
 
       percent2,
       percent3,
+      totalRemsNaklSumToShow,
 
       products,
 
@@ -126,6 +132,7 @@ export const GET = async (request: NextRequest) => {
   const executorFirm2 = url.searchParams.get('executorFirm2') ?? '';
   const executorFirm3 = url.searchParams.get('executorFirm3') ?? '';
   const clientFirm = url.searchParams.get('clientFirm') ?? '';
+  const ourFirm = url.searchParams.get('ourFirm') ?? '';
 
   const naklDateStart = url.searchParams.get('naklDateStart') ?? '';
   const naklDateEnd = url.searchParams.get('naklDateEnd') ?? '';
@@ -167,6 +174,9 @@ export const GET = async (request: NextRequest) => {
   }
   if (clientFirm) {
     andArr.push({ clientFirm: clientFirm });
+  }
+  if (ourFirm) {
+    andArr.push({ ourFirm: ourFirm });
   }
 
   if (naklDateStart && naklDateEnd) {

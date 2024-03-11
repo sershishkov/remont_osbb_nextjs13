@@ -426,6 +426,7 @@ function ContractAddEdit({
             },
             `/manager/documents/nakladnaya`
           );
+
           const localArrOfRelAkt = await get__all(
             {
               page: '0',
@@ -458,6 +459,19 @@ function ContractAddEdit({
           if (localArrOfcalendarnGrafik?.items?.length > 0) {
             const relGrafik = localArrOfcalendarnGrafik?.items[0];
             setCalendGrafikId(relGrafik._id);
+          }
+          const localArrOfRelnaklRems = await get__all(
+            {
+              page: '0',
+              limit: '0',
+              filter: '',
+              contract: id,
+            },
+            `/manager/documents/nakl-rems`
+          );
+          if (localArrOfRelnaklRems?.items?.length > 0) {
+            const relNaklRems = localArrOfRelnaklRems?.items[0];
+            setRemsNaklId(relNaklRems._id);
           }
         }
       };
@@ -2011,19 +2025,33 @@ function ContractAddEdit({
                                   padding: 0,
                                   marginLeft: -1,
                                 }}
-                                href={`/manager/documents/rems-nakl/add`}
+                                href={`/manager/documents/nakl-rems/add`}
                               >
                                 <AddCircleOutlineIcon />
                               </IconButton>
                             </Grid>
                           )}
+                          <Grid item>
+                            <Button
+                              disabled={!remsNaklId}
+                              startIcon={<EditIcon />}
+                              component={Link}
+                              href={`/manager/documents/nakl-rems/${remsNaklId}`}
+                              fullWidth
+                              size='small'
+                              color='primary'
+                              variant='contained'
+                            >
+                              {/* Акт */}
+                            </Button>
+                          </Grid>
 
                           <Grid item>
                             <Button
-                              disabled={!id}
+                              disabled={!remsNaklId}
                               startIcon={<PrintIcon />}
                               component={Link}
-                              href={`/to-do`}
+                              href={`/manager/documents/nakl-rems/print/nakl1/${remsNaklId}`}
                               fullWidth
                               size='small'
                               color='success'
@@ -2281,7 +2309,7 @@ function ContractAddEdit({
                 >
                   <Grid item sx={{ width: 50 }}>
                     <Typography variant='body2' align='center'>
-                      Накладные
+                      Накл
                     </Typography>
                   </Grid>
 
@@ -2294,7 +2322,7 @@ function ContractAddEdit({
                           padding: 0,
                           marginLeft: -1,
                         }}
-                        href={`/manager/documents/rems-nakl/add`}
+                        href={`/manager/documents/nakl-rems/add`}
                       >
                         <AddCircleOutlineIcon />
                       </IconButton>
@@ -2302,10 +2330,24 @@ function ContractAddEdit({
                   )}
                   <Grid item>
                     <Button
-                      disabled={!id}
+                      disabled={!remsNaklId}
+                      startIcon={<EditIcon />}
+                      component={Link}
+                      href={`/manager/documents/nakl-rems/${remsNaklId}`}
+                      fullWidth
+                      size='small'
+                      color='primary'
+                      variant='contained'
+                    >
+                      {/* Акт */}
+                    </Button>
+                  </Grid>
+                  <Grid item>
+                    <Button
+                      disabled={!remsNaklId}
                       startIcon={<PrintIcon />}
                       component={Link}
-                      href={`/to-do`}
+                      href={`/manager/documents/nakl-rems/print/nakl1/${remsNaklId}`}
                       fullWidth
                       size='small'
                       color='success'
@@ -2316,10 +2358,10 @@ function ContractAddEdit({
                   </Grid>
                   <Grid item>
                     <Button
-                      disabled={!id}
+                      disabled={!remsNaklId}
                       startIcon={<PrintIcon />}
                       component={Link}
-                      href={`/to-do`}
+                      href={`/manager/documents/nakl-rems/print/nakl2/${remsNaklId}`}
                       fullWidth
                       size='small'
                       color='success'
@@ -2330,10 +2372,10 @@ function ContractAddEdit({
                   </Grid>
                   <Grid item>
                     <Button
-                      disabled={!id}
+                      disabled={!remsNaklId}
                       startIcon={<PrintIcon />}
                       component={Link}
-                      href={`/to-do`}
+                      href={`/manager/documents/nakl-rems/print/nakl1/${remsNaklId}`}
                       fullWidth
                       size='small'
                       color='success'

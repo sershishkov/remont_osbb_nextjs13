@@ -440,11 +440,13 @@ export interface I_NakladnayaRems {
   executorFirm2?: Types.ObjectId | I_Client | string;
   executorFirm3?: Types.ObjectId | I_Client | string;
   clientFirm?: Types.ObjectId | I_Client | string;
+  ourFirm?: Types.ObjectId | I_Client | string;
 
   percent2: number;
   percent3: number;
   products: I_ProductInNakladnayaRems[];
   totalRemsNaklSum?: string;
+  totalRemsNaklSumToShow: number;
 
   creator: Types.ObjectId;
 }

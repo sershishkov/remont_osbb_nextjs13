@@ -112,9 +112,11 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
     executorFirm2,
     executorFirm3,
     clientFirm,
+    ourFirm,
 
     percent2,
     percent3,
+    totalRemsNaklSumToShow,
 
     products,
   } = myData;
@@ -134,9 +136,11 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
       executorFirm2,
       executorFirm3,
       clientFirm,
+      ourFirm,
 
       percent2,
       percent3,
+      totalRemsNaklSumToShow,
 
       products,
     };

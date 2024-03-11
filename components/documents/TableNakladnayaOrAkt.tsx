@@ -212,7 +212,21 @@ function TableNakladnayaOrAkt({
                     onBlur={() => recalcRow(row.row_id!)}
                   />
                 </TableCell>
-                <TableCell align='center'>{`${row.rowSum!}`}</TableCell>
+                {/* <TableCell align='center'>{`${row.rowSum!}`}</TableCell> */}
+                <TableCell align='center'>
+                  <TextField
+                    name={`${row.row_id}-rowSum`}
+                    // label='rowSum'
+                    placeholder='0.00'
+                    type='number'
+                    id={`${row.row_id}-rowSum`}
+                    value={row.rowSum ?? ''}
+                    onChange={(e) =>
+                      handleChangeInputsInRow(row.row_id!, 'rowSum', e)
+                    }
+                    // onBlur={() => recalcRow(row.row_id!)}
+                  />
+                </TableCell>
                 <TableCell align='center' sx={{ width: 50 }}>
                   <IconButton onClick={() => deleteTableRow(row.row_id!)}>
                     <DeleteForeverIcon

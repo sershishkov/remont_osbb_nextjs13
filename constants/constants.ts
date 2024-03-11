@@ -118,6 +118,10 @@ export const manager_Docums_links = [
     link: `${manager_Docums}/calendarn-grafik`,
     caption: `Календ График`,
   },
+  {
+    link: `${manager_Docums}/nakl-rems`,
+    caption: `Накл Ремс`,
+  },
 ];
 ///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////
