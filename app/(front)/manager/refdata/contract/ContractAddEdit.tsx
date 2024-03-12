@@ -115,7 +115,7 @@ export interface ILocalParticipant {
   participantPercentage: string;
 }
 
-function ContractAddEdit({
+export default function ContractAddEdit({
   id,
   mode,
   title,
@@ -150,6 +150,7 @@ function ContractAddEdit({
 
   const [calendGrafikId, setCalendGrafikId] = useState('');
   const [remsNaklId, setRemsNaklId] = useState('');
+  const [remsAktMusorlId, setRemsAktMusorlId] = useState('');
 
   const [contractStages, setContractStages] = useState({
     isMeasured: false,
@@ -487,6 +488,7 @@ function ContractAddEdit({
             const relGrafik = localArrOfcalendarnGrafik?.items[0];
             setCalendGrafikId(relGrafik._id);
           }
+
           const localArrOfRelnaklRems = await get__all(
             {
               page: '0',
@@ -499,6 +501,20 @@ function ContractAddEdit({
           if (localArrOfRelnaklRems?.items?.length > 0) {
             const relNaklRems = localArrOfRelnaklRems?.items[0];
             setRemsNaklId(relNaklRems._id);
+          }
+
+          const localArrOfRelAktlRemsMusor = await get__all(
+            {
+              page: '0',
+              limit: '0',
+              filter: '',
+              contract: id,
+            },
+            `/manager/documents/akt-rems-musor`
+          );
+          if (localArrOfRelAktlRemsMusor?.items?.length > 0) {
+            const relAKtRemsMusor = localArrOfRelAktlRemsMusor?.items[0];
+            setRemsAktMusorlId(relAKtRemsMusor._id);
           }
         }
       };
@@ -1612,7 +1628,7 @@ function ContractAddEdit({
                                   disabled={!id}
                                   startIcon={<PrintIcon />}
                                   component={Link}
-                                  href={`/to-do`}
+                                  href={`${currentURL}/print/project-and-avtosk-dogov/${id}`}
                                   fullWidth
                                   size='small'
                                   color='success'
@@ -1626,7 +1642,7 @@ function ContractAddEdit({
                                   disabled={!id}
                                   startIcon={<PrintIcon />}
                                   component={Link}
-                                  href={`/to-do`}
+                                  href={`${currentURL}/print/project-and-avtosk-akt/${id}`}
                                   fullWidth
                                   size='small'
                                   color='success'
@@ -1640,7 +1656,7 @@ function ContractAddEdit({
                                   disabled={!id}
                                   startIcon={<PrintIcon />}
                                   component={Link}
-                                  href={`/to-do`}
+                                  href={`${currentURL}/print/project-and-avtosk-kosht/${id}`}
                                   fullWidth
                                   size='small'
                                   color='success'
@@ -1675,7 +1691,7 @@ function ContractAddEdit({
                               disabled={!id}
                               startIcon={<PrintIcon />}
                               component={Link}
-                              href={`/to-do`}
+                              href={`${currentURL}/print/teh-nadzor-dogov/${id}`}
                               fullWidth
                               size='small'
                               color='success'
@@ -1689,7 +1705,7 @@ function ContractAddEdit({
                               disabled={!id}
                               startIcon={<PrintIcon />}
                               component={Link}
-                              href={`/to-do`}
+                              href={`${currentURL}/print/teh-nadzor-akt/${id}`}
                               fullWidth
                               size='small'
                               color='success'
@@ -1705,7 +1721,7 @@ function ContractAddEdit({
                               }
                               startIcon={<PrintIcon />}
                               component={Link}
-                              href={`/to-do`}
+                              href={`${currentURL}/print/teh-nadzor-kosht/${id}`}
                               fullWidth
                               size='small'
                               color='success'
@@ -1761,7 +1777,7 @@ function ContractAddEdit({
                               disabled={!id}
                               startIcon={<PrintIcon />}
                               component={Link}
-                              href={`/to-do`}
+                              href={`${currentURL}/print/jkh-plan-finans/${id}`}
                               fullWidth
                               size='small'
                               color='success'
@@ -1788,7 +1804,7 @@ function ContractAddEdit({
                               disabled={!id}
                               startIcon={<PrintIcon />}
                               component={Link}
-                              href={`/to-do`}
+                              href={`${currentURL}/print/jkh-pismo-ot-osbb/${id}`}
                               fullWidth
                               size='small'
                               color='success'
@@ -1802,7 +1818,7 @@ function ContractAddEdit({
                               disabled={!id}
                               startIcon={<PrintIcon />}
                               component={Link}
-                              href={`/to-do`}
+                              href={`${currentURL}/print/jkh-nakaz-osbb/${id}`}
                               fullWidth
                               size='small'
                               color='success'
@@ -1829,7 +1845,7 @@ function ContractAddEdit({
                               disabled={!id}
                               startIcon={<PrintIcon />}
                               component={Link}
-                              href={`/to-do`}
+                              href={`${currentURL}/print/trebovanie-po-smete-avk/${id}`}
                               fullWidth
                               size='small'
                               color='success'
@@ -1840,10 +1856,10 @@ function ContractAddEdit({
                           </Grid>
                           <Grid item>
                             <Button
-                              disabled={!id}
+                              disabled={!remsNaklId}
                               startIcon={<PrintIcon />}
                               component={Link}
-                              href={`/to-do`}
+                              href={`/manager/documents/nakl-rems/print/nakl1/${remsNaklId}`}
                               fullWidth
                               size='small'
                               color='success'
@@ -1893,7 +1909,7 @@ function ContractAddEdit({
                               disabled={!id}
                               startIcon={<PrintIcon />}
                               component={Link}
-                              href={`/to-do`}
+                              href={`${currentURL}/print/rems-budjet-pr-and-avt-dog/${id}`}
                               fullWidth
                               size='small'
                               color='success'
@@ -1907,7 +1923,7 @@ function ContractAddEdit({
                               disabled={!id}
                               startIcon={<PrintIcon />}
                               component={Link}
-                              href={`/to-do`}
+                              href={`${currentURL}/print/rems-budjet-pr-and-avt-akt/${id}`}
                               fullWidth
                               size='small'
                               color='success'
@@ -1921,7 +1937,7 @@ function ContractAddEdit({
                               disabled={!id}
                               startIcon={<PrintIcon />}
                               component={Link}
-                              href={`/to-do`}
+                              href={`${currentURL}/print/rems-budjet-proectn-koshtoris/${id}`}
                               fullWidth
                               size='small'
                               color='success'
@@ -1935,7 +1951,7 @@ function ContractAddEdit({
                               disabled={!id}
                               startIcon={<PrintIcon />}
                               component={Link}
-                              href={`/to-do`}
+                              href={`${currentURL}/print/rems-budjet-avtorsk-koshtoris/${id}`}
                               fullWidth
                               size='small'
                               color='success'
@@ -2009,7 +2025,7 @@ function ContractAddEdit({
                               disabled={!id}
                               startIcon={<PrintIcon />}
                               component={Link}
-                              href={`/to-do`}
+                              href={`${currentURL}/print/rems-budjet-jurnal-avtorsk/${id}`}
                               fullWidth
                               size='small'
                               color='success'
@@ -2023,7 +2039,7 @@ function ContractAddEdit({
                               disabled={!id}
                               startIcon={<PrintIcon />}
                               component={Link}
-                              href={`/to-do`}
+                              href={`${currentURL}/print/rems-budjet-jurnal-rabot/${id}`}
                               fullWidth
                               size='small'
                               color='success'
@@ -2126,7 +2142,7 @@ function ContractAddEdit({
                               disabled={!id}
                               startIcon={<PrintIcon />}
                               component={Link}
-                              href={`/to-do`}
+                              href={`${currentURL}/print/rems-budjet-nakaz-gip/${id}`}
                               fullWidth
                               size='small'
                               color='success'
@@ -2140,7 +2156,7 @@ function ContractAddEdit({
                               disabled={!id}
                               startIcon={<PrintIcon />}
                               component={Link}
-                              href={`/to-do`}
+                              href={`${currentURL}/print/rems-budjet-nakaz-engineer/${id}`}
                               fullWidth
                               size='small'
                               color='success'
@@ -2154,7 +2170,7 @@ function ContractAddEdit({
                               disabled={!id}
                               startIcon={<PrintIcon />}
                               component={Link}
-                              href={`/to-do`}
+                              href={`${currentURL}/print/rems-potochn-nakaz-ohrana-truda/${id}`}
                               fullWidth
                               size='small'
                               color='success'
@@ -2243,7 +2259,7 @@ function ContractAddEdit({
                               disabled={!id}
                               startIcon={<PrintIcon />}
                               component={Link}
-                              href={`/to-do`}
+                              href={`${currentURL}/print/rems-budjet-zavdannya/${id}`}
                               fullWidth
                               size='small'
                               color='success'
@@ -2257,7 +2273,7 @@ function ContractAddEdit({
                               disabled={!id}
                               startIcon={<PrintIcon />}
                               component={Link}
-                              href={`/to-do`}
+                              href={`${currentURL}/print/rems-budjet-vihidny-dannie/${id}`}
                               fullWidth
                               size='small'
                               color='success'
@@ -2271,7 +2287,7 @@ function ContractAddEdit({
                               disabled={!id}
                               startIcon={<PrintIcon />}
                               component={Link}
-                              href={`/to-do`}
+                              href={`${currentURL}/print/rems-budjet-cc1/${id}`}
                               fullWidth
                               size='small'
                               color='success'
@@ -2312,7 +2328,7 @@ function ContractAddEdit({
                               disabled={!id}
                               startIcon={<PrintIcon />}
                               component={Link}
-                              href={`/to-do`}
+                              href={`${currentURL}/print/rems-budjet-dop-ugoda/${id}`}
                               fullWidth
                               size='small'
                               color='success'
@@ -2456,7 +2472,7 @@ function ContractAddEdit({
                       disabled={!id}
                       startIcon={<PrintIcon />}
                       component={Link}
-                      href={`/to-do`}
+                      href={`${currentURL}/print/rems-potochn-nakaz-ohrana-truda/${id}`}
                       fullWidth
                       size='small'
                       color='success'
@@ -2579,7 +2595,7 @@ function ContractAddEdit({
                       disabled={!id}
                       startIcon={<PrintIcon />}
                       component={Link}
-                      href={`/to-do`}
+                      href={`${currentURL}/print/rems-potochn-dopusk-voznesen/${id}`}
                       fullWidth
                       size='small'
                       color='success'
@@ -2593,7 +2609,7 @@ function ContractAddEdit({
                       disabled={!id}
                       startIcon={<PrintIcon />}
                       component={Link}
-                      href={`/to-do`}
+                      href={`${currentURL}/print/rems-potochn-dopusk-zavodsk/${id}`}
                       fullWidth
                       size='small'
                       color='success'
@@ -2607,7 +2623,7 @@ function ContractAddEdit({
                       disabled={!id}
                       startIcon={<PrintIcon />}
                       component={Link}
-                      href={`/to-do`}
+                      href={`${currentURL}/print/rems-potochn-dopusk-ukrainskaya/${id}`}
                       fullWidth
                       size='small'
                       color='success'
@@ -2634,7 +2650,7 @@ function ContractAddEdit({
                       disabled={!id}
                       startIcon={<PrintIcon />}
                       component={Link}
-                      href={`/to-do`}
+                      href={`${currentURL}/print/invoicemix/${id}`}
                       fullWidth
                       size='small'
                       color='success'
@@ -2648,7 +2664,7 @@ function ContractAddEdit({
                       disabled={!id}
                       startIcon={<PrintIcon />}
                       component={Link}
-                      href={`/to-do`}
+                      href={`${currentURL}/print/rems-potochn-akt-skr-robot/${id}`}
                       fullWidth
                       size='small'
                       color='success'
@@ -2659,10 +2675,10 @@ function ContractAddEdit({
                   </Grid>
                   <Grid item>
                     <Button
-                      disabled={!id}
+                      disabled={!remsAktMusorlId}
                       startIcon={<PrintIcon />}
                       component={Link}
-                      href={`/to-do`}
+                      href={`/manager/documents/akt-rems-musor/print/${remsAktMusorlId}`}
                       fullWidth
                       size='small'
                       color='success'
@@ -2948,5 +2964,3 @@ function ContractAddEdit({
     </Grid>
   );
 }
-
-export default ContractAddEdit;
