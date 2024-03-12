@@ -450,3 +450,40 @@ export interface I_NakladnayaRems {
 
   creator: Types.ObjectId;
 }
+
+////////////////////////////////////////////
+////////////////////////////////////////////
+export interface I_RowInAktRemsMusor {
+  row_id: string;
+  product: string;
+  extraInformation?: string;
+  unit: string;
+  amount: string;
+  price: string;
+  rowSum: string;
+}
+export interface I_ServiceWorkInAktRemsMusor {
+  _id?: string;
+  serviceWork: Types.ObjectId | I_ServiceWork | string;
+  extraInformation?: string;
+  amount: number;
+  price: number;
+  rowSum: number;
+}
+export interface I_AktRemsMusor {
+  _id?: string;
+  aktRemsMusorNumber: string;
+  aktRemsMusorDate: Date;
+  contract: Types.ObjectId | I_Contract | string;
+  //для удобного поиска
+  executorFirm?: Types.ObjectId | I_Client | string;
+
+  clientFirm?: Types.ObjectId | I_Client | string;
+  ourFirm?: Types.ObjectId | I_Client | string;
+
+  serviceWorks: I_ServiceWorkInAktRemsMusor[];
+  totalAktRemsMusorSum?: string;
+  totalAktRemsMusorToShow: number;
+
+  creator: Types.ObjectId;
+}
