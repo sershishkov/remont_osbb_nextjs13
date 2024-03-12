@@ -44,6 +44,12 @@ export const generateMultipleDocNumbers = () => {
   const contrProectAvtorskDate = new Date(ms + oneMinute * 7);
   const aktProectAvtorskDate = new Date(ms + oneMinute * 8);
 
+  const jurnalAvtoskiyDate = new Date(ms + oneMinute * 9);
+  const jurnalRabotDate = new Date(ms + oneMinute * 10);
+  const prikazGipDate = new Date(ms + oneMinute * 11);
+  const prikazEngineerDate = new Date(ms + oneMinute * 12);
+  const prikazOhranaTrudaDate = new Date(ms + oneMinute * 13);
+
   const invoiceNumberBase = genNumberByDate(invoiceBaseDate);
   const invoiceNumberNakl = genNumberByDate(invoiceNaklDate);
   const invoiceNumberAkt = genNumberByDate(invoiceAktDate);
@@ -53,15 +59,29 @@ export const generateMultipleDocNumbers = () => {
   const contrProectAvtorskNumber = genNumberByDate(contrProectAvtorskDate);
   const aktProectAvtorskNumber = genNumberByDate(aktProectAvtorskDate);
 
+  const jurnalAvtoskiyNumber = genNumberByDate(jurnalAvtoskiyDate);
+  const jurnalRabotNumber = genNumberByDate(jurnalRabotDate);
+  const prikazGipNumber = genNumberByDate(prikazGipDate);
+  const prikazEngineeNumber = genNumberByDate(prikazEngineerDate);
+  const prikazOhranaTrudaNumber = genNumberByDate(prikazOhranaTrudaDate);
+
   return {
     invoiceNumberBase,
     invoiceNumberNakl,
     invoiceNumberAkt,
+
     aktNumber,
     naklNumber,
     koshtorisNumber,
+
     contrProectAvtorskNumber,
     aktProectAvtorskNumber,
+
+    jurnalAvtoskiyNumber,
+    jurnalRabotNumber,
+    prikazGipNumber,
+    prikazEngineeNumber,
+    prikazOhranaTrudaNumber,
   };
 };
 

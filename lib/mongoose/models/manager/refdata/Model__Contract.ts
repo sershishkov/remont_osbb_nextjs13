@@ -98,6 +98,21 @@ const contract__Schema = new Schema<I_Contract>(
     aktProectAvtorskNumber: {
       type: String,
     },
+    jurnalAvtoskiyNumber: {
+      type: String,
+    },
+    jurnalRabotNumber: {
+      type: String,
+    },
+    prikazGipNumber: {
+      type: String,
+    },
+    prikazEngineeNumber: {
+      type: String,
+    },
+    prikazOhranaTrudaNumber: {
+      type: String,
+    },
 
     proectnSumBudjet: {
       type: Number,

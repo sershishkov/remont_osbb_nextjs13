@@ -224,6 +224,12 @@ export interface I_Contract {
   contrProectAvtorskNumber: string;
   aktProectAvtorskNumber: string;
 
+  jurnalAvtoskiyNumber: string;
+  jurnalRabotNumber: string;
+  prikazGipNumber: string;
+  prikazEngineeNumber: string;
+  prikazOhranaTrudaNumber: string;
+
   proectnSumBudjet: number;
   avtorskSumBudjet: number;
   expertizaSumBudjet: number;
@@ -455,7 +461,7 @@ export interface I_NakladnayaRems {
 ////////////////////////////////////////////
 export interface I_RowInAktRemsMusor {
   row_id: string;
-  product: string;
+  serviceWork: string;
   extraInformation?: string;
   unit: string;
   amount: string;

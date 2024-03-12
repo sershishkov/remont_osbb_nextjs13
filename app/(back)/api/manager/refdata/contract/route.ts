@@ -38,6 +38,12 @@ export const POST = async (request: NextRequest) => {
     contrProectAvtorskNumber,
     aktProectAvtorskNumber,
 
+    jurnalAvtoskiyNumber,
+    jurnalRabotNumber,
+    prikazGipNumber,
+    prikazEngineeNumber,
+    prikazOhranaTrudaNumber,
+
     proectnSumBudjet,
     avtorskSumBudjet,
     expertizaSumBudjet,
@@ -138,6 +144,12 @@ export const POST = async (request: NextRequest) => {
 
       contrProectAvtorskNumber,
       aktProectAvtorskNumber,
+
+      jurnalAvtoskiyNumber,
+      jurnalRabotNumber,
+      prikazGipNumber,
+      prikazEngineeNumber,
+      prikazOhranaTrudaNumber,
 
       proectnSumBudjet,
       avtorskSumBudjet,

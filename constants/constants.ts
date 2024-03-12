@@ -122,6 +122,10 @@ export const manager_Docums_links = [
     link: `${manager_Docums}/nakl-rems`,
     caption: `Накл Ремс`,
   },
+  {
+    link: `${manager_Docums}/akt-rems-musor`,
+    caption: `Акт Ремс Мусор`,
+  },
 ];
 ///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////

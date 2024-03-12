@@ -80,6 +80,12 @@ const initState = {
   contrProectAvtorskNumber: '',
   aktProectAvtorskNumber: '',
 
+  jurnalAvtoskiyNumber: '',
+  jurnalRabotNumber: '',
+  prikazGipNumber: '',
+  prikazEngineeNumber: '',
+  prikazOhranaTrudaNumber: '',
+
   proectnSumBudjet: '890',
   avtorskSumBudjet: '890',
   expertizaSumBudjet: '0',
@@ -187,6 +193,12 @@ function ContractAddEdit({
     contrProectAvtorskNumber,
     aktProectAvtorskNumber,
 
+    jurnalAvtoskiyNumber,
+    jurnalRabotNumber,
+    prikazGipNumber,
+    prikazEngineeNumber,
+    prikazOhranaTrudaNumber,
+
     proectnSumBudjet,
     avtorskSumBudjet,
     expertizaSumBudjet,
@@ -293,6 +305,11 @@ function ContractAddEdit({
       koshtorisNumber: docNums.koshtorisNumber,
       contrProectAvtorskNumber: docNums.contrProectAvtorskNumber,
       aktProectAvtorskNumber: docNums.aktProectAvtorskNumber,
+      jurnalAvtoskiyNumber: docNums.jurnalAvtoskiyNumber,
+      jurnalRabotNumber: docNums.jurnalRabotNumber,
+      prikazGipNumber: docNums.prikazGipNumber,
+      prikazEngineeNumber: docNums.prikazEngineeNumber,
+      prikazOhranaTrudaNumber: docNums.prikazOhranaTrudaNumber,
       endWorkRemservis: new Date().toISOString().split('T')[0],
       //@ts-ignore
       startMonthWorkBudjet: defMonth?.startMonth ?? '',
@@ -342,6 +359,16 @@ function ContractAddEdit({
               item.contrProectAvtorskNumber ?? docNums.contrProectAvtorskNumber,
             aktProectAvtorskNumber:
               item.aktProectAvtorskNumber ?? docNums.aktProectAvtorskNumber,
+
+            jurnalAvtoskiyNumber:
+              item.jurnalAvtoskiyNumber ?? docNums.jurnalAvtoskiyNumber,
+            jurnalRabotNumber:
+              item.jurnalRabotNumber ?? docNums.jurnalRabotNumber,
+            prikazGipNumber: item.prikazGipNumber ?? docNums.prikazGipNumber,
+            prikazEngineeNumber:
+              item.prikazEngineeNumber ?? docNums.prikazEngineeNumber,
+            prikazOhranaTrudaNumber:
+              item.prikazOhranaTrudaNumber ?? docNums.prikazOhranaTrudaNumber,
 
             proectnSumBudjet: item.proectnSumBudjet?.toFixed(2) ?? '890',
             avtorskSumBudjet: item.avtorskSumBudjet?.toFixed(2) ?? '890',
@@ -537,6 +564,12 @@ function ContractAddEdit({
 
       contrProectAvtorskNumber,
       aktProectAvtorskNumber,
+
+      jurnalAvtoskiyNumber,
+      jurnalRabotNumber,
+      prikazGipNumber,
+      prikazEngineeNumber,
+      prikazOhranaTrudaNumber,
 
       proectnSumBudjet: Number(proectnSumBudjet),
       avtorskSumBudjet: Number(avtorskSumBudjet),
@@ -873,6 +906,7 @@ function ContractAddEdit({
           <Grid item xs={6}>
             <TextField
               margin='normal'
+              size='small'
               multiline
               required
               fullWidth
@@ -888,6 +922,7 @@ function ContractAddEdit({
           <Grid item xs={6}>
             <TextField
               margin='normal'
+              size='small'
               multiline
               required
               fullWidth
@@ -932,6 +967,7 @@ function ContractAddEdit({
                   <Grid item sx={{ width: 150 }}>
                     <TextField
                       margin='normal'
+                      size='small'
                       required
                       fullWidth
                       name='contractNumber'
@@ -972,6 +1008,7 @@ function ContractAddEdit({
                   <Grid item sx={{ width: 150 }}>
                     <TextField
                       margin='normal'
+                      size='small'
                       required
                       fullWidth
                       name='contractDate'
@@ -986,6 +1023,7 @@ function ContractAddEdit({
                   <Grid item sx={{ width: 120 }}>
                     <TextField
                       margin='normal'
+                      size='small'
                       required
                       fullWidth
                       name='guaranteePeriod'
@@ -999,6 +1037,7 @@ function ContractAddEdit({
                   <Grid item sx={{ width: 120 }}>
                     <TextField
                       margin='normal'
+                      size='small'
                       required
                       fullWidth
                       name='prepaymentPercentage'
@@ -1023,6 +1062,7 @@ function ContractAddEdit({
                   <Grid item sx={{ width: 150 }}>
                     <TextField
                       margin='normal'
+                      size='small'
                       required
                       fullWidth
                       name='invoiceNumberBase'
@@ -1063,6 +1103,7 @@ function ContractAddEdit({
                   <Grid item sx={{ width: 150 }}>
                     <TextField
                       margin='normal'
+                      size='small'
                       required
                       fullWidth
                       name='invoiceNumberNakl'
@@ -1103,6 +1144,7 @@ function ContractAddEdit({
                   <Grid item sx={{ width: 150 }}>
                     <TextField
                       margin='normal'
+                      size='small'
                       required
                       fullWidth
                       name='invoiceNumberAkt'
@@ -1143,6 +1185,7 @@ function ContractAddEdit({
                   <Grid item sx={{ width: 150 }}>
                     <TextField
                       margin='normal'
+                      size='small'
                       required
                       fullWidth
                       name='aktNumber'
@@ -1212,6 +1255,7 @@ function ContractAddEdit({
                   <Grid item sx={{ width: 150 }}>
                     <TextField
                       margin='normal'
+                      size='small'
                       required
                       fullWidth
                       name='naklNumber'
@@ -1278,6 +1322,7 @@ function ContractAddEdit({
                   <Grid item sx={{ width: 150 }}>
                     <TextField
                       margin='normal'
+                      size='small'
                       required
                       fullWidth
                       name='koshtorisNumber'
@@ -1350,6 +1395,7 @@ function ContractAddEdit({
                   <Grid item sx={{ width: 300 }}>
                     <TextField
                       margin='normal'
+                      size='small'
                       multiline
                       required
                       fullWidth
@@ -1407,6 +1453,7 @@ function ContractAddEdit({
                   <Grid item sx={{ width: 120 }}>
                     <TextField
                       margin='normal'
+                      size='small'
                       required
                       fullWidth
                       name='dogovornayaSumBudjet'
@@ -1420,6 +1467,7 @@ function ContractAddEdit({
                   <Grid item sx={{ width: 120 }}>
                     <TextField
                       margin='normal'
+                      size='small'
                       required
                       fullWidth
                       name='zvedeniySumBudjet'
@@ -1433,6 +1481,7 @@ function ContractAddEdit({
                   <Grid item sx={{ width: 120 }}>
                     <TextField
                       margin='normal'
+                      size='small'
                       required
                       fullWidth
                       name='proectnSumBudjet'
@@ -1446,6 +1495,7 @@ function ContractAddEdit({
                   <Grid item sx={{ width: 120 }}>
                     <TextField
                       margin='normal'
+                      size='small'
                       required
                       fullWidth
                       name='avtorskSumBudjet'
@@ -1459,6 +1509,7 @@ function ContractAddEdit({
                   <Grid item sx={{ width: 120 }}>
                     <TextField
                       margin='normal'
+                      size='small'
                       required
                       fullWidth
                       name='tehnadzorSumBudjet'
@@ -1472,6 +1523,7 @@ function ContractAddEdit({
                   <Grid item sx={{ width: 120 }}>
                     <TextField
                       margin='normal'
+                      size='small'
                       required
                       fullWidth
                       name='expertizaSumBudjet'
@@ -1521,6 +1573,7 @@ function ContractAddEdit({
                           <Grid item sx={{ width: 150 }}>
                             <TextField
                               margin='normal'
+                              size='small'
                               required
                               fullWidth
                               name='contrProectAvtorskNumber'
@@ -1534,6 +1587,7 @@ function ContractAddEdit({
                           <Grid item sx={{ width: 150 }}>
                             <TextField
                               margin='normal'
+                              size='small'
                               required
                               fullWidth
                               name='aktProectAvtorskNumber'
@@ -1903,6 +1957,47 @@ function ContractAddEdit({
                           justifyContent={`space-between`}
                           alignItems={`center`}
                         >
+                          <Grid item sx={{ width: 150 }}>
+                            <TextField
+                              margin='normal'
+                              size='small'
+                              required
+                              fullWidth
+                              name='jurnalAvtoskiyNumber'
+                              label='№ журн Авт'
+                              type='text'
+                              id='jurnalAvtoskiyNumber'
+                              value={jurnalAvtoskiyNumber ?? ''}
+                              onChange={onChange}
+                            />
+                          </Grid>
+                          <Grid item sx={{ width: 150 }}>
+                            <TextField
+                              margin='normal'
+                              size='small'
+                              required
+                              fullWidth
+                              name='jurnalRabotNumber'
+                              label='№ журн Работы'
+                              type='text'
+                              id='jurnalRabotNumber'
+                              value={jurnalRabotNumber ?? ''}
+                              onChange={onChange}
+                            />
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                      <Grid
+                        item
+                        mt={1}
+                        sx={{ width: '100%', border: '1px solid grey' }}
+                      >
+                        <Grid
+                          container
+                          direction={`row`}
+                          justifyContent={`space-between`}
+                          alignItems={`center`}
+                        >
                           <Grid item sx={{ width: 50 }}>
                             <Typography variant='body2' align='center'>
                               Журн
@@ -1936,6 +2031,76 @@ function ContractAddEdit({
                             >
                               Произв
                             </Button>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                      <Grid
+                        item
+                        mt={1}
+                        sx={{ width: '100%', border: '1px solid grey' }}
+                      >
+                        <Grid
+                          container
+                          direction={`row`}
+                          justifyContent={`space-between`}
+                          alignItems={`center`}
+                        >
+                          <Grid item sx={{ width: 120 }}>
+                            <TextField
+                              margin='normal'
+                              size='small'
+                              required
+                              fullWidth
+                              name='prikazGipNumber'
+                              label='№ приказ ГИП'
+                              type='text'
+                              id='prikazGipNumber'
+                              value={prikazGipNumber ?? ''}
+                              onChange={onChange}
+                              sx={{
+                                input: {
+                                  fontSize: '.8rem',
+                                },
+                              }}
+                            />
+                          </Grid>
+                          <Grid item sx={{ width: 120 }}>
+                            <TextField
+                              margin='normal'
+                              size='small'
+                              required
+                              fullWidth
+                              name='prikazEngineeNumber'
+                              label='№ приказ Инж'
+                              type='text'
+                              id='prikazEngineeNumber'
+                              value={prikazEngineeNumber ?? ''}
+                              onChange={onChange}
+                              sx={{
+                                input: {
+                                  fontSize: '.8rem',
+                                },
+                              }}
+                            />
+                          </Grid>
+                          <Grid item sx={{ width: 120 }}>
+                            <TextField
+                              margin='normal'
+                              size='small'
+                              required
+                              fullWidth
+                              name='prikazOhranaTrudaNumber'
+                              label='№ приказ ОхрТруда'
+                              type='text'
+                              id='prikazOhranaTrudaNumber'
+                              value={prikazOhranaTrudaNumber ?? ''}
+                              onChange={onChange}
+                              sx={{
+                                input: {
+                                  fontSize: '.8rem',
+                                },
+                              }}
+                            />
                           </Grid>
                         </Grid>
                       </Grid>
@@ -2131,6 +2296,7 @@ function ContractAddEdit({
                           <Grid item sx={{ width: 150 }}>
                             <TextField
                               margin='normal'
+                              size='small'
                               required
                               fullWidth
                               name='dopUgodaSum'
@@ -2171,6 +2337,7 @@ function ContractAddEdit({
                           <Grid item sx={{ width: 150 }}>
                             <TextField
                               margin='normal'
+                              size='small'
                               required
                               fullWidth
                               name='salaryMin'
@@ -2184,6 +2351,7 @@ function ContractAddEdit({
                           <Grid item sx={{ width: 150 }}>
                             <TextField
                               margin='normal'
+                              size='small'
                               required
                               fullWidth
                               name='salaryLevel_3_8'
@@ -2210,6 +2378,7 @@ function ContractAddEdit({
                           <Grid item sx={{ width: 150 }}>
                             <TextField
                               margin='normal'
+                              size='small'
                               required
                               fullWidth
                               name='lifeTime'
@@ -2224,6 +2393,7 @@ function ContractAddEdit({
                             <TextField
                               multiline
                               margin='normal'
+                              size='small'
                               required
                               fullWidth
                               name='whereWirkIsPerfomed'
@@ -2268,6 +2438,7 @@ function ContractAddEdit({
                   <Grid item sx={{ width: 150 }}>
                     <TextField
                       margin='normal'
+                      size='small'
                       required
                       fullWidth
                       name='endWorkRemservis'
@@ -2742,6 +2913,7 @@ function ContractAddEdit({
                           <Grid item>
                             <TextField
                               margin='normal'
+                              size='small'
                               required
                               // fullWidth
                               name={`participantPercentage-${item.id}`}
