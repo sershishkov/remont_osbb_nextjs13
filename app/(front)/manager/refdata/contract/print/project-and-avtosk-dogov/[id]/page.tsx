@@ -3,7 +3,6 @@ import React, { useState, useLayoutEffect } from 'react';
 import { paramsProps } from '@/interfaces/CommonInterfaces';
 import { I_Contract, I_Client } from '@/interfaces/refdata';
 import { item__get_one } from '@/lib/actions/refdata.actions';
-const currentURL = '/manager/refdata/contract';
 
 import JkhProectnAvtDogToPrint from '@/components/documents/formsToPrint/jkh-proectn-avtorsk/JkhProectnAvtDogToPrint';
 
@@ -17,7 +16,10 @@ export default function ProjectAndAvtosDogovPrint({
   useLayoutEffect(() => {
     if (id) {
       const myGetOne = async () => {
-        const currentContract = await item__get_one({ _id: id }, currentURL);
+        const currentContract = await item__get_one(
+          { _id: id },
+          '/manager/refdata/contract'
+        );
         const localClient = await item__get_one(
           //@ts-ignore
           { _id: currentContract?.client._id },
