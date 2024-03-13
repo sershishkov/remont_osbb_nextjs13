@@ -126,6 +126,9 @@ const contract__Schema = new Schema<I_Contract>(
     tehnadzorSumBudjet: {
       type: Number,
     },
+    tehnadzorSumBudjetGlava1_9: {
+      type: Number,
+    },
 
     zvedeniySumBudjet: {
       type: Number,

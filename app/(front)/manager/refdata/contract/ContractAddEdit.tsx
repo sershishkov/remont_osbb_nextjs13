@@ -90,6 +90,7 @@ const initState = {
   avtorskSumBudjet: '890',
   expertizaSumBudjet: '0',
   tehnadzorSumBudjet: '0',
+  tehnadzorSumBudjetGlava1_9: '0',
 
   zvedeniySumBudjet: '0',
   dogovornayaSumBudjet: '0',
@@ -204,6 +205,7 @@ export default function ContractAddEdit({
     avtorskSumBudjet,
     expertizaSumBudjet,
     tehnadzorSumBudjet,
+    tehnadzorSumBudjetGlava1_9,
 
     zvedeniySumBudjet,
     dogovornayaSumBudjet,
@@ -375,6 +377,8 @@ export default function ContractAddEdit({
             avtorskSumBudjet: item.avtorskSumBudjet?.toFixed(2) ?? '890',
             expertizaSumBudjet: item.expertizaSumBudjet?.toFixed(2) ?? '0',
             tehnadzorSumBudjet: item.tehnadzorSumBudjet?.toFixed(2) ?? '0',
+            tehnadzorSumBudjetGlava1_9:
+              item.tehnadzorSumBudjetGlava1_9?.toFixed(2) ?? '0',
 
             zvedeniySumBudjet: item.zvedeniySumBudjet?.toFixed(2) ?? '0',
             dogovornayaSumBudjet: item.dogovornayaSumBudjet?.toFixed(2) ?? '0',
@@ -591,6 +595,7 @@ export default function ContractAddEdit({
       avtorskSumBudjet: Number(avtorskSumBudjet),
       expertizaSumBudjet: Number(expertizaSumBudjet),
       tehnadzorSumBudjet: Number(tehnadzorSumBudjet),
+      tehnadzorSumBudjetGlava1_9: Number(tehnadzorSumBudjetGlava1_9),
 
       zvedeniySumBudjet: Number(zvedeniySumBudjet),
       dogovornayaSumBudjet: Number(dogovornayaSumBudjet),
@@ -1533,6 +1538,20 @@ export default function ContractAddEdit({
                       type='number'
                       id='tehnadzorSumBudjet'
                       value={tehnadzorSumBudjet ?? ''}
+                      onChange={onChange}
+                    />
+                  </Grid>
+                  <Grid item sx={{ width: 120 }}>
+                    <TextField
+                      margin='normal'
+                      size='small'
+                      required
+                      fullWidth
+                      name='tehnadzorSumBudjetGlava1_9'
+                      label='Гл1-9 Звед'
+                      type='number'
+                      id='tehnadzorSumBudjetGlava1_9'
+                      value={tehnadzorSumBudjetGlava1_9 ?? ''}
                       onChange={onChange}
                     />
                   </Grid>

@@ -135,6 +135,7 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
     avtorskSumBudjet,
     expertizaSumBudjet,
     tehnadzorSumBudjet,
+    tehnadzorSumBudjetGlava1_9,
 
     zvedeniySumBudjet,
     dogovornayaSumBudjet,
@@ -208,6 +209,7 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
       avtorskSumBudjet,
       expertizaSumBudjet,
       tehnadzorSumBudjet,
+      tehnadzorSumBudjetGlava1_9,
 
       zvedeniySumBudjet,
       dogovornayaSumBudjet,

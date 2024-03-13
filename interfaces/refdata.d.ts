@@ -234,6 +234,7 @@ export interface I_Contract {
   avtorskSumBudjet: number;
   expertizaSumBudjet: number;
   tehnadzorSumBudjet: number;
+  tehnadzorSumBudjetGlava1_9: number;
 
   zvedeniySumBudjet: number;
   dogovornayaSumBudjet: number;

@@ -48,6 +48,7 @@ export const POST = async (request: NextRequest) => {
     avtorskSumBudjet,
     expertizaSumBudjet,
     tehnadzorSumBudjet,
+    tehnadzorSumBudjetGlava1_9,
 
     zvedeniySumBudjet,
     dogovornayaSumBudjet,
@@ -155,6 +156,7 @@ export const POST = async (request: NextRequest) => {
       avtorskSumBudjet,
       expertizaSumBudjet,
       tehnadzorSumBudjet,
+      tehnadzorSumBudjetGlava1_9,
 
       zvedeniySumBudjet,
       dogovornayaSumBudjet,
