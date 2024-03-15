@@ -142,6 +142,9 @@
     transform: rotate(-90deg);
     margin-bottom: -7mm;
   }
+  .jkh-nakaz-text {
+    font-size: 1rem;
+  }
   .tehnadzor-akt-caption {
     font-size: 0.5rem;
   }
@@ -297,6 +300,10 @@
     .calendarn-grafik-vertical-text {
       font-size: 1rem;
       transform: rotate(-90deg);
+      margin-bottom: -7mm;
+    }
+    .jkh-nakaz-text {
+      font-size: 1rem;
     }
     table.table-main {
       td,

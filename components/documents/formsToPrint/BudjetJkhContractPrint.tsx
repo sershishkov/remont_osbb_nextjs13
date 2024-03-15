@@ -28,29 +28,29 @@ export default function BudjetJkhContractPrint({
     year: 'numeric',
   });
 
-  const totalSum = currentContract.dogovornayaSumBudjet;
+  const totalSum = currentContract?.dogovornayaSumBudjet;
 
   const totalSumPropis = FloatToSamplesInWordsUkr(totalSum);
   const contrSumString = totalSum.toFixed(2).split('.');
-  const contractDescription = currentContract.contractDescription;
-  const kodDkBudjet = currentContract.kodDkBudjet;
-  const startMonthWorkBudjet = currentContract.startMonthWorkBudjet;
-  const endMonthWorkBudjet = currentContract.endMonthWorkBudjet;
+  const contractDescription = currentContract?.contractDescription;
+  const kodDkBudjet = currentContract?.kodDkBudjet;
+  const startMonthWorkBudjet = currentContract?.startMonthWorkBudjet;
+  const endMonthWorkBudjet = currentContract?.endMonthWorkBudjet;
   //@ts-ignore
   const clientTypeLong = currentClient?.firmType?.firmTypeLongName;
   //@ts-ignore
   const clientTypeShort = currentClient?.firmType?.firmTypeShortName;
-  const clientName = currentClient.clientShortName;
+  const clientName = currentClient?.clientShortName;
 
-  const clientJobTitleRod = currentClient.jobTitle_rodit;
-  const clientJobTitleimen = currentClient.jobTitle;
-  const clientFIORodit = `${currentClient.lastName_rodit} ${currentClient.firstName_rodit} ${currentClient.patronymic_rodit}`;
+  const clientJobTitleRod = currentClient?.jobTitle_rodit;
+  const clientJobTitleimen = currentClient?.jobTitle;
+  const clientFIORodit = `${currentClient?.lastName_rodit} ${currentClient?.firstName_rodit} ${currentClient?.patronymic_rodit}`;
   const clientFIOImen = `${
-    currentClient.firstName_imen
-  } ${currentClient.lastName_imen?.toLocaleUpperCase()}`;
-  const clientActsOn = currentClient.whichActsOnTheBasis;
-  const clientIBAN = currentClient.iban_budget;
-  const clientEDRPO = `ЄДРПОУ: ${currentClient.edrpou}`;
+    currentClient?.firstName_imen
+  } ${currentClient?.lastName_imen?.toLocaleUpperCase()}`;
+  const clientActsOn = currentClient?.whichActsOnTheBasis;
+  const clientIBAN = currentClient?.iban_budget;
+  const clientEDRPO = `ЄДРПОУ: ${currentClient?.edrpou}`;
   const clientAddress = `${currentClient?.postIndex} ${currentClient?.address}`;
   const clientTel = `${
     currentClient?.telNumber ? `Тел:${currentClient?.telNumber}` : ''
@@ -59,21 +59,21 @@ export default function BudjetJkhContractPrint({
     currentClient?.email ? `email:${currentClient?.email}` : ''
   }`;
   //@ts-ignore
-  const clientTaxationType = currentClient.taxationType?.taxationTypeName;
+  const clientTaxationType = currentClient?.taxationType?.taxationTypeName;
 
-  const executorName = currentOurFirm.clientShortName;
-  const executorJobTitleRod = currentOurFirm.jobTitle_rodit;
-  const executorJobTitleimen = currentOurFirm.jobTitle;
-  const executorFIORodit = `${currentOurFirm.lastName_rodit} ${currentOurFirm.firstName_rodit} ${currentOurFirm.patronymic_rodit}`;
+  const executorName = currentOurFirm?.clientShortName;
+  const executorJobTitleRod = currentOurFirm?.jobTitle_rodit;
+  const executorJobTitleimen = currentOurFirm?.jobTitle;
+  const executorFIORodit = `${currentOurFirm?.lastName_rodit} ${currentOurFirm?.firstName_rodit} ${currentOurFirm?.patronymic_rodit}`;
   const executorFIOImen = `${
-    currentOurFirm.firstName_imen
-  } ${currentOurFirm.lastName_imen?.toLocaleUpperCase()}`;
-  const executorActsOn = currentOurFirm.whichActsOnTheBasis;
+    currentOurFirm?.firstName_imen
+  } ${currentOurFirm?.lastName_imen?.toLocaleUpperCase()}`;
+  const executorActsOn = currentOurFirm?.whichActsOnTheBasis;
   //@ts-ignore
-  const executorTaxationType = currentOurFirm.taxationType?.taxationTypeName;
+  const executorTaxationType = currentOurFirm?.taxationType?.taxationTypeName;
 
-  const executorIBAN = currentOurFirm.iban;
-  const executorEDRPO = `ЄДРПОУ: ${currentOurFirm.edrpou}`;
+  const executorIBAN = currentOurFirm?.iban;
+  const executorEDRPO = `ЄДРПОУ: ${currentOurFirm?.edrpou}`;
 
   //@ts-ignore
   const executorTypeLong = currentOurFirm?.firmType?.firmTypeLongName;
@@ -88,7 +88,6 @@ export default function BudjetJkhContractPrint({
   }`;
   return (
     <div className={classes.page} id='page'>
-      <div id='pageFooter'> </div>
       <TableContainer id='table-jkh-budjet-header' sx={{ marginBottom: 2 }}>
         <Table
           padding='none'
