@@ -134,6 +134,14 @@
   .tehnadzor-akt-text {
     font-size: 1rem;
   }
+  .calendarn-grafik-text {
+    font-size: 1rem;
+  }
+  .calendarn-grafik-vertical-text {
+    font-size: 1rem;
+    transform: rotate(-90deg);
+    margin-bottom: -7mm;
+  }
   .tehnadzor-akt-caption {
     font-size: 0.5rem;
   }
@@ -282,6 +290,13 @@
     }
     .tehnadzor-akt-caption {
       font-size: 0.5rem;
+    }
+    .calendarn-grafik-text {
+      font-size: 1rem;
+    }
+    .calendarn-grafik-vertical-text {
+      font-size: 1rem;
+      transform: rotate(-90deg);
     }
     table.table-main {
       td,
