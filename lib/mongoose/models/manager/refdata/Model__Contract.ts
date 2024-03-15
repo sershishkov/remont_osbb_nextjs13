@@ -198,6 +198,12 @@ const contract__Schema = new Schema<I_Contract>(
     endWorkRemservis: {
       type: Date,
     },
+    remsCalendarGrafikUnit: {
+      type: String,
+    },
+    remsCalendarGrafikAmount: {
+      type: String,
+    },
 
     isMeasured: {
       type: Boolean,

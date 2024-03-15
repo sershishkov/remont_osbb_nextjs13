@@ -108,6 +108,8 @@ const initState = {
   whereWirkIsPerfomed: `в під'їзді`,
 
   endWorkRemservis: '',
+  remsCalendarGrafikUnit: '',
+  remsCalendarGrafikAmount: '0',
 };
 
 export interface ILocalParticipant {
@@ -222,6 +224,8 @@ export default function ContractAddEdit({
     whereWirkIsPerfomed,
 
     endWorkRemservis,
+    remsCalendarGrafikUnit,
+    remsCalendarGrafikAmount,
   } = formData;
 
   const {
@@ -409,6 +413,8 @@ export default function ContractAddEdit({
             responsibleManager: item.responsibleManager._id.toString(),
             //@ts-ignore
             responsibleWorker: item.responsibleWorker._id.toString(),
+            remsCalendarGrafikUnit: item.remsCalendarGrafikUnit ?? ``,
+            remsCalendarGrafikAmount: item.remsCalendarGrafikAmount ?? `0`,
           }));
 
           setContractStages({
@@ -612,6 +618,8 @@ export default function ContractAddEdit({
       kodDkBudjet,
 
       endWorkRemservis,
+      remsCalendarGrafikUnit,
+      remsCalendarGrafikAmount,
 
       isMeasured,
       isEstimateCalculated,
@@ -2053,6 +2061,21 @@ export default function ContractAddEdit({
                               Авт
                             </Button>
                           </Grid>
+                          {!calendGrafikId && (
+                            <Grid item sx={{ width: 25 }}>
+                              <IconButton
+                                component={Link}
+                                sx={{
+                                  color: red[500],
+                                  padding: 0,
+                                  // marginLeft: -1,
+                                }}
+                                href={`/manager/documents/calendarn-grafik/add`}
+                              >
+                                <AddCircleOutlineIcon />
+                              </IconButton>
+                            </Grid>
+                          )}
                           <Grid item>
                             <Button
                               disabled={!id}
@@ -2066,6 +2089,74 @@ export default function ContractAddEdit({
                             >
                               Произв
                             </Button>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                      <Grid
+                        item
+                        mt={1}
+                        sx={{ width: '100%', border: '1px solid grey' }}
+                      >
+                        <Grid
+                          container
+                          direction={`row`}
+                          justifyContent={`space-between`}
+                          alignItems={`center`}
+                        >
+                          <Grid item>
+                            <Button
+                              disabled={
+                                remsCalendarGrafikUnit === '' ||
+                                remsCalendarGrafikAmount === '0'
+                              }
+                              startIcon={<PrintIcon />}
+                              component={Link}
+                              href={`/manager/documents/calendarn-grafik/print/${calendGrafikId}`}
+                              fullWidth
+                              size='small'
+                              color='success'
+                              variant='contained'
+                            >
+                              КалендГр
+                            </Button>
+                          </Grid>
+                          <Grid item sx={{ width: 120 }}>
+                            <TextField
+                              margin='normal'
+                              size='small'
+                              required
+                              fullWidth
+                              name='remsCalendarGrafikUnit'
+                              label='Ед.изм'
+                              type='text'
+                              id='remsCalendarGrafikUnit'
+                              value={remsCalendarGrafikUnit ?? ''}
+                              onChange={onChange}
+                              sx={{
+                                input: {
+                                  fontSize: '.8rem',
+                                },
+                              }}
+                            />
+                          </Grid>
+                          <Grid item sx={{ width: 120 }}>
+                            <TextField
+                              margin='normal'
+                              size='small'
+                              required
+                              fullWidth
+                              name='remsCalendarGrafikAmount'
+                              label='Кол-во'
+                              type='number'
+                              id='remsCalendarGrafikAmount'
+                              value={remsCalendarGrafikAmount ?? ''}
+                              onChange={onChange}
+                              sx={{
+                                input: {
+                                  fontSize: '.8rem',
+                                },
+                              }}
+                            />
                           </Grid>
                         </Grid>
                       </Grid>

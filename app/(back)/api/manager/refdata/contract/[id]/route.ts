@@ -152,6 +152,8 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
     kodDkBudjet,
 
     endWorkRemservis,
+    remsCalendarGrafikUnit,
+    remsCalendarGrafikAmount,
 
     isMeasured,
     isEstimateCalculated,
@@ -226,6 +228,8 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
       kodDkBudjet,
 
       endWorkRemservis,
+      remsCalendarGrafikUnit,
+      remsCalendarGrafikAmount,
 
       isMeasured,
       isEstimateCalculated,

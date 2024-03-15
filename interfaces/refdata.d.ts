@@ -251,6 +251,8 @@ export interface I_Contract {
   kodDkBudjet: string;
 
   endWorkRemservis: Date;
+  remsCalendarGrafikUnit: string;
+  remsCalendarGrafikAmount: string;
 
   isMeasured: boolean;
   isEstimateCalculated: boolean;
