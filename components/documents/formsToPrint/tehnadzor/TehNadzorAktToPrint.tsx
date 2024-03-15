@@ -495,7 +495,7 @@ export default function TehNadzorAktToPrint({
                 </Grid>
               </TableCell>
               <TableCell>
-                <Grid container direction={`row`}>
+                <Grid container direction={`row`} mt={2}>
                   <Grid
                     item
                     sx={{ flex: 1, borderBottom: '1px solid black' }}
