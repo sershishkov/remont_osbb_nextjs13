@@ -2124,7 +2124,7 @@ export default function ContractAddEdit({
                             <TextField
                               margin='normal'
                               size='small'
-                              required
+                              // required
                               fullWidth
                               name='remsCalendarGrafikUnit'
                               label='Ед.изм'
@@ -2143,7 +2143,7 @@ export default function ContractAddEdit({
                             <TextField
                               margin='normal'
                               size='small'
-                              required
+                              // required
                               fullWidth
                               name='remsCalendarGrafikAmount'
                               label='Кол-во'
