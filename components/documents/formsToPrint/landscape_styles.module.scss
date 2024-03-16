@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Gupter:wght@400;500;700&family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+.page-landscape {
+  width: 296mm;
+  min-height: 200mm;
+  padding: 5mm 10mm 5mm 10mm;
+  background-color: white;
+  font-family: 'Tinos', serif;
+  font-weight: 400;
+  font-style: normal;
+
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  ul,
+  ol,
+  button {
+    color: black;
+    font-family: 'Tinos', serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  strong {
+    color: red;
+  }
+
+  .jkh-plan-finans-chapter {
+    font-weight: 900;
+    font-size: 1rem;
+  }
+
+  .jkh-plan-finans-text {
+    font-size: 0.85rem;
+  }
+
+  .jkh-plan-finans-month {
+    font-size: 0.7rem;
+  }
+
+  tbody.table-main {
+    td,
+    th {
+      border: 1px solid gray;
+    }
+  }
+}
+
+@page {
+  size: A4 landscape;
+}
+@page :first {
+  margin-top: 0;
+}
+
+@media print {
+  .page-landscape {
+    width: 296mm;
+    min-height: 200mm;
+    padding: 5mm 10mm 5mm 10mm;
+    background-color: white;
+    p,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    ul,
+    ol,
+    button {
+      color: black;
+      font-family: 'Tinos', serif;
+      font-weight: 400;
+      font-style: normal;
+    }
+    strong {
+      color: black;
+    }
+    .jkh-plan-finans-chapter {
+      font-weight: 900;
+      font-size: 1rem;
+    }
+
+    .jkh-plan-finans-text {
+      font-size: 0.85rem;
+    }
+
+    .jkh-plan-finans-month {
+      font-size: 0.7rem;
+    }
+    table.table-main {
+      td,
+      th {
+        border: 1px solid black;
+      }
+    }
+  }
+}

@@ -25,7 +25,7 @@ export default function JkhNakazOsbbToPrint({
     year: 'numeric',
   });
 
-  const totalSum = currentContract?.dogovornayaSumBudjet;
+  const totalSum = currentContract?.zvedeniySumBudjet;
 
   const totalSumPropis = FloatToSamplesInWordsUkr(totalSum);
 
