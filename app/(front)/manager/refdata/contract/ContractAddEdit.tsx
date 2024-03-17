@@ -1886,7 +1886,7 @@ export default function ContractAddEdit({
                               disabled={!remsNaklId}
                               startIcon={<PrintIcon />}
                               component={Link}
-                              href={`/manager/documents/nakl-rems/print/nakl1/${remsNaklId}`}
+                              href={`/manager/documents/nakl-rems/print/${remsNaklId}?mode=percent1`}
                               fullWidth
                               size='small'
                               color='success'
@@ -2342,7 +2342,7 @@ export default function ContractAddEdit({
                               disabled={!remsNaklId}
                               startIcon={<PrintIcon />}
                               component={Link}
-                              href={`/manager/documents/nakl-rems/print/nakl1/${remsNaklId}`}
+                              href={`/manager/documents/nakl-rems/print/${remsNaklId}?mode=percent1`}
                               fullWidth
                               size='small'
                               color='success'
@@ -2644,7 +2644,7 @@ export default function ContractAddEdit({
                       disabled={!remsNaklId}
                       startIcon={<PrintIcon />}
                       component={Link}
-                      href={`/manager/documents/nakl-rems/print/nakl1/${remsNaklId}`}
+                      href={`/manager/documents/nakl-rems/print/${remsNaklId}?mode=percent1`}
                       fullWidth
                       size='small'
                       color='success'
@@ -2658,7 +2658,7 @@ export default function ContractAddEdit({
                       disabled={!remsNaklId}
                       startIcon={<PrintIcon />}
                       component={Link}
-                      href={`/manager/documents/nakl-rems/print/nakl2/${remsNaklId}`}
+                      href={`/manager/documents/nakl-rems/print/${remsNaklId}?mode=percent2`}
                       fullWidth
                       size='small'
                       color='success'
@@ -2672,7 +2672,7 @@ export default function ContractAddEdit({
                       disabled={!remsNaklId}
                       startIcon={<PrintIcon />}
                       component={Link}
-                      href={`/manager/documents/nakl-rems/print/nakl1/${remsNaklId}`}
+                      href={`/manager/documents/nakl-rems/print/${remsNaklId}?mode=percent3`}
                       fullWidth
                       size='small'
                       color='success'

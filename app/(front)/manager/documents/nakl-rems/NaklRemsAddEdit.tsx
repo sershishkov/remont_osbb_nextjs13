@@ -461,7 +461,7 @@ function NaklRemsAddEdit({
             <Button
               startIcon={<PrintIcon />}
               component={Link}
-              href={`${currentURL}/print/${id}`}
+              href={`${currentURL}/print/${id}?mode=percent1`}
               fullWidth
               size='small'
               color='success'

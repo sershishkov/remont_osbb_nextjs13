@@ -8,6 +8,7 @@ import Model__Client from '@/lib/mongoose/models/manager/refdata/Model__Client';
 
 import Model__Product from '@/lib/mongoose/models/manager/refdata/Model__Product';
 import Model__Unit from '@/lib/mongoose/models/manager/refdata/Model__Unit';
+import Model__FirmType from '@/lib/mongoose/models/accountant/refData/Model__FirmType';
 
 import { connectToDB } from '@/lib/mongoose/connectToDB';
 
@@ -217,11 +218,25 @@ export const GET = async (request: NextRequest) => {
             path: 'ourFirm',
             model: Model__Client,
             // select: 'clientShortName',
+            populate: [
+              {
+                path: 'firmType',
+                model: Model__FirmType,
+                select: 'firmTypeShortName',
+              },
+            ],
           },
           {
             path: 'client',
             model: Model__Client,
             // select: 'clientShortName',
+            populate: [
+              {
+                path: 'firmType',
+                model: Model__FirmType,
+                select: 'firmTypeShortName',
+              },
+            ],
           },
         ],
       })
@@ -240,14 +255,57 @@ export const GET = async (request: NextRequest) => {
       .populate({
         path: 'executorFirm1',
         model: Model__Client,
+        populate: [
+          {
+            path: 'firmType',
+            model: Model__FirmType,
+            select: 'firmTypeShortName',
+          },
+        ],
       })
       .populate({
         path: 'executorFirm2',
         model: Model__Client,
+        populate: [
+          {
+            path: 'firmType',
+            model: Model__FirmType,
+            select: 'firmTypeShortName',
+          },
+        ],
       })
       .populate({
         path: 'executorFirm3',
         model: Model__Client,
+        populate: [
+          {
+            path: 'firmType',
+            model: Model__FirmType,
+            select: 'firmTypeShortName',
+          },
+        ],
+      })
+      .populate({
+        path: 'clientFirm',
+        model: Model__Client,
+        populate: [
+          {
+            path: 'firmType',
+            model: Model__FirmType,
+            select: 'firmTypeShortName',
+          },
+        ],
+      })
+      .populate({
+        path: 'ourFirm',
+        model: Model__Client,
+        populate: [
+          {
+            path: 'firmType',
+            model: Model__FirmType,
+            select: 'firmTypeShortName',
+          },
+        ],
       });
 
     if (!all__ITEMS) {
