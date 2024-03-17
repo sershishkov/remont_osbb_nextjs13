@@ -9,6 +9,7 @@ import Model__Client from '@/lib/mongoose/models/manager/refdata/Model__Client';
 import Model__Product from '@/lib/mongoose/models/manager/refdata/Model__Product';
 import Model__Unit from '@/lib/mongoose/models/manager/refdata/Model__Unit';
 import Model__FirmType from '@/lib/mongoose/models/accountant/refData/Model__FirmType';
+import Model__TaxationType from '@/lib/mongoose/models/accountant/refData/Model__TaxationType';
 
 import { connectToDB } from '@/lib/mongoose/connectToDB';
 
@@ -261,6 +262,11 @@ export const GET = async (request: NextRequest) => {
             model: Model__FirmType,
             select: 'firmTypeShortName',
           },
+          {
+            path: 'taxationType',
+            model: Model__TaxationType,
+            select: 'taxationTypeName',
+          },
         ],
       })
       .populate({
@@ -272,6 +278,11 @@ export const GET = async (request: NextRequest) => {
             model: Model__FirmType,
             select: 'firmTypeShortName',
           },
+          {
+            path: 'taxationType',
+            model: Model__TaxationType,
+            select: 'taxationTypeName',
+          },
         ],
       })
       .populate({
@@ -282,6 +293,11 @@ export const GET = async (request: NextRequest) => {
             path: 'firmType',
             model: Model__FirmType,
             select: 'firmTypeShortName',
+          },
+          {
+            path: 'taxationType',
+            model: Model__TaxationType,
+            select: 'taxationTypeName',
           },
         ],
       })
