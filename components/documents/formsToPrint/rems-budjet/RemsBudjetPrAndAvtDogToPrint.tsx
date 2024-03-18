@@ -896,7 +896,7 @@ export default function RemsBudjetPrAndAvtDogToPrint({
             }}
           >
             <TableRow>
-              <TableCell>
+              <TableCell sx={{ width: '50%' }}>
                 <Typography
                   variant='body2'
                   className={classes['rems-budjet-pr-avt-dog-text']}
@@ -905,7 +905,7 @@ export default function RemsBudjetPrAndAvtDogToPrint({
                   ЗАМОВНИК
                 </Typography>
               </TableCell>
-              <TableCell>
+              <TableCell sx={{ width: '50%' }}>
                 <Typography
                   variant='body2'
                   className={classes['rems-budjet-pr-avt-dog-text']}
