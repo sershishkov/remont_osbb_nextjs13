@@ -1964,7 +1964,7 @@ export default function ContractAddEdit({
                               disabled={!id}
                               startIcon={<PrintIcon />}
                               component={Link}
-                              href={`${currentURL}/print/rems-budjet-proectn-koshtoris/${id}`}
+                              href={`${currentURL}/print/rems-budjet-proectn-koshtoris/${id}?mode=project`}
                               fullWidth
                               size='small'
                               color='success'
@@ -1978,7 +1978,7 @@ export default function ContractAddEdit({
                               disabled={!id}
                               startIcon={<PrintIcon />}
                               component={Link}
-                              href={`${currentURL}/print/rems-budjet-avtorsk-koshtoris/${id}`}
+                              href={`${currentURL}/print/rems-budjet-proectn-koshtoris/${id}?mode=avt`}
                               fullWidth
                               size='small'
                               color='success'
