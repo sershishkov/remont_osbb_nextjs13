@@ -15,22 +15,22 @@ export default function JkhPlanFinansPrint({ params }: Readonly<paramsProps>) {
   useLayoutEffect(() => {
     if (id) {
       const myGetOne = async () => {
-        const currentContract = await item__get_one(
+        const localContract = await item__get_one(
           { _id: id },
           '/manager/refdata/contract'
         );
         const localClient = await item__get_one(
           //@ts-ignore
-          { _id: currentContract?.client._id },
+          { _id: localContract?.client._id },
           '/manager/refdata/client'
         );
         const localExecutor = await item__get_one(
           //@ts-ignore
-          { _id: currentContract?.ourFirm._id },
+          { _id: localContract?.ourFirm._id },
           '/manager/refdata/client'
         );
 
-        setCurrentContract(currentContract);
+        setCurrentContract(localContract);
         setCurrentClient(localClient);
         setCurrentExecutor(localExecutor);
       };

@@ -14,17 +14,17 @@ export default function TehNadzorAktPrint({ params }: Readonly<paramsProps>) {
   useLayoutEffect(() => {
     if (id) {
       const myGetOne = async () => {
-        const currentContract = await item__get_one(
+        const localContract = await item__get_one(
           { _id: id },
           '/manager/refdata/contract'
         );
         const localClient = await item__get_one(
           //@ts-ignore
-          { _id: currentContract?.client._id },
+          { _id: localContract?.client._id },
           '/manager/refdata/client'
         );
 
-        setCurrentContract(currentContract);
+        setCurrentContract(localContract);
         setCurrentClient(localClient);
       };
       myGetOne();

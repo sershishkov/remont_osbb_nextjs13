@@ -17,12 +17,12 @@ export default function RemsBudjetProectnKoshtorisPrint({
   useLayoutEffect(() => {
     if (id) {
       const myGetOne = async () => {
-        const currentContract = await item__get_one(
+        const localContract = await item__get_one(
           { _id: id },
           '/manager/refdata/contract'
         );
 
-        setCurrentContract(currentContract);
+        setCurrentContract(localContract);
       };
       myGetOne();
     }

@@ -40,20 +40,20 @@ export default function KoshtorisPrint({ params }: Readonly<paramsProps>) {
   useEffect(() => {
     if (id) {
       const myGetOne = async () => {
-        const currentContract: I_Contract = await item__get_one(
+        const localContract: I_Contract = await item__get_one(
           { _id: id },
           currentURL
         );
 
-        const currentOurFirm: I_Client = await item__get_one(
+        const localOurFirm: I_Client = await item__get_one(
           //@ts-ignore
-          { _id: currentContract.ourFirm._id },
+          { _id: localContract.ourFirm._id },
           '/manager/refdata/client'
         );
 
-        const currentClient: I_Client = await item__get_one(
+        const localClient: I_Client = await item__get_one(
           //@ts-ignore
-          { _id: currentContract.client._id },
+          { _id: localContract.client._id },
           '/manager/refdata/client'
         );
         const localArrOfRelNakl = await get__all(
@@ -61,7 +61,7 @@ export default function KoshtorisPrint({ params }: Readonly<paramsProps>) {
             page: '0',
             limit: '0',
             filter: '',
-            contract: currentContract._id,
+            contract: id,
           },
           `/manager/documents/nakladnaya`
         );
@@ -70,16 +70,16 @@ export default function KoshtorisPrint({ params }: Readonly<paramsProps>) {
             page: '0',
             limit: '0',
             filter: '',
-            contract: currentContract._id,
+            contract: id,
           },
           `/manager/documents/akt-of-work`
         );
 
         const currentNakl: I_DocumentNakladnaya = localArrOfRelNakl?.items[0];
         const currentAkt: I_DocumentAktOfWork = localArrOfRelAkt?.items[0];
-        setCurrentOurFirm(currentOurFirm);
-        setCurrentClient(currentClient);
-        setCurrentContract(currentContract);
+        setCurrentOurFirm(localOurFirm);
+        setCurrentClient(localClient);
+        setCurrentContract(localContract);
 
         const tempNaklSum = currentNakl?.totalNaklSum
           ? Number(currentNakl?.totalNaklSum)
