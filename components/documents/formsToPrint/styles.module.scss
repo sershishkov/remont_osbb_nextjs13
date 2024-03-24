@@ -211,6 +211,10 @@
     height: 1.25rem;
     color: transparent;
   }
+  .rems-budj-jurnal-avt-vertical {
+    font-size: 1rem;
+    transform: rotate(-90deg);
+  }
   .rems-budj-jurnal-avt-main {
     font-size: 1rem;
   }
@@ -219,11 +223,22 @@
     color: transparent;
     border-bottom: 1px solid black;
   }
-  .rems-budj-jurnal-avt-vertical {
-    font-size: 1rem;
-    transform: rotate(-90deg);
-  }
+
   .rems-budj-jurnal-avt-empty {
+    height: 1.25rem;
+    color: transparent;
+  }
+
+  .rems-budj-nakaz-gip-main {
+    font-size: 1rem;
+  }
+  .rems-budj-nakaz-gip-hr {
+    height: 1.25rem;
+    color: transparent;
+    border-bottom: 1px solid black;
+  }
+
+  .rems-budj-nakaz-gip-empty {
     height: 1.25rem;
     color: transparent;
   }
@@ -459,6 +474,19 @@
       transform: rotate(-90deg);
     }
     .rems-budj-jurnal-avt-empty {
+      height: 1.25rem;
+      color: transparent;
+    }
+    .rems-budj-nakaz-gip-main {
+      font-size: 1rem;
+    }
+    .rems-budj-nakaz-gip-hr {
+      height: 1.25rem;
+      color: transparent;
+      border-bottom: 1px solid black;
+    }
+
+    .rems-budj-nakaz-gip-empty {
       height: 1.25rem;
       color: transparent;
     }
