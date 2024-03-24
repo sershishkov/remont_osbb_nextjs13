@@ -56,6 +56,9 @@ export const POST = async (request: NextRequest) => {
 
     salaryMin,
     salaryLevel_3_8,
+    planPributokSum,
+    adminVytratySum,
+    salaryOneDaySum,
     lifeTime,
     whereWirkIsPerfomed,
     servWorkShortForJournal,
@@ -167,6 +170,9 @@ export const POST = async (request: NextRequest) => {
 
       salaryMin,
       salaryLevel_3_8,
+      planPributokSum,
+      adminVytratySum,
+      salaryOneDaySum,
       lifeTime,
       whereWirkIsPerfomed,
       servWorkShortForJournal,

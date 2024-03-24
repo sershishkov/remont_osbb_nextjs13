@@ -104,6 +104,9 @@ const initState = {
 
   salaryMin: '6700',
   salaryLevel_3_8: '14627',
+  planPributokSum: '7.65',
+  adminVytratySum: '3.89',
+  salaryOneDaySum: '1780',
   lifeTime: '100',
   whereWirkIsPerfomed: `в під'їзді`,
   servWorkShortForJournal: ``,
@@ -221,6 +224,9 @@ export default function ContractAddEdit({
 
     salaryMin,
     salaryLevel_3_8,
+    planPributokSum,
+    adminVytratySum,
+    salaryOneDaySum,
     lifeTime,
     whereWirkIsPerfomed,
     servWorkShortForJournal,
@@ -392,6 +398,9 @@ export default function ContractAddEdit({
 
             salaryMin: item.salaryMin?.toFixed(2) ?? '6700',
             salaryLevel_3_8: item.salaryLevel_3_8?.toFixed(2) ?? '14627',
+            planPributokSum: item.planPributokSum?.toFixed(2) ?? '7.65',
+            adminVytratySum: item.adminVytratySum?.toFixed(2) ?? '3.89',
+            salaryOneDaySum: item.salaryOneDaySum?.toFixed(2) ?? '1780',
             lifeTime: item.lifeTime?.toFixed(2) ?? '100',
             whereWirkIsPerfomed: item.whereWirkIsPerfomed ?? `в під'їзді`,
             servWorkShortForJournal: item.servWorkShortForJournal ?? `?????`,
@@ -612,6 +621,9 @@ export default function ContractAddEdit({
 
       salaryMin: Number(salaryMin),
       salaryLevel_3_8: Number(salaryLevel_3_8),
+      planPributokSum: Number(planPributokSum),
+      adminVytratySum: Number(adminVytratySum),
+      salaryOneDaySum: Number(salaryOneDaySum),
       lifeTime: Number(lifeTime),
       whereWirkIsPerfomed: whereWirkIsPerfomed,
       servWorkShortForJournal: servWorkShortForJournal,
@@ -2489,6 +2501,48 @@ export default function ContractAddEdit({
                               type='number'
                               id='salaryLevel_3_8'
                               value={salaryLevel_3_8 ?? ''}
+                              onChange={onChange}
+                            />
+                          </Grid>
+                          <Grid item sx={{ width: 150 }}>
+                            <TextField
+                              margin='normal'
+                              size='small'
+                              required
+                              fullWidth
+                              name='planPributokSum'
+                              label='ПланирПрибут'
+                              type='number'
+                              id='planPributokSum'
+                              value={planPributokSum ?? ''}
+                              onChange={onChange}
+                            />
+                          </Grid>
+                          <Grid item sx={{ width: 150 }}>
+                            <TextField
+                              margin='normal'
+                              size='small'
+                              required
+                              fullWidth
+                              name='adminVytratySum'
+                              label='АдминЗатраты'
+                              type='number'
+                              id='adminVytratySum'
+                              value={adminVytratySum ?? ''}
+                              onChange={onChange}
+                            />
+                          </Grid>
+                          <Grid item sx={{ width: 150 }}>
+                            <TextField
+                              margin='normal'
+                              size='small'
+                              required
+                              fullWidth
+                              name='salaryOneDaySum'
+                              label='ЗП 1 день'
+                              type='number'
+                              id='salaryOneDaySum'
+                              value={salaryOneDaySum ?? ''}
                               onChange={onChange}
                             />
                           </Grid>

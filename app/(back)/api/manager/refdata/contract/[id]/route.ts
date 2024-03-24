@@ -143,6 +143,9 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
 
     salaryMin,
     salaryLevel_3_8,
+    planPributokSum,
+    adminVytratySum,
+    salaryOneDaySum,
     lifeTime,
     whereWirkIsPerfomed,
     servWorkShortForJournal,
@@ -220,6 +223,9 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
 
       salaryMin,
       salaryLevel_3_8,
+      planPributokSum,
+      adminVytratySum,
+      salaryOneDaySum,
       lifeTime,
       whereWirkIsPerfomed,
       servWorkShortForJournal,

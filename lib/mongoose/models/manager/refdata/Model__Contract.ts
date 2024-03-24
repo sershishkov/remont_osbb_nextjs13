@@ -145,6 +145,15 @@ const contract__Schema = new Schema<I_Contract>(
     salaryLevel_3_8: {
       type: Number,
     },
+    planPributokSum: {
+      type: Number,
+    },
+    adminVytratySum: {
+      type: Number,
+    },
+    salaryOneDaySum: {
+      type: Number,
+    },
     lifeTime: {
       type: Number,
     },

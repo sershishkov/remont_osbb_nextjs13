@@ -242,6 +242,9 @@ export interface I_Contract {
 
   salaryMin: number;
   salaryLevel_3_8: number;
+  planPributokSum: number;
+  adminVytratySum: number;
+  salaryOneDaySum: number;
   lifeTime: number;
   whereWirkIsPerfomed: string; //Где производятся работы? Подъезд, подвал, крыша
   servWorkShortForJournal: string; //заміні вікон, ремонт цоколя, ремонт кровли....
