@@ -253,6 +253,21 @@
     height: 1.25rem;
     color: transparent;
   }
+  .rems-budj-cc1-main {
+    font-size: 0.95rem;
+  }
+  .rems-budj-cc1-chapter {
+    font-weight: 900;
+    font-size: 0.95rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    text-decoration: underline;
+  }
+  .rems-budj-cc1-indent {
+    font-size: 0.95rem;
+    text-indent: 2rem;
+  }
   tbody.table-main {
     td,
     th {
@@ -507,6 +522,25 @@
     }
     .rems-budj-zavdannya-main {
       font-size: 1rem;
+    }
+    .rems-budj-zavdannya-empty {
+      height: 1.25rem;
+      color: transparent;
+    }
+    .rems-budj-cc1-main {
+      font-size: 0.95rem;
+    }
+    .rems-budj-cc1-chapter {
+      font-weight: 900;
+      font-size: 0.95rem;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      text-align: center;
+      text-decoration: underline;
+    }
+    .rems-budj-cc1-indent {
+      font-size: 0.95rem;
+      text-indent: 2rem;
     }
     table.table-main {
       td,
