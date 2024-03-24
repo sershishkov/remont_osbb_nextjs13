@@ -58,6 +58,7 @@ export const POST = async (request: NextRequest) => {
     salaryLevel_3_8,
     lifeTime,
     whereWirkIsPerfomed,
+    servWorkShortForJournal,
 
     paymentSourceProectnAvt,
     startMonthWorkBudjet,
@@ -168,6 +169,7 @@ export const POST = async (request: NextRequest) => {
       salaryLevel_3_8,
       lifeTime,
       whereWirkIsPerfomed,
+      servWorkShortForJournal,
 
       paymentSourceProectnAvt,
       startMonthWorkBudjet,

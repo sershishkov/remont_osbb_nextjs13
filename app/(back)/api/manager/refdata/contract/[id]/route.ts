@@ -145,6 +145,7 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
     salaryLevel_3_8,
     lifeTime,
     whereWirkIsPerfomed,
+    servWorkShortForJournal,
 
     paymentSourceProectnAvt,
     startMonthWorkBudjet,
@@ -221,6 +222,7 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
       salaryLevel_3_8,
       lifeTime,
       whereWirkIsPerfomed,
+      servWorkShortForJournal,
 
       paymentSourceProectnAvt,
       startMonthWorkBudjet,

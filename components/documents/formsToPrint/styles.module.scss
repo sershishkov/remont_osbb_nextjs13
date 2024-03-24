@@ -211,6 +211,22 @@
     height: 1.25rem;
     color: transparent;
   }
+  .rems-budj-jurnal-avt-main {
+    font-size: 1rem;
+  }
+  .rems-budj-jurnal-avt-hr {
+    height: 1.25rem;
+    color: transparent;
+    border-bottom: 1px solid black;
+  }
+  .rems-budj-jurnal-avt-vertical {
+    font-size: 1rem;
+    transform: rotate(-90deg);
+  }
+  .rems-budj-jurnal-avt-empty {
+    height: 1.25rem;
+    color: transparent;
+  }
   tbody.table-main {
     td,
     th {
@@ -427,6 +443,22 @@
       border-bottom: 1px solid black;
     }
     .rems-budj-jurnal-rabot-empty-row {
+      height: 1.25rem;
+      color: transparent;
+    }
+    .rems-budj-jurnal-avt-main {
+      font-size: 1rem;
+    }
+    .rems-budj-jurnal-avt-hr {
+      height: 1.25rem;
+      color: transparent;
+      border-bottom: 1px solid black;
+    }
+    .rems-budj-jurnal-avt-vertical {
+      font-size: 1rem;
+      transform: rotate(-90deg);
+    }
+    .rems-budj-jurnal-avt-empty {
       height: 1.25rem;
       color: transparent;
     }

@@ -106,6 +106,7 @@ const initState = {
   salaryLevel_3_8: '14627',
   lifeTime: '100',
   whereWirkIsPerfomed: `в під'їзді`,
+  servWorkShortForJournal: ``,
 
   endWorkRemservis: '',
   remsCalendarGrafikUnit: '',
@@ -222,6 +223,7 @@ export default function ContractAddEdit({
     salaryLevel_3_8,
     lifeTime,
     whereWirkIsPerfomed,
+    servWorkShortForJournal,
 
     endWorkRemservis,
     remsCalendarGrafikUnit,
@@ -392,6 +394,7 @@ export default function ContractAddEdit({
             salaryLevel_3_8: item.salaryLevel_3_8?.toFixed(2) ?? '14627',
             lifeTime: item.lifeTime?.toFixed(2) ?? '100',
             whereWirkIsPerfomed: item.whereWirkIsPerfomed ?? `в під'їзді`,
+            servWorkShortForJournal: item.servWorkShortForJournal ?? `?????`,
 
             paymentSourceProectnAvt: item.paymentSourceProectnAvt ?? 'собств',
             startMonthWorkBudjet:
@@ -611,6 +614,7 @@ export default function ContractAddEdit({
       salaryLevel_3_8: Number(salaryLevel_3_8),
       lifeTime: Number(lifeTime),
       whereWirkIsPerfomed: whereWirkIsPerfomed,
+      servWorkShortForJournal: servWorkShortForJournal,
 
       paymentSourceProectnAvt,
       startMonthWorkBudjet,
@@ -2527,6 +2531,21 @@ export default function ContractAddEdit({
                               type='text'
                               id='whereWirkIsPerfomed'
                               value={whereWirkIsPerfomed ?? ''}
+                              onChange={onChange}
+                            />
+                          </Grid>
+                          <Grid item sx={{ width: 150 }}>
+                            <TextField
+                              multiline
+                              margin='normal'
+                              size='small'
+                              required
+                              fullWidth
+                              name='servWorkShortForJournal'
+                              label='Работа сокращ?'
+                              type='text'
+                              id='servWorkShortForJournal'
+                              value={servWorkShortForJournal ?? '?????'}
                               onChange={onChange}
                             />
                           </Grid>

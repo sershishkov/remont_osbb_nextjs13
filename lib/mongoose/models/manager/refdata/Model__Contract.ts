@@ -151,6 +151,9 @@ const contract__Schema = new Schema<I_Contract>(
     whereWirkIsPerfomed: {
       type: String,
     },
+    servWorkShortForJournal: {
+      type: String,
+    },
 
     paymentSourceProectnAvt: {
       type: String,

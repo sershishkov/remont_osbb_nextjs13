@@ -244,6 +244,7 @@ export interface I_Contract {
   salaryLevel_3_8: number;
   lifeTime: number;
   whereWirkIsPerfomed: string; //Где производятся работы? Подъезд, подвал, крыша
+  servWorkShortForJournal: string; //заміні вікон, ремонт цоколя, ремонт кровли....
 
   paymentSourceProectnAvt: string; //собств, бюджет
   startMonthWorkBudjet: string; //["січень","лютий","березень","квітень","травень","червень","липень","серпень","вересень","жовтень","листопад","грудень"]
