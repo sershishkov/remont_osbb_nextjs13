@@ -242,6 +242,10 @@
     height: 1.25rem;
     color: transparent;
   }
+  .rems-budj-nakaz-gip-indent {
+    font-size: 1rem;
+    text-indent: 2rem;
+  }
   tbody.table-main {
     td,
     th {
@@ -489,6 +493,10 @@
     .rems-budj-nakaz-gip-empty {
       height: 1.25rem;
       color: transparent;
+    }
+    .rems-budj-nakaz-gip-indent {
+      font-size: 1rem;
+      text-indent: 2rem;
     }
     table.table-main {
       td,
