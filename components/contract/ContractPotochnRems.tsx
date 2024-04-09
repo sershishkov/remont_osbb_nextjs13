@@ -180,6 +180,55 @@ export default function ContractPotochnRems({
               Счет
             </Button>
           </Grid>
+        </Grid>
+      </Grid>
+      <Grid item mt={1} sx={{ width: '100%', border: '1px solid grey' }}>
+        <Grid
+          container
+          direction={`column`}
+          justifyContent={`flex-start`}
+          alignItems={`center`}
+        >
+          <Grid item sx={{ width: '100%' }}>
+            <TextField
+              margin='normal'
+              size='small'
+              multiline
+              // required
+              fullWidth
+              name='remsAktSkrytRabotWork'
+              label='Работы коротко'
+              type='text'
+              id='remsAktSkrytRabotWork'
+              value={formData.remsAktSkrytRabotWork ?? '?????'}
+              onChange={onChange}
+              sx={{
+                input: {
+                  fontSize: '.8rem',
+                },
+              }}
+            />
+          </Grid>
+          <Grid item sx={{ width: '100%' }}>
+            <TextField
+              margin='normal'
+              size='small'
+              multiline
+              // required
+              fullWidth
+              name='remsAktSkrytRabotMaterial'
+              label='Материалы'
+              type='text'
+              id='remsAktSkrytRabotMaterial'
+              value={formData.remsAktSkrytRabotMaterial ?? '?????'}
+              onChange={onChange}
+              sx={{
+                input: {
+                  fontSize: '.8rem',
+                },
+              }}
+            />
+          </Grid>
           <Grid item>
             <Button
               disabled={!id}
@@ -194,6 +243,15 @@ export default function ContractPotochnRems({
               Срытые
             </Button>
           </Grid>
+        </Grid>
+      </Grid>
+      <Grid item mt={1} sx={{ width: '100%', border: '1px solid grey' }}>
+        <Grid
+          container
+          direction={`row`}
+          justifyContent={`space-between`}
+          alignItems={`center`}
+        >
           <Grid item>
             <Button
               disabled={!remsAktMusorlId}

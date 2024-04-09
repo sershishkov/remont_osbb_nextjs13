@@ -159,6 +159,9 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
     remsCalendarGrafikUnit,
     remsCalendarGrafikAmount,
 
+    remsAktSkrytRabotWork,
+    remsAktSkrytRabotMaterial,
+
     isMeasured,
     isEstimateCalculated,
     isEstimateHasBeenSentToClient,
@@ -238,6 +241,9 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
       endWorkRemservis,
       remsCalendarGrafikUnit,
       remsCalendarGrafikAmount,
+
+      remsAktSkrytRabotWork,
+      remsAktSkrytRabotMaterial,
 
       isMeasured,
       isEstimateCalculated,

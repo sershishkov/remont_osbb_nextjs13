@@ -38,7 +38,7 @@ export default function ContractBudjetRems({
       >
         <Grid item sx={{ width: '100%', border: '1px solid grey' }}>
           <Typography variant='body1' align='center'>
-            Ремсервис dddd
+            Ремсервис бюджет
           </Typography>
         </Grid>
         <Grid item mt={1} sx={{ width: '100%', border: '1px solid grey' }}>

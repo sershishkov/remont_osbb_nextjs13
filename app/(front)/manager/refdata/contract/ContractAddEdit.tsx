@@ -105,6 +105,9 @@ const initState = {
   endWorkRemservis: '',
   remsCalendarGrafikUnit: '',
   remsCalendarGrafikAmount: '0',
+
+  remsAktSkrytRabotWork: '?????',
+  remsAktSkrytRabotMaterial: '?????',
 };
 
 export interface ILocalParticipant {
@@ -225,6 +228,9 @@ export default function ContractAddEdit({
     endWorkRemservis,
     remsCalendarGrafikUnit,
     remsCalendarGrafikAmount,
+
+    remsAktSkrytRabotWork,
+    remsAktSkrytRabotMaterial,
   } = formData;
 
   const {
@@ -418,6 +424,10 @@ export default function ContractAddEdit({
             responsibleWorker: item.responsibleWorker._id.toString(),
             remsCalendarGrafikUnit: item.remsCalendarGrafikUnit ?? ``,
             remsCalendarGrafikAmount: item.remsCalendarGrafikAmount ?? `0`,
+
+            remsAktSkrytRabotWork: item.remsAktSkrytRabotWork ?? `?????`,
+            remsAktSkrytRabotMaterial:
+              item.remsAktSkrytRabotMaterial ?? `?????`,
           }));
 
           setContractStages({
@@ -627,6 +637,9 @@ export default function ContractAddEdit({
       endWorkRemservis,
       remsCalendarGrafikUnit,
       remsCalendarGrafikAmount,
+
+      remsAktSkrytRabotWork,
+      remsAktSkrytRabotMaterial,
 
       isMeasured,
       isEstimateCalculated,

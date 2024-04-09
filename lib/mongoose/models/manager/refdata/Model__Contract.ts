@@ -217,6 +217,13 @@ const contract__Schema = new Schema<I_Contract>(
       type: String,
     },
 
+    remsAktSkrytRabotWork: {
+      type: String,
+    },
+    remsAktSkrytRabotMaterial: {
+      type: String,
+    },
+
     isMeasured: {
       type: Boolean,
       default: false,

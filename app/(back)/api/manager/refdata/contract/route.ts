@@ -72,6 +72,9 @@ export const POST = async (request: NextRequest) => {
     remsCalendarGrafikUnit,
     remsCalendarGrafikAmount,
 
+    remsAktSkrytRabotWork,
+    remsAktSkrytRabotMaterial,
+
     isMeasured,
     isEstimateCalculated,
     isEstimateHasBeenSentToClient,
@@ -185,6 +188,9 @@ export const POST = async (request: NextRequest) => {
       endWorkRemservis,
       remsCalendarGrafikUnit,
       remsCalendarGrafikAmount,
+
+      remsAktSkrytRabotWork,
+      remsAktSkrytRabotMaterial,
 
       isMeasured,
       isEstimateCalculated,

@@ -258,6 +258,9 @@ export interface I_Contract {
   remsCalendarGrafikUnit: string;
   remsCalendarGrafikAmount: string;
 
+  remsAktSkrytRabotWork: string;
+  remsAktSkrytRabotMaterial: string;
+
   isMeasured: boolean;
   isEstimateCalculated: boolean;
   isEstimateHasBeenSentToClient: boolean;
