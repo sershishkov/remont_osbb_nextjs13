@@ -185,12 +185,24 @@ export default function ContractBudjetRems({
                     padding: 0,
                     // marginLeft: -1,
                   }}
-                  href={`/manager/documents/calendarn-grafik/add`}
+                  href={`/manager/documents/calendarn-grafik/add/${id}`}
                 >
                   <AddCircleOutlineIcon />
                 </IconButton>
               </Grid>
             )}
+            <Grid item>
+              <Button
+                disabled={!calendGrafikId}
+                startIcon={<EditIcon />}
+                component={Link}
+                href={`/manager/documents/calendarn-grafik/${calendGrafikId}`}
+                fullWidth
+                size='small'
+                color='primary'
+                variant='contained'
+              ></Button>
+            </Grid>
             <Grid item>
               <Button
                 disabled={!id}
@@ -415,7 +427,7 @@ export default function ContractBudjetRems({
                     padding: 0,
                     marginLeft: -1,
                   }}
-                  href={`/manager/documents/nakl-rems/add`}
+                  href={`/manager/documents/nakl-rems/add/${id}`}
                 >
                   <AddCircleOutlineIcon />
                 </IconButton>

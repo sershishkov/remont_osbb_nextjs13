@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 
 import PrintIcon from '@mui/icons-material/Print';
+import EditIcon from '@mui/icons-material/Edit';
 
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { red } from '@mui/material/colors';
@@ -204,12 +205,24 @@ export default function ContractBudjetJKH({
                     padding: 0,
                     // marginLeft: -1,
                   }}
-                  href={`/manager/documents/calendarn-grafik/add`}
+                  href={`/manager/documents/calendarn-grafik/add/${id}`}
                 >
                   <AddCircleOutlineIcon />
                 </IconButton>
               </Grid>
             )}
+            <Grid item>
+              <Button
+                disabled={!calendGrafikId}
+                startIcon={<EditIcon />}
+                component={Link}
+                href={`/manager/documents/calendarn-grafik/${calendGrafikId}`}
+                fullWidth
+                size='small'
+                color='primary'
+                variant='contained'
+              ></Button>
+            </Grid>
             <Grid item>
               <Button
                 disabled={!calendGrafikId}

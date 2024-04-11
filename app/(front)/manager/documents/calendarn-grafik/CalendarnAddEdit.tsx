@@ -42,7 +42,13 @@ export default function CalendarnAddEdit({
   id,
   mode,
   title,
-}: Readonly<{ id?: string; mode: string; title: string }>) {
+  contractID = '',
+}: Readonly<{
+  id?: string;
+  mode: string;
+  title: string;
+  contractID?: string;
+}>) {
   const route = useRouter();
 
   const [formData, setFormData] = useState(initState);
@@ -77,6 +83,15 @@ export default function CalendarnAddEdit({
     };
     myGetAll();
   }, []);
+
+  useLayoutEffect(() => {
+    if (contractID) {
+      setFormData((prevState) => ({
+        ...prevState,
+        contract: contractID,
+      }));
+    }
+  }, [contractID]);
 
   useLayoutEffect(() => {
     if (id) {
