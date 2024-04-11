@@ -252,6 +252,34 @@ export default function ContractPotochnRems({
           justifyContent={`space-between`}
           alignItems={`center`}
         >
+          {!remsAktMusorlId && (
+            <Grid item sx={{ width: 25 }}>
+              <IconButton
+                component={Link}
+                sx={{
+                  color: red[500],
+                  padding: 0,
+                }}
+                href={`/manager/documents/akt-rems-musor/add/${id}`}
+              >
+                <AddCircleOutlineIcon />
+              </IconButton>
+            </Grid>
+          )}
+          <Grid item>
+            <Button
+              disabled={!remsAktMusorlId}
+              startIcon={<EditIcon />}
+              component={Link}
+              href={`/manager/documents/akt-rems-musor/${remsAktMusorlId}`}
+              fullWidth
+              size='small'
+              color='primary'
+              variant='contained'
+            >
+              {/* Акт */}
+            </Button>
+          </Grid>
           <Grid item>
             <Button
               disabled={!remsAktMusorlId}

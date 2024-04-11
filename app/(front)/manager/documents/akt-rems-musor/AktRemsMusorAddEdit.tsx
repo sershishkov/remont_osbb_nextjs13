@@ -52,7 +52,13 @@ function AktRemsMusorAddEdit({
   id,
   mode,
   title,
-}: Readonly<{ id?: string; mode: string; title: string }>) {
+  contractID = '',
+}: Readonly<{
+  id?: string;
+  mode: string;
+  title: string;
+  contractID?: string;
+}>) {
   const route = useRouter();
 
   const [formData, setFormData] = useState(initState);
@@ -168,6 +174,21 @@ function AktRemsMusorAddEdit({
       }));
     }
   }, [contract, arr__Contracts]);
+
+  useEffect(() => {
+    if (contractID) {
+      const tempContract = arr__Contracts.find(
+        (item) => item._id === contractID
+      );
+      setFormData((prevState) => ({
+        ...prevState,
+
+        contract: contractID,
+        //@ts-ignore
+        clientFirm: tempContract?.client?._id,
+      }));
+    }
+  }, [contractID, arr__Contracts]);
 
   useLayoutEffect(() => {
     if (id) {
