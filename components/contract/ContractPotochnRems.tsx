@@ -94,7 +94,7 @@ export default function ContractPotochnRems({
                   padding: 0,
                   marginLeft: -1,
                 }}
-                href={`/manager/documents/nakl-rems/add`}
+                href={`/manager/documents/nakl-rems/add/${id}`}
               >
                 <AddCircleOutlineIcon />
               </IconButton>
