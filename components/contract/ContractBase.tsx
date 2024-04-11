@@ -279,7 +279,7 @@ export default function ContractBase({
               <IconButton
                 component={Link}
                 sx={{ color: red[500], padding: 0, marginLeft: -1 }}
-                href={`/manager/documents/akt-of-work/add`}
+                href={`/manager/documents/akt-of-work/add/${id}`}
               >
                 <AddCircleOutlineIcon />
               </IconButton>
@@ -343,7 +343,7 @@ export default function ContractBase({
               <IconButton
                 component={Link}
                 sx={{ color: red[500], padding: 0, marginLeft: -1 }}
-                href={`/manager/documents/nakladnaya/add`}
+                href={`/manager/documents/nakladnaya/add/${id}`}
               >
                 <AddCircleOutlineIcon />
               </IconButton>
