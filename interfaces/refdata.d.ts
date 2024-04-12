@@ -503,3 +503,26 @@ export interface I_AktRemsMusor {
 
   creator: Types.ObjectId;
 }
+///////////////////////////////////////////
+///////////////////////////////////////////
+export interface I_CashRegister {
+  _id?: string;
+  cashRegisterName: string; //2023_Касса_Борм_Тур_Шиш, 2023_Касса_Шиш
+  allowedWorkers: Types.ObjectId[] | I_Worker[] | string[];
+}
+
+export interface I_CashMovementType {
+  _id?: string;
+  cashMovementTypeName: string; //шоколадка, Помощь, транспортные на сделку, допЗатраты, материалы, оплатаТруда, бензин, канцелярия, закупка иструмента, прочие расходы, снятиеБанкомат, инвестиция,зарлата менеджер
+  incomeOrExpense: string;
+}
+export interface I_CashFlow {
+  _id?: string;
+  cashFlowDate: Date;
+  cashFlowSum: number;
+  cashMovementType: Types.ObjectId | I_CashMovementType | string;
+  contract: Types.ObjectId | I_Contract | string;
+  responsiblePerson: Types.ObjectId | I_Worker | string;
+  additionalInformation: string;
+  creator: Types.ObjectId | I_User | string;
+}
