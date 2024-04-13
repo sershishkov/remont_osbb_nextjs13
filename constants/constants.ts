@@ -173,7 +173,28 @@ export const accountant_refData_links = [
     link: `${accountant_Refdata}/taxation-type`,
     caption: `Налогооблажение`,
   },
+  {
+    link: `${accountant_Refdata}/cash-register`,
+    caption: `Кассы`,
+  },
+  {
+    link: `${accountant_Refdata}/cash-flow-type`,
+    caption: `Тип Движения Кассы`,
+  },
 ];
+
+///////////////////////////////////////////////////////
+///////////////////////////////////////////////////////
+const accountant_Money = '/accountant/money';
+export const accountant_Money_links = [
+  {
+    link: `${accountant_Money}/cash-flow`,
+    caption: `Движ. Кассы`,
+  },
+];
+
+///////////////////////////////////////////////////////
+///////////////////////////////////////////////////////
 
 export const arr__typeNakl = [
   { _id: 'incoming', caption: 'Прибуткова накладна', prefix: '№ ПН-' },

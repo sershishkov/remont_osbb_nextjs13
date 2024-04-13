@@ -42,8 +42,7 @@ export const POST = async (request: NextRequest) => {
       contract,
       responsiblePerson,
       additionalInformation,
-      // creator: session?.user._id,
-      creator: '65c097e195f05a104a8808e7',
+      creator: session?.user._id,
     });
 
     const responseObj = {

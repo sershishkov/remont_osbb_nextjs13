@@ -30,6 +30,7 @@ import {
   manager_role,
   accountant_role,
   accountant_refData_links,
+  accountant_Money_links,
   manager_refData_links,
   manager_Docums_links,
   admin_links,
@@ -149,6 +150,7 @@ function NavigationList({
         groupIcon={GroupIcon}
         itemIcon={InboxIcon}
       />
+
       <ListItemCollapse
         caption='Первичка бух'
         toggleDrawer={toggleDrawer}
@@ -165,6 +167,16 @@ function NavigationList({
         userRole={user?.role!}
         allowedRoles={accountant_role}
         linksToShow={accountant_refData_links}
+        groupIcon={GroupIcon}
+        itemIcon={InboxIcon}
+      />
+
+      <ListItemCollapse
+        caption='Движ Средств'
+        toggleDrawer={toggleDrawer}
+        userRole={user?.role!}
+        allowedRoles={accountant_role}
+        linksToShow={accountant_Money_links}
         groupIcon={GroupIcon}
         itemIcon={InboxIcon}
       />
