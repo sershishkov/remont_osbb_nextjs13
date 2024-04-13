@@ -15,6 +15,11 @@ const cash_flow__Schema = new Schema<I_CashFlow>(
       ref: 'cash_flow_type',
       required: [true, 'Please add a cashFlowType id'],
     },
+    сashRegister: {
+      type: Schema.Types.ObjectId,
+      ref: 'cash_register',
+      required: [true, 'Please add a сashRegister id'],
+    },
     contract: {
       type: Schema.Types.ObjectId,
       ref: 'contract',

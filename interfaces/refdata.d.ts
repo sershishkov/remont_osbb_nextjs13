@@ -521,6 +521,8 @@ export interface I_CashFlow {
   cashFlowDate: Date;
   cashFlowSum: number;
   cashFlowType: Types.ObjectId | I_CashFlowType | string;
+  сashRegister: Types.ObjectId | I_CashRegister | string;
+
   contract: Types.ObjectId | I_Contract | string;
   responsiblePerson: Types.ObjectId | I_Worker | string;
   additionalInformation: string;
