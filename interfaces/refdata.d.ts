@@ -511,16 +511,16 @@ export interface I_CashRegister {
   allowedWorkers: Types.ObjectId[] | I_Worker[] | string[];
 }
 
-export interface I_CashMovementType {
+export interface I_CashFlowType {
   _id?: string;
-  cashMovementTypeName: string; //шоколадка, Помощь, транспортные на сделку, допЗатраты, материалы, оплатаТруда, бензин, канцелярия, закупка иструмента, прочие расходы, снятиеБанкомат, инвестиция,зарлата менеджер
+  cashFlowTypeName: string; //шоколадка, Помощь, транспортные на сделку, допЗатраты, материалы, оплатаТруда, бензин, канцелярия, закупка иструмента, прочие расходы, снятиеБанкомат, инвестиция,зарлата менеджер
   incomeOrExpense: string;
 }
 export interface I_CashFlow {
   _id?: string;
   cashFlowDate: Date;
   cashFlowSum: number;
-  cashMovementType: Types.ObjectId | I_CashMovementType | string;
+  cashFlowType: Types.ObjectId | I_CashFlowType | string;
   contract: Types.ObjectId | I_Contract | string;
   responsiblePerson: Types.ObjectId | I_Worker | string;
   additionalInformation: string;

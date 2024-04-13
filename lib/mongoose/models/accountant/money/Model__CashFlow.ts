@@ -10,10 +10,10 @@ const cash_flow__Schema = new Schema<I_CashFlow>(
     cashFlowSum: {
       type: Number,
     },
-    cashMovementType: {
+    cashFlowType: {
       type: Schema.Types.ObjectId,
-      ref: 'cach_movement_type',
-      required: [true, 'Please add a cashMovementType id'],
+      ref: 'cash_flow_type',
+      required: [true, 'Please add a cashFlowType id'],
     },
     contract: {
       type: Schema.Types.ObjectId,

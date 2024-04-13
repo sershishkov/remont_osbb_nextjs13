@@ -4,6 +4,7 @@ import { I_CashRegister } from '@/interfaces/refdata';
 const cash_register__Schema = new Schema<I_CashRegister>({
   cashRegisterName: {
     type: String,
+    unique: true,
     required: [true, 'Please add a cashRegisterName'],
   },
 
