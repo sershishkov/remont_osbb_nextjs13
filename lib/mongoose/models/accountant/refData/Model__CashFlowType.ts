@@ -10,6 +10,7 @@ const cash_flow_type__Schema = new Schema<I_CashFlowType>({
   incomeOrExpense: {
     type: String,
     enum: ['income', 'expense'],
+    required: [true, 'Please add a incomeOrExpense'],
   },
 });
 
