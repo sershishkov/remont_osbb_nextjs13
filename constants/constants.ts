@@ -179,7 +179,7 @@ export const accountant_refData_links = [
   },
   {
     link: `${accountant_Refdata}/cash-flow-type`,
-    caption: `Тип Движения Кассы`,
+    caption: `Тип Операции Кассы`,
   },
 ];
 
@@ -257,4 +257,15 @@ export const monthsWorkBudjet = [
 export const arr_paymentProectnAvt = [
   { _id: 'собств', caption: 'собств' },
   { _id: 'бюджет', caption: 'бюджет' },
+];
+
+export const arr__incomeOrExpense = [
+  {
+    _id: 'income',
+    caption: 'Приход',
+  },
+  {
+    _id: 'expense',
+    caption: 'Расход',
+  },
 ];
