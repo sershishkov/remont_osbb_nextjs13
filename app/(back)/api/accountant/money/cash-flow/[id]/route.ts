@@ -43,18 +43,16 @@ export const GET = async (request: NextRequest, { params }: Props) => {
         path: 'contract',
         model: Model__Contract,
         select: 'contractNumber contractDescription',
-        populate: [
-          {
-            path: 'ourFirm',
-            model: Model__Client,
-            select: 'clientShortName',
-          },
-          {
-            path: 'client',
-            model: Model__Client,
-            select: 'clientShortName',
-          },
-        ],
+      })
+      .populate({
+        path: 'ourFirm',
+        model: Model__Client,
+        select: 'clientShortName',
+      })
+      .populate({
+        path: 'client',
+        model: Model__Client,
+        select: 'clientShortName',
       });
 
     if (!one__ITEM) {
@@ -97,6 +95,8 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
     cashFlowType,
     сashRegister,
     contract,
+    ourFirm,
+    client,
     responsiblePerson,
     additionalInformation,
   } = myData;
@@ -110,6 +110,8 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
       cashFlowType,
       сashRegister,
       contract,
+      ourFirm,
+      client,
       responsiblePerson,
       additionalInformation,
     };

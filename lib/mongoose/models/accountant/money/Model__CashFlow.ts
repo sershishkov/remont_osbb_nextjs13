@@ -24,6 +24,14 @@ const cash_flow__Schema = new Schema<I_CashFlow>(
       type: Schema.Types.ObjectId,
       ref: 'contract',
     },
+    ourFirm: {
+      type: Schema.Types.ObjectId,
+      ref: 'client',
+    },
+    client: {
+      type: Schema.Types.ObjectId,
+      ref: 'client',
+    },
     responsiblePerson: {
       type: Schema.Types.ObjectId,
       ref: 'worker',

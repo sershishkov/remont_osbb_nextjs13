@@ -524,6 +524,8 @@ export interface I_CashFlow {
   сashRegister: Types.ObjectId | I_CashRegister | string;
 
   contract: Types.ObjectId | I_Contract | string;
+  ourFirm: Types.ObjectId | I_Client | string;
+  client: Types.ObjectId | I_Client | string;
   responsiblePerson: Types.ObjectId | I_Worker | string;
   additionalInformation: string;
   creator: Types.ObjectId | I_User | string;

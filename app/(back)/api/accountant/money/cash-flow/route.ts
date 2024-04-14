@@ -18,6 +18,8 @@ export const POST = async (request: NextRequest) => {
     cashFlowType,
     сashRegister,
     contract,
+    ourFirm,
+    client,
     responsiblePerson,
     additionalInformation,
   } = await request.json();
@@ -40,6 +42,8 @@ export const POST = async (request: NextRequest) => {
       cashFlowType,
       сashRegister,
       contract,
+      ourFirm,
+      client,
       responsiblePerson,
       additionalInformation,
       creator: session?.user._id,
@@ -66,6 +70,8 @@ export const GET = async (request: NextRequest) => {
   const сashRegister = url.searchParams.get('сashRegister') ?? '';
   const contract = url.searchParams.get('contract') ?? '';
   const responsiblePerson = url.searchParams.get('responsiblePerson') ?? '';
+  const ourFirm = url.searchParams.get('ourFirm') ?? '';
+  const client = url.searchParams.get('client') ?? '';
 
   const dateStart = url.searchParams.get('dateStart') ?? '';
   const dateEnd = url.searchParams.get('dateEnd') ?? '';
@@ -96,6 +102,12 @@ export const GET = async (request: NextRequest) => {
   }
   if (responsiblePerson) {
     andArr.push({ responsiblePerson: responsiblePerson });
+  }
+  if (ourFirm) {
+    andArr.push({ ourFirm: ourFirm });
+  }
+  if (client) {
+    andArr.push({ client: client });
   }
 
   if (dateStart && dateEnd) {
@@ -158,18 +170,16 @@ export const GET = async (request: NextRequest) => {
         path: 'contract',
         model: Model__Contract,
         select: 'contractNumber contractDescription',
-        populate: [
-          {
-            path: 'ourFirm',
-            model: Model__Client,
-            select: 'clientShortName',
-          },
-          {
-            path: 'client',
-            model: Model__Client,
-            select: 'clientShortName',
-          },
-        ],
+      })
+      .populate({
+        path: 'ourFirm',
+        model: Model__Client,
+        select: 'clientShortName',
+      })
+      .populate({
+        path: 'client',
+        model: Model__Client,
+        select: 'clientShortName',
       });
 
     if (!all__ITEMS) {
