@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 import CashRegisterEdit from '../CashFlowTypeAddEdit';
 
-const title = 'Создать Кассу';
+const title = 'Создать Тип Операции';
 
 export const metadata: Metadata = {
   title: title,

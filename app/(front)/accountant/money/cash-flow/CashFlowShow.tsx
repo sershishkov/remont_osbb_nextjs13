@@ -119,6 +119,9 @@ export default function CashFlowShow({
   const [resultFetch, setResultFetch] = useState([]);
 
   const [arr__Contracts, setArr__Contracts] = useState<I_Contract[]>([]);
+  const [arr__ClientContracts, setArr__ClientContracts] = useState<
+    I_Contract[]
+  >([]);
   const [arr__Workers, setArr__Workers] = useState<I_Worker[]>([]);
   const [arr__CashRegisters, setArr__CashRegisters] = useState<
     I_CashRegister[]
@@ -200,6 +203,7 @@ export default function CashFlowShow({
       setArr__CashFlowTypes(all__cashFlowTypes.items);
       setArr__CashRegisters(all__сashRegisters.items);
       setArr__Contracts(all__contracts.items);
+      setArr__ClientContracts(all__contracts.items);
       setArr__OurFirms(arr__ourFirms);
       setArr__Clients(arr__Clients);
       setArr__Workers(all__workers.items);
@@ -212,6 +216,15 @@ export default function CashFlowShow({
     const searchInput = document.getElementById('searchText');
     searchInput?.focus();
   }, []);
+  useEffect(() => {
+    if (client) {
+      const belongingContracts = arr__Contracts.filter(
+        //@ts-ignore
+        (item) => item.client?._id.toString() === client
+      );
+      setArr__ClientContracts(belongingContracts);
+    }
+  }, [client, arr__Contracts]);
 
   const onChangeSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.target.value);
@@ -302,29 +315,6 @@ export default function CashFlowShow({
               onChange={onChangeSearch}
             />
           </Grid>
-
-          <Grid item>
-            <Typography align='center'>{`Найдено:${resultFetch?.length}`}</Typography>
-          </Grid>
-          <Grid item>
-            <IconButton onClick={handleSearch}>
-              <SearchIcon color='success' />
-            </IconButton>
-          </Grid>
-          <Grid item>
-            <IconButton onClick={handleRestart}>
-              <RestartAltIcon color='error' />
-            </IconButton>
-          </Grid>
-        </Grid>
-      </Grid>
-      <Grid item sx={{ width: '100%' }}>
-        <Grid
-          container
-          alignItems='center'
-          justifyContent='space-between'
-          spacing={1}
-        >
           <Grid item sx={{ width: 150 }}>
             <TextField
               margin='normal'
@@ -379,6 +369,29 @@ export default function CashFlowShow({
               onChange={onChange}
             />
           </Grid>
+
+          <Grid item>
+            <Typography align='center'>{`Найдено:${resultFetch?.length}`}</Typography>
+          </Grid>
+          <Grid item>
+            <IconButton onClick={handleSearch}>
+              <SearchIcon color='success' />
+            </IconButton>
+          </Grid>
+          <Grid item>
+            <IconButton onClick={handleRestart}>
+              <RestartAltIcon color='error' />
+            </IconButton>
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid item sx={{ width: '100%' }}>
+        <Grid
+          container
+          alignItems='center'
+          justifyContent='space-between'
+          spacing={1}
+        >
           <Grid item sx={{ width: 200 }}>
             <MySelectAutoCompl
               selectName={`cashFlowType`}
@@ -402,8 +415,19 @@ export default function CashFlowShow({
               arrToSelect={arr__CashRegisters}
             />
           </Grid>
-
           <Grid item sx={{ width: 200 }}>
+            <MySelectAutoCompl
+              selectName={`client`}
+              selectLabel={`Клиент`}
+              fieldToShow={`clientShortName`}
+              handleChangeSelects={handleChangeSelects}
+              selectedOption={client ?? ''}
+              // @ts-ignore
+              arrToSelect={arr__Clients}
+            />
+          </Grid>
+
+          <Grid item sx={{ width: 300 }}>
             <MySelectAutoCompl
               selectName={`contract`}
               selectLabel={`Контракты`}
@@ -411,7 +435,18 @@ export default function CashFlowShow({
               handleChangeSelects={handleChangeSelects}
               selectedOption={contract ?? ''}
               // @ts-ignore
-              arrToSelect={arr__Contracts}
+              arrToSelect={arr__ClientContracts}
+            />
+          </Grid>
+          <Grid item sx={{ width: 150 }}>
+            <MySelectAutoCompl
+              selectName={`ourFirm`}
+              selectLabel={`Исполнитель`}
+              fieldToShow={`clientShortName`}
+              handleChangeSelects={handleChangeSelects}
+              selectedOption={ourFirm ?? ''}
+              // @ts-ignore
+              arrToSelect={arr__OurFirms}
             />
           </Grid>
           <Grid item sx={{ width: 200 }}>
@@ -423,28 +458,6 @@ export default function CashFlowShow({
               selectedOption={responsiblePerson ?? ''}
               // @ts-ignore
               arrToSelect={arr__Workers}
-            />
-          </Grid>
-          <Grid item sx={{ width: 150 }}>
-            <MySelectAutoCompl
-              selectName={`ourFirm`}
-              selectLabel={`Наша`}
-              fieldToShow={`clientShortName`}
-              handleChangeSelects={handleChangeSelects}
-              selectedOption={ourFirm ?? ''}
-              // @ts-ignore
-              arrToSelect={arr__OurFirms}
-            />
-          </Grid>
-          <Grid item sx={{ width: 200 }}>
-            <MySelectAutoCompl
-              selectName={`client`}
-              selectLabel={`Клиент`}
-              fieldToShow={`clientShortName`}
-              handleChangeSelects={handleChangeSelects}
-              selectedOption={client ?? ''}
-              // @ts-ignore
-              arrToSelect={arr__Clients}
             />
           </Grid>
         </Grid>

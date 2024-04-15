@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { paramsProps } from '@/interfaces/CommonInterfaces';
 import CashRegisterAddEdit from '../CashFlowTypeAddEdit';
 
-const title = 'Редактировать Кассу';
+const title = 'Редактировать Тип Операции';
 
 export const metadata: Metadata = {
   title: title,

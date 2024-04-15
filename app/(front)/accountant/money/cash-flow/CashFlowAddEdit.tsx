@@ -232,135 +232,135 @@ function CashFlowAddEdit({
           {title}
         </Typography>
       </Grid>
-      <Grid item sx={{ width: 150 }}>
-        <TextField
-          margin='normal'
-          required
-          fullWidth
-          name='cashFlowDate'
-          label='Дата '
-          type='date'
-          id='cashFlowDate'
-          value={cashFlowDate ?? ''}
-          onChange={onChange}
-          InputLabelProps={{ shrink: true }}
-        />
-      </Grid>
-      <Grid item sx={{ width: 150 }}>
-        <TextField
-          margin='normal'
-          required
-          fullWidth
-          name='cashFlowSum'
-          label='Сумма '
-          type='number'
-          id='cashFlowSum'
-          value={cashFlowSum ?? ''}
-          onChange={onChange}
-        />
-      </Grid>
-
-      <Grid item sx={{ mb: 2 }}>
-        <Stack
-          direction='row'
-          spacing={2}
-          // direction={{ xs: 'column', sm: 'row' }}
+      <Grid item sx={{ width: '100%' }}>
+        <Grid
+          container
+          direction={`row`}
+          justifyContent={`flex-start`}
+          alignItems={`center`}
+          spacing={1}
         >
           <Grid item sx={{ width: 150 }}>
-            <MySelectAutoCompl
-              selectName={`cashFlowType`}
-              selectLabel={`Тип Операции`}
-              fieldToShow={`cashFlowTypeName`}
-              handleChangeSelects={handleChangeSelects}
-              selectedOption={cashFlowType ?? ''}
-              // @ts-ignore
-              arrToSelect={arr__CashFlowTypes ?? []}
+            <TextField
+              margin='normal'
+              required
+              fullWidth
+              name='cashFlowDate'
+              label='Дата '
+              type='date'
+              id='cashFlowDate'
+              value={cashFlowDate ?? ''}
+              onChange={onChange}
+              InputLabelProps={{ shrink: true }}
             />
           </Grid>
+          <Grid item sx={{ width: 150 }}>
+            <TextField
+              margin='normal'
+              required
+              fullWidth
+              name='cashFlowSum'
+              label='Сумма '
+              type='number'
+              id='cashFlowSum'
+              value={cashFlowSum ?? ''}
+              onChange={onChange}
+            />
+          </Grid>
+          <Grid item>
+            <Stack direction='row' spacing={1} alignItems={`center`}>
+              <Grid item sx={{ width: 150 }}>
+                <MySelectAutoCompl
+                  selectName={`cashFlowType`}
+                  selectLabel={`Тип Операции`}
+                  fieldToShow={`cashFlowTypeName`}
+                  handleChangeSelects={handleChangeSelects}
+                  selectedOption={cashFlowType ?? ''}
+                  // @ts-ignore
+                  arrToSelect={arr__CashFlowTypes ?? []}
+                />
+              </Grid>
 
-          <IconButton
-            onClick={() =>
-              onClickAddItem('/accountant/refdata/cash-flow-type/add')
-            }
-          >
-            <AddIcon color='success' sx={{ fontSize: 30 }} />
-          </IconButton>
-        </Stack>
-      </Grid>
-      <Grid item sx={{ mb: 2 }}>
-        <Stack
-          direction='row'
-          spacing={2}
-          // direction={{ xs: 'column', sm: 'row' }}
-        >
+              <IconButton
+                onClick={() =>
+                  onClickAddItem('/accountant/refdata/cash-flow-type/add')
+                }
+              >
+                <AddIcon color='success' sx={{ fontSize: 15 }} />
+              </IconButton>
+            </Stack>
+          </Grid>
+          <Grid item>
+            <Stack direction='row' spacing={1}>
+              <Grid item sx={{ width: 150 }}>
+                <MySelectAutoCompl
+                  selectName={`сashRegister`}
+                  selectLabel={`Касса`}
+                  fieldToShow={`cashRegisterName`}
+                  handleChangeSelects={handleChangeSelects}
+                  selectedOption={сashRegister ?? ''}
+                  // @ts-ignore
+                  arrToSelect={arr__CashRegisters ?? []}
+                />
+              </Grid>
+
+              <IconButton
+                onClick={() =>
+                  onClickAddItem('/accountant/refdata/cash-register/add')
+                }
+              >
+                <AddIcon color='success' sx={{ fontSize: 15 }} />
+              </IconButton>
+            </Stack>
+          </Grid>
           <Grid item sx={{ width: 150 }}>
             <MySelectAutoCompl
-              selectName={`сashRegister`}
-              selectLabel={`Касса`}
-              fieldToShow={`cashRegisterName`}
+              selectName={`client`}
+              selectLabel={`Клиент`}
+              fieldToShow={`clientShortName`}
               handleChangeSelects={handleChangeSelects}
-              selectedOption={сashRegister ?? ''}
+              selectedOption={client ?? ''}
               // @ts-ignore
-              arrToSelect={arr__CashRegisters ?? []}
+              arrToSelect={arr__Clients ?? []}
             />
           </Grid>
-
-          <IconButton
-            onClick={() =>
-              onClickAddItem('/accountant/refdata/cash-register/add')
-            }
-          >
-            <AddIcon color='success' sx={{ fontSize: 30 }} />
-          </IconButton>
-        </Stack>
-      </Grid>
-      <Grid item>
-        <MySelectAutoCompl
-          selectName={`client`}
-          selectLabel={`Клиент`}
-          fieldToShow={`clientShortName`}
-          handleChangeSelects={handleChangeSelects}
-          selectedOption={client ?? ''}
-          // @ts-ignore
-          arrToSelect={arr__Clients ?? []}
-        />
-      </Grid>
-      <Grid item sx={{ display: client ? 'block' : 'none' }}>
-        <MySelectAutoCompl
-          selectName={`contract`}
-          selectLabel={`Договора`}
-          fieldToShow={`contractDescription`}
-          handleChangeSelects={handleChangeSelects}
-          selectedOption={contract ?? ''}
-          // @ts-ignore
-          arrToSelect={arr__ClientContracts ?? []}
-        />
-      </Grid>
-      <Grid item>
-        <MySelectAutoCompl
-          selectName={`responsiblePerson`}
-          selectLabel={`Отв.Лицо`}
-          fieldToShow={`lastName`}
-          handleChangeSelects={handleChangeSelects}
-          selectedOption={responsiblePerson ?? ''}
-          // @ts-ignore
-          arrToSelect={arr__Workers ?? []}
-        />
-      </Grid>
-
-      <Grid item>
-        <TextField
-          margin='normal'
-          // required
-          multiline
-          fullWidth
-          name='additionalInformation'
-          label='Примечание'
-          type='text'
-          id='additionalInformation'
-          value={additionalInformation ?? ''}
-          onChange={onChange}
-        />
+          <Grid item sx={{ display: client ? 'block' : 'none', width: 150 }}>
+            <MySelectAutoCompl
+              selectName={`contract`}
+              selectLabel={`Договора`}
+              fieldToShow={`contractDescription`}
+              handleChangeSelects={handleChangeSelects}
+              selectedOption={contract ?? ''}
+              // @ts-ignore
+              arrToSelect={arr__ClientContracts ?? []}
+            />
+          </Grid>
+          <Grid item sx={{ width: 150 }}>
+            <MySelectAutoCompl
+              selectName={`responsiblePerson`}
+              selectLabel={`Отв.Лицо`}
+              fieldToShow={`lastName`}
+              handleChangeSelects={handleChangeSelects}
+              selectedOption={responsiblePerson ?? ''}
+              // @ts-ignore
+              arrToSelect={arr__Workers ?? []}
+            />
+          </Grid>
+          <Grid item sx={{ flex: 1 }}>
+            <TextField
+              margin='normal'
+              // required
+              multiline
+              fullWidth
+              name='additionalInformation'
+              label='Примечание'
+              type='text'
+              id='additionalInformation'
+              value={additionalInformation ?? ''}
+              onChange={onChange}
+            />
+          </Grid>
+        </Grid>
       </Grid>
 
       <Grid item>
