@@ -50,6 +50,10 @@ function CashFlowAddEdit({
   const route = useRouter();
 
   const [formData, setFormData] = useState(initState);
+  const [isContractRequired, setIsContractRequired] = useState<boolean>(false);
+  const [isClientRequired, setIsClientRequired] = useState<boolean>(false);
+  const [isResponsPersonRequired, setIsResponsPersonRequired] =
+    useState<boolean>(false);
   const [arr__Workers, setArr__Workers] = useState<I_Worker[]>([]);
   const [arr__CashFlowTypes, setArr__CashFlowTypes] = useState<
     I_CashFlowType[]
@@ -182,6 +186,32 @@ function CashFlowAddEdit({
     }
   }, [contract, arr__Contracts]);
 
+  useEffect(() => {
+    if (cashFlowType) {
+      const currentCashFlowType = arr__CashFlowTypes.find(
+        (item) => item._id === cashFlowType
+      );
+      const cashFlowTypeName = currentCashFlowType?.cashFlowTypeName;
+
+      if (cashFlowTypeName?.startsWith('Дог')) {
+        setIsContractRequired(true);
+        setIsClientRequired(true);
+        setIsResponsPersonRequired(false);
+      } else if (
+        cashFlowTypeName === 'ЗарплатаМенедж' ||
+        cashFlowTypeName === 'Инвестиция'
+      ) {
+        setIsContractRequired(false);
+        setIsClientRequired(false);
+        setIsResponsPersonRequired(true);
+      } else {
+        setIsContractRequired(false);
+        setIsClientRequired(false);
+        setIsResponsPersonRequired(false);
+      }
+    }
+  }, [cashFlowType, arr__CashFlowTypes]);
+
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -313,7 +343,16 @@ function CashFlowAddEdit({
               </IconButton>
             </Stack>
           </Grid>
-          <Grid item sx={{ width: 150 }}>
+          <Grid
+            item
+            sx={{
+              width: 150,
+              border:
+                !client && isClientRequired
+                  ? '2px solid red'
+                  : '2px solid transparent',
+            }}
+          >
             <MySelectAutoCompl
               selectName={`client`}
               selectLabel={`Клиент`}
@@ -324,7 +363,17 @@ function CashFlowAddEdit({
               arrToSelect={arr__Clients ?? []}
             />
           </Grid>
-          <Grid item sx={{ display: client ? 'block' : 'none', width: 150 }}>
+          <Grid
+            item
+            sx={{
+              display: client ? 'block' : 'none',
+              width: 150,
+              border:
+                !contract && isContractRequired
+                  ? '2px solid red'
+                  : '2px solid transparent',
+            }}
+          >
             <MySelectAutoCompl
               selectName={`contract`}
               selectLabel={`Договора`}
@@ -335,7 +384,16 @@ function CashFlowAddEdit({
               arrToSelect={arr__ClientContracts ?? []}
             />
           </Grid>
-          <Grid item sx={{ width: 150 }}>
+          <Grid
+            item
+            sx={{
+              width: 150,
+              border:
+                !responsiblePerson && isResponsPersonRequired
+                  ? '2px solid red'
+                  : '2px solid transparent',
+            }}
+          >
             <MySelectAutoCompl
               selectName={`responsiblePerson`}
               selectLabel={`Отв.Лицо`}
@@ -368,7 +426,13 @@ function CashFlowAddEdit({
           type='submit'
           fullWidth
           disabled={
-            !cashFlowDate || !cashFlowSum || !cashFlowType || !сashRegister
+            !cashFlowDate ||
+            !cashFlowSum ||
+            !cashFlowType ||
+            !сashRegister ||
+            (!contract && isContractRequired) ||
+            (!client && isClientRequired) ||
+            (!responsiblePerson && isResponsPersonRequired)
           }
           variant='contained'
           sx={{ mt: 3, mb: 2 }}
