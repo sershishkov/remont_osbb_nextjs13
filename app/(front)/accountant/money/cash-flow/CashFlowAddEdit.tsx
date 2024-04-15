@@ -146,10 +146,12 @@ function CashFlowAddEdit({
             cashFlowSum: item.cashFlowSum.toFixed(2),
             cashFlowType: item.cashFlowType._id.toString(),
             сashRegister: item.сashRegister._id.toString(),
-            contract: item.contract._id.toString(),
-            ourFirm: item.ourFirm._id.toString(),
-            client: item.client._id.toString(),
-            responsiblePerson: item.responsiblePerson._id.toString(),
+            contract: item.contract?._id ? item.contract?._id.toString() : '',
+            ourFirm: item.ourFirm?._id ? item.ourFirm?._id.toString() : '',
+            client: item.client?._id ? item.client?._id.toString() : '',
+            responsiblePerson: item.responsiblePerson?._id
+              ? item.responsiblePerson?._id.toString()
+              : '',
             additionalInformation: item.additionalInformation,
           }));
         }

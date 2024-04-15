@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import mongoose from 'mongoose';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/app/(back)/api/auth/[...nextauth]/options';
 import Model__CashFlow from '@/lib/mongoose/models/accountant/money/Model__CashFlow';
@@ -12,6 +13,8 @@ import Model__Worker from '@/lib/mongoose/models/accountant/refData/Model__Worke
 import { connectToDB } from '@/lib/mongoose/connectToDB';
 
 export const POST = async (request: NextRequest) => {
+  const formData = await request.json();
+  console.log(formData);
   const {
     cashFlowDate,
     cashFlowSum,
@@ -22,7 +25,7 @@ export const POST = async (request: NextRequest) => {
     client,
     responsiblePerson,
     additionalInformation,
-  } = await request.json();
+  } = formData;
   if (!cashFlowSum || !cashFlowType || !сashRegister) {
     return new NextResponse(
       JSON.stringify({
@@ -41,10 +44,11 @@ export const POST = async (request: NextRequest) => {
       cashFlowSum,
       cashFlowType,
       сashRegister,
-      contract,
-      ourFirm,
-      client,
-      responsiblePerson,
+
+      contract: contract !== '' ? contract : null,
+      ourFirm: ourFirm !== '' ? ourFirm : null,
+      client: client !== '' ? client : null,
+      responsiblePerson: responsiblePerson !== '' ? responsiblePerson : null,
       additionalInformation,
       creator: session?.user._id,
     });
@@ -56,6 +60,7 @@ export const POST = async (request: NextRequest) => {
 
     return new NextResponse(JSON.stringify(responseObj), { status: 200 });
   } catch (error: any) {
+    console.log(error.message);
     return new NextResponse(error.message, { status: 500 });
   }
 };
