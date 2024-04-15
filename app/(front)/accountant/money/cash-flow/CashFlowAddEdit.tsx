@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 import {
@@ -132,17 +132,19 @@ function CashFlowAddEdit({
     myGetAll();
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (id) {
       const myGetOne = async () => {
         const item = await item__get_one({ _id: id }, currentURL);
 
         if (item) {
+          console.log(item.cashFlowDate);
           setFormData((prevState) => ({
             ...prevState,
             cashFlowDate: new Date(item.cashFlowDate!)
               .toISOString()
               .split('T')[0],
+
             cashFlowSum: item.cashFlowSum.toFixed(2),
             cashFlowType: item.cashFlowType._id.toString(),
             сashRegister: item.сashRegister._id.toString(),
@@ -159,6 +161,7 @@ function CashFlowAddEdit({
       myGetOne();
     }
   }, [id]);
+
   useEffect(() => {
     if (client) {
       const belongingContracts = arr__Contracts.filter(

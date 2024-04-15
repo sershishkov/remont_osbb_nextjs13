@@ -109,10 +109,11 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
       cashFlowSum,
       cashFlowType,
       сashRegister,
-      contract,
-      ourFirm,
-      client,
-      responsiblePerson,
+
+      contract: contract !== '' ? contract : null,
+      ourFirm: ourFirm !== '' ? ourFirm : null,
+      client: client !== '' ? client : null,
+      responsiblePerson: responsiblePerson !== '' ? responsiblePerson : null,
       additionalInformation,
     };
 
