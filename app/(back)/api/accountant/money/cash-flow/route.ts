@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import mongoose from 'mongoose';
+
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/app/(back)/api/auth/[...nextauth]/options';
 import Model__CashFlow from '@/lib/mongoose/models/accountant/money/Model__CashFlow';
