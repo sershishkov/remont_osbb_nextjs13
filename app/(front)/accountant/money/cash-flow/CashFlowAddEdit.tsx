@@ -123,14 +123,19 @@ function CashFlowAddEdit({
       setArr__Clients(arr__Clients);
       setArr__Contracts(all__contracts.items);
       setArr__ClientContracts(all__contracts.items);
-      setFormData((prevState) => ({
-        ...prevState,
-        cashFlowDate: new Date().toISOString().split('T')[0],
-      }));
     };
 
     myGetAll();
   }, []);
+
+  useEffect(() => {
+    if (mode === 'add') {
+      setFormData((prevState) => ({
+        ...prevState,
+        cashFlowDate: new Date().toISOString().split('T')[0],
+      }));
+    }
+  }, [mode]);
 
   useLayoutEffect(() => {
     if (id) {
