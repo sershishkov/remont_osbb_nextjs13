@@ -54,6 +54,7 @@ function CashFlowAddEdit({
   const [isClientRequired, setIsClientRequired] = useState<boolean>(false);
   const [isResponsPersonRequired, setIsResponsPersonRequired] =
     useState<boolean>(false);
+
   const [arr__Workers, setArr__Workers] = useState<I_Worker[]>([]);
   const [arr__CashFlowTypes, setArr__CashFlowTypes] = useState<
     I_CashFlowType[]
@@ -275,12 +276,12 @@ function CashFlowAddEdit({
       <Grid item sx={{ width: '100%' }}>
         <Grid
           container
-          direction={`row`}
+          direction={`column`}
           justifyContent={`flex-start`}
-          alignItems={`center`}
+          alignItems={`flex-start`}
           spacing={1}
         >
-          <Grid item sx={{ width: 150 }}>
+          <Grid item sx={{ width: 200 }}>
             <TextField
               margin='normal'
               required
@@ -294,7 +295,7 @@ function CashFlowAddEdit({
               InputLabelProps={{ shrink: true }}
             />
           </Grid>
-          <Grid item sx={{ width: 150 }}>
+          <Grid item sx={{ width: 200 }}>
             <TextField
               margin='normal'
               required
@@ -309,7 +310,7 @@ function CashFlowAddEdit({
           </Grid>
           <Grid item>
             <Stack direction='row' spacing={1} alignItems={`center`}>
-              <Grid item sx={{ width: 150 }}>
+              <Grid item sx={{ width: 300 }}>
                 <MySelectAutoCompl
                   selectName={`cashFlowType`}
                   selectLabel={`Тип Операции`}
@@ -332,7 +333,7 @@ function CashFlowAddEdit({
           </Grid>
           <Grid item>
             <Stack direction='row' spacing={1}>
-              <Grid item sx={{ width: 150 }}>
+              <Grid item sx={{ width: 300 }}>
                 <MySelectAutoCompl
                   selectName={`сashRegister`}
                   selectLabel={`Касса`}
@@ -356,7 +357,8 @@ function CashFlowAddEdit({
           <Grid
             item
             sx={{
-              width: 150,
+              width: 310,
+              display: !isClientRequired ? 'none' : undefined,
               border:
                 !client && isClientRequired
                   ? '2px solid red'
@@ -376,8 +378,8 @@ function CashFlowAddEdit({
           <Grid
             item
             sx={{
-              display: client ? 'block' : 'none',
-              width: 150,
+              display: client && isContractRequired ? 'block' : 'none',
+              width: '100%',
               border:
                 !contract && isContractRequired
                   ? '2px solid red'
@@ -397,7 +399,8 @@ function CashFlowAddEdit({
           <Grid
             item
             sx={{
-              width: 150,
+              width: 310,
+              display: !isResponsPersonRequired ? 'none' : undefined,
               border:
                 !responsiblePerson && isResponsPersonRequired
                   ? '2px solid red'
@@ -414,7 +417,7 @@ function CashFlowAddEdit({
               arrToSelect={arr__Workers ?? []}
             />
           </Grid>
-          <Grid item sx={{ flex: 1 }}>
+          <Grid item sx={{ width: '100%' }}>
             <TextField
               margin='normal'
               // required
