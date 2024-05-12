@@ -82,7 +82,7 @@ function CashFlowAddEdit({
   } = formData;
 
   useEffect(() => {
-    const inputFocus = document.getElementById('cashFlowSum');
+    const inputFocus = document.getElementById('сashRegister');
     inputFocus?.focus();
   }, []);
   useEffect(() => {
@@ -147,7 +147,7 @@ function CashFlowAddEdit({
           console.log(item.cashFlowDate);
           setFormData((prevState) => ({
             ...prevState,
-            cashFlowDate: new Date(item.cashFlowDate!)
+            cashFlowDate: new Date(item.cashFlowDate)
               .toISOString()
               .split('T')[0],
 
@@ -281,56 +281,6 @@ function CashFlowAddEdit({
           alignItems={`flex-start`}
           spacing={1}
         >
-          <Grid item sx={{ width: 200 }}>
-            <TextField
-              margin='normal'
-              required
-              fullWidth
-              name='cashFlowDate'
-              label='Дата '
-              type='date'
-              id='cashFlowDate'
-              value={cashFlowDate ?? ''}
-              onChange={onChange}
-              InputLabelProps={{ shrink: true }}
-            />
-          </Grid>
-          <Grid item sx={{ width: 200 }}>
-            <TextField
-              margin='normal'
-              required
-              fullWidth
-              name='cashFlowSum'
-              label='Сумма '
-              type='number'
-              id='cashFlowSum'
-              value={cashFlowSum ?? ''}
-              onChange={onChange}
-            />
-          </Grid>
-          <Grid item>
-            <Stack direction='row' spacing={1} alignItems={`center`}>
-              <Grid item sx={{ width: 300 }}>
-                <MySelectAutoCompl
-                  selectName={`cashFlowType`}
-                  selectLabel={`Тип Операции`}
-                  fieldToShow={`cashFlowTypeName`}
-                  handleChangeSelects={handleChangeSelects}
-                  selectedOption={cashFlowType ?? ''}
-                  // @ts-ignore
-                  arrToSelect={arr__CashFlowTypes ?? []}
-                />
-              </Grid>
-
-              <IconButton
-                onClick={() =>
-                  onClickAddItem('/accountant/refdata/cash-flow-type/add')
-                }
-              >
-                <AddIcon color='success' sx={{ fontSize: 15 }} />
-              </IconButton>
-            </Stack>
-          </Grid>
           <Grid item>
             <Stack direction='row' spacing={1}>
               <Grid item sx={{ width: 300 }}>
@@ -354,6 +304,31 @@ function CashFlowAddEdit({
               </IconButton>
             </Stack>
           </Grid>
+
+          <Grid item>
+            <Stack direction='row' spacing={1} alignItems={`center`}>
+              <Grid item sx={{ width: 300 }}>
+                <MySelectAutoCompl
+                  selectName={`cashFlowType`}
+                  selectLabel={`Тип Операции`}
+                  fieldToShow={`cashFlowTypeName`}
+                  handleChangeSelects={handleChangeSelects}
+                  selectedOption={cashFlowType ?? ''}
+                  // @ts-ignore
+                  arrToSelect={arr__CashFlowTypes ?? []}
+                />
+              </Grid>
+
+              <IconButton
+                onClick={() =>
+                  onClickAddItem('/accountant/refdata/cash-flow-type/add')
+                }
+              >
+                <AddIcon color='success' sx={{ fontSize: 15 }} />
+              </IconButton>
+            </Stack>
+          </Grid>
+
           <Grid
             item
             sx={{
@@ -415,6 +390,33 @@ function CashFlowAddEdit({
               selectedOption={responsiblePerson ?? ''}
               // @ts-ignore
               arrToSelect={arr__Workers ?? []}
+            />
+          </Grid>
+          <Grid item sx={{ width: 200 }}>
+            <TextField
+              margin='normal'
+              required
+              fullWidth
+              name='cashFlowDate'
+              label='Дата '
+              type='date'
+              id='cashFlowDate'
+              value={cashFlowDate ?? ''}
+              onChange={onChange}
+              InputLabelProps={{ shrink: true }}
+            />
+          </Grid>
+          <Grid item sx={{ width: 200 }}>
+            <TextField
+              margin='normal'
+              required
+              fullWidth
+              name='cashFlowSum'
+              label='Сумма '
+              type='number'
+              id='cashFlowSum'
+              value={cashFlowSum ?? ''}
+              onChange={onChange}
             />
           </Grid>
           <Grid item sx={{ width: '100%' }}>
