@@ -85,8 +85,8 @@ const arrToShow = (enteredArr: any) => {
         'uk-UA',
         {
           day: '2-digit',
-          month: 'long',
-          year: 'numeric',
+          month: '2-digit',
+          year: '2-digit',
         }
       ),
       cashFlowSum: currentItem?.cashFlowSum?.toFixed(2),
