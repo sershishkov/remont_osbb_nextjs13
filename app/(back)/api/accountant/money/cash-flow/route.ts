@@ -14,7 +14,7 @@ import { connectToDB } from '@/lib/mongoose/connectToDB';
 
 export const POST = async (request: NextRequest) => {
   const formData = await request.json();
-  console.log(formData);
+
   const {
     cashFlowDate,
     cashFlowSum,
@@ -124,7 +124,7 @@ export const GET = async (request: NextRequest) => {
     });
   }
 
-  if (sumStart && sumEnd) {
+  if (sumStart !== '' && sumEnd !== '') {
     andArr.push({
       cashFlowSum: {
         $gte: Number(sumStart),

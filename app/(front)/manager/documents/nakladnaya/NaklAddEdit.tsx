@@ -204,7 +204,7 @@ function NaklAddEdit({
           setFormData((prevState) => ({
             ...prevState,
             nakladnayaNumber: item.nakladnayaNumber,
-            nakladnayaDate: new Date(item.nakladnayaDate!)
+            nakladnayaDate: new Date(item.nakladnayaDate)
               .toISOString()
               .split('T')[0],
             contract: item.contract._id.toString(),
@@ -401,7 +401,7 @@ function NaklAddEdit({
 
     temp__localProducts[currentIndex].product = targetValue;
     //@ts-ignore
-    temp__localProducts[currentIndex].unit = currentProduct?.unit?.unitName!;
+    temp__localProducts[currentIndex].unit = currentProduct?.unit?.unitName;
 
     setLocalProducts(temp__localProducts);
   };

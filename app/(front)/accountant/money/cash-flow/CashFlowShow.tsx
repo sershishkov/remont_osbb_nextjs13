@@ -242,10 +242,13 @@ export default function CashFlowShow({
         contract: contract,
         responsiblePerson: responsiblePerson,
 
+        ourFirm: ourFirm,
+        client: client,
+
         dateStart: dateStart,
         dateEnd: dateEnd,
-        sumStart: Number(sumStart),
-        sumEnd: Number(sumEnd),
+        sumStart: sumStart,
+        sumEnd: sumEnd,
       },
       currentURL
     );
@@ -254,6 +257,7 @@ export default function CashFlowShow({
   };
   const handleRestart = () => {
     setResultFetch(totalResults);
+    setFormData(initState);
     setSearchText('');
   };
 
